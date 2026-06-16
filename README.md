@@ -1,9 +1,12 @@
-﻿# D&D Before
+# D&D Before
 
 Interactive D&D 3.5 character sheet.
 
 ## Install
 
-Download `D&D_Before_v1.01_Setup.exe` from [Releases](https://github.com/christopherpeades-debug/D-DBefore/releases) and run the installer.
+Download the latest ``D&D_Before_v1.1_Setup.exe`` from [Releases](https://github.com/christopherpeades-debug/D-DBefore/releases) and run the installer.
 
-Current version: **v1.01**
+- Default install location: ``C:\D&D Before v1.1``
+- Character data is saved next to the install folder (not AppData)
+
+Current version: **v1.1**
