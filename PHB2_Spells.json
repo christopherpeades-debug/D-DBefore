@@ -1,0 +1,1192 @@
+{
+  "Blade of Blood": {
+    "level": 1,
+    "description": "Weapon deals +1d6 damage, or +3d6 if you take 5 points of damage. (PHB2)",
+    "effects": {},
+    "classes": ["Assassin", "Blackguard", "Cleric", "Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Assassin": 1, "Blackguard": 1, "Cleric": 1, "Duskblade": 1, "Sorcerer": 1, "Wizard": 1}
+  },
+  "Increase Virulence": {
+    "level": 2,
+    "description": "Poison\u2019s DC increases by 2. (PHB2)",
+    "effects": {},
+    "classes": ["Assassin", "Bard", "Blackguard", "Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Assassin": 2, "Bard": 2, "Blackguard": 2, "Cleric": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Share Talents": {
+    "level": 1,
+    "description": "Subjects gain +2 bonus on skill checks. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Cleric", "Ranger"],
+    "class_levels": {"Bard": 1, "Cleric": 2, "Ranger": 2}
+  },
+  "Stay the Hand": {
+    "level": 1,
+    "description": "Change subject creature\u2019s attitude to helpful for 1 round. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Beguiler", "Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 1, "Beguiler": 2, "Cleric": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Blade Brothers": {
+    "level": 2,
+    "description": "Use higher saving throw result between two creatures, but both suffer effects if the saves fail. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Cleric"],
+    "class_levels": {"Bard": 2, "Cleric": 2}
+  },
+  "Celerity, Lesser": {
+    "level": 2,
+    "description": "Take a move action immediately, but be dazed for a round. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Crown of Veils": {
+    "level": 2,
+    "description": "Gain +2 to Disguise and Hide, discharge to gain +8. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Beguiler", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 2, "Beguiler": 3, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Insight of Good Fortune": {
+    "level": 2,
+    "description": "Subject rolls twice, takes best result. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 2, "Cleric": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Master's Touch": {
+    "level": 2,
+    "description": "Subject gains immediate +4 bonus on a skill check. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 2, "Cleric": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Ray of the Python": {
+    "level": 2,
+    "description": "Creature can only attack once per round, cannot make attacks of opportunity, \u201310 ft. penalty to speed. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Stretch Weapon": {
+    "level": 2,
+    "description": "Melee weapon gains 5 ft. of reach for one attack. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Cleric", "Duskblade", "Ranger", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 2, "Cleric": 2, "Duskblade": 2, "Ranger": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Vertigo": {
+    "level": 2,
+    "description": "Subject creature must succeed on a DC 10 Balance check to move each round. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Beguiler", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 2, "Beguiler": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Alter Fortune": {
+    "level": 3,
+    "description": "Cause one creature to reroll any die roll. XP cost 200. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Cleric", "Druid", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 3, "Cleric": 3, "Druid": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Halt": {
+    "level": 3,
+    "description": "Subject\u2019s feet become stuck to ground. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Beguiler", "Cleric", "Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 3, "Beguiler": 3, "Cleric": 3, "Duskblade": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Hesitate": {
+    "level": 3,
+    "description": "Force subject to lose actions. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Beguiler", "Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 3, "Beguiler": 3, "Cleric": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Phantom Battle": {
+    "level": 3,
+    "description": "Illusion of battle flanks creatures and denies attacks of opportunity. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Beguiler", "Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 3, "Beguiler": 3, "Cleric": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Sonic Shield": {
+    "level": 3,
+    "description": "+4 deflection bonus to AC; 1d8 sonic damage and push back creatures that hit you in melee. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 3, "Duskblade": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Baleful Blink": {
+    "level": 4,
+    "description": "Subject has 50% chance of failure on attacks and spells. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 4, "Sorcerer": 4, "Wizard": 4}
+  },
+  "Celerity": {
+    "level": 4,
+    "description": "Take a standard action immediately, but be dazed for a round. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 4, "Sorcerer": 4, "Wizard": 4}
+  },
+  "Healing Spirit": {
+    "level": 4,
+    "description": "Ball of light heals 1d8/round. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Cleric", "Druid", "Paladin", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 4, "Cleric": 4, "Druid": 4, "Paladin": 4, "Sorcerer": 4, "Wizard": 4}
+  },
+  "Mirror Image, Greater": {
+    "level": 4,
+    "description": "As mirror image, but gain an additional image each round. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Beguiler", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 4, "Beguiler": 4, "Sorcerer": 4, "Wizard": 4}
+  },
+  "Thunder Field": {
+    "level": 4,
+    "description": "Creatures in area take 1d8 sonic damage/round, knocked prone. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Druid", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 4, "Druid": 4, "Sorcerer": 4, "Wizard": 4}
+  },
+  "Dance of Blades": {
+    "level": 5,
+    "description": "A weapon attacks on its own. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 5, "Sorcerer": 5, "Wizard": 5}
+  },
+  "Friend to Foe": {
+    "level": 5,
+    "description": "Make subject creature believe its allies are its enemies. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Beguiler", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 5, "Beguiler": 5, "Sorcerer": 5, "Wizard": 5}
+  },
+  "Incite Riot": {
+    "level": 5,
+    "description": "Subjects attack nearest creature. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 5, "Cleric": 5, "Sorcerer": 5, "Wizard": 5}
+  },
+  "Magic Convalescence": {
+    "level": 5,
+    "description": "Spells cast nearby heal you 1 hp/spell level. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Cleric", "Druid", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 5, "Cleric": 5, "Druid": 5, "Sorcerer": 5, "Wizard": 5}
+  },
+  "Renewed Vigor": {
+    "level": 5,
+    "description": "Remove fatigue and +2 bonus to Constitution for 1 round/level. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Cleric", "Druid", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 5, "Cleric": 5, "Druid": 5, "Sorcerer": 5, "Wizard": 5}
+  },
+  "Etherealness, Swift": {
+    "level": 5,
+    "description": "Subject momentarily becomes ethereal. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Beguiler", "Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 5, "Beguiler": 5, "Cleric": 5, "Sorcerer": 5, "Wizard": 5}
+  },
+  "Overwhelm": {
+    "level": 6,
+    "description": "Nonlethal damage knocks out subject. (PHB2)",
+    "effects": {},
+    "classes": ["Beguiler", "Sorcerer", "Wizard"],
+    "class_levels": {"Beguiler": 6, "Sorcerer": 6, "Wizard": 6}
+  },
+  "Rouse": {
+    "level": 1,
+    "description": "Awakens creatures in area. (PHB2)",
+    "effects": {},
+    "classes": ["Beguiler", "Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Beguiler": 1, "Duskblade": 1, "Sorcerer": 1, "Wizard": 1}
+  },
+  "Whelm": {
+    "level": 1,
+    "description": "Deal 1d6 nonlethal damage +1d6/2 levels above 1st (max 5d6). (PHB2)",
+    "effects": {},
+    "classes": ["Beguiler", "Sorcerer", "Wizard"],
+    "class_levels": {"Beguiler": 1, "Sorcerer": 1, "Wizard": 1}
+  },
+  "Blinding Color Surge": {
+    "level": 2,
+    "description": "Blind subject for 1 round, gain invisibility. (PHB2)",
+    "effects": {},
+    "classes": ["Beguiler", "Sorcerer", "Wizard"],
+    "class_levels": {"Beguiler": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Whelming Blast": {
+    "level": 2,
+    "description": "15-foot cone deals 1d6 nonlethal damage/2 levels (max 5d6). (PHB2)",
+    "effects": {},
+    "classes": ["Beguiler", "Sorcerer", "Wizard"],
+    "class_levels": {"Beguiler": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Inevitable Defeat": {
+    "level": 3,
+    "description": "Subject takes 3d6 nonlethal damage/round. (PHB2)",
+    "effects": {},
+    "classes": ["Beguiler", "Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Beguiler": 3, "Cleric": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Legion of Sentinels": {
+    "level": 3,
+    "description": "Ghostly swordsmen threaten a 10-foot radius, deal 1d8 damage +1/3 levels (max +5). (PHB2)",
+    "effects": {},
+    "classes": ["Beguiler", "Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Beguiler": 3, "Cleric": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Vertigo Field": {
+    "level": 3,
+    "description": "Creatures have 20% miss chance and possibly become nauseated. (PHB2)",
+    "effects": {},
+    "classes": ["Beguiler", "Sorcerer", "Wizard"],
+    "class_levels": {"Beguiler": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Whelm, Mass": {
+    "level": 4,
+    "description": "1d6 nonlethal damage/level (max 10d6) to 1 creature/level. (PHB2)",
+    "effects": {},
+    "classes": ["Beguiler", "Sorcerer", "Wizard"],
+    "class_levels": {"Beguiler": 4, "Sorcerer": 4, "Wizard": 4}
+  },
+  "Animalistic Power": {
+    "level": 2,
+    "description": "Subject gains +2 bonus to Str, Dex, and Con. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Druid", "Duskblade", "Ranger", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 2, "Druid": 2, "Duskblade": 2, "Ranger": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Black Karma Curse": {
+    "level": 2,
+    "description": "Subject damages self with melee attack. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Cloud of Knives": {
+    "level": 2,
+    "description": "Release one knife/round, 1d6 damage +1/3 levels (max +5). (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Insight of Good Fortune": {
+    "level": 2,
+    "description": "Subject rolls twice, takes best result. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Mark of Judgment": {
+    "level": 2,
+    "description": "Creatures that attack subject heal 2 points of damage each successful hit. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric"],
+    "class_levels": {"Cleric": 2}
+  },
+  "Master's Touch": {
+    "level": 2,
+    "description": "Subject gains immediate +4 bonus on a skill check. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Share Talents": {
+    "level": 2,
+    "description": "Subjects gain +2 bonus on skill checks. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Ranger"],
+    "class_levels": {"Cleric": 2, "Ranger": 2}
+  },
+  "Stay the Hand": {
+    "level": 2,
+    "description": "Change subject creature\u2019s attitude to helpful for 1 round. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Stretch Weapon": {
+    "level": 2,
+    "description": "Melee weapon gains 5 ft. of reach for one attack. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Ranger"],
+    "class_levels": {"Cleric": 2, "Ranger": 2}
+  },
+  "Invest Light Protection": {
+    "level": 1,
+    "description": "Heal 1d4 damage + 1/2 levels, grant DR 1/evil. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric"],
+    "class_levels": {"Cleric": 1}
+  },
+  "Channeled Divine Shield": {
+    "level": 3,
+    "description": "Gain DR, amount based on casting time. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric"],
+    "class_levels": {"Cleric": 3}
+  },
+  "Crown of the Grave": {
+    "level": 3,
+    "description": "Command undead, discharge to gain +4 on turn or rebuke. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Crown of Might": {
+    "level": 3,
+    "description": "Gain +2 Strength, discharge to gain +8 bonus for 1 round. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 3, "Duskblade": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Crown of Protection": {
+    "level": 3,
+    "description": "+1 deflection bonus to AC, +1 resistance bonus on saves; discharge to gain +4 for 1 round. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 3, "Duskblade": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Crown of Smiting": {
+    "level": 3,
+    "description": "+2 damage bonus, discharge to gain +8 damage on single attack. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Paladin"],
+    "class_levels": {"Cleric": 3, "Paladin": 2}
+  },
+  "Curse of Arrow Attraction": {
+    "level": 3,
+    "description": "Subject takes \u20135 penalty to AC against ranged attacks. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Ranger", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 3, "Ranger": 2, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Divine Retaliation": {
+    "level": 3,
+    "description": "Weapon appears and strikes those who attack you. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Paladin"],
+    "class_levels": {"Cleric": 3, "Paladin": 4}
+  },
+  "Energy Aegis": {
+    "level": 3,
+    "description": "Subject gains resistance 20 against one energy type for one attack. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 3, "Duskblade": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Energy Vulnerability": {
+    "level": 3,
+    "description": "Subjects gain vulnerability to the specified energy. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Hesitate": {
+    "level": 3,
+    "description": "Force subject to lose actions. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Invest Moderate Protection": {
+    "level": 3,
+    "description": "Heal 3d4 damage + 1/2 levels, grant DR 3/evil. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric"],
+    "class_levels": {"Cleric": 3}
+  },
+  "Mark of Doom": {
+    "level": 3,
+    "description": "Subject takes 1d6 damage for each hostile action. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Paladin"],
+    "class_levels": {"Cleric": 3, "Paladin": 2}
+  },
+  "Bleakness": {
+    "level": 4,
+    "description": "1d6 damage/round to living creatures, grants undead turn resistance and fast healing. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 4, "Sorcerer": 4, "Wizard": 4}
+  },
+  "Blessing of the Righteous": {
+    "level": 4,
+    "description": "Weapons deal +1d6 holy damage and become good-aligned. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Paladin"],
+    "class_levels": {"Cleric": 4, "Paladin": 4}
+  },
+  "Channeled Divine Health": {
+    "level": 4,
+    "description": "Heal a creature, amount and range based on casting time. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric"],
+    "class_levels": {"Cleric": 4}
+  },
+  "Healing Spirit": {
+    "level": 4,
+    "description": "Ball of light heals 1d8/round. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Druid", "Paladin", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 4, "Druid": 4, "Paladin": 4, "Sorcerer": 4, "Wizard": 4}
+  },
+  "Mystic Aegis": {
+    "level": 4,
+    "description": "You gain SR 12 + caster level against one spell. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric"],
+    "class_levels": {"Cleric": 4}
+  },
+  "Stifle Spell": {
+    "level": 4,
+    "description": "Subject must concentrate or botch spell. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 4, "Sorcerer": 4, "Wizard": 4}
+  },
+  "Condemnation": {
+    "level": 5,
+    "description": "Lowers subject outsider\u2019s SR and stuns for 1 round. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 5, "Sorcerer": 4, "Wizard": 4}
+  },
+  "Etherealness, Swift": {
+    "level": 5,
+    "description": "Subject momentarily becomes ethereal. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Beguiler", "Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 5, "Beguiler": 5, "Cleric": 5, "Sorcerer": 5, "Wizard": 5}
+  },
+  "Invest Heavy Protection": {
+    "level": 5,
+    "description": "Heal 5d4 damage + 1/2 levels, grant DR 5/evil. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric"],
+    "class_levels": {"Cleric": 5}
+  },
+  "Magic Convalescence": {
+    "level": 5,
+    "description": "Spells cast nearby heal you 1 hp/spell level. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Druid", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 5, "Druid": 5, "Sorcerer": 5, "Wizard": 5}
+  },
+  "Mana Flux": {
+    "level": 5,
+    "description": "Magic in area has 20% failure chance. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 5, "Sorcerer": 5, "Wizard": 5}
+  },
+  "Meteoric Strike": {
+    "level": 5,
+    "description": "Melee attack deals an extra 1d6 damage + 1d6/4 levels; adjacent creatures take half damage. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Druid", "Paladin", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 5, "Druid": 5, "Paladin": 4, "Sorcerer": 5, "Wizard": 5}
+  },
+  "Radiance": {
+    "level": 5,
+    "description": "Creates daylight that dazzles undead. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Druid", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 5, "Druid": 5, "Sorcerer": 5, "Wizard": 5}
+  },
+  "Renewed Vigor": {
+    "level": 5,
+    "description": "Remove fatigue and +2 bonus to Constitution for 1 round/level. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Druid", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 5, "Druid": 5, "Sorcerer": 5, "Wizard": 5}
+  },
+  "Chasing Perfection": {
+    "level": 6,
+    "description": "Subject gains +4 to all abilities. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Druid", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 6, "Druid": 6, "Sorcerer": 6, "Wizard": 6}
+  },
+  "Animalistic Power, Mass": {
+    "level": 7,
+    "description": "As animalistic power, but multiple subjects. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Druid", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 7, "Druid": 7, "Sorcerer": 7, "Wizard": 7}
+  },
+  "Plague": {
+    "level": 7,
+    "description": "One creature/level contracts quickly terminal disease. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Druid", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 7, "Druid": 7, "Sorcerer": 7, "Wizard": 7}
+  },
+  "Pulse of Hate": {
+    "level": 7,
+    "description": "Nearby enemies take 2d6 damage/round. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 7, "Sorcerer": 7, "Wizard": 7}
+  },
+  "Righteous Burst": {
+    "level": 7,
+    "description": "Allies healed, enemies damaged 1d8 damage +1/level (max +35). (PHB2)",
+    "effects": {},
+    "classes": ["Cleric"],
+    "class_levels": {"Cleric": 7}
+  },
+  "Chain Dispel": {
+    "level": 8,
+    "description": "Dispel multiple magical effects in multiple creatures. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 8, "Sorcerer": 8, "Wizard": 8}
+  },
+  "Visions of the Future": {
+    "level": 8,
+    "description": "+2 sacred bonus on saves, +2 dodge bonus to AC; discharge spell to gain bonus equal to half caster level. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric"],
+    "class_levels": {"Cleric": 8}
+  },
+  "Summon Golem": {
+    "level": 9,
+    "description": "Summon a clay, flesh, iron, or stone golem from a small amount of like material. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 9, "Sorcerer": 9, "Wizard": 9}
+  },
+  "Drifts of the Shalm": {
+    "level": 2,
+    "description": "Create difficult terrain made of snow, leaves, or ash. (PHB2)",
+    "effects": {},
+    "classes": ["Druid"],
+    "class_levels": {"Druid": 2}
+  },
+  "Linked Perception": {
+    "level": 2,
+    "description": "Allies gain +2 bonus/ally in spell area on Listen and Spot checks. (PHB2)",
+    "effects": {},
+    "classes": ["Druid", "Ranger"],
+    "class_levels": {"Druid": 2, "Ranger": 1}
+  },
+  "Crown of Clarity": {
+    "level": 3,
+    "description": "+2 to Listen and Spot, discharge spell to gain +8. (PHB2)",
+    "effects": {},
+    "classes": ["Druid", "Ranger", "Sorcerer", "Wizard"],
+    "class_levels": {"Druid": 3, "Ranger": 2, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Evard's Menacing Tentacles": {
+    "level": 3,
+    "description": "Grow two tentacles with 10-ft. reach that deal 1d8 damage each. (PHB2)",
+    "effects": {},
+    "classes": ["Druid", "Sorcerer", "Wizard"],
+    "class_levels": {"Druid": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Call of Stone": {
+    "level": 4,
+    "description": "Slowly turn subject to stone. (PHB2)",
+    "effects": {},
+    "classes": ["Druid", "Sorcerer", "Wizard"],
+    "class_levels": {"Druid": 4, "Sorcerer": 4, "Wizard": 4}
+  },
+  "Blood Creepers": {
+    "level": 5,
+    "description": "Vines deal 1/level damage for multiple rounds and entangle one creature. (PHB2)",
+    "effects": {},
+    "classes": ["Druid"],
+    "class_levels": {"Druid": 5}
+  },
+  "Longstrider, Mass": {
+    "level": 5,
+    "description": "Allies within 60 ft. gain +10 ft. bonus to speed. (PHB2)",
+    "effects": {},
+    "classes": ["Druid", "Ranger"],
+    "class_levels": {"Druid": 5, "Ranger": 4}
+  },
+  "Bones of the Earth": {
+    "level": 6,
+    "description": "Create pillars of stone. (PHB2)",
+    "effects": {},
+    "classes": ["Druid"],
+    "class_levels": {"Druid": 6}
+  },
+  "Chasing Perfection": {
+    "level": 6,
+    "description": "Subject gains +4 to all abilities. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Druid", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 6, "Druid": 6, "Sorcerer": 6, "Wizard": 6}
+  },
+  "Thunder Field": {
+    "level": 6,
+    "description": "Creatures in area take 1d8 sonic damage/round, knocked prone. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Druid", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 4, "Druid": 6, "Sorcerer": 6, "Wizard": 6}
+  },
+  "As the Frost": {
+    "level": 7,
+    "description": "Transform into a creature of cold. (PHB2)",
+    "effects": {},
+    "classes": ["Druid", "Sorcerer", "Wizard"],
+    "class_levels": {"Druid": 7, "Sorcerer": 7, "Wizard": 7}
+  },
+  "Plague": {
+    "level": 7,
+    "description": "One creature/level contracts quickly terminal disease. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Druid", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 7, "Druid": 7, "Sorcerer": 7, "Wizard": 7}
+  },
+  "Wrack Earth": {
+    "level": 7,
+    "description": "Deals 1d6 damage/level (max 15d6) to creatures in a line and creates a wall of rubble. (PHB2)",
+    "effects": {},
+    "classes": ["Druid"],
+    "class_levels": {"Druid": 7}
+  },
+  "Animalistic Power, Mass": {
+    "level": 7,
+    "description": "As animalistic power, but multiple subjects. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Druid", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 7, "Druid": 7, "Sorcerer": 7, "Wizard": 7}
+  },
+  "Pulse of Hate": {
+    "level": 7,
+    "description": "Nearby enemies take 2d6 damage/round. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 7, "Sorcerer": 7, "Wizard": 7}
+  },
+  "Righteous Burst": {
+    "level": 7,
+    "description": "Allies healed, enemies damaged 1d8 damage +1/level (max +35). (PHB2)",
+    "effects": {},
+    "classes": ["Cleric"],
+    "class_levels": {"Cleric": 7}
+  },
+  "Chain Dispel": {
+    "level": 8,
+    "description": "Dispel multiple magical effects in multiple creatures. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 8, "Sorcerer": 8, "Wizard": 8}
+  },
+  "Plague": {
+    "level": 8,
+    "description": "One creature/level contracts quickly terminal disease. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Druid", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 7, "Druid": 7, "Sorcerer": 7, "Wizard": 7}
+  },
+  "Celerity, Greater": {
+    "level": 8,
+    "description": "Take a full-round action immediately, but be dazed for a round. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 8, "Wizard": 8}
+  },
+  "Visions of the Future": {
+    "level": 8,
+    "description": "+2 sacred bonus on saves, +2 dodge bonus to AC; discharge spell to gain bonus equal to half caster level. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric"],
+    "class_levels": {"Cleric": 8}
+  },
+  "Summon Golem": {
+    "level": 9,
+    "description": "Summon a clay, flesh, iron, or stone golem from a small amount of like material. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 9, "Sorcerer": 9, "Wizard": 9}
+  },
+  "Detonate": {
+    "level": 9,
+    "description": "Slays subject and creates 20-ft.-radius explosion that deals 1d6 damage/level (max 20d6). (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 9, "Wizard": 9}
+  },
+  "Dragonshape": {
+    "level": 9,
+    "description": "You take on the form and abilities of a Huge red dragon. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 9, "Wizard": 9}
+  },
+  "Bigby's Tripping Hand": {
+    "level": 1,
+    "description": "Hand trips subject. (PHB2)",
+    "effects": {},
+    "classes": ["Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Duskblade": 1, "Sorcerer": 1, "Wizard": 1}
+  },
+  "Deflect, Lesser": {
+    "level": 1,
+    "description": "Gain a deflection bonus of +1/3 levels (max +5) against one attack. (PHB2)",
+    "effects": {},
+    "classes": ["Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Duskblade": 1, "Sorcerer": 1, "Wizard": 1}
+  },
+  "Kelgore's Fire Bolt": {
+    "level": 1,
+    "description": "1d6 fire damage/level (max 5d6), partially ignore SR. (PHB2)",
+    "effects": {},
+    "classes": ["Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Duskblade": 1, "Sorcerer": 1, "Wizard": 1}
+  },
+  "Rouse": {
+    "level": 1,
+    "description": "Awakens creatures in area. (PHB2)",
+    "effects": {},
+    "classes": ["Beguiler", "Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Beguiler": 1, "Duskblade": 1, "Sorcerer": 1, "Wizard": 1}
+  },
+  "Stand": {
+    "level": 1,
+    "description": "Subject stands up from prone. (PHB2)",
+    "effects": {},
+    "classes": ["Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Duskblade": 1, "Sorcerer": 1, "Wizard": 1}
+  },
+  "Bigby's Striking Fist": {
+    "level": 2,
+    "description": "Hand deals 1d6 nonlethal damage/2 levels (max 5d6) and knocks subject back. (PHB2)",
+    "effects": {},
+    "classes": ["Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Duskblade": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Deflect": {
+    "level": 2,
+    "description": "Gain bonus to AC for one attack. (PHB2)",
+    "effects": {},
+    "classes": ["Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Duskblade": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Dimension Hop": {
+    "level": 2,
+    "description": "Teleport subject short distance. (PHB2)",
+    "effects": {},
+    "classes": ["Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Duskblade": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Seeking Ray": {
+    "level": 2,
+    "description": "Ray deals 4d6 electricity damage, ignores concealment and cover; you gain +4 on attacks with rays against the subject. (PHB2)",
+    "effects": {},
+    "classes": ["Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Duskblade": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Stretch Weapon": {
+    "level": 2,
+    "description": "Melee weapon gains 5 ft. of reach for one attack. (PHB2)",
+    "effects": {},
+    "classes": ["Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Duskblade": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Sure Strike": {
+    "level": 2,
+    "description": "Gain +1 bonus/3 levels on next attack. (PHB2)",
+    "effects": {},
+    "classes": ["Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Duskblade": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Crown of Might": {
+    "level": 3,
+    "description": "Gain +2 Strength, discharge to gain +8 bonus for 1 round. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 3, "Duskblade": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Crown of Protection": {
+    "level": 3,
+    "description": "+1 deflection bonus to AC, +1 resistance bonus on saves; discharge to gain +4 for 1 round. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 3, "Duskblade": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Dispelling Touch": {
+    "level": 3,
+    "description": "Dispel one magical effect on touched subject. (PHB2)",
+    "effects": {},
+    "classes": ["Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Duskblade": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Doom Scarabs": {
+    "level": 3,
+    "description": "Scarab swarm deals 1d6/2 levels, gives you temporary hit points. (PHB2)",
+    "effects": {},
+    "classes": ["Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Duskblade": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Energy Aegis": {
+    "level": 3,
+    "description": "Subject gains resistance 20 against one energy type for one attack. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 3, "Duskblade": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Energy Surge": {
+    "level": 3,
+    "description": "As lesser energy surge, but 2d6 damage. (PHB2)",
+    "effects": {},
+    "classes": ["Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Duskblade": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Halt": {
+    "level": 3,
+    "description": "Subject\u2019s feet become stuck to ground. (PHB2)",
+    "effects": {},
+    "classes": ["Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Duskblade": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Regroup": {
+    "level": 3,
+    "description": "Teleports nearby allies to your side. (PHB2)",
+    "effects": {},
+    "classes": ["Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Duskblade": 3, "Sorcerer": 3, "Wizard": 3}
+  },
+  "Channeled Pyroburst": {
+    "level": 4,
+    "description": "Deal fire damage, amount and radius based on casting time. (PHB2)",
+    "effects": {},
+    "classes": ["Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Duskblade": 4, "Sorcerer": 4, "Wizard": 4}
+  },
+  "Toxic Weapon": {
+    "level": 4,
+    "description": "Coats weapon with poison. (PHB2)",
+    "effects": {},
+    "classes": ["Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Duskblade": 4, "Sorcerer": 4, "Wizard": 4}
+  },
+  "Slashing Dispel": {
+    "level": 5,
+    "description": "As dispel magic, but creatures take damage for spells dispelled. (PHB2)",
+    "effects": {},
+    "classes": ["Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Duskblade": 5, "Sorcerer": 5, "Wizard": 5}
+  },
+  "Sonic Shield": {
+    "level": 5,
+    "description": "+4 deflection bonus to AC; 1d8 sonic damage and push back creatures that hit you in melee. (PHB2)",
+    "effects": {},
+    "classes": ["Bard", "Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Bard": 3, "Duskblade": 5, "Sorcerer": 5, "Wizard": 5}
+  },
+  "Crown of Smiting": {
+    "level": 2,
+    "description": "+2 damage bonus, discharge to gain +8 damage on single attack. (PHB2)",
+    "effects": {},
+    "classes": ["Paladin"],
+    "class_levels": {"Paladin": 2}
+  },
+  "Mark of Doom": {
+    "level": 2,
+    "description": "Subject takes 1d6 damage for each hostile action. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Paladin"],
+    "class_levels": {"Cleric": 3, "Paladin": 2}
+  },
+  "Healing Spirit": {
+    "level": 3,
+    "description": "Ball of light heals 1d8/round. (PHB2)",
+    "effects": {},
+    "classes": ["Paladin"],
+    "class_levels": {"Paladin": 3}
+  },
+  "Blessing of the Righteous": {
+    "level": 4,
+    "description": "Weapons deal +1d6 holy damage and become good-aligned. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Paladin"],
+    "class_levels": {"Cleric": 4, "Paladin": 4}
+  },
+  "Divine Retaliation": {
+    "level": 4,
+    "description": "Weapon appears and strikes those who attack you. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Paladin"],
+    "class_levels": {"Cleric": 3, "Paladin": 4}
+  },
+  "Meteoric Strike": {
+    "level": 4,
+    "description": "Melee attack deals an extra 1d6 damage + 1d6/4 levels; adjacent creatures take half damage. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Paladin"],
+    "class_levels": {"Cleric": 5, "Paladin": 4}
+  },
+  "Linked Perception": {
+    "level": 1,
+    "description": "Allies gain +2 bonus/ally in spell area on Listen and Spot checks. (PHB2)",
+    "effects": {},
+    "classes": ["Ranger"],
+    "class_levels": {"Ranger": 1}
+  },
+  "Animalistic Power": {
+    "level": 2,
+    "description": "Subject gains +2 bonus to Str, Dex, and Con. (PHB2)",
+    "effects": {},
+    "classes": ["Ranger"],
+    "class_levels": {"Ranger": 2}
+  },
+  "Crown of Clarity": {
+    "level": 2,
+    "description": "+2 to Listen and Spot, discharge spell to gain +8. (PHB2)",
+    "effects": {},
+    "classes": ["Ranger"],
+    "class_levels": {"Ranger": 2}
+  },
+  "Curse of Arrow Attraction": {
+    "level": 2,
+    "description": "Subject takes \u20135 penalty to AC against ranged attacks. (PHB2)",
+    "effects": {},
+    "classes": ["Ranger"],
+    "class_levels": {"Ranger": 2}
+  },
+  "Hunter's Eye": {
+    "level": 2,
+    "description": "Gain +1d6 sneak attack damage/3 caster levels for 1 round. (PHB2)",
+    "effects": {},
+    "classes": ["Ranger"],
+    "class_levels": {"Ranger": 2}
+  },
+  "Share Talents": {
+    "level": 2,
+    "description": "Subjects gain +2 bonus on skill checks. (PHB2)",
+    "effects": {},
+    "classes": ["Ranger"],
+    "class_levels": {"Ranger": 2}
+  },
+  "Longstrider, Mass": {
+    "level": 4,
+    "description": "Allies within 60 ft. gain +10 ft. bonus to speed. (PHB2)",
+    "effects": {},
+    "classes": ["Ranger"],
+    "class_levels": {"Ranger": 4}
+  },
+  "Burning Rage": {
+    "level": 1,
+    "description": "Subject takes 4 points of damage/round, gains attack bonus and DR. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 1, "Wizard": 1}
+  },
+  "Bigby's Warding Hand": {
+    "level": 2,
+    "description": "Hand of force slows opponent. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 2, "Wizard": 2}
+  },
+  "Electric Vengeance": {
+    "level": 2,
+    "description": "2d8 damage +1/level (max +10) to opponent who damages you in melee. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 2, "Wizard": 2}
+  },
+  "Energy Surge, Lesser": {
+    "level": 2,
+    "description": "One attack deals an extra 1d6 energy damage. (PHB2)",
+    "effects": {},
+    "classes": ["Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Duskblade": 2, "Sorcerer": 2, "Wizard": 2}
+  },
+  "Bigby's Helpful Hand": {
+    "level": 1,
+    "description": "Magical hand holds items and aids Craft, Disable Device, Open Lock checks. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 1, "Wizard": 1}
+  },
+  "Bigby's Disrupting Hand": {
+    "level": 3,
+    "description": "Hand disrupts opponent\u2019s spellcasting. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 3, "Wizard": 3}
+  },
+  "Prismatic Mist": {
+    "level": 3,
+    "description": "Multicolored mist has random effect. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 3, "Wizard": 3}
+  },
+  "Melf's Unicorn Arrow": {
+    "level": 3,
+    "description": "1d8+8 damage and bull rush; +1 unicorn arrow/3 levels beyond 5th. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 3, "Wizard": 3}
+  },
+  "Dimension Step": {
+    "level": 3,
+    "description": "Allies can immediately teleport a distance equal to their speed. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 3, "Wizard": 3}
+  },
+  "Scattering Trap": {
+    "level": 3,
+    "description": "Imbue one 5-ft. square/2 levels with teleport trap. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 3, "Wizard": 3}
+  },
+  "Bright Worms": {
+    "level": 4,
+    "description": "Fiery worms damage enemies within 20-ft. spread. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 4, "Wizard": 4}
+  },
+  "Explosive Rune Field": {
+    "level": 4,
+    "description": "Area is covered with runes that explode on contact with creatures. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 4, "Wizard": 4}
+  },
+  "Crushing Grip": {
+    "level": 4,
+    "description": "Subject takes \u20132 on attacks, checks, saves, and AC and \u201320 ft. penalty to speed, might be paralyzed. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 4, "Wizard": 4}
+  },
+  "Trollshape": {
+    "level": 4,
+    "description": "You take on the form and abilities of a troll. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 4, "Wizard": 4}
+  },
+  "Mystic Surge": {
+    "level": 4,
+    "description": "Ally\u2019s spell gains +2 DC and +1 caster level. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 4, "Wizard": 4}
+  },
+  "Field of Resistance": {
+    "level": 5,
+    "description": "Zone provides SR 11 + caster level. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 5, "Wizard": 5}
+  },
+  "Mana Flux": {
+    "level": 5,
+    "description": "Magic in area has 20% failure chance. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 5, "Sorcerer": 5, "Wizard": 5}
+  },
+  "Dimension Shuffle": {
+    "level": 5,
+    "description": "Teleport multiple creatures short distances within line of sight. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 5, "Wizard": 5}
+  },
+  "Luminous Assassin": {
+    "level": 5,
+    "description": "As lesser luminous assassin, but the assassin is more powerful. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 5, "Wizard": 5}
+  },
+  "Toxic Weapon": {
+    "level": 5,
+    "description": "Coats weapon with poison. (PHB2)",
+    "effects": {},
+    "classes": ["Duskblade", "Sorcerer", "Wizard"],
+    "class_levels": {"Duskblade": 4, "Sorcerer": 5, "Wizard": 5}
+  },
+  "Electric Vengeance, Greater": {
+    "level": 5,
+    "description": "As electric vengeance, but 5d8 damage +1/level (max +15) and daze subject. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 5, "Wizard": 5}
+  },
+  "Luminous Assassin, Lesser": {
+    "level": 3,
+    "description": "Summons an assassin to attack the subject. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 3, "Wizard": 3}
+  },
+  "Melf's Unicorn Arrow": {
+    "level": 3,
+    "description": "1d8+8 damage and bull rush; +1 unicorn arrow/3 levels beyond 5th. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 3, "Wizard": 3}
+  },
+  "Energy Surge, Greater": {
+    "level": 6,
+    "description": "As energy surge, but 3d6 damage. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 6, "Wizard": 6}
+  },
+  "Luminous Assassin, Greater": {
+    "level": 7,
+    "description": "As luminous assassin, but the assassin is more powerful. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 7, "Wizard": 7}
+  },
+  "Pulse of Hate": {
+    "level": 7,
+    "description": "Nearby enemies take 2d6 damage/round. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 7, "Sorcerer": 7, "Wizard": 7}
+  },
+  "Celerity, Greater": {
+    "level": 8,
+    "description": "Take a full-round action immediately, but be dazed for a round. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 8, "Wizard": 8}
+  },
+  "Plague": {
+    "level": 8,
+    "description": "One creature/level contracts quickly terminal disease. (PHB2)",
+    "effects": {},
+    "classes": ["Cleric", "Sorcerer", "Wizard"],
+    "class_levels": {"Cleric": 7, "Sorcerer": 7, "Wizard": 7}
+  },
+  "Detonate": {
+    "level": 9,
+    "description": "Slays subject and creates 20-ft.-radius explosion that deals 1d6 damage/level (max 20d6). (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 9, "Wizard": 9}
+  },
+  "Dragonshape": {
+    "level": 9,
+    "description": "You take on the form and abilities of a Huge red dragon. (PHB2)",
+    "effects": {},
+    "classes": ["Sorcerer", "Wizard"],
+    "class_levels": {"Sorcerer": 9, "Wizard": 9}
+  }
+}

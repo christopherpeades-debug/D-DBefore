@@ -1,0 +1,1043 @@
+{
+  "Acidic Burst": {
+    "description": "As corrosive, extra acid damage on critical hit",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d6 Acid",
+    "critical_extra": "",
+    "Burst": "1d10 Acid"
+  },
+  "Anarchic": {
+    "description": "+2d6 damage against lawful creatures",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "2d6",
+    "critical_extra": ""
+  },
+  "Aquan": {
+    "description": "Extra benefits against creatures with fire subtype",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "2d6 points",
+    "critical_extra": ""
+  },
+  "Aquatic": {
+    "description": "Freedom of movement underwater",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Arcane Might": {
+    "description": "Sacrifice an Arcane spell slot and deal 1d4 extra damage .",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Auran": {
+    "description": "Extra benefits against creatures with earth subtype",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "2d6 vs earth subtype",
+    "critical_extra": ""
+  },
+  "Axiomatic": {
+    "description": "+2d6 damage against chaotic creatures",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "2d6 vs chaotic",
+    "critical_extra": ""
+  },
+  "Bane": {
+    "description": "+2 enhancement bonus and +2d6 damage against one type of creature",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": "",
+    "Bane": "+2, 2d6"
+  },
+  "Banishing": {
+    "description": "3/day banish extraplanar creature back to its home plane. vs Will DC 20 or 24 if weapon is made from material overcoming DR.",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Berserker": {
+    "description": "+1d8 damage while raging; two-handed weapons only",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d8 Raging ",
+    "critical_extra": ""
+  },
+  "Binding": {
+    "description": "2/day dimensional anchor on target for 10 minutes",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Blessed": {
+    "description": "Cast Bless weapon on weapon 3/day. Can't have threaten enhancing abilities",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Blindsighted": {
+    "description": "3/day gain blindsight out to 30 ft. for 1 minute",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Bloodfeeding": {
+    "description": "Stores blood points that can be released for extra damage",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Bloodstone": {
+    "description": "Stores and empowers one vampiric touch spell",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Blurstrike": {
+    "description": "10/day first attack made in round treats target as flat-footed",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Bodyfeeder": {
+    "description": "Cain temporary hp equal to half damage dealt by critical hits",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Brash": {
+    "description": "Rage lasts for 3 additional rounds, immune to fear effects",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Brilliant Energy": {
+    "description": "Sheds light, ignores armor bonuses to AC and nonliving matter",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Brutal Surge": {
+    "description": "1 + Con bonus times per day, +2 Bullrush to push opponent back furthest distant possible. 1+Con/day",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Changeling": {
+    "description": "Change length and appearance of spear at will; spears, shortspears, and longspears only",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Chargebreaker": {
+    "description": "Charging targets must succeed DC 14 Fort or knocked prone",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Charging": {
+    "description": "+2d6 damage on charge attacks while mounted",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": "", 
+	"Bane": "2d6 Charge Attack"
+  },
+  "Collision": {
+    "description": "+5 damage on each successful attack",
+    "attack_bonus": 0,
+    "damage_bonus": 5,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Consumptive": {
+    "description": "+1d8 damage against living creatures",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d6 points",
+    "critical_extra": ""
+  },
+  "Corrosive": {
+    "description": "+1d6 acid damage",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d6 Acid",
+    "critical_extra": ""
+  },
+  "Cursespewing": {
+    "description": "On critical hit, bestows -4 to struck enemy to attack, saves, skills, ability checks for 1 minute",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Dancing": {
+    "description": "Fights on its own for 4 rounds, on command",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Deadly Precision": {
+    "description": "+1d6 damage on sneak attack or sudden strike",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "2d6 points",
+    "critical_extra": ""
+  },
+  "Defending": {
+    "description": "Add enhancement bonus to AC",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Defensive Surge": {
+    "description": "1 + Int bonus times per day, +2 to AC for one turn if using Combat Expertise or fighting defensively",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Dessicating": {
+    "description": "+1d4 damage, +1d8 damage to plants and water elementals",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d4 vs living",
+    "critical_extra": "",
+	"Bane:":"1d8 vs plants"
+  },
+  "Dessicating Burst": {
+    "description": "As desiccating, extra desiccating damage on critical hit",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d6 points",
+    "critical_extra": "",
+    "Burst": "1d10 points"
+  },
+  "Disarming": {
+    "description": "+2 on disarm attempts, you cannot be disarmed",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": "",
+    "combat_modifiers": {
+      "disarm": 2
+    }
+  },
+  "Dislocator": {
+    "description": "3/day struck target teleported up to 10 ft.",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Dislocator Great": {
+    "description": "3/day struck target teleported up to 30 ft.",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Dispelling": {
+    "description": "3/day struck target subject to dispel magic",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Dispelling Greater": {
+    "description": "3/day struck target subject to greater dispel magic",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Disruption": {
+    "description": "Destroy undead (bludgeoning weapons only)",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "2d6 vs undead",
+    "critical_extra": ""
+  },
+  "Distance": {
+    "description": "This enchantment can only be placed on a ranged weapon. A weapon of distance doubles its range increment. Aura : Moderate divination",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Divine Wrath": {
+    "description": "Expend turn undead gain 1d6 per Charisma bonus",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Domineering": {
+    "description": "Struck target shaken for 1 minute Will DC 16",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Doom Burst": {
+    "description": "On critical hit, target shaken for 5 rounds",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": "",
+    "Burst": "shaken 5 rounds"
+  },
+  "Dragondoom": {
+    "description": "3/day deliver smite attack against creature of dragon type",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Dragonhunter": {
+    "description": "Extra damage based on size of creature 3/day.",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Eager": {
+    "description": "Various speed-themed bonuses",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Energy Aura": {
+    "description": "+ld6 damage of energy type of choice",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Energy Surge": {
+    "description": "As prerequisite property, 1 + Con bonus times/day, +3d6 energy damage",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "3d6 energy",
+    "critical_extra": ""
+  },
+  "Enervating": {
+    "description": "On critical hit, bestow one negative level on living target for 1 hour",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Ethereal Reaver": {
+    "description": "As the ghost touch property, and continuous see invisibility",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Everbright": {
+    "description": "2/day blinding effect, weapon is immune to acid damage and rusting",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Fiercebane": {
+    "description": "As bane, extra benefits against bane type or subtype",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Flaming": {
+    "description": "+1d6 fire damage",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d6 fire",
+    "critical_extra": ""
+  },
+  "Flaming Burst": {
+    "description": "+ld6 fire damage, extra fire damage on critical hit",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d6 fire",
+    "critical_extra": "",
+    "Burst": "1d10 fire"
+  },
+  "Fleshgrinding": {
+    "description": "Lodges in creature and deals normal damage for 5 rounds; piercing or slashing weapons only",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Force": {
+    "description": "On a successful hit, a force weapon emits a powerful jolt of magical force. The magical force does not harm the weapon's wielder. Force weapons deal +1d6 points of force damage on a successful hit. If the weapon successfully hits a target protected by a force effect, such as a shield spell or bracers of armor , it might dispel the force effect in addition to damaging the target. Make a dispel check (1d20+10) against the effect (DC 11 + caster level). If the check succeeds, the force effect is dispelled (if a spell) or suppressed (if a magic item). Ranged weapons bestow this property on their ammunition. Incorporeal creatures get no miss chance against force weapons.",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Frost": {
+    "description": "+1d6 cold damage",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d6 cold",
+    "critical_extra": ""
+  },
+  "Ghost Strike": {
+    "description": "As ghost touch, can deal sneak attacks and critical hits to undead",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Ghost Touch": {
+    "description": "Deals damage normally to/can be used by incorporeal creatures",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Harmonizing": {
+    "description": "Various bonuses to bardic music",
+    "attack_bonus": 6,
+    "damage_bonus": 6,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Heavenly Burst": {
+    "description": "On critical hit, +3d6 damage and blinding effect to evil creatures",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": "",
+    "Burst": "3d6"
+  },
+  "Hideaway": {
+    "description": "Collapses to two size categories smaller, easy to conceal",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Holy": {
+    "description": "+2d6 damage against evil creatures",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "2d6 vs evil",
+    "critical_extra": ""
+  },
+  "Holy Surge": {
+    "description": "As holy, 1 + Cha bonus times per day, +3d6 damage to evil target",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "3d6",
+    "critical_extra": ""
+  },
+  "Hunting": {
+    "description": "+4 on weapon damage rolls against favored enemies",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Icy Burst": {
+    "description": "+ld6 cold damage, extra cold damage on critical hit",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d6 cold",
+    "critical_extra": "",
+    "Burst": "1d10 cold"
+  },
+  "Ignan": {
+    "description": "Extra benefits against creatures with water subtype",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "2d6 points",
+    "critical_extra": ""
+  },
+  "Illuminating": {
+    "description": "Bright illumination to 20 ft., shadowy illumination to 40 ft.",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Illusion Bane": {
+    "description": "1/day destroy illusions, ignore miss chance from illusion effects",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Illusion Theft": {
+    "description": "As illusion bane, 1/day steal illusions",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Impact": {
+    "description": "Double threat range, bludgeoning weapons only",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": "doubled threat range"
+  },
+  "Impaling": {
+    "description": "3/day treat next attack before end of turn as touch attack, piercing weapons only",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Impedance": {
+    "description": "Impedes struck target's ability to create spell effects",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Implacable": {
+    "description": "Target loses 2 hp/round for 5 rounds",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Incorporeal Binding": {
+    "description": "As ghost touch, incorporeal target loses some incorporeal traits for 1 round",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Keen": {
+    "description": "Double threat range, piercing or slashing weapons only",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": "doubled threat range"
+  },
+  "Ki Focus": {
+    "description": "Use ki attacks as if unarmed",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Knockback": {
+    "description": "3/day pushes back target 5 ft.",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Lucky": {
+    "description": "1/day reroll one failed attack roll",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Magebane": {
+    "description": "Extra benefits against arcane spellcasters, invokers",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "2d6 points",
+    "critical_extra": ""
+  },
+  "Maiming": {
+    "description": "On critical hit, deal extra damage based on critical multiplier",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Manifester": {
+    "description": "1/day draw 5 power points from weapon when manifesting power",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Merciful": {
+    "description": "+1d6 damage, all damage is nonlethal on command",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d6 nonlethal",
+    "critical_extra": ""
+  },
+  "Metalline": {
+    "description": "Change composition to adamantine, silver, cold iron, or steel",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Mighty Cleaving": {
+    "description": "One additional cleave attempt per round if you have Cleave feat",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Mighty Smiting": {
+    "description": "+2 on smite's attack roll and damage roll, one extra smite per day",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Mindcrusher": {
+    "description": "Struck psionic target loses power points, nonpsionic target takes Wis damage",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Mindfeeder": {
+    "description": "Cain 1 temporary power point per 5 points of critical hit damage dealt",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Morphing": {
+    "description": "Can become any melee or thrown weapon of same size and type",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Necrotic Focus": {
+    "description": "Deal ability drain and bestow negative levels as with natural weapons",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Paralytic Burst": {
+    "description": "On critical hit, target paralyzed for 1 round",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": "",
+    "Burst": "paralyzed 1 round"
+  },
+  "Paralyzing": {
+    "description": "1/day target paralyzed for up to 10 rounds",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Parrying": {
+    "description": "+1 to AC, +1 on saves",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Power Storing": {
+    "description": "Stores single targeted power of up to 5 power points",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Precise": {
+    "description": "This property can only be placed on a ranged weapon. A precise weapon can be shot or thrown at an opponent engaged in melee without suffering the standard -4 penalty (as the Precise Shot feat). This doesn't grant any special power to those who already have the Precise Shot feat.",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Prismatic Burst": {
+    "description": "On critical hit, target subject to prismatic spray",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": "",
+    "Burst": "prismatic spray"
+  },
+  "Profane": {
+    "description": "+1d6 damage to living creatures, various evil-themed abilities",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d6 points",
+    "critical_extra": ""
+  },
+  "Profane Burst": {
+    "description": "As profane, on critical hit, extra negative energy and Con damage",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d6 points",
+    "critical_extra": "",
+    "Burst": "1d10 points"
+  },
+  "Psibane": {
+    "description": "Extra benefits against psionic creatures",
+    "attack_bonus": 3,
+    "damage_bonus": 3,
+    "extra_damage": "2d6 points",
+    "critical_extra": ""
+  },
+  "Psychic": {
+    "description": "Gains enhancement bonus based on power point reserve",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Psychokinetic": {
+    "description": "+1d4 force damage",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d4 points",
+    "critical_extra": ""
+  },
+  "Psychokinetic Burst": {
+    "description": "As psychokinetic, extra force damage on critical hit",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d4 points",
+    "critical_extra": "",
+    "Burst": "1d6 points"
+  },
+  "Quick Loading": {
+    "description": "This property may only be placed on a crossbow. A quick-loading crossbow accesses an extradimensional space that can hold up to 100 bolts, allowing the wielder to reload the crossbow more rapidly than normal. Reloading a quick-loading hand or light crossbow is a free action (allowing a character with multiple attacks to use his full attack rate), while reloading a quick-loading heavy crossbow is a move-equivalent action. Adding or removing a bolt by hand from the extradimensional space requires a move-equivalent action. Different types of bolts can be held in the extradimensional space, and the wielder may select freely from these when reloading the crossbow.",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Resounding": {
+    "description": "On successful attack, allies gain +1 morale bonus on attacks and against fear for 1 round",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Returning": {
+    "description": "This enchantment can only be placed on a weapon that can be thrown. A returning weapon returns through the air back to the creature that threw it. It returns on the round following the round that it was thrown just before its throwing creature's turn. It is therefore ready to use again that turn. Aura : Moderate transmutation",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Revealing": {
+    "description": "Struck target subject to faerie fire",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Sacred": {
+    "description": "+1d6 damage to undead or +2d6 to evil outsider, good-aligned for overcoming DR",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d6 points",
+    "critical_extra": ""
+  },
+  "Sacred Burst": {
+    "description": "As sacred, extra positive energy and Cha damage on critical hit",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d6 points",
+    "critical_extra": "",
+    "Burst": "1d10 points"
+  },
+  "Screaming": {
+    "description": "+1d4 sonic damage",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d4 sonic",
+    "critical_extra": ""
+  },
+  "Screaming Burst": {
+    "description": "As screaming, extra sonic damage on critical hit",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d4 sonic",
+    "critical_extra": "",
+    "Burst": "1d4 sonic"
+  },
+  "Seeking": {
+    "description": "Only ranged weapons can have the seeking ability. The weapon veers toward the target, negating any miss chances that would apply because of concealment. (The wielder still has to aim the weapon at the target. Arrows mistakenly shot into an empty space, for example, do not veer and hit invisible enemies, even if they are nearby.) Aura : Strong divination",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Shadowstrike": {
+    "description": "1/day add 5 ft. to reach and deny target Dex bonus to AC",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Shattermantle": {
+    "description": "Struck target's spell resistance reduced by 2 for 1 round",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Shielding": {
+    "description": "Transforms into heavy steel shield on command, light weapons only",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Shock": {
+    "description": "+1d6 electricity damage",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d6 electricity",
+    "critical_extra": ""
+  },
+  "Shocking Burst": {
+    "description": "+ld6 electricity damage, extra electricity damage on critical hit",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d6 electricity",
+    "critical_extra": "",
+    "Burst": "1d10 electricity"
+  },
+  "Sizing": {
+    "description": "Changes size category on command",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Slow Burst": {
+    "description": "On critical hit, target slowed for 3 rounds",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": "",
+    "Burst": "slowed 3 rounds"
+  },
+  "Soulbound": {
+    "description": "Stores up to 2 points of essentia for enhancement bonuses",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Soulbound Greater": {
+    "description": "Stores up to 4 points of essentia for enhancement bonuses",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Soulbreaker": {
+    "description": "As enervating, negative levels from enervating property might be permanent",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Souldrinking": {
+    "description": "As enervating, on critical hit gain 5 temporary hp, +2 on melee damage rolls",
+    "attack_bonus": 2,
+    "damage_bonus": 2,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Speed": {
+    "description": "Extra attack with full attack",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": "extra attack at highest bonus"
+  },
+  "Spell Storing": {
+    "description": "Store single targeted spell of up to 3rd level",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Spellstrike": {
+    "description": "Transfer enhancement bonus to saves against spells or spell-like abilities",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Stunning": {
+    "description": "As screaming, struck target stunned for 1 round on critical hit",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Stunning Surge": {
+    "description": "+1 Cha bonus times per day, target stunned for 1 round",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Stygian": {
+    "description": "3/day next attack bestows negative level on target for 10 minutes",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Sundering": {
+    "description": "Attack as Improved Sunder, +1d6 damage on sunder attacks",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d6 points",
+    "critical_extra": "",
+    "combat_modifiers": {
+      "sunder": 4
+    }
+  },
+  "Sweeping": {
+    "description": "+2 on Strength checks to trip an opponent with the weapon",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": "",
+    "combat_modifiers": {
+      "trip": 2
+    }
+  },
+  "Terran": {
+    "description": "Extra benefits against creatures with air subtype",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "2d6 points",
+    "critical_extra": ""
+  },
+  "Throwing": {
+    "description": "Range increment of 10 ft., can be thrown",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Thundering": {
+    "description": "Deals sonic damage, deafens on critical hit",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": "deafen on critical"
+  },
+  "Transmuting": {
+    "description": "Transforms to overcome target's damage reduction",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Unholy": {
+    "description": "+2d6 damage against good creatures",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "2d6 vs good",
+    "critical_extra": ""
+  },
+  "Unholy Surge": {
+    "description": "As unholy, 1 + Cha bonus times per day, +3d6 damage to good target",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "3d6",
+    "critical_extra": ""
+  },
+  "Vampiric": {
+    "description": "+ld6 damage to living creatures, healed of amount equal to extra damage",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Vanishing": {
+    "description": "1/day after attack, transport self and gear up to 60 ft. as dimension door",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Venomous": {
+    "description": "3/day coat weapon in poison dealing 1d4 initial and secondary Str damage",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Vicious": {
+    "description": "+2d6 damage, 1d6 damage to you on every attack",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "2d6 to target, 1d6 to wielder",
+    "critical_extra": ""
+  },
+  "Vorpal": {
+    "description": "Sever foe's head on critical hit; slashing weapons only",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": "decapitate on natural 20"
+  },
+  "Warning": {
+    "description": "+5 on initiative",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Weakening": {
+    "description": "On critical hit, target takes - 4 to its Strength",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Whirling": {
+    "description": "3/day strike all adjacent opponents as Whirlwind Attack",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "",
+    "critical_extra": ""
+  },
+  "Wounding": {
+    "description": "+1 point Con damage",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1 Con bleed/round",
+    "critical_extra": ""
+  }
+}

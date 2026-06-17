@@ -1,0 +1,111 @@
+{
+  "Lycanthropy: Werewolf": {
+    "id": "lycanthropy_werewolf",
+    "type": "form_toggle",
+    "natural_armor": 2,
+    "description": "Afflicted or natural werewolf lycanthropy. Use the form toggle: Human (normal), Hybrid (alternate form with claw and bite plus wielded weapons), or Wolf (animal form — wolf ability scores, speed 50 ft., claw and bite only). All forms grant +2 natural armor (stacks with other natural armor). Hybrid grants DR 10/silver, Low-light vision, Scent, Lycanthropic Empathy (Ex), and Str +2, Dex +4, Con +4.",
+    "toggle_forms": ["human", "hybrid", "wolf"],
+    "toggle_labels": ["Human", "Hybrid", "Wolf"],
+    "forms": {
+      "human": {
+        "label": "Human",
+        "summary": "Normal form — +2 natural armor (stacks with other natural armor)."
+      },
+      "hybrid": {
+        "label": "Hybrid",
+        "summary": "Alternate Form (Su). +2 natural armor (stacks with other natural armor). DR 10/silver. Lycanthropic Empathy (Ex). Low-light vision and Scent. Str +2, Dex +4, Con +4.",
+        "qualities": [
+          "Alternate Form (Su)",
+          "Lycanthropic Empathy (Ex)"
+        ],
+        "ability_score": {
+          "Strength": 2,
+          "Dexterity": 4,
+          "Constitution": 4
+        },
+        "senses": [
+          "Low-light vision",
+          "Scent"
+        ],
+        "defenses": [
+          {
+            "type": "DR",
+            "value": "10/silver",
+            "desc": "Lycanthropy (hybrid)"
+          }
+        ],
+        "show_wielded_weapons": true,
+        "natural_attacks": [
+          {
+            "name": "Claw",
+            "damage_die": "1d4",
+            "hit_ability": "Strength",
+            "dmg_ability": "Strength",
+            "weapon_style": "Light",
+            "damage_type": "Slashing",
+            "threat_range": "20",
+            "crit_multiplier": "x2"
+          },
+          {
+            "name": "Bite",
+            "damage_die": "1d6",
+            "hit_ability": "Strength",
+            "dmg_ability": "Strength",
+            "weapon_style": "Light",
+            "damage_type": "Piercing",
+            "threat_range": "20",
+            "crit_multiplier": "x2"
+          }
+        ]
+      },
+      "wolf": {
+        "label": "Wolf",
+        "summary": "Wolf form — wolf ability scores, speed 50 ft., +2 natural armor (stacks with other natural armor). Claw and bite only (no manufactured weapon attacks).",
+        "qualities": [
+          "Alternate Form (Su)",
+          "Lycanthropic Empathy (Ex)"
+        ],
+        "ability_override": {
+          "Strength": 13,
+          "Dexterity": 15,
+          "Constitution": 15
+        },
+        "speed": 50,
+        "senses": [
+          "Low-light vision",
+          "Scent"
+        ],
+        "defenses": [
+          {
+            "type": "DR",
+            "value": "10/silver",
+            "desc": "Lycanthropy (wolf)"
+          }
+        ],
+        "show_wielded_weapons": false,
+        "natural_attacks": [
+          {
+            "name": "Claw",
+            "damage_die": "1d4",
+            "hit_ability": "Strength",
+            "dmg_ability": "Strength",
+            "weapon_style": "Light",
+            "damage_type": "Slashing",
+            "threat_range": "20",
+            "crit_multiplier": "x2"
+          },
+          {
+            "name": "Bite",
+            "damage_die": "1d6",
+            "hit_ability": "Strength",
+            "dmg_ability": "Strength",
+            "weapon_style": "Light",
+            "damage_type": "Piercing",
+            "threat_range": "20",
+            "crit_multiplier": "x2"
+          }
+        ]
+      }
+    }
+  }
+}

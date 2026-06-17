@@ -1,0 +1,1428 @@
+{
+  "Acrobatic": {
+    "prerequisites": "None",
+    "description": "You get a +2 bonus on all Jump checks and Tumble checks.",
+    "effects": {}
+  },
+  "Agile": {
+    "prerequisites": "None",
+    "description": "You get a +2 bonus on all Balance checks and Escape Artist checks.",
+    "effects": {}
+  },
+  "Alertness": {
+    "prerequisites": "None",
+    "description": "You get a +2 bonus on all Listen checks and Spot checks.\n\nThe master of a familiar gains the benefit of the Alertness feat whenever the familiar is within arm’s reach.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Animal Affinity": {
+    "prerequisites": "None",
+    "description": "You get a +2 bonus on all Handle Animal checks and Ride checks.",
+    "effects": {}
+  },
+  "Armor Proficiency (Heavy)": {
+    "prerequisites": "Armor Proficiency (light), Armor Proficiency (medium)",
+    "description": "See Armor Proficiency (light). Fighters, paladins, and clerics automatically have Armor Proficiency (heavy) as a bonus feat.",
+    "effects": {}
+  },
+  "Armor Proficiency (Light)": {
+    "prerequisites": "None",
+    "description": "When you wear a type of armor with which you are proficient, the armor check penalty for that armor applies only to Balance, Climb, Escape Artist, Hide, Jump, Move Silently, Sleight of Hand, and Tumble checks.",
+    "effects": {}
+  },
+  "Armor Proficiency (Medium)": {
+    "prerequisites": "Armor Proficiency (light)",
+    "description": "See Armor Proficiency (light). Fighters, barbarians, paladins, clerics, druids, and bards automatically have Armor Proficiency (medium) as a bonus feat.",
+    "effects": {}
+  },
+  "Athletic": {
+    "prerequisites": "None",
+    "description": "You get a +2 bonus on all Climb checks and Swim checks.",
+    "effects": {}
+  },
+  "Augment Summoning": {
+    "prerequisites": "Spell Focus (conjuration)",
+    "description": "Each creature you conjure with any summon spell gains a +4 enhancement bonus to Strength and Constitution for the duration of the spell that summoned it.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Blind-Fight": {
+    "prerequisites": "None",
+    "description": "In melee, every time you miss because of concealment, you can reroll your miss chance percentile roll one time to see if you actually hit. You take only half the usual penalty to speed for being unable to see.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Brew Potion": {
+    "prerequisites": "Caster level 3rd",
+    "description": "You can create a potion of any 3rd-level or lower spell that you know and that targets one or more creatures.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Cleave": {
+    "prerequisites": "Str 13, Power Attack",
+    "description": "If you deal a creature enough damage to make it drop, you get an immediate, extra melee attack against another creature within reach.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Combat Casting": {
+    "prerequisites": "None",
+    "description": "You get a +4 bonus on Concentration checks made to cast a spell or use a spell-like ability while on the defensive or while you are grappling or pinned.",
+    "effects": {}
+  },
+  "Combat Expertise": {
+    "prerequisites": "Int 13",
+    "description": "When you use the attack action or the full attack action in melee, you can take a penalty of as much as -5 on your attack roll and add the same number as a dodge bonus to your Armor Class.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Combat Reflexes": {
+    "prerequisites": "None",
+    "description": "You may make a number of additional attacks of opportunity equal to your Dexterity bonus.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Craft Magic Arms and Armor": {
+    "prerequisites": "Caster level 5th",
+    "description": "You can create any magic weapon, armor, or shield whose prerequisites you meet.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Craft Rod": {
+    "prerequisites": "Caster level 9th",
+    "description": "You can create any rod whose prerequisites you meet.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Craft Staff": {
+    "prerequisites": "Caster level 12th",
+    "description": "You can create any staff whose prerequisites you meet.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Craft Wand": {
+    "prerequisites": "Caster level 5th",
+    "description": "You can create a wand of any 4th-level or lower spell that you know.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Craft Wondrous Item": {
+    "prerequisites": "Caster level 3rd",
+    "description": "You can create any wondrous item whose prerequisites you meet.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Deceitful": {
+    "prerequisites": "None",
+    "description": "You get a +2 bonus on all Disguise checks and Forgery checks.",
+    "effects": {}
+  },
+  "Deflect Arrows": {
+    "prerequisites": "Dex 13, Improved Unarmed Strike",
+    "description": "Once per round when you would normally be hit with a ranged weapon, you may deflect it so that you take no damage from it.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Deft Hands": {
+    "prerequisites": "None",
+    "description": "You get a +2 bonus on all Sleight of Hand checks and Use Rope checks.",
+    "effects": {}
+  },
+  "Diehard": {
+    "prerequisites": "Endurance",
+    "description": "When reduced to between -1 and -9 hit points, you automatically become stable.",
+    "effects": {}
+  },
+  "Diligent": {
+    "prerequisites": "None",
+    "description": "You get a +2 bonus on all Appraise checks and Decipher Script checks.",
+    "effects": {}
+  },
+  "Dodge": {
+    "prerequisites": "Dex 13",
+    "description": "During your action, you designate an opponent and receive a +1 dodge bonus to Armor Class against attacks from that opponent.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Empower Spell": {
+    "prerequisites": "None",
+    "description": "All variable, numeric effects of an empowered spell are increased by one-half.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Endurance": {
+    "prerequisites": "None",
+    "description": "You gain a +4 bonus on many checks and saves related to endurance and environmental hazards.",
+    "effects": {}
+  },
+  "Enlarge Spell": {
+    "prerequisites": "None",
+    "description": "You can alter a spell with a range of close, medium, or long to increase its range by 100%.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Eschew Materials": {
+    "prerequisites": "None",
+    "description": "You can cast any spell that has a material component costing 1 gp or less without needing that component.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Exotic Weapon Proficiency": {
+    "prerequisites": "Base attack bonus +1",
+    "description": "You make attack rolls with the selected exotic weapon as if it were a simple or martial weapon.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Extend Spell": {
+    "prerequisites": "None",
+    "description": "An extended spell lasts twice as long as normal.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Extra Turning": {
+    "prerequisites": "Ability to turn or rebuke creatures",
+    "description": "Each time you take this feat, you can use your ability to turn or rebuke creatures four more times per day than normal.",
+    "effects": {}
+  },
+  "Extra Wild Shape": {
+    "prerequisites": "Wild shape ability",
+    "description": "Each time you take this feat, you can use your wild shape ability two additional times per day.",
+    "effects": {}
+  },
+  "Extra Rings": {
+    "prerequisites": "Forge Ring, Caster level 12th",
+    "description": "You can wear two additional magic rings beyond the normal limit. Requires Forge Ring and caster level 12. Choose rings on the Feat Options tab under Feats & Features.",
+    "effects": {},
+    "feat_options": "extra_rings"
+  },
+  "Far Shot": {
+    "prerequisites": "Point Blank Shot",
+    "description": "When you use a projectile weapon, its range increment increases by one-half.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Forge Ring": {
+    "prerequisites": "Caster level 12th",
+    "description": "You can create any ring whose prerequisites you meet.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Great Cleave": {
+    "prerequisites": "Str 13, Cleave, Power Attack, base attack bonus +4",
+    "description": "This feat works like Cleave, except that there is no limit to the number of times you can use it per round.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Great Fortitude": {
+    "prerequisites": "None",
+    "description": "You get a +2 bonus on all Fortitude saving throws.",
+    "effects": {
+      "fort_save": 2
+    }
+  },
+  "Greater Spell Focus": {
+    "prerequisites": "Spell Focus",
+    "description": "Add +1 to the Difficulty Class for all saving throws against spells from the school of magic you select.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Greater Spell Penetration": {
+    "prerequisites": "Spell Penetration",
+    "description": "You get a +2 bonus on caster level checks made to overcome a creature’s spell resistance.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Greater Two-Weapon Fighting": {
+    "prerequisites": "Dex 19, Improved Two-Weapon Fighting, Two-Weapon Fighting, base attack bonus +11",
+    "description": "You get a third attack with your off-hand weapon, albeit at a -10 penalty.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Greater Weapon Focus": {
+    "prerequisites": "Proficiency with selected weapon, Weapon Focus with selected weapon, fighter level 8th",
+    "description": "You gain a +1 bonus on all attack rolls you make using the selected weapon.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Greater Weapon Specialization": {
+    "prerequisites": "Proficiency with selected weapon, Greater Weapon Focus, Weapon Focus, Weapon Specialization, fighter level 12th",
+    "description": "You gain a +2 bonus on all damage rolls you make using the selected weapon.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Heighten Spell": {
+    "prerequisites": "None",
+    "description": "A heightened spell has a higher spell level than normal (up to a maximum of 9th level).",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Improved Bull Rush": {
+    "prerequisites": "Str 13, Power Attack",
+    "description": "When you perform a bull rush you do not provoke an attack of opportunity from the defender.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Improved Counterspell": {
+    "prerequisites": "None",
+    "description": "When counterspelling, you may use a spell of the same school that is one or more spell levels higher than the target spell.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Improved Critical": {
+    "prerequisites": "Proficient with weapon, base attack bonus +8",
+    "description": "When using the weapon you selected, your threat range is doubled.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Improved Disarm": {
+    "prerequisites": "Int 13, Combat Expertise",
+    "description": "You do not provoke an attack of opportunity when you attempt to disarm an opponent.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Improved Feint": {
+    "prerequisites": "Int 13, Combat Expertise",
+    "description": "You can make a Bluff check to feint in combat as a move action.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Improved Grapple": {
+    "prerequisites": "Dex 13, Improved Unarmed Strike",
+    "description": "You do not provoke an attack of opportunity when you make a touch attack to start a grapple.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Improved Initiative": {
+    "prerequisites": "None",
+    "description": "You get a +4 bonus on initiative checks.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Improved Overrun": {
+    "prerequisites": "Str 13, Power Attack",
+    "description": "When you attempt to overrun an opponent, the target may not choose to avoid you.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Improved Precise Shot": {
+    "prerequisites": "Dex 19, Point Blank Shot, Precise Shot, base attack bonus +11",
+    "description": "Your ranged attacks ignore the AC bonus granted to targets by anything less than total cover.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Improved Shield Bash": {
+    "prerequisites": "Shield Proficiency",
+    "description": "When you perform a shield bash, you may still apply the shield’s shield bonus to your AC.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Improved Sunder": {
+    "prerequisites": "Str 13, Power Attack",
+    "description": "When you strike at an object held or carried by an opponent, you do not provoke an attack of opportunity.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Improved Trip": {
+    "prerequisites": "Int 13, Combat Expertise",
+    "description": "You do not provoke an attack of opportunity when you attempt to trip an opponent while you are unarmed.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Improved Turning": {
+    "prerequisites": "Ability to turn or rebuke creatures",
+    "description": "You turn or rebuke creatures as if you were one level higher than you are.",
+    "effects": {}
+  },
+  "Improved Two-Weapon Fighting": {
+    "prerequisites": "Dex 17, Two-Weapon Fighting, base attack bonus +6",
+    "description": "In addition to the standard single extra attack, you get a second attack with your off-hand weapon.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Improved Unarmed Strike": {
+    "prerequisites": "None",
+    "description": "You are considered to be armed even when unarmed.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Investigator": {
+    "prerequisites": "None",
+    "description": "You get a +2 bonus on all Gather Information checks and Search checks.",
+    "effects": {}
+  },
+  "Iron Will": {
+    "prerequisites": "None",
+    "description": "You get a +2 bonus on all Will saving throws.",
+    "effects": {
+      "will_save": 2
+    }
+  },
+  "Leadership": {
+    "prerequisites": "Character level 6th",
+    "description": "Having this feat enables the character to attract loyal companions and devoted followers.",
+    "effects": {}
+  },
+  "Lightning Reflexes": {
+    "prerequisites": "None",
+    "description": "You get a +2 bonus on all Reflex saving throws.",
+    "effects": {
+      "reflex_save": 2
+    }
+  },
+  "Magical Aptitude": {
+    "prerequisites": "None",
+    "description": "You get a +2 bonus on all Spellcraft checks and Use Magic Device checks.",
+    "effects": {}
+  },
+  "Manyshot": {
+    "prerequisites": "Dex 17, Point Blank Shot, Rapid Shot, base attack bonus +6",
+    "description": "As a standard action, you may fire two arrows at a single opponent within 30 feet.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Martial Weapon Proficiency": {
+    "prerequisites": "None",
+    "description": "You make attack rolls with the selected martial weapon normally.",
+    "effects": {}
+  },
+  "Martial Stance": {
+    "prerequisites": "One martial maneuver",
+    "description": "You have mastered the fundamentals of a martial discipline, and you are now able to master one of its stances.\n\nWhen you gain this feat, you can select any stance from a discipline in which you already know at least one maneuver. You must meet the normal prerequisite of the stance. Your martial adept level for using this maneuver is equal to your levels in martial adept classes (if any) + 1/2 your levels in other classes.\n\nYou can choose this feat more than once. When you take this feat again, you gain knowledge of a new stance. You do not have to choose a stance from the same discipline you selected the first time, but you must know at least one martial maneuver from the discipline of the stance you choose. (ToB)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Martial Study": {
+    "prerequisites": "None",
+    "description": "By studying the basics of a martial discipline, you learn to focus your ki and perfect the form needed to use a maneuver. As a result, you gain the use of a combat maneuver.\n\nWhen you gain this feat, you must choose a discipline of martial maneuvers, such as Desert Wind. The key skill for the chosen discipline becomes a class skill for all of your classes (current and future). Select any maneuver from the chosen discipline for which you meet the prerequisite. If you have martial adept levels, this maneuver becomes one of your maneuvers known. If you do not have martial adept levels, you can use this maneuver once per encounter as a martial adept with an initiator level equal to 1/2 your character level. If you do not have martial adept levels when you take this feat, and you later gain a level in a class that grants maneuvers known, these new maneuvers can only be used once per encounter and have no recovery method. If you later gain levels in a martial adept class (crusader, swordsage, or warblade), you use the recovery method for maneuvers learned as a result of those class levels, but your previous maneuvers (gained through this feat or through prestige class levels) do not gain a recovery method.\n\nA maneuver learned through this feat cannot be exchanged for a different maneuver if you are a crusader, swordsage, or warblade. Once you choose a maneuver with this feat, you cannot change it.\n\nYou can take this feat up to three times. Each time you take it after the first, you gain one of two benefits. You can choose a new discipline, gaining one of its maneuvers and its key skill as a class skill, as described above. Alternatively, you can choose a maneuver from a discipline to which you have already gained access by means of this feat. In either case, you must meet the maneuver's prerequisite. (ToB)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Maximize Spell": {
+    "prerequisites": "None",
+    "description": "All variable, numeric effects of a maximized spell are maximized. +3 Spell Levels",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Mobility": {
+    "prerequisites": "Dex 13, Dodge",
+    "description": "You get a +4 dodge bonus to Armor Class against attacks of opportunity caused when you move out of or within a threatened area.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Mounted Archery": {
+    "prerequisites": "Ride 1 rank, Mounted Combat",
+    "description": "The penalty you take when using a ranged weapon while mounted is halved.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Mounted Combat": {
+    "prerequisites": "Ride 1 rank",
+    "description": "Once per round when your mount is hit in combat, you may attempt a Ride check to negate the hit.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Natural Spell": {
+    "prerequisites": "Wis 13, wild shape ability",
+    "description": "You can complete the verbal and somatic components of spells while in a wild shape.",
+    "effects": {}
+  },
+  "Negotiator": {
+    "prerequisites": "None",
+    "description": "You get a +2 bonus on all Diplomacy checks and Sense Motive checks.",
+    "effects": {}
+  },
+  "Nimble Fingers": {
+    "prerequisites": "None",
+    "description": "You get a +2 bonus on all Disable Device checks and Open Lock checks.",
+    "effects": {}
+  },
+   "Persistent Spell": {
+    "prerequisites": "None",
+    "description": "Spells with a fixed or personal range can have their duration increased to 24 hours.\n\n Spells of instantaneous duration cannot be affected by this feat, nor can spells whose effects are discharged. You don't need to maintain concentration on persistent detect spells (such as detect magic or detect thoughts) for you to be aware of the mere presence or absence of the subject detected, but gaining additional information requires concentration as normal. A persistent spell uses up a spell slot six levels higher than the spell's actual level."
+  },
+  "Persuasive": {
+    "prerequisites": "None",
+    "description": "You get a +2 bonus on all Bluff checks and Intimidate checks.",
+    "effects": {}
+  },
+  "Point Blank Shot": {
+    "prerequisites": "None",
+    "description": "You get a +1 bonus on attack and damage rolls with ranged weapons at ranges of up to 30 feet.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Power Attack": {
+    "prerequisites": "Str 13",
+    "description": "On your action, before making attack rolls for a round, you may choose to subtract a number from all melee attack rolls and add the same number to all melee damage rolls.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Precise Shot": {
+    "prerequisites": "Point Blank Shot",
+    "description": "You can shoot or throw ranged weapons at an opponent engaged in melee without taking the standard -4 penalty.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Quick Draw": {
+    "prerequisites": "Base attack bonus +1",
+    "description": "You can draw a weapon as a free action instead of as a move action.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Quicken Spell": {
+    "prerequisites": "None",
+    "description": "Casting a quickened spell is a swift action.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Rapid Reload": {
+    "prerequisites": "Weapon Proficiency (crossbow type chosen)",
+    "description": "The time required for you to reload your chosen type of crossbow is reduced to a free action or move action.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Rapid Shot": {
+    "prerequisites": "Dex 13, Point Blank Shot",
+    "description": "You can get one extra attack per round with a ranged weapon.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Ride-By Attack": {
+    "prerequisites": "Ride 1 rank, Mounted Combat",
+    "description": "When you are mounted and use the charge action, you may move and attack as if with a standard charge and then move again.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Run": {
+    "prerequisites": "None",
+    "description": "When running, you move five times your normal speed (or four times if wearing heavy armor).",
+    "effects": {}
+  },
+  "Scribe Scroll": {
+    "prerequisites": "Caster level 1st",
+    "description": "You can create a scroll of any spell that you know.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Self-Sufficient": {
+    "prerequisites": "None",
+    "description": "You get a +2 bonus on all Heal checks and Survival checks.",
+    "effects": {}
+  },
+  "Shield Proficiency": {
+    "prerequisites": "None",
+    "description": "You can use a shield and take only the standard penalties.",
+    "effects": {}
+  },
+  "Shot on the Run": {
+    "prerequisites": "Dex 13, Dodge, Mobility, Point Blank Shot, base attack bonus +4",
+    "description": "When using the attack action with a ranged weapon, you can move both before and after the attack.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Silent Spell": {
+    "prerequisites": "None",
+    "description": "A silent spell can be cast with no verbal components.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Simple Weapon Proficiency": {
+    "prerequisites": "None",
+    "description": "You make attack rolls with simple weapons normally.",
+    "effects": {}
+  },
+  "Skill Focus": {
+    "prerequisites": "None",
+    "description": "You get a +3 bonus on all checks involving the chosen skill.",
+    "effects": {}
+  },
+  "Snatch Arrows": {
+    "prerequisites": "Dex 15, Deflect Arrows, Improved Unarmed Strike",
+    "description": "When using the Deflect Arrows feat you may catch the weapon instead of just deflecting it.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Spell Focus": {
+    "prerequisites": "None",
+    "description": "Add +1 to the Difficulty Class for all saving throws against spells from the chosen school of magic.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Spell Mastery": {
+    "prerequisites": "Wizard level 1st",
+    "description": "Each time you take this feat, choose a number of spells equal to your Intelligence modifier that you already know. You can prepare these spells without referring to a spellbook.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Spell Penetration": {
+    "prerequisites": "None",
+    "description": "You get a +2 bonus on caster level checks made to overcome a creature’s spell resistance.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Spirited Charge": {
+    "prerequisites": "Ride 1 rank, Mounted Combat, Ride-By Attack",
+    "description": "When mounted and using the charge action, you deal double damage with a melee weapon (or triple damage with a lance).",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Spring Attack": {
+    "prerequisites": "Dex 13, Dodge, Mobility, base attack bonus +4",
+    "description": "When using the attack action with a melee weapon, you can move both before and after the attack.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Stealthy": {
+    "prerequisites": "None",
+    "description": "You get a +2 bonus on all Hide checks and Move Silently checks.",
+    "effects": {}
+  },
+  "Still Spell": {
+    "prerequisites": "None",
+    "description": "A stilled spell can be cast with no somatic components.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Stunning Fist": {
+    "prerequisites": "Dex 13, Wis 13, Improved Unarmed Strike, base attack bonus +8",
+    "description": "You must declare that you are using this feat before you make your attack roll. Stunning Fist forces a foe to make a Fortitude saving throw or be stunned for 1 round.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Toughness": {
+    "prerequisites": "None",
+    "description": "You gain +3 hit points.",
+    "effects": {
+      "hp_bonus": 3
+    }
+  },
+  "Tower Shield Proficiency": {
+    "prerequisites": "Shield Proficiency",
+    "description": "You can use a tower shield and suffer only the standard penalties.",
+    "effects": {}
+  },
+  "Track": {
+    "prerequisites": "None",
+    "description": "To find tracks or to follow them for 1 mile requires a successful Survival check.",
+    "effects": {}
+  },
+  "Trample": {
+    "prerequisites": "Ride 1 rank, Mounted Combat",
+    "description": "When you attempt to overrun an opponent while mounted, your target may not choose to avoid you.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Two-Weapon Defense": {
+    "prerequisites": "Dex 15, Two-Weapon Fighting",
+    "description": "When wielding a double weapon or two weapons, you gain a +1 shield bonus to your AC.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Two-Weapon Fighting": {
+    "prerequisites": "Dex 15",
+    "description": "Your penalties on attack rolls for fighting with two weapons are reduced.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Weapon Finesse": {
+    "prerequisites": "Base attack bonus +1",
+    "description": "With a light weapon, rapier, whip, or spiked chain, you may use your Dexterity modifier instead of your Strength modifier on attack rolls.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Weapon Focus": {
+    "prerequisites": "Proficiency with selected weapon, base attack bonus +1",
+    "description": "You gain a +1 bonus on all attack rolls you make using the selected weapon.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Weapon Specialization": {
+    "prerequisites": "Proficiency with selected weapon, Weapon Focus with selected weapon, fighter level 4th",
+    "description": "You gain a +2 bonus on all damage rolls you make using the selected weapon.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Whirlwind Attack": {
+    "prerequisites": "Dex 13, Int 13, Combat Expertise, Dodge, Mobility, Spring Attack, base attack bonus +4",
+    "description": "When you use the full attack action, you can give up your regular attacks and instead make one melee attack at your full base attack bonus against each opponent within reach.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Widen Spell": {
+    "prerequisites": "None",
+    "description": "You can alter a burst, emanation, line, or spread shaped spell to increase its area by 100%.",
+    "effects": {},
+    "bonus_feat_pools": [
+      "wizard"
+    ]
+  },
+  "Extra Smite": {
+    "prerequisites": "Smite attack ability",
+    "description": "Each time you take this feat, you can use your smite ability one additional time per day.",
+    "effects": {
+      "smite_per_day": 2
+    },
+    "bonus_feat_pools": []
+  },
+  "Acrobatic Strike": {
+    "prerequisites": "Tumble 12 ranks",
+    "description": "If you succeed in using Tumble to avoid an opponent's attack of opportunity, you gain a +4 bonus on the next attack that you make against that foe as long as the attack occurs before the end of your current turn. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Arcane Flourish": {
+    "prerequisites": "Perform 4 ranks, arcane caster level 1st",
+    "description": "As a swift action, you can expend a prepared spell or spell slot to grant your next Perform check a competence bonus equal to 1 + the level of the spell or slot. (PHB2)",
+    "effects": {}
+  },
+  "Arcane Accompaniment": {
+    "prerequisites": "Perform 4 ranks, Arcane Flourish, arcane caster level 1st, bardic music",
+    "description": "As a swift action, you can expend a prepared spell or a spell slot to extend the duration of your bardic music ability after you stop performing. (PHB2)",
+    "effects": {}
+  },
+  "Arcane Thesis": {
+    "prerequisites": "Knowledge (arcana) 9 ranks, ability to cast arcane spells",
+    "description": "Choose one arcane spell to be your thesis. +2 CL with it. Other metamagic (not Heighten) costs 1 less slot level. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["wizard"]
+  },
+  "Arcane Toughness": {
+    "prerequisites": "Toughness, arcane caster level 3rd",
+    "description": "Immediate when reduced to 0 or fewer hp: expend prepared spell or slot to heal that many points (stabilizes you). (PHB2)",
+    "effects": {}
+  },
+  "Arcane Consumption": {
+    "prerequisites": "Arcane Toughness, Toughness, arcane caster level 6th",
+    "description": "1/day swift: your next spell gets +4 save DC. You suffer -4 Con for 12 hours and become fatigued. (PHB2)",
+    "effects": {}
+  },
+  "Armor Specialization": {
+    "prerequisites": "Proficiency with selected armor type, base attack bonus +12",
+    "description": "Choose one medium or heavy armor type. With masterwork or magic version of it: DR 2/-. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Battle Dancer": {
+    "prerequisites": "Base attack bonus +2, bardic music",
+    "description": "While using bardic music to grant an ally a bonus, you gain +2 morale on attack rolls if you move at least 1 square before attacking. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Bonded Familiar": {
+    "prerequisites": "Familiar",
+    "description": "1/day, if within 30 ft you and your familiar can have one of you absorb the hit point damage from a single attack meant for the other. (PHB2)",
+    "effects": {}
+  },
+  "Bounding Assault": {
+    "prerequisites": "Dex 13, Dodge, Mobility, Spring Attack, base attack bonus +12",
+    "description": "Spring Attack against two designated foes (no AoO from either). You may make a second attack at -5. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Rapid Blitz": {
+    "prerequisites": "Dex 13, Bounding Assault, Dodge, Mobility, Spring Attack, base attack bonus +18",
+    "description": "You can make a third attack as part of a Spring Attack. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Brutal Strike": {
+    "prerequisites": "Str 13, Power Attack, base attack bonus +6",
+    "description": "Power Attack with bludgeoning weapon: foe Fort saves (DC 10 + your extra PA damage) or sickened 1 round. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Combat Acrobat": {
+    "prerequisites": "Balance 9 ranks, Tumble 9 ranks",
+    "description": "DC 20 Balance to avoid being knocked prone by an effect. DC 15 Balance to ignore up to 4 squares of difficult terrain. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Combat Familiar": {
+    "prerequisites": "Arcane caster level 1st, familiar",
+    "description": "Your familiar does not provoke attacks of opportunity when entering a foe's square while holding the charge for a touch spell. (PHB2)",
+    "effects": {}
+  },
+  "Lurking Familiar": {
+    "prerequisites": "Combat Familiar, arcane caster level 6th",
+    "description": "Your familiar can hide in your square. (PHB2)",
+    "effects": {}
+  },
+  "Combat Tactician": {
+    "prerequisites": "Dex 13, Dodge, base attack bonus +12",
+    "description": "Free action designate a foe. If you start your turn not threatening each other, +2 on melee damage against it this turn. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Cometary Collision": {
+    "prerequisites": "Str 13, Improved Bull Rush, Power Attack",
+    "description": "Ready vs a charger: you charge them gaining +2 attack and +4 damage, and they lose the benefits of charging against you. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Companion Spellbond": {
+    "prerequisites": "Animal companion",
+    "description": "Share spells with your animal companion out to 30 feet. You may cast touch-only spells targeting your companion at short range. (PHB2)",
+    "effects": {}
+  },
+  "Crossbow Sniper": {
+    "prerequisites": "Proficiency with hand, heavy or light crossbow, Weapon Focus (chosen crossbow), base attack bonus +1, skirmish or sneak attack",
+    "description": "With chosen crossbow (Weapon Focus): +1/2 Dex bonus on damage. Skirmish or sneak attack range increases to 60 ft. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Cunning Evasion": {
+    "prerequisites": "Hide 9 ranks, evasion",
+    "description": "If you completely avoid an area attack with evasion, you may immediate action Hide + 5-ft step into suitable cover. (PHB2)",
+    "effects": {}
+  },
+  "Dampen Spell": {
+    "prerequisites": "Improved Counterspell",
+    "description": "Immediate action after identifying a spell being cast: expend a spell or slot to reduce the target's save DC by the level you expended. (PHB2)",
+    "effects": {}
+  },
+  "Deadeye Shot": {
+    "prerequisites": "Point Blank Shot, Precise Shot, base attack bonus +4, skirmish or sneak attack",
+    "description": "Ready a ranged attack vs a target. If an ally strikes it first, it loses Dex bonus to AC against your attack. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Defensive Sweep": {
+    "prerequisites": "Base attack bonus +15",
+    "description": "An adjacent opponent that begins its turn and does not move provokes an attack of opportunity from you immediately after its turn ends. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Elven Spell Lore": {
+    "prerequisites": "Int 17 or elf, Knowledge (arcana) 12 ranks",
+    "description": "You gain +2 on dispel checks. You may change a spell's energy type (acid, cold, electricity, or fire) as a free action when casting. (PHB2)",
+    "effects": {}
+  },
+  "Fade into Violence": {
+    "prerequisites": "Bluff 6 ranks, Hide 6 ranks",
+    "description": "When a foe attempts to attack you, make a Bluff check opposed by its Sense Motive. If you win, it strikes a chosen ally within 5 feet instead. (PHB2)",
+    "effects": {}
+  },
+  "Fiery Fist": {
+    "prerequisites": "Dex 13, Wis 13, Improved Unarmed Strike, Stunning Fist, base attack bonus +8",
+    "description": "Expend one Stunning Fist use: your unarmed strikes deal +1d6 fire damage for a number of rounds equal to your Wisdom modifier. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Fiery Ki": {
+    "prerequisites": "Dex 13, Wis 13, Fiery Fist, Improved Unarmed Strike, Stunning Fist, base attack bonus +8",
+    "description": "Expend a Stunning Fist use to cloak yourself in flame. Any creature that strikes you takes 1d6 fire damage. (PHB2)",
+    "effects": {}
+  },
+   "Force of Personality": {
+    "prerequisites": "Cha 13",
+    "description": "You add your Charisma modifier (instead of your Wisdom modifier) to Will (PHB2)",
+    "effects": {
+      "SaveSub": "Will Cha"
+    }
+  },
+  "Ki Blast": {
+    "prerequisites": "Dex 13, Wis 13, Fiery Fist, Improved Unarmed Strike, Stunning Fist, base attack bonus +8",
+    "description": "Expend two Stunning Fist uses as a standard action to throw a ball of ki energy (60 ft ranged touch attack) dealing 2d6 + Wis mod fire damage. (PHB2)",
+    "effects": {}
+  },
+  "Flay": {
+    "prerequisites": "Str 13, Power Attack",
+    "description": "When using Power Attack with a slashing weapon against an unarmored or lightly armored target, the target takes a -2 penalty on attack rolls and skill checks for 1 round. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Grenadier": {
+    "prerequisites": "None",
+    "description": "You gain a +1 bonus on attack and damage rolls with splash weapons (alchemist's fire, holy water, thunderstones, etc.). (PHB2)",
+    "effects": {}
+  },
+  "Gloom Razor": {
+    "prerequisites": "Shadow Blade, Hide 9 ranks, base attack bonus +6, two Shadow Hand maneuvers",
+    "description": "Tactical feat. The teachings of the Shadow Hand discipline allow you to confuse your enemies. Your attacks and parries are infused with the stuff of shadow. Through careful training and discipline, you learn to use your ki to inhibit a foe's fighting ability with your shadowy nature.\n\nLingering Gloom: To use this option, your opponent must miss you due to concealment. On your next turn, you can make a Hide check opposed by your foe's Spot check as a swift action. If this check succeeds, you gain the benefit of an invisibility spell against that foe until the end of your turn.\n\nMoving Shadows: To use this option, you must deal damage to an enemy with a melee attack and move at least 10 feet during your turn. On your next turn, you can treat that enemy as flat-footed against the first melee attack you make in that round.\n\nShadow Slip: To use this option, you must make a successful melee attack against an opponent you flank. On your next turn, you can make a DC 20 Tumble check if you are adjacent to your foe. If this check succeeds, as a free action you can move to any square adjacent to your opponent without provoking attacks of opportunity from any opponent. (ToB)",
+    "effects": {}
+  },
+  "Hindering Opportunist": {
+    "prerequisites": "Combat Reflexes, base attack bonus +3",
+    "description": "When a foe provokes an attack of opportunity from you, you can choose to perform the aid another action instead of attacking. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Stalwart Defense": {
+    "prerequisites": "Combat Reflexes, Hindering Opportunist, base attack bonus +9",
+    "description": "Foes that attack your allies while adjacent to you provoke an aid another action from you. (PHB2)",
+    "effects": {}
+  },
+  "Indomitable Soul": {
+    "prerequisites": "Endurance, Iron Will",
+    "description": "You roll twice and take the better result on Will saves against fear and mind-affecting attacks. (PHB2)",
+    "effects": {}
+  },
+    "Insightful Reflexes": {
+    "prerequisites": "Intimidate 4 ranks",
+    "description": "You add your Intelligence modifier (instead of your Dexterity modifier) to Reflex saves. (Complete Adventurer)",
+    "effects": {
+		"SaveSub": "Ref Int"
+	},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Intimidating Strike": {
+    "prerequisites": "Intimidate 4 ranks",
+    "description": "As a standard action make a melee attack. If it hits, you may immediately attempt to demoralize the target with Intimidate as a free action. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Keen-Eared Scout": {
+    "prerequisites": "Listen 6 ranks, Alertness or Skill Focus (Listen)",
+    "description": "A successful Listen check reveals additional information (distance, direction, number of creatures, etc.) as appropriate. (PHB2)",
+    "effects": {}
+  },
+  "Leap of the Heavens": {
+    "prerequisites": "Jump 4 ranks",
+    "description": "You do not double the DC for standing long jumps. You gain a +5 bonus on Jump checks made after a running start. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Lunging Strike": {
+    "prerequisites": "Base attack bonus +6",
+    "description": "As a standard action, you can make a single melee attack with 5 feet greater reach than normal. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Mad Foam Rager": {
+    "prerequisites": "Rage or frenzy ability",
+    "description": "Once per rage or frenzy, you can delay the effects of a single spell or attack until the end of your rage. (PHB2)",
+    "effects": {}
+  },
+  "Master Manipulator": {
+    "prerequisites": "Cha 13, Diplomacy 9 ranks",
+    "description": "You can use Diplomacy to feint in combat or to make a creature's attitude toward you one step worse. (PHB2)",
+    "effects": {}
+  },
+  "Melee Evasion": {
+    "prerequisites": "Dex 13, Int 13, Combat Expertise, Dodge",
+    "description": "While fighting defensively, you can negate one melee attack against you per round as an immediate action (opposed attack roll at -4). (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Melee Weapon Mastery": {
+    "prerequisites": "Proficiency with selected weapon, Weapon Focus with selected weapon",
+    "description": "Choose bludgeoning, piercing, or slashing. You gain +1 on attack and damage rolls with weapons that deal the chosen damage type. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Crushing Strike": {
+    "prerequisites": "Proficiency with a bludgeoning weapon, Weapon Focus (bludgeoning), Melee Weapon Mastery (bludgeoning), Weapon Specialization (bludgeoning), base attack bonus +14",
+    "description": "Full attack with bludgeoning weapon: each successful hit grants a cumulative +1 bonus on attack rolls against that foe until the end of your turn. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Driving Attack": {
+    "prerequisites": "Proficiency with selected piercing weapon, Weapon Focus (piercing), Melee Weapon Mastery (piercing), Weapon Specialization (piercing), base attack bonus +14",
+    "description": "As a full-round action, make a single attack with a piercing weapon. If it hits, you can immediately make a bull rush attempt against the target. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Slashing Flurry": {
+    "prerequisites": "Proficiency with selected slashing weapon, Weapon Focus (slashing), Melee Weapon Mastery (slashing), Weapon Specialization (slashing), base attack bonus +14",
+    "description": "Full attack with a slashing weapon: you gain one additional attack at your highest base attack bonus. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Weapon Supremacy": {
+    "prerequisites": "Proficiency with selected weapon, Greater Weapon Focus (selected), Greater Weapon Specialization (selected), Weapon Focus (selected), Weapon Specialization (selected), Melee Weapon Mastery (type), fighter level 18th",
+    "description": "With the chosen weapon you gain multiple benefits including increased critical range/multiplier and the ability to ignore some damage reduction. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Overwhelming Assault": {
+    "prerequisites": "Base attack bonus +15",
+    "description": "An adjacent foe that does not attack you on its turn grants you a +4 bonus on attack rolls against it until the start of its next turn. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Penetrating Shot": {
+    "prerequisites": "Str 15, Point Blank Shot, base attack bonus +10",
+    "description": "As a standard action make a single ranged attack that targets every creature in a 60-foot line. Make one attack roll and compare it to each target's AC. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Ranged Weapon Mastery": {
+    "prerequisites": "Proficiency with selected weapon, Weapon Focus (selected), Weapon Specialization (selected), base attack bonus +8",
+    "description": "Choose a ranged weapon type. You gain +1 on attack and damage rolls with it, and these bonuses also apply to all similar weapons (e.g. all bows). (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Robilar's Gambit": {
+    "prerequisites": "Combat Reflexes, base attack bonus +12",
+    "description": "You can grant any threatening foe a +4 bonus on its attack and damage rolls against you, but any attack it makes against you provokes an attack of opportunity from you. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Shield Specialization": {
+    "prerequisites": "Proficiency with shields",
+    "description": "You gain an additional +1 shield bonus to your Armor Class when using a shield. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Active Shield Defense": {
+    "prerequisites": "Proficiency with shields, Shield Specialization",
+    "description": "When fighting defensively with a shield you do not take the normal penalty on attacks of opportunity. Total defense with a shield still allows you to threaten and make AoOs at -4. (PHB2)",
+    "effects": {}
+  },
+  "Agile Shield Fighter": {
+    "prerequisites": "Proficiency with shields, Improved Shield Bash, Shield Specialization",
+    "description": "When making a shield bash and an armed strike in the same round, the penalties are only -2 on each attack. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Shield Sling": {
+    "prerequisites": "Proficiency with shields, Improved Shield Bash, Shield Specialization, base attack bonus +9",
+    "description": "You can throw your shield as a ranged weapon (20 ft range increment) that returns to you at the end of the round. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Shield Ward": {
+    "prerequisites": "Proficiency with shields, Shield Specialization",
+    "description": "You apply your shield's bonus to your touch AC and to checks or saves made to resist bull rush, disarm, grapple, overrun, and trip attempts. (PHB2)",
+    "effects": {}
+  },
+  "Short Haft": {
+    "prerequisites": "Proficiency with selected weapon, Weapon Focus with selected weapon, base attack bonus +3",
+    "description": "You can use a reach weapon to attack adjacent foes without the normal -4 penalty. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Spectral Skirmisher": {
+    "prerequisites": "Base attack bonus +6",
+    "description": "While invisible or incorporeal you gain a +2 bonus on attack and damage rolls, and your attacks ignore 5 points of damage reduction. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Spell-Linked Familiar": {
+    "prerequisites": "Arcane caster level 9th, familiar",
+    "description": "Your familiar can cast a single spell of 4th level or lower that you know once per day as a spell-like ability (caster level equals your arcane caster level). (PHB2)",
+    "effects": {}
+  },
+  "Steadfast Determination": {
+    "prerequisites": "Endurance",
+    "description": "You can use your Constitution modifier in place of your Wisdom modifier when making Will saves. (PHB2)",
+    "effects": {
+      "SaveSub": "Will Con"
+    }
+  },
+  "Telling Blow": {
+    "prerequisites": "Skirmish attack or sneak attack",
+    "description": "When you score a critical hit, you deal your skirmish or sneak attack damage in addition to the normal critical hit damage. (PHB2)",
+    "effects": {}
+  },
+  "Trophy Collector": {
+    "prerequisites": "Craft (taxidermy) 6 ranks",
+    "description": "You can create trophies from defeated enemies. A worn trophy grants a +1 morale bonus on attack rolls or on checks with one chosen skill. (PHB2)",
+    "effects": {}
+  },
+  "Tumbling Feint": {
+    "prerequisites": "Bluff 4 ranks, Tumble 4 ranks",
+    "description": "After you successfully use Tumble to avoid an attack of opportunity from a foe, you gain a +5 bonus on the next feint attempt against that foe this turn. (PHB2)",
+    "effects": {}
+  },
+  "Two-Weapon Pounce": {
+    "prerequisites": "Dex 15, Two-Weapon Fighting, base attack bonus +6",
+    "description": "When charging while wielding two weapons, you can attack with both weapons at the end of the charge (normal two-weapon fighting penalties apply). (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Two-Weapon Rend": {
+    "prerequisites": "Dex 15, Two-Weapon Fighting, base attack bonus +11",
+    "description": "If you hit the same opponent with both of your weapons in the same round, you deal an extra 1d6 + 1-1/2 times your Strength modifier damage. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Vatic Gaze": {
+    "prerequisites": "Arcane caster level 9th",
+    "description": "You can use detect magic at will. As a standard action you can use Sense Motive to determine the highest-level spell or spell-like ability a visible opponent has available. (PHB2)",
+    "effects": {}
+  },
+  "Versatile Unarmed Strike": {
+    "prerequisites": "Improved Unarmed Strike",
+    "description": "You may choose to deal bludgeoning, piercing, or slashing damage with your unarmed strikes (declare the type before the attack). (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Vexing Flanker": {
+    "prerequisites": "Combat Reflexes",
+    "description": "You gain a +4 bonus on attack rolls when flanking (instead of the normal +2). (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Adaptable Flanker": {
+    "prerequisites": "Combat Reflexes, Vexing Flanker, base attack bonus +4",
+    "description": "As a swift action designate one opponent. You count as occupying any square you threaten for purposes of flanking that opponent (for you and your allies). (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Wanderer's Diplomacy": {
+    "prerequisites": "Halfling or 4 ranks in Bluff, Diplomacy, and Sense Motive",
+    "description": "You gain a +2 bonus on Bluff, Diplomacy, and Sense Motive checks and several special social abilities while traveling. (PHB2)",
+    "effects": {}
+  },
+  "Water Splitting Strike": {
+    "prerequisites": "Dex 13, Wis 13, Improved Unarmed Strike, Stunning Fist, base attack bonus +9",
+    "description": "When you successfully strike a creature that possesses damage reduction, you gain a +4 bonus on the damage roll for that attack. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Ritual Blessing": {
+    "prerequisites": "Good alignment, Knowledge (religion) 4 ranks",
+    "description": "You gain access to good-aligned rituals (Anoint, Cleanse, Ward) whose effects scale with your Knowledge (religion) ranks. (PHB2)",
+    "effects": {}
+  },
+  "Ritual Blood Bonds": {
+    "prerequisites": "Orc or half-orc, Knowledge (religion) 4 ranks",
+    "description": "You gain access to blood-bond rituals (Blood Brothers, Vengeful Bonds of Brotherhood) that provide morale bonuses in combat. (PHB2)",
+    "effects": {}
+  },
+  "Ritual Transference": {
+    "prerequisites": "Knowledge (arcana) or Knowledge (religion) 4 ranks, any item creation feat",
+    "description": "You can transfer XP from other participants into a magic item you are crafting and allow participants to meet spell and other prerequisites for the item. (PHB2)",
+    "effects": {}
+  },
+  "Combat Focus": {
+    "prerequisites": "Wis 13",
+    "description": "After your first successful attack in an encounter you enter a state of combat focus lasting 10 + number of combat form feats rounds. While focused you gain +2 on Will saves (+4 with 3 or more combat form feats). (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Combat Stability": {
+    "prerequisites": "Wis 13, Combat Focus, base attack bonus +3",
+    "description": "While maintaining combat focus you gain +4 on checks or rolls to resist bull rush, disarm, grapple, overrun, and trip (+8 with 3+ combat form feats). (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Combat Defense": {
+    "prerequisites": "Dex 13, Wis 13, Combat Focus, Dodge, base attack bonus +6",
+    "description": "While focused you can change the target of your Dodge feat as an immediate action. With 3+ combat form feats you gain an extra +1 dodge bonus to AC against the Dodge target. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Combat Vigor": {
+    "prerequisites": "Wis 13, Combat Focus, base attack bonus +9",
+    "description": "While maintaining combat focus you gain fast healing 2 (fast healing 4 with 3 or more combat form feats). (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Combat Awareness": {
+    "prerequisites": "Wis 13, Blind-Fight, Combat Focus, base attack bonus +12",
+    "description": "While focused you learn the current hit point totals of all adjacent creatures. With 3+ combat form feats you gain blindsight out to 5 feet. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Combat Strike": {
+    "prerequisites": "Wis 13, Combat Focus, any two other combat form feats, base attack bonus +15",
+    "description": "End your combat focus as a swift action to gain a bonus on attack and damage rolls equal to your total number of combat form feats for the rest of your turn. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Divine Armor": {
+    "prerequisites": "Divine caster level 5th, ability to turn or rebuke undead",
+    "description": "As a swift action you can expend a turn or rebuke undead attempt to gain damage reduction 5/- until the start of your next turn. (PHB2)",
+    "effects": {}
+  },
+  "Divine Fortune": {
+    "prerequisites": "Divine caster level 5th, ability to turn or rebuke undead",
+    "description": "As an immediate action you can expend a turn or rebuke attempt to gain a +4 bonus on your next saving throw (lasts until used or the start of your next turn). (PHB2)",
+    "effects": {}
+  },
+  "Divine Justice": {
+    "prerequisites": "Ability to turn or rebuke undead",
+    "description": "Expend a turn/rebuke to mark a foe. The next time it strikes you in melee, record the damage. Your next successful melee attack against it deals the greater of its damage to you or your normal damage. (PHB2)",
+    "effects": {}
+  },
+  "Divine Ward": {
+    "prerequisites": "Ability to turn or rebuke undead",
+    "description": "Spend 10 minutes and a turn attempt to create a 24-hour ward with one willing ally, allowing you to cast touch spells on that ally at short range by expending another turn attempt. (PHB2)",
+    "effects": {}
+  },
+  "Profane Aura": {
+    "prerequisites": "Divine caster level 9th, ability to rebuke undead",
+    "description": "As a standard action expend a rebuke attempt to create a 60-foot-radius mist that grants concealment and gives mindless undead in the area a +2 deflection bonus to AC. (PHB2)",
+    "effects": {}
+  },
+  "Sacred Healing": {
+    "prerequisites": "Ability to turn undead",
+    "description": "As a swift action expend a turn attempt to gain +5 on Heal checks and +2 per die on damage healed by any conjuration (healing) spells you cast this turn. (PHB2)",
+    "effects": {}
+  },
+  "Sacred Purification": {
+    "prerequisites": "Sacred Healing, ability to turn undead",
+    "description": "As a swift action expend a turn attempt to heal all living creatures within 60 feet for 1d8 + your Charisma modifier and deal the same amount of damage to undead in the area. (PHB2)",
+    "effects": {}
+  },
+  "Sacred Radiance": {
+    "prerequisites": "Divine caster level 9th, ability to turn undead",
+    "description": "As a standard action expend a turn attempt to bathe yourself in light that provides bright illumination in a 60-foot radius, gives nonevil creatures +2 morale on saves vs fear/poison/disease/death, and gives evil creatures -2 on saves vs fear. Lasts 10 minutes. (PHB2)",
+    "effects": {}
+  },
+  "Celestial Sorcerer Heritage": {
+    "prerequisites": "Sorcerer level 1st",
+    "description": "You gain a bonus on saves against electricity and petrification equal to the number of celestial sorcerer heritage feats you possess. Add protection from evil to your list of 1st-level sorcerer spells known. (PHB2)",
+    "effects": {}
+  },
+  "Celestial Sorcerer Aura": {
+    "prerequisites": "Celestial Sorcerer Heritage, sorcerer level 1st",
+    "description": "As a standard action expend a spell slot to create a 20-foot aura of menace. Hostile creatures must Will save or take -2 on attack rolls, checks, and saves for 24 hours (or until they successfully hit you). (PHB2)",
+    "effects": {}
+  },
+  "Celestial Sorcerer Lance": {
+    "prerequisites": "Celestial Sorcerer Heritage, sorcerer level 1st",
+    "description": "As a standard action expend a spell slot to create a 60-foot line of energy that deals 1d8 damage per slot level to evil creatures only (Reflex half). (PHB2)",
+    "effects": {}
+  },
+  "Celestial Sorcerer Wings": {
+    "prerequisites": "Celestial Sorcerer Heritage, sorcerer level 1st",
+    "description": "Expend a spell slot as a standard action to gain the ability to fly at twice your base land speed (good maneuverability) for 1 round per slot level. (PHB2)",
+    "effects": {}
+  },
+  "Celestial Sorcerer Lore": {
+    "prerequisites": "Celestial Sorcerer Heritage, any two other celestial sorcerer heritage feats, sorcerer level 1st",
+    "description": "Add magic circle against evil, tongues, and teleport to your list of spells known (gained when you reach the appropriate spell level). (PHB2)",
+    "effects": {}
+  },
+  "Infernal Sorcerer Heritage": {
+    "prerequisites": "Sorcerer level 1st",
+    "description": "You gain a bonus on saves against fire and poison equal to the number of infernal sorcerer heritage feats you possess. When summoning evil outsiders with conjuration (summoning), you gain +2 caster level. (PHB2)",
+    "effects": {}
+  },
+  "Infernal Sorcerer Eyes": {
+    "prerequisites": "Infernal Sorcerer Heritage, sorcerer level 1st",
+    "description": "As a swift action expend a spell slot to see perfectly in any darkness out to the limit of your line of sight for 10 minutes per slot level. (PHB2)",
+    "effects": {}
+  },
+  "Infernal Sorcerer Howl": {
+    "prerequisites": "Infernal Sorcerer Heritage, sorcerer level 1st",
+    "description": "Expend a spell slot to create a 30-foot cone of sonic energy dealing 2d6 damage per slot level (Fortitude half). (PHB2)",
+    "effects": {}
+  },
+  "Infernal Sorcerer Resistance": {
+    "prerequisites": "Infernal Sorcerer Heritage, sorcerer level 1st",
+    "description": "You gain resistance to acid and resistance to cold equal to the total number of infernal sorcerer heritage feats you possess. (PHB2)",
+    "effects": {}
+  },
+  "Blistering Spell": {
+    "prerequisites": "None",
+    "description": "Metamagic (fire descriptor spells only): the spell deals an extra 2 points of fire damage per spell level. Creatures that fail their save take a -2 penalty on attack rolls and checks for 1 round. Uses a slot one level higher. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["wizard"]
+  },
+  "Earthbound Spell": {
+    "prerequisites": "None",
+    "description": "Metamagic: you place the spell in an adjacent square as a trap (Search/Disable DC 25 + level). It triggers when a creature enters the square. Uses a slot two levels higher. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["wizard"]
+  },
+  "Flash Frost Spell": {
+    "prerequisites": "None",
+    "description": "Metamagic (cold descriptor area spells only): the spell deals an extra 2 cold damage per level. The area is covered with slippery ice for 1 round (Balance DC 10 or 20 or fall prone). Uses a slot one level higher. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["wizard"]
+  },
+  "Imbued Summoning": {
+    "prerequisites": "Augment Summoning, Spell Focus (conjuration)",
+    "description": "Metamagic: when you cast a summoning spell you can also cast a touch-range spell of 3rd level or lower; the summoned creature gains the benefit of that spell. Uses a slot one level higher. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["wizard"]
+  },
+  "Smiting Spell": {
+    "prerequisites": "Base attack bonus +1, caster level 1st",
+    "description": "Metamagic: transfer a touch spell into a weapon you hold. The next successful strike with that weapon discharges the spell. Must be used within 1 minute. Uses a slot one level higher. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["wizard"]
+  },
+  "Blood-Spiked Charger": {
+    "prerequisites": "Str 13, proficiency with armor spikes and shield spikes, Power Attack, Weapon Focus (armor spikes), Weapon Focus (shield spikes), base attack bonus +6",
+    "description": "Tactical feat granting special maneuvers and bonuses when charging with spiked armor and shield. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Combat Cloak": {
+    "prerequisites": "Dex 15, Int 13, Combat Expertise, Dodge, base attack bonus +6",
+    "description": "Tactical feat granting special combat maneuvers using a cloak (trip, disarm, and more). (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Combat Panache": {
+    "prerequisites": "Bluff 8 ranks, Intimidate 8 ranks, Perform 8 ranks",
+    "description": "Tactical feat granting charismatic combat maneuvers (improved feints, demoralize, etc.). (PHB2)",
+    "effects": {}
+  },
+  "Einhander": {
+    "prerequisites": "Tumble 6 ranks, base attack bonus +6",
+    "description": "Tactical feat granting one-handed weapon combat maneuvers. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  },
+  "Mad Alchemist": {
+    "prerequisites": "Grenadier, Craft (alchemy) 6 ranks",
+    "description": "Tactical feat granting special combat maneuvers with thrown alchemical items. (PHB2)",
+    "effects": {}
+  },
+  "Shadow Blade": {
+    "prerequisites": "One Shadow Hand stance",
+    "description": "In the course of your training in the Shadow Hand discipline, you learn to use your natural agility and speed to augment your attacks with certain weapons.\n\nWhile you are in a Shadow Hand stance and attack with one of the discipline's preferred weapons, you can add your Dexterity modifier as a bonus on melee damage for attacks made with the weapon.\n\nShadow Blade can be used in place of Weapon Finesse to qualify for a feat, prestige class, or other special ability. If this substitution allows you to gain a benefit that normally applies to all finesse weapons (those described in the Weapon Finesse feat description), it instead applies only to the Shadow Hand discipline's preferred weapons. (ToB)",
+    "effects": {}
+  },
+  "Shadow Striker": {
+    "prerequisites": "Hide 12 ranks, Move Silently 12 ranks",
+    "description": "Tactical feat granting stealthy combat maneuvers while using Hide and Move Silently. (PHB2)",
+    "effects": {},
+    "bonus_feat_pools": ["fighter"]
+  }
+}

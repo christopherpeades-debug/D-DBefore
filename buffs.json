@@ -1,0 +1,116 @@
+{
+  "Armor Bonus": {
+    "key": "armor_bonus",
+    "description": "Armor-like bonus to AC. Maxed against worn armor enhancement from Inventory (does not stack with higher armor enh)."
+  },
+  "AC Bonus": {
+    "key": "ac_bonus",
+    "description": "General bonus to AC. The selected Bonus Type (Sacred, Profane, Deflection, etc.) determines the category and display in the AC widget."
+  },
+  "Attack Bonus": {
+    "key": "attack_bonus",
+    "description": "General bonus to attack rolls."
+  },
+  "Bonus to All Saves": {
+    "key": "all_saves",
+    "description": "Bonus that applies to all three saving throws."
+  },
+  "All Skills": {
+    "key": "skill_bonus_all",
+    "description": "Bonus that applies to all skill checks."
+  },
+  "Blindsense": {
+    "key": "senses",
+    "sub_key": "blindsense",
+    "description": "Grants blindsense out to Value feet (shown on the Stats page Senses widget)."
+  },
+  "Climb Speed": {
+    "key": "climb_speed",
+    "description": "Bonus or base climb speed in feet."
+  },
+  "Darkvision": {
+    "key": "senses",
+    "sub_key": "darkvision",
+    "description": "Grants darkvision out to Value feet (shown on the Stats page Senses widget)."
+  },
+  "Damage": {
+    "key": "damage_bonus",
+    "description": "General bonus to damage rolls."
+  },
+  "Initiative": {
+    "key": "initiative",
+    "description": "Bonus to initiative checks (added to Dex mod + other bonuses like Improved Initiative)."
+  },
+  "Low-light Vision": {
+    "key": "senses",
+    "sub_key": "low_light_vision",
+    "description": "Grants low-light vision (set Value to 1)."
+  },
+  "Stat: Strength": {
+    "key": "ability",
+    "sub_key": "Strength",
+    "description": "Bonus to Strength score. Bonus Type chooses Enhancement vs Inherent (or other)."
+  },
+  "Fly Speed": {
+    "key": "fly_speed",
+    "description": "Bonus or base fly speed in feet."
+  },
+  "Save: Fort": {
+    "key": "fort_save",
+    "description": "Bonus to Fortitude saving throws."
+  },
+  "Save: Ref": {
+    "key": "reflex_save",
+    "description": "Bonus to Reflex saving throws."
+  },
+  "Save: Will": {
+    "key": "will_save",
+    "description": "Bonus to Will saving throws."
+  },
+  "Stat: Dexterity": {
+    "key": "ability",
+    "sub_key": "Dexterity",
+    "description": "Bonus to Dexterity score."
+  },
+  "Stat: Constitution": {
+    "key": "ability",
+    "sub_key": "Constitution",
+    "description": "Bonus to Constitution score."
+  },
+  "Stat: Intelligence": {
+    "key": "ability",
+    "sub_key": "Intelligence",
+    "description": "Bonus to Intelligence score."
+  },
+  "Stat: Wisdom": {
+    "key": "ability",
+    "sub_key": "Wisdom",
+    "description": "Bonus to Wisdom score."
+  },
+  "Stat: Charisma": {
+    "key": "ability",
+    "sub_key": "Charisma",
+    "description": "Bonus to Charisma score."
+  },
+  "Max HP": {
+    "key": "max_hp_bonus",
+    "description": "Bonus to maximum hit points."
+  },
+  "Shield Bonus": {
+    "key": "shield_bonus",
+    "description": "Shield bonus to AC. Maxed against worn shield enhancement."
+  },
+  "Speed": {
+    "key": "speed_bonus",
+    "description": "Bonus to land speed (in feet)."
+  },
+  "Swim Speed": {
+    "key": "swim_speed",
+    "description": "Bonus or base swim speed in feet."
+  },
+  "Tremorsense": {
+    "key": "senses",
+    "sub_key": "tremorsense",
+    "description": "Grants tremorsense out to Value feet (shown on the Stats page Senses widget)."
+  }
+}

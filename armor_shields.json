@@ -1,0 +1,227 @@
+{
+  "armor": {
+    "Padded": {
+      "category": "light",
+      "ac_bonus": 1,
+      "max_dex": 8,
+      "armor_check_penalty": 0,
+      "arcane_spell_failure": 5,
+      "speed_30": "30 ft.",
+      "speed_20": "20 ft.",
+      "weight": 10,
+      "value": 5,
+      "special_description": "Light armor made from quilted layers of cloth and batting."
+    },
+    "Leather": {
+      "category": "light",
+      "ac_bonus": 2,
+      "max_dex": 6,
+      "armor_check_penalty": 0,
+      "arcane_spell_failure": 10,
+      "speed_30": "30 ft.",
+      "speed_20": "20 ft.",
+      "weight": 15,
+      "value": 10,
+      "special_description": "Light armor made from hardened leather. Flexible and quiet."
+    },
+    "Studded Leather": {
+      "category": "light",
+      "ac_bonus": 3,
+      "max_dex": 5,
+      "armor_check_penalty": -1,
+      "arcane_spell_failure": 15,
+      "speed_30": "30 ft.",
+      "speed_20": "20 ft.",
+      "weight": 20,
+      "value": 25,
+      "special_description": "Light armor. Hardened leather reinforced with metal studs or small plates."
+    },
+    "Chain Shirt": {
+      "category": "light",
+      "ac_bonus": 4,
+      "max_dex": 4,
+      "armor_check_penalty": -2,
+      "arcane_spell_failure": 20,
+      "speed_30": "30 ft.",
+      "speed_20": "20 ft.",
+      "weight": 25,
+      "value": 100,
+      "special_description": "Light armor. A shirt of chain links, typically worn under normal clothing. Comes with a steel cap."
+    },
+    "Hide": {
+      "category": "medium",
+      "ac_bonus": 3,
+      "max_dex": 4,
+      "armor_check_penalty": -3,
+      "arcane_spell_failure": 20,
+      "speed_30": "20 ft.",
+      "speed_20": "15 ft.",
+      "weight": 25,
+      "value": 15,
+      "special_description": "Medium armor. Thick, stiff hides and furs. Noisy but cheap."
+    },
+    "Scale Mail": {
+      "category": "medium",
+      "ac_bonus": 4,
+      "max_dex": 3,
+      "armor_check_penalty": -4,
+      "arcane_spell_failure": 25,
+      "speed_30": "20 ft.",
+      "speed_20": "15 ft.",
+      "weight": 30,
+      "value": 50,
+      "special_description": "Medium armor. Metal scales sewn or riveted to a leather backing."
+    },
+    "Chainmail": {
+      "category": "medium",
+      "ac_bonus": 5,
+      "max_dex": 2,
+      "armor_check_penalty": -5,
+      "arcane_spell_failure": 30,
+      "speed_30": "20 ft.",
+      "speed_20": "15 ft.",
+      "weight": 40,
+      "value": 150,
+      "special_description": "Medium armor. Standard chain links with padded underlayer. The suit includes gauntlets."
+    },
+    "Breastplate": {
+      "category": "medium",
+      "ac_bonus": 5,
+      "max_dex": 3,
+      "armor_check_penalty": -4,
+      "arcane_spell_failure": 25,
+      "speed_30": "20 ft.",
+      "speed_20": "15 ft.",
+      "weight": 30,
+      "value": 200,
+      "special_description": "Medium armor. A fitted breastplate of steel. Comes with a helmet and greaves. Good protection-to-mobility ratio."
+    },
+    "Splint Mail": {
+      "category": "heavy",
+      "ac_bonus": 6,
+      "max_dex": 0,
+      "armor_check_penalty": -7,
+      "arcane_spell_failure": 40,
+      "speed_30": "20 ft.",
+      "speed_20": "15 ft.",
+      "weight": 45,
+      "value": 200,
+      "special_description": "Heavy armor. Narrow vertical strips of metal riveted to a leather or cloth backing. When running in heavy armor, move only triple speed."
+    },
+    "Banded Mail": {
+      "category": "heavy",
+      "ac_bonus": 6,
+      "max_dex": 1,
+      "armor_check_penalty": -6,
+      "arcane_spell_failure": 35,
+      "speed_30": "20 ft.",
+      "speed_20": "15 ft.",
+      "weight": 35,
+      "value": 250,
+      "special_description": "Heavy armor. Horizontal strips (bands) of metal over chain or leather. Includes gauntlets. When running in heavy armor, move only triple speed."
+    },
+    "Half-Plate": {
+      "category": "heavy",
+      "ac_bonus": 7,
+      "max_dex": 0,
+      "armor_check_penalty": -7,
+      "arcane_spell_failure": 40,
+      "speed_30": "20 ft.",
+      "speed_20": "15 ft.",
+      "weight": 50,
+      "value": 600,
+      "special_description": "Heavy armor. Partial plate over a chain shirt or similar, covering vital areas. Excellent protection. When running in heavy armor, move only triple speed."
+    },
+    "Full Plate": {
+      "category": "heavy",
+      "ac_bonus": 8,
+      "max_dex": 1,
+      "armor_check_penalty": -6,
+      "arcane_spell_failure": 35,
+      "speed_30": "20 ft.",
+      "speed_20": "15 ft.",
+      "weight": 50,
+      "value": 1500,
+      "special_description": "Heavy armor. Complete suit of interlocking plates. Includes gauntlets, heavy leather boots, visored helmet, and thick padding. Must be individually fitted (resizing captured suit: 200-800 gp). When running in heavy armor, move only triple speed."
+    }
+  },
+  "shields": {
+    "Buckler": {
+      "ac_bonus": 1,
+      "max_dex": null,
+      "armor_check_penalty": -1,
+      "arcane_spell_failure": 5,
+      "weight": 5,
+      "value": 15,
+      "special_description": "Small metal shield strapped to the forearm. Allows bow/crossbow use without penalty. Can wield weapon in shield arm at -1 attack penalty (stacks). No AC bonus the rest of the round after attacking with off-hand weapon. Cannot be used to bash."
+    },
+    "Shield, light wooden": {
+      "ac_bonus": 1,
+      "max_dex": null,
+      "armor_check_penalty": -1,
+      "arcane_spell_failure": 5,
+      "weight": 5,
+      "value": 3,
+      "special_description": "Light wooden shield. Can be used for shield bash attacks. Hand not free to cast spells while bashing."
+    },
+    "Shield, light steel": {
+      "ac_bonus": 1,
+      "max_dex": null,
+      "armor_check_penalty": -1,
+      "arcane_spell_failure": 5,
+      "weight": 6,
+      "value": 9,
+      "special_description": "Light steel shield. More durable than wooden. Can be used for shield bash attacks."
+    },
+    "Shield, heavy wooden": {
+      "ac_bonus": 2,
+      "max_dex": null,
+      "armor_check_penalty": -2,
+      "arcane_spell_failure": 15,
+      "weight": 10,
+      "value": 7,
+      "special_description": "Heavy wooden shield. Good protection. Can be used for shield bash attacks."
+    },
+    "Shield, heavy steel": {
+      "ac_bonus": 2,
+      "max_dex": null,
+      "armor_check_penalty": -2,
+      "arcane_spell_failure": 15,
+      "weight": 15,
+      "value": 20,
+      "special_description": "Heavy steel shield. Standard heavy shield. Can be used for shield bash attacks. Hand not free to cast spells."
+    },
+    "Tower Shield": {
+      "ac_bonus": 4,
+      "max_dex": 2,
+      "armor_check_penalty": -10,
+      "arcane_spell_failure": 50,
+      "weight": 45,
+      "value": 30,
+      "special_description": "Massive shield. Can instead grant cover (often superior to the +4 shield bonus, especially against ranged). High arcane failure and check penalty. Hand not free."
+    }
+  },
+  "addons": {
+    "Armor Spikes": {
+      "cost": 50,
+      "cost_display": "+50 gp",
+      "weight": 0,
+      "value": 50,
+      "special_description": "Spikes added to any suit of armor. Deal extra piercing damage on successful grapple (use martial weapon damage from weapons table). Count as martial weapon for proficiency. -4 on grapple checks if not proficient. Can also be used for regular melee or off-hand light weapon attacks. Not improved by armor enhancement bonus (but can be enchanted separately as a weapon). Cannot attack with spikes if you already attacked with another off-hand weapon (and vice versa)."
+    },
+    "Gauntlet, locked": {
+      "cost": 8,
+      "cost_display": "8 gp",
+      "weight": 4,
+      "value": 8,
+      "special_description": "Armored gauntlet with chains/braces to lock a held weapon to the hand (+10 vs. disarm attempts). Attaching or removing a weapon: full-round action provoking AoO. Weight only if used with light/no armor or breastplate (otherwise replaces existing gauntlet). While locked the hand cannot be used for somatic spell components or most skills. Allows lethal unarmed damage like a normal gauntlet."
+    },
+    "Shield Spikes": {
+      "cost": 10,
+      "cost_display": "+10 gp",
+      "weight": 0,
+      "value": 10,
+      "special_description": "Spikes added to a shield, turning shield bashes into more damaging martial weapon attacks (use spiked shield damage from weapons table). Spikes can be enchanted separately. Do not increase the shield's AC bonus."
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "_setup": "Copy to sync_config.json. Create a free Supabase project, run supabase_setup.sql, then paste your project URL and anon key here.",
+  "enabled": true,
+  "supabase_url": "https://YOUR_PROJECT.supabase.co",
+  "supabase_anon_key": "YOUR_SUPABASE_ANON_KEY",
+  "campaign_id": "your-shared-campaign-code",
+  "character_id": "playername-charactername",
+  "player_name": "Player Name",
+  "auto_sync": true,
+  "poll_interval_sec": 5,
+  "push_interval_sec": 15
+}

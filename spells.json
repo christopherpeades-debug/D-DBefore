@@ -1,0 +1,6209 @@
+{
+  "Acid Arrow": {
+    "level": 2,
+    "description": "1 standard action. Ranged touch attack; 2d4 acid damage immediately and another 2d4 acid the following round.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "attack_type": "Ranged Touch",
+    "vs": "AC"
+  },
+  "Acid Fog": {
+    "level": 6,
+    "description": "1 standard action. Fog in 20-ft. radius deals 2d6 acid damage per round.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Fort"
+  },
+  "Acid Splash": {
+    "level": 0,
+    "description": "1 standard action. Orb deals 1d3 acid damage (ranged touch attack).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "attack_type": "Ranged Touch",
+    "vs": "AC"
+  },
+  "Aid": {
+    "level": 2,
+    "description": "1 standard action. +1 morale bonus on attack rolls and saves vs. fear, 1d8 temporary hit points +[CL,0,x,1,10] (maximum 1d8+10 at CL 10th).",
+    "effects": {
+      "temp_hp_roll": "1d8",
+      "temp_hp_per_level": 1,
+      "temp_hp_max": 10
+    },
+    "classes": [
+      "Cleric",
+      "Paladin"
+    ]
+  },
+  "Air Walk": {
+    "level": 4,
+    "description": "1 standard action. Subject treads on air as if solid ground (max 45 degree angle).",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Alarm": {
+    "level": 1,
+    "description": "1 standard action. Wards an area (20-ft. radius) for 2 hours/level and alerts you (mental or audible).",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Ranger",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Align Weapon": {
+    "level": 2,
+    "description": "1 standard action. Makes a weapon good, evil, lawful, or chaotic (bypasses certain DR).",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Alter Self": {
+    "level": 2,
+    "description": "1 standard action. Assume form of a similar creature (same type, size category).",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Analyze Dweomer (M)": {
+    "level": 6,
+    "description": "1 standard action. Reveals all spells and magical properties of one object/creature per level.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Ruby or sapphire lens worth 1,500 gp",
+      "cost": 1500
+    }
+  },
+  "Animal Growth": {
+    "level": 5,
+    "description": "1 standard action. One animal doubles in size (+8 Str, +4 Con, -2 Dex, etc.).",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Animal Messenger": {
+    "level": 2,
+    "description": "1 standard action. Tiny animal delivers a message or small item to a designated place.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Animal Shapes": {
+    "level": 8,
+    "description": "1 standard action. One willing creature/level polymorphs into the same animal form.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Animal Trance": {
+    "level": 2,
+    "description": "1 standard action. Fascinates 2d6 HD of animals or magical beasts (Int 1-2).",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Druid"
+    ]
+  },
+  "Animate Dead (M)": {
+    "level": 3,
+    "description": "1 standard action. Creates undead skeletons or zombies from corpses.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Black onyx gem",
+      "cost": 25
+    }
+  },
+  "Animate Objects": {
+    "level": 6,
+    "description": "1 standard action. Inanimate objects gain mobility and attack your foes.",
+    "effects": {},
+    "classes": [
+      "Bard"
+    ]
+  },
+  "Animate Plants": {
+    "level": 7,
+    "description": "1 standard action. Plants entangle or animate to attack designated targets.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Animate Rope": {
+    "level": 1,
+    "description": "1 standard action. Rope moves and entangles at your command.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Antilife Shell": {
+    "level": 6,
+    "description": "1 standard action. 10-ft. radius field bars living creatures.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Antimagic Field": {
+    "level": 6,
+    "description": "1 standard action. 10-ft. radius suppresses all magic within.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Antipathy": {
+    "level": 8,
+    "description": "1 standard action. Object or location repels creatures of a chosen kind.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Antiplant Shell": {
+    "level": 4,
+    "description": "1 standard action. 10-ft. radius field bars plant creatures.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Arcane Eye": {
+    "level": 4,
+    "description": "1 standard action. Invisible floating eye scouts for 1 hour/level.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Arcane Lock": {
+    "level": 2,
+    "description": "1 standard action. Magically locks a door, chest, or portal.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Arcane Mark": {
+    "level": 0,
+    "description": "1 standard action. Inscribes your personal rune visibly or invisibly on an object.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Arcane Sight": {
+    "level": 3,
+    "description": "1 standard action. You see magical auras as detect magic but in detail.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Arcane Sight, Greater": {
+    "level": 7,
+    "description": "1 standard action. As arcane sight plus see active spell effects and caster level.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Astral Projection (M)": {
+    "level": 9,
+    "description": "1 standard action. Project you and companions into the Astral Plane.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Herbs, oils, and incense",
+      "cost": 1000
+    }
+  },
+  "Atonement (XP)": {
+    "level": 5,
+    "description": "1 hour. Removes alignment transgressions or restores lost level/abilities.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ],
+    "material_component": {
+      "name": "Incense and other materials",
+      "cost": "varies"
+    }
+  },
+  "Augury": {
+    "level": 2,
+    "description": "1 minute. Learns whether an action will be good or bad for you.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Awaken (M)": {
+    "level": 5,
+    "description": "1 day. Awakens an animal or tree to humanlike sentience.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ],
+    "material_component": {
+      "name": "Herbs, oils, and incense",
+      "cost": 1000
+    }
+  },
+  "Baleful Polymorph": {
+    "level": 5,
+    "description": "1 standard action. Changes the subject into a Small or smaller animal of no more than 1 HD.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Bane": {
+    "level": 1,
+    "description": "1 standard action. Fill enemies with fear and doubt (-1 attack rolls and saves vs fear).",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Banishment": {
+    "level": 6,
+    "description": "1 standard action. Forces extraplanar creatures out of your home plane.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Barkskin": {
+    "level": 2,
+    "description": "1 standard action. Target's skin hardens, granting +[CL,2,x,1:3:3,5] natural armor bonus to AC.",
+    "effects": {
+      "natural_armor": "[CL,2,x,1:3:3,5]"
+    },
+    "classes": [
+      "Cleric",
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Bear's Endurance": {
+    "level": 2,
+    "description": "1 standard action. +4 enhancement bonus to Constitution.",
+    "effects": {
+      "ability_enh": {
+        "Constitution": 4
+      }
+    },
+    "classes": [
+      "Cleric",
+      "Druid",
+      "Ranger",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Bear's Endurance, Mass": {
+    "level": 6,
+    "description": "1 standard action. As bear's endurance, but affects one creature/level.",
+    "effects": {
+      "ability_enh": {
+        "Constitution": 4
+      }
+    },
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Bestow Curse": {
+    "level": 3,
+    "description": "1 standard action. Curse the target (-6 to one ability or -4 on attacks/saves/checks or 50% chance to act).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Will"
+  },
+  "Binding": {
+    "level": 8,
+    "description": "1 minute or longer. Imprisons a creature (several methods with different material components).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Black Tentacles": {
+    "level": 4,
+    "description": "1 standard action. Conjures tentacles in 20-ft. radius that grapple and crush opponents.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Blade Barrier": {
+    "level": 6,
+    "description": "1 standard action. Creates a wall of whirling blades dealing [CL,0,d6,1,15] damage (maximum 15d6).",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Blasphemy": {
+    "level": 7,
+    "description": "1 standard action. Utters a word of power that affects non-evil creatures differently.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "vs": "Will"
+  },
+  "Bless Water (M)": {
+    "level": 1,
+    "description": "1 standard action. Makes unholy water into holy water.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "material_component": {
+      "name": "Silver powder",
+      "cost": 25
+    }
+  },
+  "Bless Weapon": {
+    "level": 1,
+    "description": "1 standard action. Weapon gains +1 enhancement and is considered good-aligned.",
+    "effects": {},
+    "classes": [
+      "Paladin"
+    ]
+  },
+  "Bolt of Glory": {
+    "level": 6,
+    "description": "1 standard action. Ray of holy energy deals 1d6 damage per two caster levels (maximum 5d6) to one target. Undead and evil outsiders take +1d6 extra damage. Good creatures take only half damage.",
+    "effects": {},
+    "vs": "AC",
+    "attack_type": "Ranged Touch"
+  },
+  "Blight": {
+    "level": 4,
+    "description": "1 standard action. Withers one plant or deals [CL,0,d6,1,15] damage to plant creatures (maximum 15d6).",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Blindness/Deafness": {
+    "level": 2,
+    "description": "1 standard action. Makes subject blind or deaf.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Fort"
+  },
+  "Blink": {
+    "level": 3,
+    "description": "1 standard action. Subject blinks in and out of existence (50% miss chance).",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Blur": {
+    "level": 2,
+    "description": "1 standard action. Attacks against subject have 20% miss chance.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Break Enchantment": {
+    "level": 4,
+    "description": "1 minute. Frees subjects from enchantments, transmutations, and some curses.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Paladin",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Bull's Strength": {
+    "level": 2,
+    "description": "1 standard action. +4 enhancement bonus to Strength.",
+    "effects": {
+      "ability_enh": {
+        "Strength": 4
+      }
+    },
+    "classes": [
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Ranger",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Bull's Strength, Mass": {
+    "level": 6,
+    "description": "1 standard action. As bull's strength, but affects one creature/level.",
+    "effects": {
+      "ability_enh": {
+        "Strength": 4
+      }
+    },
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Burning Hands": {
+    "level": 1,
+    "description": "1 standard action. Cone of fire deals [CL,0,d4,1,5] fire damage (maximum 5d4).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Ref"
+  },
+  "Call Lightning": {
+    "level": 3,
+    "description": "1 round. Calls down bolts of lightning (3d6 electricity) once per round for 1 min/level.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Call Lightning Storm": {
+    "level": 5,
+    "description": "1 round. As call lightning, but deals 5d6 electricity damage per bolt.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Calm Animals": {
+    "level": 1,
+    "description": "1 standard action. Calms 2d6 HD of animals, making them docile.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Bard",
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Calm Emotions": {
+    "level": 2,
+    "description": "1 standard action. Suppresses strong emotions in creatures in 20-ft. radius.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric"
+    ]
+  },
+  "Cat's Grace": {
+    "level": 2,
+    "description": "1 standard action. +4 enhancement bonus to Dexterity.",
+    "effects": {
+      "ability_enh": {
+        "Dexterity": 4
+      }
+    },
+    "classes": [
+      "Bard",
+      "Druid",
+      "Ranger",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Cat's Grace, Mass": {
+    "level": 6,
+    "description": "1 standard action. As cat's grace, but affects one creature/level.",
+    "effects": {
+      "ability_enh": {
+        "Dexterity": 4
+      }
+    },
+    "classes": [
+      "Bard",
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Cause Fear": {
+    "level": 1,
+    "description": "1 standard action. One living creature of 5 or fewer HD becomes frightened.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Will"
+  },
+  "Chain Lightning": {
+    "level": 6,
+    "description": "1 standard action. Deals [CL,0,d6,1,20] electricity damage (maximum 20d6) to primary target then arcs to others (half damage to secondary targets).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Changestaff": {
+    "level": 7,
+    "description": "1 standard action. Transforms a specially prepared staff into a treant-like servant.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Chaos Hammer": {
+    "level": 4,
+    "description": "1 standard action. Damages and confuses lawful creatures (more against lawful outsiders).",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "vs": "Will"
+  },
+  "Charm Animal": {
+    "level": 1,
+    "description": "1 standard action. Makes one animal regard you as a trusted friend.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Charm Monster": {
+    "level": 4,
+    "description": "1 standard action. Makes one creature regard you as a trusted friend.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Charm Monster, Mass": {
+    "level": 8,
+    "description": "1 standard action. As charm monster, but affects multiple creatures.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Charm Person": {
+    "level": 1,
+    "description": "1 standard action. Makes one humanoid regard you as a trusted friend.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Chill Metal": {
+    "level": 2,
+    "description": "1 standard action. Cold metal armor or weapons deal damage to the wearer/wielder.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Chill Touch": {
+    "level": 1,
+    "description": "1 standard action. One touch deals 1d6 damage +[CL,0,x,1,5] and possible Strength damage (maximum +5).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Fort",
+    "attack_type": "Melee"
+  },
+  "Circle of Death (M)": {
+    "level": 6,
+    "description": "1 standard action. Kills [CL,0,d4,1,20] HD worth of living creatures in 40-ft. radius burst (maximum 20d4 HD; creatures with 9+ HD unaffected).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Powdered black pearl",
+      "cost": 500
+    }
+  },
+  "Clairaudience/Clairvoyance": {
+    "level": 3,
+    "description": "1 standard action. Hear or see at a distance for 1 min/level.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Clenched Fist": {
+    "level": 8,
+    "description": "1 standard action. Creates a Large magic hand that attacks your foes.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Cloak of Chaos": {
+    "level": 8,
+    "description": "1 standard action. +4 AC and +4 resistance saves vs. law, plus other chaotic effects.",
+    "effects": {},
+    "classes": []
+  },
+  "Clone (M)": {
+    "level": 8,
+    "description": "10 minutes. Grows an inert duplicate of a creature that can later take its soul.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Flesh and laboratory supplies",
+      "cost": 1000
+    }
+  },
+  "Cloudkill": {
+    "level": 5,
+    "description": "1 standard action. Cloud deals 1d4 Con damage/round and kills weaker creatures.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Fort"
+  },
+  "Color Spray": {
+    "level": 1,
+    "description": "1 standard action. Cone of clashing colors knocks unconscious, blinds, and stuns.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Will"
+  },
+  "Command": {
+    "level": 1,
+    "description": "1 standard action. One living creature obeys one word command ('approach', 'flee', etc.).",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "vs": "Will"
+  },
+  "Command, Greater": {
+    "level": 5,
+    "description": "1 standard action. As command, but affects one creature/level and lasts 1 round/level.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "vs": "Will"
+  },
+  "Command Plants": {
+    "level": 4,
+    "description": "1 standard action. Plants entangle or obey your mental commands.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Command Undead": {
+    "level": 2,
+    "description": "1 standard action. Turns undead as if they were your allies.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Commune (M)": {
+    "level": 5,
+    "description": "10 minutes. Ask your deity up to one yes/no question per level.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "material_component": {
+      "name": "Holy water and incense",
+      "cost": 500
+    }
+  },
+  "Commune with Nature": {
+    "level": 5,
+    "description": "1 standard action. Gain knowledge of surrounding natural terrain and creatures.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Comprehend Languages": {
+    "level": 1,
+    "description": "1 standard action. Understand all spoken and written languages.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Cone of Cold": {
+    "level": 5,
+    "description": "1 standard action. Cone deals [CL,0,d6,1,15] cold damage (maximum 15d6).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Ref"
+  },
+  "Confusion": {
+    "level": 4,
+    "description": "1 standard action. Subjects behave randomly for 1 round/level.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Will"
+  },
+  "Confusion, Lesser": {
+    "level": 1,
+    "description": "1 standard action. One creature is confused for 1 round.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Consecrate (M)": {
+    "level": 2,
+    "description": "1 standard action. Fills area with positive energy, making undead weaker.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "material_component": {
+      "name": "Holy water and silver",
+      "cost": 25
+    }
+  },
+  "Contact Other Plane": {
+    "level": 5,
+    "description": "10 minutes. Ask questions of an extraplanar entity.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Contagion": {
+    "level": 3,
+    "description": "1 standard action. Infects subject with chosen disease.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ],
+    "vs": "Fort"
+  },
+  "Contingency (M)": {
+    "level": 6,
+    "description": "10 minutes. Sets up a trigger condition for another spell to activate later.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Statuette of you carved from ivory",
+      "cost": 1500
+    }
+  },
+  "Continual Flame (M)": {
+    "level": 2,
+    "description": "1 standard action. Makes a permanent heatless flame on an object.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Ruby dust",
+      "cost": 50
+    }
+  },
+  "Control Plants": {
+    "level": 4,
+    "description": "1 standard action. Control plants in the area as if they were animate.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Ranger[3]"
+    ]
+  },
+  "Control Undead": {
+    "level": 7,
+    "description": "1 standard action. Take control of undead creatures.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Control Water": {
+    "level": 4,
+    "description": "1 standard action. Raises or lowers water level significantly.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Control Weather": {
+    "level": 7,
+    "description": "10 minutes. Changes weather in a large area.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Control Winds": {
+    "level": 5,
+    "description": "1 standard action. Changes wind direction and speed in a large area.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Create Food and Water": {
+    "level": 3,
+    "description": "10 minutes. Creates food and water for 3 humans or 1 horse per level.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Create Greater Undead (M)": {
+    "level": 8,
+    "description": "1 hour. Creates powerful undead (mummies, spectres, etc.).",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Black onyx gem",
+      "cost": 1000
+    }
+  },
+  "Create Undead (M)": {
+    "level": 6,
+    "description": "1 hour. Creates ghouls, ghasts, mummies, or mohrgs.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Black onyx gem",
+      "cost": 250
+    }
+  },
+  "Create Water": {
+    "level": 0,
+    "description": "1 standard action. Creates 2 gallons of water per level.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Creeping Doom": {
+    "level": 7,
+    "description": "1 standard action. Summons a swarm of insects that deals damage and distracts.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Crown of Glory": {
+    "level": 8,
+    "description": "1 standard action. You gain a +4 sacred bonus to Charisma checks. All allies within 10 feet gain a +2 sacred bonus on attack rolls and saves against fear effects as long as you remain conscious.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "vs": "Will"
+  },
+  "Crushing Despair": {
+    "level": 4,
+    "description": "1 standard action. Subjects take -2 penalty on attack rolls, damage, saves, and checks.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Crushing Hand": {
+    "level": 9,
+    "description": "1 standard action. Creates a magic hand that grapples and crushes opponents.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Cure Critical Wounds": {
+    "level": 4,
+    "description": "1 standard action. Cures 4d8 +[CL,0,x,1,20] damage (maximum +20).",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid",
+      "Bard",
+      "Paladin"
+    ]
+  },
+  "Cure Critical Wounds, Mass": {
+    "level": 7,
+    "description": "1 standard action. Cures 4d8 +[CL,0,x,1,20] damage for multiple creatures (maximum +20 per creature).",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Cure Light Wounds": {
+    "level": 1,
+    "description": "1 standard action. Cures 1d8 +[CL,0,x,1,5] damage (maximum +5).",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Ranger"
+    ]
+  },
+  "Cure Light Wounds, Mass": {
+    "level": 5,
+    "description": "1 standard action. Cures 1d8 +[CL,0,x,1,5] damage for multiple creatures (maximum +5 per creature).",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Cure Minor Wounds": {
+    "level": 0,
+    "description": "1 standard action. Cures 1 point of damage.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Cure Moderate Wounds": {
+    "level": 2,
+    "description": "1 standard action. Cures 2d8 +[CL,0,x,1,10] damage (maximum +10).",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Ranger"
+    ]
+  },
+  "Cure Moderate Wounds, Mass": {
+    "level": 6,
+    "description": "1 standard action. Cures 2d8 +[CL,0,x,1,10] damage for multiple creatures (maximum +10 per creature).",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Cure Serious Wounds": {
+    "level": 3,
+    "description": "1 standard action. Cures 3d8 +[CL,0,x,1,15] damage (maximum +15).",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Ranger"
+    ]
+  },
+  "Cure Serious Wounds, Mass": {
+    "level": 7,
+    "description": "1 standard action. Cures 3d8 +[CL,0,x,1,15] damage for multiple creatures (maximum +15 per creature).",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Curse Water (M)": {
+    "level": 1,
+    "description": "1 standard action. Makes unholy water.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "material_component": {
+      "name": "Unholy water and silver",
+      "cost": 25
+    }
+  },
+  "Dancing Lights": {
+    "level": 0,
+    "description": "1 standard action. Creates up to four glowing lights that you can move at will.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Darkness": {
+    "level": 2,
+    "description": "1 standard action. 20-ft. radius of supernatural darkness.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Darkvision": {
+    "level": 2,
+    "description": "1 standard action. Subject gains darkvision out to 60 ft.",
+    "effects": {
+      "senses": {
+        "darkvision": 60
+      }
+    },
+    "classes": [
+      "Ranger",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Daylight": {
+    "level": 3,
+    "description": "1 standard action. 60-ft. radius bright light that counters darkness spells.",
+    "effects": {},
+    "classes": [
+      "Paladin",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Daze": {
+    "level": 0,
+    "description": "1 standard action. One humanoid creature of 4 HD or less is dazed.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Will"
+  },
+  "Daze Monster": {
+    "level": 2,
+    "description": "1 standard action. One living creature of 6 HD or less is dazed.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Will"
+  },
+  "Death Knell": {
+    "level": 2,
+    "description": "1 standard action. Kills a dying creature and grants you temporary HP and +2 Strength.",
+    "effects": {
+      "temp_hp_roll": "1d8",
+      "temp_hp_per_level": 1,
+      "temp_hp_prompt": "Enter temporary HP gained (1d8 + caster level)"
+    },
+    "classes": []
+  },
+  "Death Ward": {
+    "level": 4,
+    "description": "1 standard action. Grants immunity to death spells, energy drain, and negative energy effects.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Paladin"
+    ]
+  },
+  "Deathwatch": {
+    "level": 1,
+    "description": "1 standard action. Sees how wounded creatures within 30 ft. are (as if they had 1 HP left).",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Deep Slumber": {
+    "level": 3,
+    "description": "1 standard action. Puts 10 HD of creatures into magical slumber.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Deeper Darkness": {
+    "level": 3,
+    "description": "1 standard action. As darkness, but also negates normal and low-light vision.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Delay Poison": {
+    "level": 2,
+    "description": "1 standard action. Prevents poison from harming the subject for 1 hour/level.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Ranger"
+    ]
+  },
+  "Delayed Blast Fireball": {
+    "level": 7,
+    "description": "1 standard action. [CL,0,d6,1,20] fire damage (maximum 20d6) in 20-ft. radius; can be delayed up to 5 rounds.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Demand": {
+    "level": 8,
+    "description": "1 standard action. Sends a short message and compels the subject to reply and follow one suggestion.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Desecrate (M)": {
+    "level": 2,
+    "description": "1 standard action. Fills area with negative energy, making undead stronger.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "material_component": {
+      "name": "Unholy water and silver",
+      "cost": 25
+    }
+  },
+  "Destruction": {
+    "level": 7,
+    "description": "This spell instantly slays the subject and consumes its remains (but not its equipment and possessions) utterly. If the target’s Fortitude saving throw succeeds, it instead takes [CL,0,d6,1,10] points of damage. The only way to restore life to a character who has failed to save against this spell is to use true resurrection, a carefully worded wish spell followed by resurrection, or miracle..",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "vs": "Fort"
+  },
+  "Detect Animals or Plants": {
+    "level": 1,
+    "description": "1 standard action. Detects one kind of animal or plant in a cone-shaped area.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Detect Chaos": {
+    "level": 1,
+    "description": "1 standard action. Reveals creatures, spells, or objects of chaotic alignment.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Detect Evil": {
+    "level": 1,
+    "description": "1 standard action. Reveals creatures, spells, or objects of evil alignment.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Paladin"
+    ]
+  },
+  "Detect Good": {
+    "level": 1,
+    "description": "1 standard action. Reveals creatures, spells, or objects of good alignment.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Detect Law": {
+    "level": 1,
+    "description": "1 standard action. Reveals creatures, spells, or objects of lawful alignment.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Detect Magic": {
+    "level": 0,
+    "description": "1 standard action. Detects spells and magic items within 60 ft.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Detect Poison": {
+    "level": 0,
+    "description": "1 standard action. Determines whether a creature or object is poisoned or poisonous.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Detect Scrying": {
+    "level": 4,
+    "description": "1 standard action. Alerts you to magical scrying attempts in the area.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Detect Secret Doors": {
+    "level": 1,
+    "description": "1 standard action. Reveals secret doors, compartments, and caches.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Detect Snares and Pits": {
+    "level": 1,
+    "description": "1 standard action. Reveals natural or primitive traps in the area.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Detect Thoughts": {
+    "level": 2,
+    "description": "1 standard action. Detects surface thoughts of creatures in a cone-shaped area.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Detect Undead": {
+    "level": 1,
+    "description": "1 standard action. Reveals undead creatures or objects in the area.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Paladin",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Dictum": {
+    "level": 7,
+    "description": "1 standard action. Utters a word of power that affects non-lawful creatures differently.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "vs": "Will"
+  },
+  "Dimension Door": {
+    "level": 4,
+    "description": "1 standard action. Teleports you and up to 500 lb. of creatures a short distance.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Dimensional Anchor": {
+    "level": 4,
+    "description": "1 standard action. Bars extradimensional movement in a 30-ft. radius.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Dimensional Lock": {
+    "level": 8,
+    "description": "1 standard action. Prevents extradimensional travel in a 20-ft. radius.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Diminish Plants": {
+    "level": 3,
+    "description": "1 standard action. Shrinks normal plants or blights plant creatures.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Discern Lies": {
+    "level": 4,
+    "description": "1 standard action. Reveals whether each creature in the area is lying.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Paladin"
+    ]
+  },
+  "Discern Location": {
+    "level": 8,
+    "description": "10 minutes. Learns the exact location of one creature or object.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Disguise Self": {
+    "level": 1,
+    "description": "1 standard action. Changes your appearance (illusion).",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Disintegrate": {
+    "level": 6,
+    "description": "1 standard action. Ray deals [CL,0,d6,2,40] damage (maximum 40d6) and may disintegrate target (Fort partial for 5d6).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "attack_type": "Ranged Touch",
+    "vs": "Fort"
+  },
+  "Dismissal": {
+    "level": 5,
+    "description": "1 standard action. Forces extraplanar creature back to its home plane.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Dispel Chaos": {
+    "level": 5,
+    "description": "1 standard action. As dispel magic, but specifically against chaotic spells and creatures.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Dispel Evil": {
+    "level": 5,
+    "description": "1 standard action. As dispel magic, but specifically against evil spells and creatures.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Dispel Good": {
+    "level": 5,
+    "description": "1 standard action. As dispel magic, but specifically against good spells and creatures.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Dispel Law": {
+    "level": 5,
+    "description": "1 standard action. As dispel magic, but specifically against lawful spells and creatures.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Dispel Magic": {
+    "level": 3,
+    "description": "1 standard action. Dispels magical effects on one target, or in an area.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Dispel Magic, Greater": {
+    "level": 6,
+    "description": "1 standard action. As dispel magic, but with +4 bonus on the check and affects multiple spells.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Displacement": {
+    "level": 3,
+    "description": "1 standard action. Attacks against the subject have 50% miss chance.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Disrupt Undead": {
+    "level": 0,
+    "description": "1 standard action. Ranged touch attack deals 1d6 damage to one undead.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "attack_type": "Ranged Touch",
+    "vs": "AC"
+  },
+  "Disrupting Weapon": {
+    "level": 5,
+    "description": "1 standard action. Weapon gains the ability to destroy undead on critical hits.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Divination (M)": {
+    "level": 4,
+    "description": "10 minutes. Provides useful advice for a specific action.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ],
+    "material_component": {
+      "name": "Incense and a sacrificial offering",
+      "cost": 25
+    }
+  },
+  "Divine Favor": {
+    "level": 1,
+    "description": "1 standard action. You gain +1 luck bonus on attack and damage rolls per three levels.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Paladin"
+    ]
+  },
+  "Divine Power": {
+    "level": 4,
+    "description": "1 standard action. You gain attack bonus, Strength, and temporary HP.",
+    "effects": {
+      "temp_hp_prompt": "Enter temporary HP gained (usually equal to your current HP)",
+      "ability_enh": {
+        "Strength": 2
+      }
+    },
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Dominate Animal": {
+    "level": 3,
+    "description": "1 standard action. Controls one animal telepathically.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Dominate Monster": {
+    "level": 9,
+    "description": "1 standard action. Controls any creature telepathically.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Will"
+  },
+  "Dominate Person": {
+    "level": 5,
+    "description": "1 standard action. Controls one humanoid telepathically.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Will"
+  },
+  "Doom": {
+    "level": 1,
+    "description": "1 standard action. One creature takes -2 penalty on attack rolls, damage, saves, and checks.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Dream": {
+    "level": 5,
+    "description": "1 standard action. Sends a message to a sleeping creature.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Eagle's Splendor": {
+    "level": 2,
+    "description": "1 standard action. +4 enhancement bonus to Charisma.",
+    "effects": {
+      "ability_enh": {
+        "Charisma": 4
+      }
+    },
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Paladin",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Eagle's Splendor, Mass": {
+    "level": 6,
+    "description": "1 standard action. As eagle's splendor, but affects one creature/level.",
+    "effects": {
+      "ability_enh": {
+        "Charisma": 4
+      }
+    },
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Earthquake": {
+    "level": 8,
+    "description": "1 standard action. Intense tremor in 80-ft. radius deals damage, knocks creatures down, and collapses structures.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Elemental Swarm": {
+    "level": 9,
+    "description": "10 minutes. Summons elementals from an elemental plane (1d4+1 of each type over time).",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Endure Elements": {
+    "level": 1,
+    "description": "1 standard action. Subject can exist comfortably in hot or cold environments.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Ranger",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Energy Drain": {
+    "level": 9,
+    "description": "1 standard action. Subject gains 2d4 negative levels.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Enervation": {
+    "level": 4,
+    "description": "1 standard action. Subject gains 1d4 negative levels.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "AC",
+    "attack_type": "Ranged Touch"
+  },
+  "Enlarge Person": {
+    "level": 1,
+    "description": "1 standard action. Doubles size of humanoid (+2 Str, -2 Dex, -1 AC, etc.).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Enlarge Person, Mass": {
+    "level": 4,
+    "description": "1 standard action. As enlarge person, but affects one creature/level.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Entangle": {
+    "level": 1,
+    "description": "1 standard action. Plants in 40-ft. radius entangle creatures.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid",
+      "Ranger"
+    ],
+    "vs": "Ref"
+  },
+  "Enthrall": {
+    "level": 2,
+    "description": "1 round. Fascinates creatures that can see and hear you.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric"
+    ]
+  },
+  "Entropic Shield": {
+    "level": 1,
+    "description": "1 standard action. 20% miss chance against ranged attacks.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Erase": {
+    "level": 1,
+    "description": "1 standard action. Erases magical or mundane writing.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Ethereal Jaunt": {
+    "level": 7,
+    "description": "1 standard action. You become ethereal for 1 round/level.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Etherealness": {
+    "level": 9,
+    "description": "1 standard action. You and companions become ethereal.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Expeditious Retreat": {
+    "level": 1,
+    "description": "1 standard action. Your speed increases by 30 ft.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Explosive Runes": {
+    "level": 3,
+    "description": "1 standard action. Inscribes exploding runes on a surface.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Eybite": {
+    "level": 6,
+    "description": "1 standard action. Your gaze has one of four effects (panic, sickness, etc.).",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Fabricate": {
+    "level": 5,
+    "description": "10 minutes. Transforms raw materials into finished items of the same material.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Faerie Fire": {
+    "level": 1,
+    "description": "1 standard action. Outlines creatures/objects with a pale glow, negating concealment.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "False Life": {
+    "level": 2,
+    "description": "1 standard action. Gains 1d10 +[CL,0,x,1,10] temporary hit points (maximum +10). When set to Active, sets your total Temp HP to the rolled effect value.",
+    "effects": {
+      "temp_hp_roll": "1d10",
+      "temp_hp_per_level": 1,
+      "temp_hp_max": 10
+    },
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "False Vision (M)": {
+    "level": 5,
+    "description": "1 standard action. Creates a false image that fools scrying.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Ground jade dust",
+      "cost": 250
+    }
+  },
+  "Fear": {
+    "level": 4,
+    "description": "1 standard action. Subjects in cone flee in panic for 1 round/level.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Will"
+  },
+  "Feather Fall": {
+    "level": 1,
+    "description": "1 immediate action. Objects or creatures fall slowly (60 ft./round).",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Feeblemind": {
+    "level": 5,
+    "description": "1 standard action. Subject's Intelligence and Charisma drop to 1.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Find the Path": {
+    "level": 6,
+    "description": "1 standard action. You know the shortest, most direct route to a location.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Druid"
+    ]
+  },
+  "Find Traps": {
+    "level": 2,
+    "description": "1 standard action. You gain insight into the location of traps.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Finger of Death": {
+    "level": 7,
+    "description": "1 standard action. Kills one living creature or deals 3d6 +[CL,0,x,1,10] damage (on successful save).",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Fort",
+    "attack_type": "Ranged Touch"
+  },
+  "Fire Seeds": {
+    "level": 6,
+    "description": "1 standard action. You create up to 4 acorns or berries that explode for fire damage.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Fire Shield": {
+    "level": 4,
+    "description": "1 standard action. Creatures attacking you take 1d6 +[CL,0,x,1,15] fire or cold damage (maximum +15).",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Fire Storm": {
+    "level": 8,
+    "description": "1 standard action. Deals [CL,0,d6,1,20] fire damage (maximum 20d6) to creatures in the area.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Fire Trap (M)": {
+    "level": 4,
+    "description": "10 minutes. Sets a magical trap on an object that explodes when opened.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Gold dust",
+      "cost": 25
+    }
+  },
+  "Fireball": {
+    "level": 3,
+    "description": "1 standard action. Deals [CL,0,d6,1,10][CL,0,d6,1,10] fire damage to all in a 20-ft. radius (Reflex half).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Ref"
+  },
+  "Flame Arrow": {
+    "level": 3,
+    "description": "1 standard action. Arrows/bolts deal +1d6 fire damage each.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Flame Blade": {
+    "level": 2,
+    "description": "1 standard action. Creates a scimitar of fire that deals 1d8 +[CL,0,x,1:2,10] fire damage (1 per two caster levels, maximum +10).",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Flame Strike": {
+    "level": 5,
+    "description": "1 standard action. Column of divine fire deals [CL,0,d6,1,15] damage (maximum 15d6; half fire, half divine).",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ],
+    "vs": "Ref"
+  },
+  "Flaming Sphere": {
+    "level": 2,
+    "description": "1 standard action. Rolling ball of fire deals 2d6 fire damage and can move.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Flare": {
+    "level": 0,
+    "description": "1 standard action. Dazzles one creature for 1 round.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Flesh to Stone": {
+    "level": 6,
+    "description": "1 standard action. Turns one creature into a statue.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Fly": {
+    "level": 3,
+    "description": "1 standard action. Subject flies at speed 60 ft.",
+    "effects": {
+      "fly_speed": 60,
+      "fly_maneuverability": "average"
+    },
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Floating Disk": {
+    "level": 1,
+    "description": "1 standard action. Creates a 3-ft.-diameter floating disk that holds 100 lb./level.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Fog Cloud": {
+    "level": 2,
+    "description": "1 standard action. Fog obscures vision in 20-ft. radius.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Forbiddance (M)": {
+    "level": 6,
+    "description": "10 minutes. Creates a field that damages or bars creatures of a chosen alignment.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "material_component": {
+      "name": "Holy water and incense",
+      "cost": 1500
+    }
+  },
+  "Forcecage": {
+    "level": 7,
+    "description": "1 standard action. Creates an immobile cage of force bars or a windowless cell.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Forceful Hand": {
+    "level": 6,
+    "description": "1 standard action. Creates a Large magic hand that pushes creatures.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Foresight": {
+    "level": 9,
+    "description": "1 standard action. You receive instantaneous warnings of impending danger.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Fox's Cunning": {
+    "level": 2,
+    "description": "1 standard action. +4 enhancement bonus to Intelligence.",
+    "effects": {
+      "ability_enh": {
+        "Intelligence": 4
+      }
+    },
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Fox's Cunning, Mass": {
+    "level": 6,
+    "description": "1 standard action. As fox's cunning, but affects one creature/level.",
+    "effects": {
+      "ability_enh": {
+        "Intelligence": 4
+      }
+    },
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Freedom": {
+    "level": 9,
+    "description": "1 standard action. Removes all restraints and effects that impede movement.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Freedom of Movement": {
+    "level": 4,
+    "description": "1 standard action. Subject moves and attacks normally despite magical impediments.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Druid",
+      "Paladin",
+      "Ranger"
+    ]
+  },
+  "Freezing Sphere": {
+    "level": 6,
+    "description": "1 standard action. [CL,0,d6,1,15] cold damage (maximum 15d6) in 40-ft. radius burst.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Gaseous Form": {
+    "level": 3,
+    "description": "1 standard action. Subject and gear become insubstantial and gaseous (fly speed 10 ft., DR 10/magic, etc.).",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Gate": {
+    "level": 9,
+    "description": "1 standard action. Creates an interdimensional connection or calls a creature (XP cost based on HD).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Geas/Quest": {
+    "level": 6,
+    "description": "10 minutes. Compels a creature to carry out a service or refrain from an action.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Will"
+  },
+  "Geas, Lesser": {
+    "level": 4,
+    "description": "1 round. Compels a creature of 7 HD or less to carry out a service or refrain from an action.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Gentle Repose": {
+    "level": 2,
+    "description": "1 standard action. Preserves a corpse so it does not decay.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Ghost Sound": {
+    "level": 0,
+    "description": "1 standard action. Creates illusory sounds.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Ghoul Touch": {
+    "level": 2,
+    "description": "1 standard action. Paralyzes one living creature and makes it smell like a ghoul.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Fort"
+  },
+  "Giant Vermin": {
+    "level": 4,
+    "description": "1 standard action. Enlarges one or more vermin to giant size.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Glibness": {
+    "level": 3,
+    "description": "1 standard action. You gain +30 bonus on Bluff checks and can lie while under truth-detecting magic.",
+    "effects": {
+      "skill_bonus": {
+        "Bluff": 30
+      }
+    },
+    "classes": [
+      "Bard"
+    ]
+  },
+  "Glitterdust": {
+    "level": 2,
+    "description": "1 standard action. Blinds creatures and outlines invisible creatures in 10-ft. radius.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Globe of Invulnerability": {
+    "level": 6,
+    "description": "1 standard action. 10-ft. radius globe stops spells of 3rd level or lower.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Globe of Invulnerability, Lesser": {
+    "level": 4,
+    "description": "1 standard action. 10-ft. radius globe stops spells of 3rd level or lower.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Glyph of Warding (M)": {
+    "level": 3,
+    "description": "10 minutes. Inscribes a glyph that explodes or triggers a spell when read or passed.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "material_component": {
+      "name": "Incense and powdered diamond worth 200 gp",
+      "cost": 200
+    }
+  },
+  "Glyph of Warding, Greater (M)": {
+    "level": 6,
+    "description": "10 minutes. As glyph of warding, but more powerful and can store higher-level spells.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "material_component": {
+      "name": "Incense and powdered diamond worth 400 gp",
+      "cost": 400
+    }
+  },
+  "Goodberry": {
+    "level": 1,
+    "description": "1 standard action. Creates 2d4 berries that each cure 1 hp and nourish for a day.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Good Hope": {
+    "level": 3,
+    "description": "1 standard action. Subjects gain +2 morale bonus on attack rolls, saves, and checks.",
+    "effects": {
+      "All Skills": 2
+    },
+    "classes": [
+      "Bard"
+    ]
+  },
+  "Grasping Hand": {
+    "level": 7,
+    "description": "1 standard action. Creates a Large magic hand that can grapple or push creatures.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Grease": {
+    "level": 1,
+    "description": "1 standard action. Makes a 10-ft. square slippery (Balance DC 10).",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Ref"
+  },
+  "Guards and Wards": {
+    "level": 6,
+    "description": "10 minutes. Creates a complex of magical wards in a stronghold.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Guidance": {
+    "level": 0,
+    "description": "1 standard action. +1 on one attack roll, save, or skill check.",
+    "effects": {
+      "skill_bonus_choice": {
+        "bonus": 1,
+        "prompt": "Choose the skill that receives +1 (Guidance applies to one roll)"
+      }
+    },
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Gust of Wind": {
+    "level": 2,
+    "description": "1 standard action. Creates a powerful blast of wind that knocks creatures down.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Hallow (M)": {
+    "level": 5,
+    "description": "24 hours. Makes an area holy, inflicts penalties on evil creatures, and allows one additional spell effect.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ],
+    "material_component": {
+      "name": "Herbs, oils, and incense worth 1,000 gp plus 1,000 gp per level of the spell to be included",
+      "cost": 1000
+    }
+  },
+  "Hallucinatory Terrain": {
+    "level": 4,
+    "description": "1 standard action. Makes one type of terrain look, sound, and smell like another type.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Halt Undead": {
+    "level": 3,
+    "description": "1 standard action. Immobilizes up to three undead creatures for 1 round/level.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Harm": {
+    "level": 6,
+    "description": "1 standard action. Deals [CL,0,x,10,15] points of damage to one creature (maximum 150).",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Haste": {
+    "level": 3,
+    "description": "1 standard action. One creature per level gains +1 attack, +1 AC, +30 ft speed, and one extra attack.",
+    "effects": {
+      "Speed": 30,
+      "AC Bonus": {
+        "value": 1,
+        "bonus_type": "Dodge"
+      },
+      "Attack Bonus": 1
+    },
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Heal": {
+    "level": 6,
+    "description": "1 standard action. Cures [CL,0,x,10,15] points of damage (maximum 150) and removes many conditions.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Heal, Mass": {
+    "level": 9,
+    "description": "1 standard action. As heal, but affects one creature per level.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Heal Mount": {
+    "level": 3,
+    "description": "1 standard action. Cures damage and many conditions for your special mount.",
+    "effects": {},
+    "classes": [
+      "Paladin"
+    ]
+  },
+  "Heat Metal": {
+    "level": 2,
+    "description": "1 standard action. Makes metal armor or weapons painfully hot, dealing damage each round.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Helping Hand": {
+    "level": 3,
+    "description": "1 standard action. Creates a ghostly hand that leads a chosen creature to you.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Heroes’ Feast (M)": {
+    "level": 6,
+    "description": "10 minutes. Creates a feast that cures disease, grants +1 morale bonuses, and temporary HP.",
+    "effects": {
+      "temp_hp_roll": "1d8",
+      "temp_hp_bonus": 12,
+      "temp_hp_prompt": "Enter temporary HP gained (1d8 + 12)"
+    },
+    "classes": [
+      "Bard",
+      "Cleric"
+    ],
+    "material_component": {
+      "name": "A banquet of fine food and drink",
+      "cost": 0
+    }
+  },
+  "Heroism": {
+    "level": 3,
+    "description": "1 standard action. +2 morale bonus on attack rolls, saves, and skill checks.",
+    "effects": {
+      "All Skills": 2
+    },
+    "classes": [
+      "Bard[2]",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Heroism, Greater": {
+    "level": 6,
+    "description": "1 standard action. +4 morale bonus on attack rolls, saves, skill checks, and temporary HP.",
+    "effects": {
+      "All Skills": 4,
+      "temp_hp_roll": "1d10",
+      "temp_hp_per_level": 1,
+      "temp_hp_max": 20,
+      "temp_hp_prompt": "Enter temporary HP gained (typically 1d10 + caster level)"
+    },
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Hide from Animals": {
+    "level": 1,
+    "description": "1 standard action. Animals cannot see, hear, or smell the subjects.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Hide from Undead": {
+    "level": 1,
+    "description": "1 standard action. Undead cannot see, hear, or smell the subjects.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Hideous Laughter": {
+    "level": 2,
+    "description": "1 standard action. Subject is overcome with uncontrollable laughter and falls prone.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Hold Animal": {
+    "level": 2,
+    "description": "1 standard action. Paralyzes one animal for 1 round/level.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid",
+      "Ranger"
+    ],
+    "vs": "Will"
+  },
+  "Hold Monster": {
+    "level": 5,
+    "description": "1 standard action. Paralyzes one living creature for 1 round/level.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Will"
+  },
+  "Hold Monster, Mass": {
+    "level": 7,
+    "description": "1 standard action. As hold monster, but affects one creature per level.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Hold Person": {
+    "level": 2,
+    "description": "1 standard action. Paralyzes one humanoid for 1 round/level.",
+    "effects": {},
+    "classes": [
+      "Bard[2]",
+      "Cleric[2]",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Will"
+  },
+  "Hold Person, Mass": {
+    "level": 7,
+    "description": "1 standard action. As hold person, but affects one creature per level.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Hold Portal": {
+    "level": 1,
+    "description": "1 standard action. Holds a door shut as if it were locked.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Holy Aura": {
+    "level": 8,
+    "description": "1 standard action. +4 AC, +4 resistance saves, and protects good creatures from evil spells.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Holy Smite": {
+    "level": 4,
+    "description": "1 standard action. Damages and blinds evil creatures (more against evil outsiders).",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "vs": "Will"
+  },
+  "Holy Sword": {
+    "level": 4,
+    "description": "1 standard action. Your melee weapon becomes a +5 holy weapon.",
+    "effects": {},
+    "classes": [
+      "Paladin"
+    ]
+  },
+  "Holy Word": {
+    "level": 7,
+    "description": "1 standard action. Utters a word of power that affects non-good creatures differently.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "vs": "Will"
+  },
+  "Horrid Wilting": {
+    "level": 8,
+    "description": "1 standard action. Deals [CL,0,d6,1,20] desiccation damage (maximum 20d6) in a large area.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Fort"
+  },
+  "Hypnotic Pattern": {
+    "level": 2,
+    "description": "1 standard action. Fascinates creatures in a 10-ft. radius burst.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Hypnotism": {
+    "level": 1,
+    "description": "1 round. Fascinates and suggests a course of action to 2d4 HD of creatures.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Will"
+  },
+  "Ice Storm": {
+    "level": 4,
+    "description": "1 standard action. Hailstones deal 3d6 bludgeoning + 2d6 cold damage in 20-ft. radius cylinder.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Ref"
+  },
+  "Identify (M)": {
+    "level": 1,
+    "description": "1 hour. Determines all properties of a magic item.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Pearl worth 100 gp",
+      "cost": 100
+    }
+  },
+  "Illusory Script (M)": {
+    "level": 3,
+    "description": "1 minute or longer. Creates writing that appears normal but is only readable by the intended recipient.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Ink and a special quill",
+      "cost": 50
+    }
+  },
+  "Illusory Wall": {
+    "level": 4,
+    "description": "1 standard action. Creates an illusory wall that looks real but is intangible.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Imbue with Spell Ability": {
+    "level": 4,
+    "description": "10 minutes. Transfers prepared spells to another creature that can cast them later.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Implosion": {
+    "level": 9,
+    "description": "1 standard action. One creature per round collapses in on itself and dies.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "vs": "Fort"
+  },
+  "Imprisonment (M)": {
+    "level": 9,
+    "description": "1 standard action. Imprisons a creature in a small sphere buried deep underground.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Vellum depiction or miniature portrait of the target",
+      "cost": 500
+    }
+  },
+  "Incendiary Cloud": {
+    "level": 8,
+    "description": "1 standard action. Cloud deals 4d6 fire damage per round and moves with the wind.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Inflict Critical Wounds": {
+    "level": 4,
+    "description": "1 standard action. Deals 4d8 +[CL,0,x,1,20] damage (maximum +20).",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "vs": "AC",
+    "attack_type": "Melee"
+  },
+  "Inflict Critical Wounds, Mass": {
+    "level": 7,
+    "description": "1 standard action. As inflict critical wounds, but affects one creature per level.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Inflict Light Wounds": {
+    "level": 1,
+    "description": "1 standard action. Deals 1d8 +[CL,0,x,1,5] damage (maximum +5).",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "vs": "AC",
+    "attack_type": "Melee"
+  },
+  "Inflict Light Wounds, Mass": {
+    "level": 5,
+    "description": "1 standard action. As inflict light wounds, but affects one creature per level.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Inflict Minor Wounds": {
+    "level": 0,
+    "description": "1 standard action. Deals 1 point of damage.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Inflict Moderate Wounds": {
+    "level": 2,
+    "description": "1 standard action. Deals 2d8 +[CL,0,x,1,10] damage (maximum +10).",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "vs": "AC",
+    "attack_type": "Melee"
+  },
+  "Inflict Moderate Wounds, Mass": {
+    "level": 6,
+    "description": "1 standard action. As inflict moderate wounds, but affects one creature per level.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Inflict Serious Wounds": {
+    "level": 3,
+    "description": "1 standard action. Deals 3d8 +[CL,0,x,1,15] damage (maximum +15).",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "vs": "AC",
+    "attack_type": "Melee"
+  },
+  "Inflict Serious Wounds, Mass": {
+    "level": 7,
+    "description": "1 standard action. As inflict serious wounds, but affects one creature per level.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Insanity": {
+    "level": 7,
+    "description": "1 standard action. Subject suffers continuous confusion effect.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Will"
+  },
+  "Insect Plague": {
+    "level": 5,
+    "description": "1 standard action. Summons a swarm of locusts that deals damage and distracts creatures.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Instant Summons (M)": {
+    "level": 7,
+    "description": "1 standard action. Prepares an object to be summoned to your hand from anywhere later (XP cost).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Sapphire worth 1,000 gp",
+      "cost": 1000
+    }
+  },
+  "Interposing Hand": {
+    "level": 5,
+    "description": "1 standard action. Creates a Large magic hand that interposes itself between you and an opponent.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Invisibility": {
+    "level": 2,
+    "description": "1 standard action. Subject is invisible for 1 min./level.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Invisibility, Greater": {
+    "level": 4,
+    "description": "1 standard action. As invisibility, but subject can attack and remain invisible.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Invisibility, Mass": {
+    "level": 7,
+    "description": "1 standard action. As invisibility, but affects one creature per level.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Invisibility Purge": {
+    "level": 3,
+    "description": "1 standard action. Dispels invisibility within 5 ft./level radius.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Invisibility Sphere": {
+    "level": 3,
+    "description": "1 standard action. Makes everyone within 10-ft. radius invisible.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Iron Body": {
+    "level": 8,
+    "description": "1 standard action. Your body becomes living iron (DR 15/adamantine, etc.).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Ironwood (M)": {
+    "level": 6,
+    "description": "1 minute per pound. Transforms wood into iron-like material.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Irresistible Dance": {
+    "level": 6,
+    "description": "1 standard action. Forces the subject to dance uncontrollably (-4 AC, -10 attack, etc.).",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Jump": {
+    "level": 1,
+    "description": "1 standard action. +10 enhancement bonus on Jump checks for 1 min./level; +20 at caster level 5th, +30 at caster level 9th.",
+    "effects": {
+      "skill_bonus": {
+        "Jump": {
+          "caster_level_tiers": [
+            {
+              "min_caster_level": 9,
+              "bonus": 30
+            },
+            {
+              "min_caster_level": 5,
+              "bonus": 20
+            },
+            {
+              "min_caster_level": 1,
+              "bonus": 10
+            }
+          ]
+        }
+      }
+    },
+    "classes": [
+      "Druid",
+      "Ranger",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Keen Edge": {
+    "level": 3,
+    "description": "1 standard action. One weapon gains the keen special ability (doubles threat range).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Knock": {
+    "level": 2,
+    "description": "1 standard action. Opens stuck, barred, locked, or magically held doors or containers.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Know Direction": {
+    "level": 0,
+    "description": "1 standard action. You instantly know the direction of north.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Druid"
+    ]
+  },
+  "Legend Lore (M)": {
+    "level": 4,
+    "description": "1d4 days or less. Learns legends about a person, place, or thing.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Incense worth 250 gp",
+      "cost": 250
+    }
+  },
+  "Levitate": {
+    "level": 2,
+    "description": "1 standard action. Subject moves up and down as you direct (up to 20 ft./round).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Light": {
+    "level": 0,
+    "description": "1 standard action. Object shines like a torch for 10 min./level.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Lightning Bolt": {
+    "level": 3,
+    "description": "1 standard action. 6d6 electricity damage in 120-ft. line (Reflex half).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Ref"
+  },
+  "Limited Wish (XP)": {
+    "level": 7,
+    "description": "1 standard action. Alters reality in a limited way (XP cost varies).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Liveoak": {
+    "level": 6,
+    "description": "10 minutes. Animates a tree to serve as a protector.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Locate Creature": {
+    "level": 4,
+    "description": "1 standard action. Senses the direction of a known or familiar creature.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Druid",
+      "Ranger",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Locate Object": {
+    "level": 2,
+    "description": "1 standard action. Senses the direction of a known or familiar object.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Druid",
+      "Ranger",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Longstrider": {
+    "level": 1,
+    "description": "1 standard action. Your speed increases by 10 ft. for 1 hour/level.",
+    "effects": {
+      "Speed": 10
+    },
+    "classes": [
+      "Bard",
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Lullaby": {
+    "level": 0,
+    "description": "1 standard action. Makes creatures drowsy (-5 on Listen/Spot and Will saves vs. sleep).",
+    "effects": {},
+    "classes": [
+      "Bard"
+    ]
+  },
+  "Mage Armor": {
+    "level": 1,
+    "description": "1 standard action. Creates an invisible force field. +4 armor bonus to AC.",
+    "effects": {
+      "Armor Bonus": 4
+    },
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Mage Hand": {
+    "level": 0,
+    "description": "1 standard action. Creates a spectral hand that can move objects up to 5 lb.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Mage’s Disjunction": {
+    "level": 9,
+    "description": "1 standard action. Dispels all magic in a 30-ft. radius (or one magic item).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Mage’s Faithful Hound": {
+    "level": 5,
+    "description": "1 standard action. Summons a phantom dog that guards an area.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Mage’s Lucubration": {
+    "level": 6,
+    "description": "1 standard action. Instantly recalls any one spell you have prepared and cast today.",
+    "effects": {},
+    "classes": [
+      "Wizard"
+    ]
+  },
+  "Mage’s Magnificent Mansion (M)": {
+    "level": 7,
+    "description": "1 standard action. Creates an extradimensional mansion with food and servants.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "A miniature door carved from ivory",
+      "cost": 1500
+    }
+  },
+  "Mage’s Private Sanctum": {
+    "level": 7,
+    "description": "10 minutes. Creates an area that blocks scrying and teleportation.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Mage’s Sword (F)": {
+    "level": 7,
+    "description": "1 standard action. Creates a floating magic sword that attacks your foes.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "A miniature platinum sword worth 250 gp",
+      "cost": 250
+    }
+  },
+  "Magic Aura": {
+    "level": 1,
+    "description": "1 standard action. Alters an object’s magic aura so it registers as non-magical or as another type.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Magic Circle against Chaos": {
+    "level": 3,
+    "description": "1 standard action. 10-ft. radius protects against chaotic creatures and spells.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Paladin",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Magic Circle against Evil": {
+    "level": 3,
+    "description": "1 standard action. 10-ft. radius protects against evil creatures and spells.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Paladin",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Magic Circle against Good": {
+    "level": 3,
+    "description": "1 standard action. 10-ft. radius protects against good creatures and spells.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Magic Circle against Law": {
+    "level": 3,
+    "description": "1 standard action. 10-ft. radius protects against lawful creatures and spells.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Magic Fang": {
+    "level": 1,
+    "description": "1 standard action. One natural weapon gains +1 enhancement bonus.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Magic Fang, Greater": {
+    "level": 3,
+    "description": "1 standard action. One natural weapon gains +1 enhancement bonus per 4 levels (max +5).",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Magic Jar (M)": {
+    "level": 5,
+    "description": "1 standard action. Transfers your soul into a jar and then into another body.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "A gem or crystal worth 100 gp",
+      "cost": 100
+    }
+  },
+  "Magic Missile": {
+    "level": 1,
+    "description": "1 standard action. 1d4+1 force damage per missile (up to 5 missiles).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Magic Mouth (M)": {
+    "level": 2,
+    "description": "1 standard action. Object speaks a triggered message when a condition is met.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "A small bit of honeycomb",
+      "cost": 10
+    }
+  },
+  "Magic Stone": {
+    "level": 1,
+    "description": "1 standard action. Three stones gain +1 enhancement and deal 1d6+1 damage.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Magic Vestment": {
+    "level": 3,
+    "description": "1 standard action. Armor or shield gains +[CL,0,x,4:1,5] enhancement per 4 levels (max +5).",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Magic Weapon": {
+    "level": 1,
+    "description": "1 standard action. Weapon gains +1 enhancement bonus.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Paladin",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Magic Weapon, Greater": {
+    "level": 4,
+    "description": "1 standard action. Weapon gains +1 enhancement per 4 levels (max +5).",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Paladin",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Major Creation (M)": {
+    "level": 5,
+    "description": "10 minutes. Creates a real object made of vegetable matter or mineral.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Major Image": {
+    "level": 3,
+    "description": "1 standard action. Creates a visual illusion with sound, smell, and thermal effects.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Make Whole": {
+    "level": 2,
+    "description": "1 standard action. Repairs a broken object completely.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Mark of Justice": {
+    "level": 5,
+    "description": "10 minutes. Places a curse on a creature that activates when a condition is violated.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "vs": "Will"
+  },
+  "Maze": {
+    "level": 8,
+    "description": "1 standard action. Traps one creature in an extradimensional labyrinth for 10 min./level.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Meld into Stone": {
+    "level": 3,
+    "description": "1 standard action. You and your gear merge with stone for 10 min./level.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Mending": {
+    "level": 0,
+    "description": "1 standard action. Repairs minor damage to an object.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Message": {
+    "level": 1,
+    "description": "1 standard action. Whispered conversation at a distance.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Meteor Swarm": {
+    "level": 9,
+    "description": "1 standard action. Four meteor-like orbs deal massive fire and bludgeoning damage.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Mind Blank": {
+    "level": 8,
+    "description": "1 standard action. Subject is protected from all mind-affecting spells and effects.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Mind Fog": {
+    "level": 5,
+    "description": "1 standard action. Fog causes -10 penalty on Wisdom checks and Will saves.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Minor Creation": {
+    "level": 4,
+    "description": "1 minute. Creates a small object of vegetable matter.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Minor Image": {
+    "level": 2,
+    "description": "1 standard action. Creates a visual and auditory illusion.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Miracle (XP)": {
+    "level": 9,
+    "description": "1 standard action. Requests a divine intervention (XP cost for most effects).",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Mirage Arcana": {
+    "level": 5,
+    "description": "1 standard action. Creates a large illusory terrain that feels real.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Mirror Image": {
+    "level": 2,
+    "description": "1 standard action. Creates 1d4+1 illusory duplicates of yourself.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Misdirection": {
+    "level": 2,
+    "description": "1 standard action. Misleads divination spells to another target.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Mislead": {
+    "level": 6,
+    "description": "1 standard action. Creates a duplicate of yourself that is invisible while you are not.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Mnemonic Enhancer": {
+    "level": 4,
+    "description": "10 minutes. Prepares extra spell slots for the day (up to 3 levels worth).",
+    "effects": {},
+    "classes": [
+      "Wizard"
+    ]
+  },
+  "Modify Memory": {
+    "level": 4,
+    "description": "1 round or longer. Changes up to 5 minutes of a creature’s memories.",
+    "effects": {},
+    "classes": [
+      "Bard"
+    ]
+  },
+  "Moment of Prescience": {
+    "level": 8,
+    "description": "1 standard action. Gain an insight bonus on one roll within the next 1 hour/level.",
+    "effects": {
+      "skill_bonus_choice": {
+        "bonus_per_caster_level": true,
+        "prompt": "Choose the skill for your insight bonus (equal to caster level)"
+      }
+    },
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Mount": {
+    "level": 1,
+    "description": "1 standard action. Summons a light horse or pony to serve as a mount.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Move Earth": {
+    "level": 6,
+    "description": "10 minutes. Moves large amounts of dirt, sand, or clay.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Neutralize Poison": {
+    "level": 3,
+    "description": "1 standard action. Detoxifies any sort of venom in the creature or object touched.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Ranger"
+    ]
+  },
+  "Nightmare": {
+    "level": 5,
+    "description": "10 minutes. Sends a hideous phantasmal vision that prevents restful sleep and causes 1d10 damage.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Nondetection (M)": {
+    "level": 3,
+    "description": "1 standard action. Wards creature or object against divination spells.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Ranger",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Diamond dust",
+      "cost": 50
+    }
+  },
+  "Obscure Object": {
+    "level": 2,
+    "description": "1 standard action. Masks an object from location by divination spells.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Obscuring Mist": {
+    "level": 1,
+    "description": "1 standard action. Fog obscures vision in 20-ft. radius.",
+    "effects": {},
+    "vs": "Special",
+    "attack_type": "Special",
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Open/Close": {
+    "level": 0,
+    "description": "1 standard action. Opens or closes a small door, chest, or container.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Order’s Wrath": {
+    "level": 4,
+    "description": "1 standard action. Damages and confuses chaotic creatures (more against chaotic outsiders).",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Overland Flight": {
+    "level": 5,
+    "description": "1 standard action. Subject flies at speed 40 ft. with good maneuverability.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Owl's Wisdom": {
+    "level": 2,
+    "description": "1 standard action. +4 enhancement bonus to Wisdom.",
+    "effects": {
+      "ability_enh": {
+        "Wisdom": 4
+      }
+    },
+    "classes": [
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Ranger",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Owl's Wisdom, Mass": {
+    "level": 6,
+    "description": "1 standard action. As owl's wisdom, but affects one creature/level.",
+    "effects": {
+      "ability_enh": {
+        "Wisdom": 4
+      }
+    },
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Panacea": {
+    "level": 4,
+    "description": "1 standard action. Ends blinded, confused, dazed, dazzled, deafened, diseased, exhausted, fatigued, frightened, nauseated, panicked, paralyzed, shaken, sickened, stunned; negates sleep and feeblemind; ends poison effects as neutralize poison. Cures 1d8 +[CL,0,x,1,20] damage (maximum +20). Does not remove ability damage, negative levels, or level drain. Deals same amount as damage to undead (Will half).",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ],
+    "class_levels": {
+      "Cleric": 4,
+      "Druid": 5
+    }
+  },
+  "Passwall": {
+    "level": 5,
+    "description": "1 standard action. Creates a 5-ft. by 8-ft. passage through wood, plaster, or stone.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Pass without Trace": {
+    "level": 1,
+    "description": "1 standard action. One creature per level leaves no tracks or scent.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Permanency (XP)": {
+    "level": 5,
+    "description": "2 rounds. Makes certain spells permanent on yourself or an object (XP cost).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Permanent Image": {
+    "level": 6,
+    "description": "1 standard action. Creates a permanent visual, auditory, olfactory, and thermal illusion.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Persistent Image": {
+    "level": 5,
+    "description": "1 standard action. As major image, but persists for 1 min./level after concentration ends.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Phantasmal Killer": {
+    "level": 4,
+    "description": "1 standard action. Fearsome illusion kills one creature or deals 3d6 damage.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Will"
+  },
+  "Phantom Steed": {
+    "level": 3,
+    "description": "1 standard action. Creates a quasi-real horse-like creature for 1 hour/level.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Phantom Trap (M)": {
+    "level": 2,
+    "description": "1 standard action. Makes a trap appear trapped (false trap).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "A small piece of iron pyrite",
+      "cost": 50
+    }
+  },
+  "Phase Door": {
+    "level": 7,
+    "description": "1 standard action. Creates an invisible passage through wood, plaster, or stone.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Planar Ally": {
+    "level": 6,
+    "description": "10 minutes. Calls an extraplanar creature to aid you (expensive material component).",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Planar Ally, Greater": {
+    "level": 8,
+    "description": "10 minutes. Calls a more powerful extraplanar creature to aid you.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Planar Ally, Lesser": {
+    "level": 4,
+    "description": "10 minutes. Calls a weaker extraplanar creature to aid you.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Planar Binding": {
+    "level": 6,
+    "description": "10 minutes. Traps an extraplanar creature in a diagram and compels it to serve.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Planar Binding, Greater": {
+    "level": 8,
+    "description": "10 minutes. As planar binding, but more powerful creature.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Planar Binding, Lesser": {
+    "level": 5,
+    "description": "10 minutes. As planar binding, but weaker creature.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Plane Shift": {
+    "level": 5,
+    "description": "1 standard action. Transports you and up to eight creatures to another plane.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Plant Growth": {
+    "level": 3,
+    "description": "1 standard action. Makes plants grow and become more lush or entangle creatures.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Poison": {
+    "level": 4,
+    "description": "1 standard action. Touch deals 1d10 Con damage immediately and again after 1 minute.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ],
+    "vs": "Fort"
+  },
+  "Polar Ray": {
+    "level": 8,
+    "description": "1 standard action. Ranged touch attack deals [CL,0,d6,1,25] cold damage (maximum 25d6).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "attack_type": "Ranged Touch",
+    "vs": "Fort"
+  },
+  "Polymorph": {
+    "level": 4,
+    "description": "1 standard action. Transforms one willing creature into another creature.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Polymorph Any Object": {
+    "level": 8,
+    "description": "1 standard action. Changes one object or creature into another.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Power Word Blind": {
+    "level": 7,
+    "description": "1 standard action. Blinds one creature with 200 hp or less.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Will"
+  },
+  "Power Word Kill": {
+    "level": 9,
+    "description": "1 standard action. Kills one creature with 100 hp or less.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Fort"
+  },
+  "Power Word Stun": {
+    "level": 8,
+    "description": "1 standard action. Stuns one creature with 150 hp or less for 1d4+1 rounds.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Will"
+  },
+  "Prayer": {
+    "level": 3,
+    "description": "1 standard action. +1 on attack, damage, saves, and skill checks to allies.",
+    "effects": {
+      "All Skills": 1
+    },
+    "classes": [
+      "Cleric",
+      "Paladin"
+    ]
+  },
+  "Prestidigitation": {
+    "level": 0,
+    "description": "1 standard action. Performs minor tricks (clean, chill, etc.).",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Prismatic Sphere": {
+    "level": 9,
+    "description": "1 standard action. 10-ft. radius sphere of shimmering multicolored light protects and damages intruders.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Prismatic Spray": {
+    "level": 7,
+    "description": "1 standard action. 60-ft. cone of multicolored light has random effects on creatures.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Prismatic Wall": {
+    "level": 8,
+    "description": "1 standard action. Creates a multicolored wall of light with seven layers of effects.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Produce Flame": {
+    "level": 1,
+    "description": "1 standard action. Creates flame in your hand that deals 1d6 +[CL,0,x,1,5] fire damage (maximum +5).",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ],
+    "attack_type": "Ranged Touch",
+    "vs": "AC"
+  },
+  "Programmed Image": {
+    "level": 6,
+    "description": "1 standard action. As major image, but triggers when a condition is met.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Project Image": {
+    "level": 7,
+    "description": "1 standard action. Creates a duplicate of yourself that you can control at a distance.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Protection from Arrows": {
+    "level": 2,
+    "description": "1 standard action. Subject gains DR 10/magic against ranged attacks.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Protection from Chaos": {
+    "level": 1,
+    "description": "1 standard action. +2 AC and saves vs. chaotic creatures and spells.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Paladin",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Protection from Energy": {
+    "level": 3,
+    "description": "1 standard action. Absorbs [CL,0,x,12,120] points of damage (maximum 120) from one energy type.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid",
+      "Ranger",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Protection from Evil": {
+    "level": 1,
+    "description": "1 standard action. +2 AC and saves vs. evil creatures and spells.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Paladin",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Protection from Good": {
+    "level": 1,
+    "description": "1 standard action. +2 AC and saves vs. good creatures and spells.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Protection from Law": {
+    "level": 1,
+    "description": "1 standard action. +2 AC and saves vs. lawful creatures and spells.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Protection from Spells (M)": {
+    "level": 8,
+    "description": "1 standard action. +8 resistance bonus on saves vs. spells for 1 creature per 4 levels.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Diamond dust",
+      "cost": 500
+    }
+  },
+  "Prying Eyes": {
+    "level": 5,
+    "description": "1 standard action. Creates 1d4+1 floating eyes that scout for you.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Prying Eyes, Greater": {
+    "level": 8,
+    "description": "1 standard action. As prying eyes, but the eyes can see invisible and ethereal.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Purify Food and Drink": {
+    "level": 0,
+    "description": "1 standard action. Purifies 1 cubic foot of food or water per level.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Pyrotechnics": {
+    "level": 2,
+    "description": "1 standard action. Turns a fire into fireworks or blinding smoke.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Quench": {
+    "level": 4,
+    "description": "1 standard action. Extinguishes all non-magical fires in a large area and dispels fire spells.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Rage": {
+    "level": 2,
+    "description": "1 standard action. Gives +2 Str/Con, +1 Will, -2 AC (like barbarian rage).",
+    "effects": {},
+    "classes": [
+      "Bard"
+    ]
+  },
+  "Rainbow Pattern": {
+    "level": 4,
+    "description": "1 standard action. Fascinates creatures in a colorful light pattern.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Raise Dead (M)": {
+    "level": 5,
+    "description": "1 minute. Restores life to a creature dead no longer than 1 day/level.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "material_component": {
+      "name": "Diamond worth 5,000 gp",
+      "cost": 5000
+    }
+  },
+  "Ray of Enfeeblement": {
+    "level": 1,
+    "description": "1 standard action. Ranged touch attack imposes -1d6+1 Strength penalty.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "attack_type": "Ranged Touch",
+    "vs": "Fort"
+  },
+  "Ray of Exhaustion": {
+    "level": 3,
+    "description": "1 standard action. Ranged touch attack makes subject exhausted.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "attack_type": "Ranged Touch",
+    "vs": "Fort"
+  },
+  "Ray of Frost": {
+    "level": 0,
+    "description": "1 standard action. Ranged touch attack deals 1d3 cold damage.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "attack_type": "Ranged Touch",
+    "vs": "AC"
+  },
+  "Read Magic": {
+    "level": 0,
+    "description": "1 standard action. Read scrolls and spellbooks for 10 min./level.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Reduce Animal": {
+    "level": 2,
+    "description": "1 standard action. Shrinks one animal to half size (-2 Str, +2 Dex, etc.).",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Reduce Person": {
+    "level": 1,
+    "description": "1 standard action. Reduces one humanoid to half size (-2 Str, +2 Dex, -1 AC, etc.).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Reduce Person, Mass": {
+    "level": 4,
+    "description": "1 standard action. As reduce person, but affects one creature/level.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Refuge (M)": {
+    "level": 7,
+    "description": "1 standard action. Creates an object that teleports the user to safety when broken.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Refuge object worth 1,500 gp",
+      "cost": 1500
+    }
+  },
+  "Regenerate": {
+    "level": 7,
+    "description": "1 standard action. Regrows lost body parts and heals 4d8 +[CL,0,x,1,20] damage.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Reincarnate (M)": {
+    "level": 4,
+    "description": "10 minutes. Brings a dead creature back in a new body (random race).",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ],
+    "material_component": {
+      "name": "Rare oils and unguents worth 1,000 gp",
+      "cost": 1000
+    }
+  },
+  "Remove Blindness/Deafness": {
+    "level": 3,
+    "description": "1 standard action. Cures blindness or deafness.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Paladin"
+    ]
+  },
+  "Remove Curse": {
+    "level": 3,
+    "description": "1 standard action. Frees subject from one curse.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Paladin",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Remove Disease": {
+    "level": 3,
+    "description": "1 standard action. Cures all diseases affecting the subject.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Paladin",
+      "Ranger"
+    ]
+  },
+  "Remove Fear": {
+    "level": 1,
+    "description": "1 standard action. Suppresses fear effects on one subject per level.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric"
+    ]
+  },
+  "Remove Paralysis": {
+    "level": 2,
+    "description": "1 standard action. Frees creatures from paralysis or slow effects.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Paladin"
+    ]
+  },
+  "Repel Metal or Stone": {
+    "level": 8,
+    "description": "1 standard action. Pushes away all metal or stone objects in a 40-ft. line.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Repel Vermin": {
+    "level": 4,
+    "description": "1 standard action. Keeps vermin at bay in a 10-ft. radius.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Repel Wood": {
+    "level": 6,
+    "description": "1 standard action. Pushes away all wooden objects in a 40-ft. line.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Repulsion": {
+    "level": 7,
+    "description": "1 standard action. Creatures are compelled to move away from you.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Resilient Sphere": {
+    "level": 4,
+    "description": "1 standard action. Creates an impenetrable sphere around a creature.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Resistance": {
+    "level": 0,
+    "description": "1 standard action. +1 bonus on saving throws for 1 minute.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Resist Energy": {
+    "level": 2,
+    "description": "1 standard action. Ignores 10 points of damage per round from one energy type.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Paladin",
+      "Ranger",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Restoration (M)": {
+    "level": 4,
+    "description": "1 standard action. Restores drained levels and ability score damage.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "material_component": {
+      "name": "Diamond dust worth 100 gp",
+      "cost": 100
+    }
+  },
+  "Restoration, Greater (XP)": {
+    "level": 7,
+    "description": "1 standard action. As restoration, plus restores all levels and ability scores.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Restoration, Lesser": {
+    "level": 2,
+    "description": "1 standard action. Dispels one negative level or restores 1d4 ability score damage.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Paladin"
+    ]
+  },
+  "Resurrection (M)": {
+    "level": 7,
+    "description": "1 minute. Restores life to a creature dead no longer than 10 years/level.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "material_component": {
+      "name": "Diamond worth 10,000 gp",
+      "cost": 10000
+    }
+  },
+  "Reverse Gravity": {
+    "level": 7,
+    "description": "1 standard action. Objects and creatures fall upward in a 40-ft. radius.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Righteous Might": {
+    "level": 5,
+    "description": "1 standard action. You grow larger and gain +4 Str, +2 AC, etc.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Rope Trick": {
+    "level": 2,
+    "description": "1 standard action. Creates an extradimensional space accessible via a rope.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Rusting Grasp": {
+    "level": 4,
+    "description": "1 standard action. Touch corrodes and destroys metal objects.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Sacred Guardian": {
+    "level": 5,
+    "description": "1 standard action. Monitors the precise location and condition/status of a willing creature or object (unharmed, wounded, disabled, staggered, unconscious, dying, dead, etc. for creatures; unharmed, damaged, destroyed for objects). Functions across any distance and planes of existence. Allows the caster to teleport to the subject even without familiarity with the location (if the caster has access to teleportation magic). Casting scrying or greater scrying on the subject requires no saving throw and automatically succeeds (unless the subject is warded by a spell or in a location that blocks scrying). Duration: 1 day/level. No effect on unwilling creatures. For an attended object, the attending creature must be willing.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Sanctuary": {
+    "level": 1,
+    "description": "1 standard action. Opponents cannot attack the subject (Will save negates).",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Scare": {
+    "level": 2,
+    "description": "1 standard action. One or two living creatures of 5 HD or less become frightened.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Will"
+  },
+  "Scintillating Pattern": {
+    "level": 5,
+    "description": "1 standard action. Fascinates and confuses creatures in a colorful light pattern.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Scorching Ray": {
+    "level": 2,
+    "description": "1 standard action. Ranged touch attacks deal 4d6 fire damage (up to 3 rays).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "attack_type": "Ranged Touch",
+    "vs": "AC"
+  },
+  "Screen": {
+    "level": 8,
+    "description": "10 minutes. Hides an area from scrying and makes it appear as something else.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Scrying (M)": {
+    "level": 5,
+    "description": "1 hour. You can see and hear a known or familiar creature.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "A focus worth at least 1,000 gp",
+      "cost": 1000
+    }
+  },
+  "Scrying, Greater": {
+    "level": 7,
+    "description": "1 standard action. As scrying, but with improved range and perception.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Sculpt Sound": {
+    "level": 3,
+    "description": "1 standard action. Creates sounds or alters existing ones.",
+    "effects": {},
+    "classes": [
+      "Bard"
+    ]
+  },
+  "Searing Light": {
+    "level": 3,
+    "description": "1 standard action. Ranged touch attack deals [CL,0,d8,0.5,5] damage (1d8 per two levels, maximum 5d8; double vs undead or constructs).",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "attack_type": "Ranged Touch",
+    "vs": "AC"
+  },
+  "Secret Chest (M)": {
+    "level": 5,
+    "description": "10 minutes. Hides a chest on the Ethereal Plane for later retrieval.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "An exquisite chest and its miniature replica (5,000 gp total)",
+      "cost": 5000
+    }
+  },
+  "Secret Page": {
+    "level": 2,
+    "description": "1 standard action. Changes the appearance of a page to hide its true content.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Secure Shelter": {
+    "level": 5,
+    "description": "10 minutes. Creates a sturdy cottage with food and beds.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "See Invisibility": {
+    "level": 2,
+    "description": "1 standard action. You see invisible creatures and objects.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Seeming": {
+    "level": 5,
+    "description": "1 standard action. Changes the appearance of one creature per two levels.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Sending": {
+    "level": 4,
+    "description": "1 standard action. Sends a short message to a known creature anywhere.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Sepia Snake Sigil (M)": {
+    "level": 3,
+    "description": "10 minutes. Creates a magical trap on a page that immobilizes readers.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "A drop of ink and a snake scale",
+      "cost": 0
+    }
+  },
+  "Sequester (M)": {
+    "level": 7,
+    "description": "1 standard action. Makes a creature or object invisible and undetectable.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "A rare ointment worth 500 gp",
+      "cost": 500
+    }
+  },
+  "Shades": {
+    "level": 6,
+    "description": "1 standard action. As shadow conjuration, but more powerful and real.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Shadow Conjuration": {
+    "level": 4,
+    "description": "1 standard action. Mimics a conjuration spell at 1/5 strength.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Shadow Conjuration, Greater": {
+    "level": 7,
+    "description": "1 standard action. As shadow conjuration, but more powerful.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Shadow Evocation": {
+    "level": 5,
+    "description": "1 standard action. Mimics an evocation spell at 1/5 strength.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Shadow Evocation, Greater": {
+    "level": 8,
+    "description": "1 standard action. As shadow evocation, but more powerful.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Shadow Walk": {
+    "level": 7,
+    "description": "1 standard action. Travel rapidly via the Plane of Shadow.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Shambler": {
+    "level": 9,
+    "description": "1 standard action. Summons 1d4+2 shambling mounds to serve you.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Shapechange": {
+    "level": 9,
+    "description": "1 standard action. You can assume the form of any creature or object.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Shatter": {
+    "level": 2,
+    "description": "1 standard action. Sonic vibration damages objects or creatures.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Shield": {
+    "level": 1,
+    "description": "1 standard action. Invisible shield. +4 shield bonus to AC.",
+    "effects": {
+      "Shield Bonus": 4
+    },
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Shield of Faith": {
+    "level": 1,
+    "description": "1 standard action. +[CL,2,x,1:6,5] deflection bonus to AC (maximum +5 at 18th level).",
+    "effects": {
+      "AC Bonus": {
+        "value": "[CL,2,x,1:6,5]",
+        "bonus_type": "Deflection"
+      }
+    },
+    "classes": [
+      "Cleric",
+      "Paladin"
+    ]
+  },
+  "Shield of Law": {
+    "level": 4,
+    "description": "1 standard action. +4 AC and +4 resistance saves vs. chaotic creatures and spells.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Shield of Warding": {
+    "level": 3,
+    "description": "1 standard action. The touched shield or buckler grants its wielder a +[CL,1,x,1:5,5] sacred bonus to AC and on Reflex saves (+1 per 5 caster levels, maximum +5 at 20th level). The bonus applies only when the shield is worn or carried normally (but not, for instance, if it is slung over the shoulder).",
+    "effects": {
+      "AC Bonus": {
+        "value": "[CL,1,x,1:5,5]",
+        "bonus_type": "Sacred"
+      },
+      "Save: Ref": {
+        "value": "[CL,1,x,1:5,5]",
+        "bonus_type": "Sacred"
+      }
+    },
+    "classes": [
+      "Cleric",
+      "Paladin"
+    ],
+    "class_levels": {
+      "Cleric": 3,
+      "Paladin": 2
+    }
+  },
+  "Shield Other": {
+    "level": 2,
+    "description": "1 standard action. Transfers half of the subject's damage to you.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Paladin"
+    ]
+  },
+  "Shillelagh": {
+    "level": 1,
+    "description": "1 standard action. Makes a club or quarterstaff a +1 weapon that deals more damage.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Shocking Grasp": {
+    "level": 1,
+    "description": "1 standard action. Touch attack deals [CL,0,d6,1,5] electricity damage (maximum 5d6).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "attack_type": "Melee",
+    "vs": "AC"
+  },
+  "Shout": {
+    "level": 4,
+    "description": "1 standard action. Deafens and deals 5d6 sonic damage in a 30-ft. cone.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Fort"
+  },
+  "Shout, Greater": {
+    "level": 6,
+    "description": "1 standard action. As shout, but deals 10d6 sonic damage and deafens longer.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Fort"
+  },
+  "Shrink Item": {
+    "level": 3,
+    "description": "1 standard action. Shrinks one non-magical item to 1/12 size.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Silence": {
+    "level": 2,
+    "description": "1 round. Creates an area where sound cannot be created or heard.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric"
+    ]
+  },
+  "Silent Image": {
+    "level": 1,
+    "description": "1 standard action. Creates a visual illusion with no sound, smell, etc.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Simulacrum (M, XP)": {
+    "level": 7,
+    "description": "12 hours. Creates a partially real duplicate of a creature.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Snow and ice sculpted into the form",
+      "cost": 100
+    }
+  },
+  "Slay Living": {
+    "level": 5,
+    "description": "1 standard action. Touch attack kills a living creature (or on successful save deals 3d6 +[CL,0,x,1,10] damage).",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "attack_type": "Melee",
+    "vs": "Fort"
+  },
+  "Sleep": {
+    "level": 1,
+    "description": "1 round. Puts 4 HD of creatures to sleep.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Will"
+  },
+  "Sleet Storm": {
+    "level": 3,
+    "description": "1 standard action. Hampers movement and vision in a 40-ft. radius cylinder.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Slow": {
+    "level": 3,
+    "description": "1 standard action. One creature per level is slowed.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Snare": {
+    "level": 3,
+    "description": "1 standard action. Creates a magical snare that entangles a creature.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Soften Earth and Stone": {
+    "level": 2,
+    "description": "1 standard action. Turns earth or stone into soft clay or mud.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Solid Fog": {
+    "level": 4,
+    "description": "1 standard action. Fog obscures vision and slows movement severely.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Song of Discord": {
+    "level": 5,
+    "description": "1 standard action. Forces creatures to attack each other.",
+    "effects": {},
+    "classes": [
+      "Bard"
+    ]
+  },
+  "Soul Bind (M)": {
+    "level": 9,
+    "description": "1 standard action. Traps a recently dead soul in a gem.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "material_component": {
+      "name": "A black sapphire worth 1,000 gp",
+      "cost": 1000
+    }
+  },
+  "Sound Burst": {
+    "level": 2,
+    "description": "1 standard action. Deals 1d8 sonic damage and may stun creatures.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric"
+    ],
+    "vs": "Fort"
+  },
+  "Speak with Animals": {
+    "level": 1,
+    "description": "1 standard action. You can talk with animals for 1 min./level.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Speak with Dead": {
+    "level": 3,
+    "description": "10 minutes. You can ask questions of a corpse that has been dead no longer than 1 day/level.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Speak with Plants": {
+    "level": 3,
+    "description": "1 standard action. You can communicate with plants and plant creatures.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Spectral Hand": {
+    "level": 2,
+    "description": "1 standard action. Creates a ghostly hand that delivers touch spells at range.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Spell Immunity": {
+    "level": 4,
+    "description": "1 standard action. Subject is immune to one spell per four levels.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Spell Immunity, Greater": {
+    "level": 8,
+    "description": "1 standard action. As spell immunity, but protects against more spells.",
+    "effects": {},
+    "classes": []
+  },
+  "Spell Resistance": {
+    "level": 5,
+    "description": "1 standard action. Subject gains SR 12 + caster level.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Spellstaff": {
+    "level": 6,
+    "description": "10 minutes. Stores one spell in a wooden staff for later use.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Spell Turning": {
+    "level": 7,
+    "description": "1 standard action. Reflects 1d4+6 spell levels back at the caster.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Spider Climb": {
+    "level": 1,
+    "description": "1 standard action. Subject can climb walls and ceilings like a spider.",
+    "effects": {
+      "climb_match_land": true
+    },
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Spike Growth": {
+    "level": 2,
+    "description": "1 standard action. Ground in 20-ft. radius sprouts spikes dealing damage.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Ranger"
+    ],
+    "vs": "Ref"
+  },
+  "Spike Stones": {
+    "level": 4,
+    "description": "1 standard action. Stones in area sprout spikes dealing damage.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ],
+    "vs": "Ref"
+  },
+  "Spiritual Weapon": {
+    "level": 2,
+    "description": "1 standard action. Creates a floating magic weapon that attacks your foes.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Statue": {
+    "level": 7,
+    "description": "1 standard action. Subject can become a statue at will.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Status": {
+    "level": 2,
+    "description": "1 standard action. Monitors condition and position of allies.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Stinking Cloud": {
+    "level": 3,
+    "description": "1 standard action. Cloud nauseates living creatures.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Fort"
+  },
+  "Stone Shape": {
+    "level": 4,
+    "description": "1 standard action. Shapes stone into any form you desire.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Stoneskin (M)": {
+    "level": 4,
+    "description": "1 standard action. Absorbs [CL,0,x,10,150] points of damage (maximum 150). When set to Active in prepared spells, sets your total Temp HP to the absorb value.",
+    "effects": {
+      "temp_hp": "[CL,0,x,10,150]"
+    },
+    "classes": [
+      "Cleric",
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Diamond dust",
+      "cost": 250
+    }
+  },
+  "Stone Tell": {
+    "level": 6,
+    "description": "10 minutes. You can talk to natural or worked stone and learn what it knows.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Stone to Flesh": {
+    "level": 6,
+    "description": "1 standard action. Restores a petrified creature to flesh.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Storm of Vengeance": {
+    "level": 9,
+    "description": "1 standard action. Creates a massive storm that deals acid, lightning, and hail damage over rounds.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Suggestion": {
+    "level": 3,
+    "description": "1 standard action. Compels a subject to follow a course of action.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Will"
+  },
+  "Suggestion, Mass": {
+    "level": 6,
+    "description": "1 standard action. As suggestion, but affects one creature per level.",
+    "effects": {},
+    "classes": [
+      "Bard[2]",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Summon Instrument": {
+    "level": 0,
+    "description": "1 standard action. Summons a handheld musical instrument.",
+    "effects": {},
+    "classes": [
+      "Bard"
+    ]
+  },
+  "Summon Monster I": {
+    "level": 1,
+    "description": "1 standard action. Summons one creature from the 1st-level list.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Summon Monster II": {
+    "level": 2,
+    "description": "1 standard action. Summons one creature from the 2nd-level list.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Summon Monster III": {
+    "level": 3,
+    "description": "1 standard action. Summons one creature from the 3rd-level list.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Summon Monster IV": {
+    "level": 4,
+    "description": "1 standard action. Summons one creature from the 4th-level list.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Summon Monster V": {
+    "level": 5,
+    "description": "1 standard action. Summons one creature from the 5th-level list.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Summon Monster VI": {
+    "level": 6,
+    "description": "1 standard action. Summons one creature from the 6th-level list.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Summon Monster VII": {
+    "level": 7,
+    "description": "1 standard action. Summons one creature from the 7th-level list.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Summon Monster VIII": {
+    "level": 8,
+    "description": "1 standard action. Summons one creature from the 8th-level list.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Summon Monster IX": {
+    "level": 9,
+    "description": "1 standard action. Summons one creature from the 9th-level list.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Summon Nature’s Ally I": {
+    "level": 1,
+    "description": "1 standard action. Summons one creature from the 1st-level list.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Summon Nature’s Ally II": {
+    "level": 2,
+    "description": "1 standard action. Summons one creature from the 2nd-level list.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Summon Nature’s Ally III": {
+    "level": 3,
+    "description": "1 standard action. Summons one creature from the 3rd-level list.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Summon Nature’s Ally IV": {
+    "level": 4,
+    "description": "1 standard action. Summons one creature from the 4th-level list.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Summon Nature’s Ally V": {
+    "level": 5,
+    "description": "1 standard action. Summons one creature from the 5th-level list.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Summon Nature’s Ally VI": {
+    "level": 6,
+    "description": "1 standard action. Summons one creature from the 6th-level list.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Summon Nature’s Ally VII": {
+    "level": 7,
+    "description": "1 standard action. Summons one creature from the 7th-level list.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Summon Nature’s Ally VIII": {
+    "level": 8,
+    "description": "1 standard action. Summons one creature from the 8th-level list.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Summon Nature’s Ally IX": {
+    "level": 9,
+    "description": "1 standard action. Summons one creature from the 9th-level list.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Summon Swarm": {
+    "level": 2,
+    "description": "1 standard action. Summons a swarm of bats, rats, or spiders.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Sunbeam": {
+    "level": 6,
+    "description": "1 standard action. Beam of light deals 3d6 damage and blinds creatures.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ],
+    "vs": "Fort"
+  },
+  "Sunburst": {
+    "level": 8,
+    "description": "1 standard action. Burst of sunlight deals 6d6 damage and blinds creatures.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Fort"
+  },
+  "Symbol of Death (M)": {
+    "level": 8,
+    "description": "10 minutes. Inscribes a deadly symbol that slays creatures.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Mercury and phosphorus",
+      "cost": 1000
+    }
+  },
+  "Symbol of Fear (M)": {
+    "level": 6,
+    "description": "10 minutes. Inscribes a symbol that causes fear.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Mercury and phosphorus",
+      "cost": 1000
+    }
+  },
+  "Symbol of Insanity (M)": {
+    "level": 8,
+    "description": "10 minutes. Inscribes a symbol that causes permanent insanity.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Mercury and phosphorus",
+      "cost": 1000
+    }
+  },
+  "Symbol of Pain (M)": {
+    "level": 5,
+    "description": "10 minutes. Inscribes a symbol that causes wracking pain.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Mercury and phosphorus",
+      "cost": 1000
+    }
+  },
+  "Symbol of Persuasion (M)": {
+    "level": 6,
+    "description": "10 minutes. Inscribes a symbol that charms creatures.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Mercury and phosphorus",
+      "cost": 1000
+    }
+  },
+  "Symbol of Sleep (M)": {
+    "level": 5,
+    "description": "10 minutes. Inscribes a symbol that puts creatures to sleep.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Mercury and phosphorus",
+      "cost": 1000
+    }
+  },
+  "Symbol of Stunning (M)": {
+    "level": 7,
+    "description": "10 minutes. Inscribes a symbol that stuns creatures.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Mercury and phosphorus",
+      "cost": 1000
+    }
+  },
+  "Symbol of Weakness (M)": {
+    "level": 7,
+    "description": "10 minutes. Inscribes a symbol that weakens creatures.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Mercury and phosphorus",
+      "cost": 1000
+    }
+  },
+  "Sympathetic Vibration": {
+    "level": 6,
+    "description": "10 minutes. Causes a freestanding structure to collapse.",
+    "effects": {},
+    "classes": [
+      "Bard"
+    ]
+  },
+  "Sympathy (M)": {
+    "level": 8,
+    "description": "1 hour. Compels creatures of a chosen kind to approach and stay near an object.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Crushed pearls worth 1,500 gp",
+      "cost": 1500
+    }
+  },
+  "Telekinesis": {
+    "level": 5,
+    "description": "1 standard action. Move objects or creatures with your mind (sustained or violent thrust).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Telekinetic Sphere": {
+    "level": 8,
+    "description": "1 standard action. Creates an impenetrable sphere that can be moved telekinetically.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Telepathic Bond": {
+    "level": 5,
+    "description": "1 standard action. Links up to 10 creatures for telepathic communication.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Teleport": {
+    "level": 5,
+    "description": "1 standard action. Instantly transports you and up to 50 lb./level to a familiar location.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Teleport Object": {
+    "level": 7,
+    "description": "1 standard action. As teleport, but affects an object up to 50 lb./level.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Teleport, Greater": {
+    "level": 7,
+    "description": "1 standard action. As teleport, but no chance of error and can reach any plane.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Teleportation Circle (M)": {
+    "level": 9,
+    "description": "10 minutes. Creates a permanent teleportation circle.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Precious gems worth 1,000 gp",
+      "cost": 1000
+    }
+  },
+  "Temporal Stasis (M)": {
+    "level": 8,
+    "description": "1 standard action. Puts a creature into suspended animation.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Powdered diamond, emerald, and ruby worth 5,000 gp",
+      "cost": 5000
+    }
+  },
+  "Time Stop": {
+    "level": 9,
+    "description": "1 standard action. You stop time for everyone but yourself for 1d4+1 rounds.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Tiny Hut (M)": {
+    "level": 3,
+    "description": "1 standard action. Creates a 20-ft.-radius hemispherical shelter.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "A small crystal bead",
+      "cost": 0
+    }
+  },
+  "Tongues": {
+    "level": 3,
+    "description": "1 standard action. You understand and speak any spoken language.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Touch of Fatigue": {
+    "level": 0,
+    "description": "1 standard action. Touch attack fatigues the target.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "attack_type": "Touch",
+    "vs": "Fort"
+  },
+  "Touch of Idiocy": {
+    "level": 2,
+    "description": "1 standard action. Touch attack reduces one ability score by 1d6.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "attack_type": "Touch",
+    "vs": "AC"
+  },
+  "Transformation": {
+    "level": 6,
+    "description": "1 standard action. You gain combat bonuses (like a barbarian rage but better).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Transmute Metal to Wood": {
+    "level": 7,
+    "description": "1 standard action. All metal objects in the area become wood.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Transmute Mud to Rock": {
+    "level": 5,
+    "description": "1 standard action. Transforms mud or quicksand into rock.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Transmute Rock to Mud": {
+    "level": 5,
+    "description": "1 standard action. Transforms rock into mud or quicksand.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Transport via Plants": {
+    "level": 6,
+    "description": "1 standard action. You and companions can travel instantly via plants.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Trap the Soul (M)": {
+    "level": 8,
+    "description": "1 standard action. Traps a creature's soul in a gem.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "A gem worth 1,000 gp per HD of the creature",
+      "cost": 1000
+    }
+  },
+  "Tree Shape": {
+    "level": 2,
+    "description": "1 standard action. You assume the form of a tree.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Tree Stride": {
+    "level": 5,
+    "description": "1 standard action. You can teleport from tree to tree.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "True Resurrection (M)": {
+    "level": 9,
+    "description": "10 minutes. Restores life to a creature dead no longer than 10 years/level.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "material_component": {
+      "name": "Diamond worth 25,000 gp",
+      "cost": 25000
+    }
+  },
+  "True Seeing (M)": {
+    "level": 5,
+    "description": "1 standard action. See through illusions, see invisibility, etc.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "An ointment for the eyes",
+      "cost": 250
+    }
+  },
+  "True Strike": {
+    "level": 1,
+    "description": "1 standard action. +20 insight bonus on your next attack roll.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Undeath to Death (M)": {
+    "level": 6,
+    "description": "1 standard action. Destroys [CL,0,d4,1,20] HD worth of undead in a 60-ft. burst (maximum 20d4 HD).",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Diamond dust",
+      "cost": 500
+    }
+  },
+  "Undetectable Alignment": {
+    "level": 1,
+    "description": "1 standard action. Conceals the subject's alignment from divination spells.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Paladin",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Unhallow (M)": {
+    "level": 5,
+    "description": "24 hours. Makes an area unholy and allows one additional spell effect.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "material_component": {
+      "name": "Herbs, oils, and incense worth 1,000 gp plus 1,000 gp per level of the spell to be included",
+      "cost": 1000
+    }
+  },
+  "Unholy Aura": {
+    "level": 8,
+    "description": "1 standard action. +4 AC, +4 resistance saves, and protects evil creatures from good spells.",
+    "effects": {},
+    "classes": []
+  },
+  "Unholy Blight": {
+    "level": 4,
+    "description": "1 standard action. Damages and sickens good creatures (more against good outsiders).",
+    "effects": {},
+    "classes": [],
+    "vs": "Fort"
+  },
+  "Unseen Servant": {
+    "level": 1,
+    "description": "1 standard action. Creates an invisible force that performs simple tasks.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Vampiric Touch": {
+    "level": 3,
+    "description": "1 standard action. Touch deals [CL,0,d6,0.5,10] damage (1d6 per two levels, maximum 10d6) and grants you that much temporary HP.",
+    "effects": {
+      "temp_hp_variable": true,
+      "temp_hp_prompt": "Enter temporary HP gained (damage dealt by the touch)"
+    },
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "AC",
+    "attack_type": "Melee"
+  },
+  "Veil": {
+    "level": 6,
+    "description": "1 standard action. Changes the appearance of a group of creatures.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Ventriloquism": {
+    "level": 1,
+    "description": "1 standard action. Your voice appears to come from elsewhere.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Virtue": {
+    "level": 0,
+    "description": "1 standard action. Subject gains 1 temporary hit point.",
+    "effects": {
+      "temp_hp": 1
+    },
+    "classes": [
+      "Cleric"
+    ]
+  },
+  "Vision (M, XP)": {
+    "level": 7,
+    "description": "1 standard action. You gain information about a person, place, or thing.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "Incense worth 250 gp",
+      "cost": 250
+    }
+  },
+  "Wail of the Banshee": {
+    "level": 9,
+    "description": "1 standard action. All creatures within 30 ft. that can hear you take 10d6 damage and may die.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Fort"
+  },
+  "Wall of Fire": {
+    "level": 4,
+    "description": "1 standard action. Creates a wall of fire that deals 2d6 +[CL,0,x,1,20] fire damage (maximum +20).",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Wall of Force": {
+    "level": 5,
+    "description": "1 standard action. Creates an invisible, impenetrable wall of force.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Wall of Ice": {
+    "level": 4,
+    "description": "1 standard action. Creates a wall of ice that can be broken through or used as a barrier.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Wall of Iron (M)": {
+    "level": 5,
+    "description": "1 standard action. Creates a 1-inch-thick wall of iron.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "material_component": {
+      "name": "A small piece of iron",
+      "cost": 0
+    }
+  },
+  "Wall of Stone": {
+    "level": 5,
+    "description": "1 standard action. Creates a wall of stone that can be shaped.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Wall of Thorns": {
+    "level": 5,
+    "description": "1 standard action. Creates a barrier of thorns that deals damage to creatures passing through.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Warp Wood": {
+    "level": 2,
+    "description": "1 standard action. Warps and ruins wooden objects or weapons.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Water Breathing": {
+    "level": 3,
+    "description": "1 standard action. Subjects can breathe underwater.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Water Walk": {
+    "level": 3,
+    "description": "1 standard action. Subjects can tread on water as if solid ground.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid",
+      "Ranger"
+    ]
+  },
+  "Waves of Exhaustion": {
+    "level": 7,
+    "description": "1 standard action. All living creatures in 60-ft. cone become exhausted.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Waves of Fatigue": {
+    "level": 5,
+    "description": "1 standard action. All living creatures in 30-ft. cone become fatigued.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Web": {
+    "level": 2,
+    "description": "1 standard action. Fills area with sticky webs that entangle creatures.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Ref"
+  },
+  "Weird": {
+    "level": 9,
+    "description": "1 standard action. As phantasmal killer, but affects all creatures in 30-ft. radius.",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ],
+    "vs": "Will"
+  },
+  "Whirlwind": {
+    "level": 8,
+    "description": "1 standard action. Creates a powerful cyclone that deals damage and lifts creatures.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Whispering Wind": {
+    "level": 2,
+    "description": "1 standard action. Sends a short message or sound to a distant location.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Wind Walk": {
+    "level": 6,
+    "description": "1 standard action. You and companions turn into vapor and fly at high speed.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Wind Wall": {
+    "level": 3,
+    "description": "1 standard action. Creates a wall of wind that deflects arrows, gases, etc.",
+    "effects": {},
+    "classes": [
+      "Druid",
+      "Ranger",
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Wish (XP)": {
+    "level": 9,
+    "description": "1 standard action. Alters reality in a powerful but limited way (XP cost).",
+    "effects": {},
+    "classes": [
+      "Wizard",
+      "Sorcerer"
+    ]
+  },
+  "Wood Shape": {
+    "level": 2,
+    "description": "1 standard action. Shapes wood into any desired form.",
+    "effects": {},
+    "classes": [
+      "Druid"
+    ]
+  },
+  "Word of Chaos": {
+    "level": 7,
+    "description": "1 standard action. Utters a word of power that affects non-chaotic creatures differently.",
+    "effects": {},
+    "classes": [
+      "Cleric"
+    ],
+    "vs": "Will"
+  },
+  "Word of Recall": {
+    "level": 6,
+    "description": "1 standard action. Teleports you and up to 50 lb./level back to a designated sanctuary.",
+    "effects": {},
+    "classes": [
+      "Cleric",
+      "Druid"
+    ]
+  },
+  "Zealot Pact": {
+    "level": 6,
+    "description": "10 minutes. Binds willing creature to your deity. Dormant until subject hits a foe of exactly opposite alignment to your deity (for neutral, choose one: LG/LE/CE/CG). Then melee attacks gain +4 bonus and deal double damage. Must keep attacking opposite alignment every round or ends. Knows opposite alignment creatures within 60 ft. Duration after trigger: 1 round/CL. XP cost: 500. Only one at a time.",
+    "effects": {
+      "attack_bonus": 4
+    },
+    "classes": [
+      "Cleric"
+    ],
+    "attack_type": "Melee",
+    "vs": "Will"
+  },
+  "Zone of Silence": {
+    "level": 4,
+    "description": "1 round. Creates an area where sound cannot be heard from outside.",
+    "effects": {},
+    "classes": [
+      "Bard"
+    ]
+  },
+  "Zone of Truth": {
+    "level": 2,
+    "description": "1 standard action. Creatures in area cannot speak lies.",
+    "effects": {},
+    "classes": [
+      "Bard",
+      "Cleric",
+      "Paladin"
+    ]
+  }
+}

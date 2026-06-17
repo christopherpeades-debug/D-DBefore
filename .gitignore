@@ -1,0 +1,40 @@
+# Build artifacts
+build/
+dist/
+installer_output/
+*.spec.bak
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+*.egg-info/
+
+# User / local data (never commit)
+sync_config.json
+last_character.json
+last_character*.json
+Roguu.json
+Character Portraits/
+Characters/
+Characters/
+*.log
+pyinstaller_debug.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# One-off dev scripts / backups
+temp_*.py
+test_*.py
+*dnd_character_sheet - Copy*
+magical_items.json.bak
+New folder/
+
+# Old standalone installers in project root
+DnD_Character_Sheet_Setup.exe

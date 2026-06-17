@@ -1,0 +1,160 @@
+{
+  "Badger": {
+    "hd": 1,
+    "size": "Small",
+    "speed": 30,
+    "ac": 13,
+    "str": 8,
+    "dex": 17,
+    "con": 12,
+    "int": 2,
+    "wis": 12,
+    "cha": 6,
+    "attack": "bite +2 (1d4)",
+    "bab": 1,
+    "fort": 3,
+    "ref": 3,
+    "will": 1,
+    "skills": {
+      "Listen": 3,
+      "Spot": 3
+    },
+    "feats": [
+      "Track"
+    ],
+    "special": "Rage 1/day"
+  },
+  "Dog": {
+    "hd": 1,
+    "size": "Small",
+    "speed": 40,
+    "ac": 13,
+    "str": 9,
+    "dex": 17,
+    "con": 12,
+    "int": 2,
+    "wis": 12,
+    "cha": 6,
+    "attack": "bite +1 (1d4)",
+    "bab": 0,
+    "fort": 2,
+    "ref": 3,
+    "will": 1,
+    "skills": {
+      "Listen": 2,
+      "Spot": 2,
+      "Survival": 1
+    },
+    "feats": [
+      "Track"
+    ],
+    "special": "Scent"
+  },
+  "Eagle": {
+    "hd": 1,
+    "size": "Small",
+    "speed": 10,
+    "ac": 14,
+    "str": 6,
+    "dex": 17,
+    "con": 10,
+    "int": 2,
+    "wis": 14,
+    "cha": 6,
+    "attack": "talons +3 (1d4) or bite +3 (1d4)",
+    "bab": 1,
+    "fort": 2,
+    "ref": 3,
+    "will": 2,
+    "skills": {
+      "Listen": 4,
+      "Spot": 4
+    },
+    "feats": [
+      "Weapon Finesse"
+    ],
+    "special": "Low-light vision"
+  },
+  "Riding Dog": {
+    "hd": 2,
+    "size": "Medium",
+    "speed": 40,
+    "ac": 16,
+    "str": 13,
+    "dex": 17,
+    "con": 13,
+    "int": 2,
+    "wis": 12,
+    "cha": 6,
+    "attack": "bite +3 (1d6+1)",
+    "bab": 1,
+    "fort": 3,
+    "ref": 3,
+    "will": 1,
+    "skills": {
+      "Listen": 3,
+      "Spot": 3,
+      "Survival": 1
+    },
+    "feats": [
+      "Track",
+      "Weapon Focus (bite)"
+    ],
+    "special": "Scent"
+  },
+  "Snake (Small viper)": {
+    "hd": 1,
+    "size": "Small",
+    "speed": 20,
+    "ac": 15,
+    "str": 6,
+    "dex": 17,
+    "con": 11,
+    "int": 1,
+    "wis": 12,
+    "cha": 2,
+    "attack": "bite +2 (1d3 + poison DC10 1d6 Con)",
+    "bab": 0,
+    "fort": 2,
+    "ref": 3,
+    "will": 1,
+    "skills": {
+      "Balance": 3,
+      "Climb": 3,
+      "Hide": 3,
+      "Listen": 3,
+      "Spot": 3
+    },
+    "feats": [
+      "Weapon Finesse"
+    ],
+    "special": "Poison"
+  },
+  "Wolf": {
+    "hd": 2,
+    "size": "Medium",
+    "speed": 50,
+    "ac": 14,
+    "str": 13,
+    "dex": 15,
+    "con": 15,
+    "int": 2,
+    "wis": 12,
+    "cha": 6,
+    "attack": "bite +3 (1d6+1)",
+    "bab": 1,
+    "fort": 3,
+    "ref": 3,
+    "will": 1,
+    "skills": {
+      "Listen": 3,
+      "Spot": 3,
+      "Survival": 1
+    },
+    "feats": [
+      "Track",
+      "Weapon Focus (bite)"
+    ],
+    "special": "Trip, Scent"
+  }
+}

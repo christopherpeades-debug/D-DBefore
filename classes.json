@@ -1,0 +1,2692 @@
+{
+  "Bard": {
+    "hit_die": "d6",
+    "bab": "medium",
+    "fort": "poor",
+    "ref": "good",
+    "will": "good",
+    "restricted_alignments": [
+      "Lawful Good",
+      "Lawful Neutral",
+      "Lawful Evil"
+    ],
+    "skill_points_per_level": 6,
+    "class_skills": [
+      "Appraise",
+      "Balance",
+      "Bluff",
+      "Climb",
+      "Concentration",
+      "Craft",
+      "Decipher Script",
+      "Diplomacy",
+      "Disguise",
+      "Escape Artist",
+      "Gather Information",
+      "Hide",
+      "Jump",
+      "Knowledge (all)",
+      "Listen",
+      "Move Silently",
+      "Perform",
+      "Profession",
+      "Sense Motive",
+      "Sleight of Hand",
+      "Spellcraft",
+      "Swim",
+      "Tumble",
+      "Use Magic Device"
+    ],
+    "features": {
+      "1": [
+        {
+          "name": "Bardic Knowledge",
+          "description": "Make a bardic knowledge check (d20 + bard level + Int modifier) to recall information about local legends, items, or places."
+        },
+        {
+          "name": "Bardic Music",
+          "description": "You can use bardic music a number of times per day equal to your bard level. See specific bardic music abilities (Countersong, Fascinate, Inspire Courage, etc.).",
+          "use_tracker": {
+            "id": "bardic_music",
+            "formula": "class_level"
+          }
+        },
+        {
+          "name": "Countersong",
+          "description": "Counter magical effects dependent on sound."
+        },
+        {
+          "name": "Fascinate",
+          "description": "Fascinate one or more creatures with your performance."
+        },
+        {
+          "name": "Inspire Courage +1",
+          "description": "+1 morale bonus on attack rolls, damage rolls, and saves vs. charm/fear for allies who can hear you."
+        }
+      ],
+      "3": [
+        {
+          "name": "Inspire Competence",
+          "description": "Grant an ally within 30 ft. a +2 competence bonus on skill checks."
+        }
+      ],
+      "6": [
+        {
+          "name": "Suggestion",
+          "description": "Use suggestion (as the spell) on a fascinated creature."
+        }
+      ],
+      "8": [
+        {
+          "name": "Inspire Courage +2",
+          "description": "Inspire Courage bonus increases to +2."
+        }
+      ],
+      "9": [
+        {
+          "name": "Inspire Greatness",
+          "description": "Inspire greatness in yourself or a willing ally (extra Hit Dice, bonuses)."
+        }
+      ],
+      "12": [
+        {
+          "name": "Song of Freedom",
+          "description": "Duplicate the effect of break enchantment with your music."
+        }
+      ],
+      "14": [
+        {
+          "name": "Inspire Courage +3",
+          "description": "Inspire Courage bonus increases to +3."
+        }
+      ],
+      "15": [
+        {
+          "name": "Inspire Heroics",
+          "description": "Inspire heroics in yourself or a willing ally (+4 morale saves, +4 dodge AC)."
+        }
+      ],
+      "18": [
+        {
+          "name": "Mass Suggestion",
+          "description": "Make suggestion simultaneously to any number of fascinated creatures."
+        }
+      ],
+      "20": [
+        {
+          "name": "Inspire Courage +4",
+          "description": "Inspire Courage bonus increases to +4."
+        }
+      ]
+    },
+    "spellcasting": {
+      "type": "arcane",
+      "ability": "Charisma",
+      "spells_per_day": {
+        "1": [
+          2
+        ],
+        "2": [
+          3,
+          0
+        ],
+        "3": [
+          3,
+          1
+        ],
+        "4": [
+          3,
+          2,
+          0
+        ],
+        "5": [
+          3,
+          3,
+          1
+        ],
+        "6": [
+          3,
+          3,
+          2
+        ],
+        "7": [
+          3,
+          3,
+          2,
+          0
+        ],
+        "8": [
+          3,
+          3,
+          3,
+          1
+        ],
+        "9": [
+          3,
+          3,
+          3,
+          2
+        ],
+        "10": [
+          3,
+          3,
+          3,
+          2,
+          0
+        ],
+        "11": [
+          3,
+          3,
+          3,
+          3,
+          1
+        ],
+        "12": [
+          3,
+          3,
+          3,
+          3,
+          2
+        ],
+        "13": [
+          3,
+          3,
+          3,
+          3,
+          2,
+          0
+        ],
+        "14": [
+          4,
+          3,
+          3,
+          3,
+          3,
+          1
+        ],
+        "15": [
+          4,
+          4,
+          3,
+          3,
+          3,
+          2
+        ],
+        "16": [
+          4,
+          4,
+          4,
+          3,
+          3,
+          2,
+          0
+        ],
+        "17": [
+          4,
+          4,
+          4,
+          4,
+          3,
+          3,
+          1
+        ],
+        "18": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          2
+        ],
+        "19": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3
+        ],
+        "20": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ]
+      },
+      "spells_known": {
+        "1": [
+          4,
+          2
+        ],
+        "2": [
+          5,
+          3
+        ],
+        "3": [
+          5,
+          3,
+          2
+        ],
+        "4": [
+          5,
+          4,
+          3
+        ],
+        "5": [
+          5,
+          4,
+          3,
+          2
+        ],
+        "6": [
+          5,
+          4,
+          3,
+          3
+        ],
+        "7": [
+          5,
+          4,
+          4,
+          3,
+          2
+        ],
+        "8": [
+          5,
+          4,
+          4,
+          3,
+          3
+        ],
+        "9": [
+          5,
+          4,
+          4,
+          4,
+          3,
+          2
+        ],
+        "10": [
+          5,
+          4,
+          4,
+          4,
+          3,
+          3
+        ],
+        "11": [
+          5,
+          4,
+          4,
+          4,
+          4,
+          3,
+          2
+        ],
+        "12": [
+          5,
+          4,
+          4,
+          4,
+          4,
+          3,
+          3
+        ],
+        "13": [
+          5,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          2
+        ],
+        "14": [
+          5,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          3
+        ],
+        "15": [
+          5,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          2
+        ],
+        "16": [
+          5,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          3
+        ],
+        "17": [
+          5,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          2
+        ],
+        "18": [
+          5,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          3
+        ],
+        "19": [
+          5,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3
+        ],
+        "20": [
+          5,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ]
+      }
+    }
+  },
+  "Cleric": {
+    "hit_die": "d8",
+    "bab": "poor",
+    "fort": "good",
+    "ref": "poor",
+    "will": "good",
+    "skill_points_per_level": 2,
+    "class_skills": [
+      "Concentration",
+      "Craft",
+      "Diplomacy",
+      "Heal",
+      "Knowledge (arcana)",
+      "Knowledge (history)",
+      "Knowledge (religion)",
+      "Knowledge (the planes)",
+      "Profession",
+      "Spellcraft"
+    ],
+    "features": {
+      "1": [
+        {
+          "name": "Turn or Rebuke Undead",
+          "description": " A Good or neutral cleric can turn or destroy undead. You can turn or rebuke undead creatures a number of times per day equal to 3 + your Charisma modifier.",
+          "use_tracker": {
+            "id": "turn_undead",
+            "formula": "3_plus_cha"
+          }
+        },
+        {
+		  "name": "Spontaneous Casting", 
+		  "description": "Good or Neutral clerics can lose a prepared spell that is not a domain spell to cast any cure spell of the same level or lower."
+		},  
+		{
+          "name": "Domains",
+          "description": "Choose two domains from your deity (or any if no deity). You gain the granted power of each domain and may prepare one domain spell per spell level in your domain slot.",
+          "is_domain_choice": true
+        }
+      ]
+    },
+    "spellcasting": {
+      "type": "divine",
+      "ability": "Wisdom",
+      "spells_per_day": {
+        "1": [
+          3,
+          1
+        ],
+        "2": [
+          4,
+          2
+        ],
+        "3": [
+          4,
+          2,
+          1
+        ],
+        "4": [
+          5,
+          3,
+          2
+        ],
+        "5": [
+          5,
+          3,
+          2,
+          1
+        ],
+        "6": [
+          5,
+          3,
+          3,
+          2
+        ],
+        "7": [
+          6,
+          4,
+          3,
+          2,
+          1
+        ],
+        "8": [
+          6,
+          4,
+          3,
+          3,
+          2
+        ],
+        "9": [
+          6,
+          4,
+          4,
+          3,
+          2,
+          1
+        ],
+        "10": [
+          6,
+          4,
+          4,
+          3,
+          3,
+          2
+        ],
+        "11": [
+          6,
+          5,
+          4,
+          4,
+          3,
+          2,
+          1
+        ],
+        "12": [
+          6,
+          5,
+          4,
+          4,
+          3,
+          3,
+          2
+        ],
+        "13": [
+          6,
+          5,
+          5,
+          4,
+          4,
+          3,
+          2,
+          1
+        ],
+        "14": [
+          6,
+          5,
+          5,
+          4,
+          4,
+          3,
+          3,
+          2
+        ],
+        "15": [
+          6,
+          5,
+          5,
+          5,
+          4,
+          4,
+          3,
+          2,
+          1
+        ],
+        "16": [
+          6,
+          5,
+          5,
+          5,
+          4,
+          4,
+          3,
+          3,
+          2
+        ],
+        "17": [
+          6,
+          5,
+          5,
+          5,
+          5,
+          4,
+          4,
+          3,
+          2,
+          1
+        ],
+        "18": [
+          6,
+          5,
+          5,
+          5,
+          5,
+          4,
+          4,
+          3,
+          3,
+          2
+        ],
+        "19": [
+          6,
+          5,
+          5,
+          5,
+          5,
+          5,
+          4,
+          4,
+          3,
+          3
+        ],
+        "20": [
+          6,
+          5,
+          5,
+          5,
+          5,
+          5,
+          4,
+          4,
+          4,
+          4
+        ]
+      }
+    }
+  },
+  "Fighter": {
+    "hit_die": "d10",
+    "bab": "full",
+    "fort": "good",
+    "ref": "poor",
+    "will": "poor",
+    "skill_points_per_level": 2,
+    "class_skills": [
+      "Climb",
+      "Craft",
+      "Handle Animal",
+      "Intimidate",
+      "Jump",
+      "Ride",
+      "Swim"
+    ],
+    "features": {
+      "1": [
+        {
+          "name": "Weapons and Armor Proficiencies",
+          "description": "A fighter is proficient with all simple and martial weapons and with all armor (heavy, medium, and light) and shields (including tower shields)."
+        },
+        {
+          "name": "Bonus Feat (1)",
+          "description": "You gain a bonus combat feat.",
+          "is_bonus_feat": true,
+          "bonus_feat_pool": "fighter"
+        }
+      ],
+      "2": [
+        {
+          "name": "Bonus Feat (2)",
+          "description": "You gain a bonus combat feat.",
+          "is_bonus_feat": true,
+          "bonus_feat_pool": "fighter"
+        }
+      ],
+      "4": [
+        {
+          "name": "Bonus Feat (4)",
+          "description": "You gain a bonus combat feat.",
+          "is_bonus_feat": true,
+          "bonus_feat_pool": "fighter"
+        }
+      ],
+      "6": [
+        {
+          "name": "Bonus Feat (6)",
+          "description": "You gain a bonus combat feat.",
+          "is_bonus_feat": true,
+          "bonus_feat_pool": "fighter"
+        }
+      ],
+      "8": [
+        {
+          "name": "Bonus Feat (8)",
+          "description": "You gain a bonus combat feat.",
+          "is_bonus_feat": true,
+          "bonus_feat_pool": "fighter"
+        }
+      ],
+      "10": [
+        {
+          "name": "Bonus Feat (10)",
+          "description": "You gain a bonus combat feat.",
+          "is_bonus_feat": true,
+          "bonus_feat_pool": "fighter"
+        }
+      ],
+      "12": [
+        {
+          "name": "Bonus Feat (12)",
+          "description": "You gain a bonus combat feat.",
+          "is_bonus_feat": true,
+          "bonus_feat_pool": "fighter"
+        }
+      ],
+      "14": [
+        {
+          "name": "Bonus Feat (14)",
+          "description": "You gain a bonus combat feat.",
+          "is_bonus_feat": true,
+          "bonus_feat_pool": "fighter"
+        }
+      ],
+      "16": [
+        {
+          "name": "Bonus Feat (16)",
+          "description": "You gain a bonus combat feat.",
+          "is_bonus_feat": true,
+          "bonus_feat_pool": "fighter"
+        }
+      ],
+      "18": [
+        {
+          "name": "Bonus Feat (18)",
+          "description": "You gain a bonus combat feat.",
+          "is_bonus_feat": true,
+          "bonus_feat_pool": "fighter"
+        }
+      ],
+      "20": [
+        {
+          "name": "Bonus Feat (20)",
+          "description": "You gain a bonus combat feat.",
+          "is_bonus_feat": true,
+          "bonus_feat_pool": "fighter"
+        }
+      ]
+    },
+    "spellcasting": null
+  },
+  "Wizard": {
+    "hit_die": "d4",
+    "bab": "poor",
+    "fort": "poor",
+    "ref": "poor",
+    "will": "good",
+    "skill_points_per_level": 2,
+    "class_skills": [
+      "Concentration",
+      "Craft",
+      "Decipher Script",
+      "Knowledge (all)",
+      "Profession",
+      "Spellcraft"
+    ],
+    "features": {
+      "1": [
+        {
+          "name": "Familiar",
+          "description": "You can obtain a familiar. Doing so takes 24 hours and uses up magical materials that cost 100 gp. A familiar is a magical beast that resembles a small animal and is unusually tough and intelligent. The creature serves as a companion and servant.\n\nThe wizard chooses the kind of familiar he gets. As the wizard advances in level, his familiar also increases in power. \n\nIf the familiar dies or is dismissed by the wizard, the wizard must attempt a DC 15 Fortitude saving throw. Failure means he loses 200 experience points per wizard level; success reduces the loss to one-half that amount. However, a wizard’s experience point total can never go below 0 as the result of a familiar’s demise or dismissal. A slain or dismissed familiar cannot be replaced for a year and day. A slain familiar can be raised from the dead just as a character can be, and it does not lose a level or a Constitution point when this happy event occurs.\n\nA character with more than one class that grants a familiar may have only one familiar at a time.",
+          "familiar_choice": true
+        },
+        {
+          "name": "Scribe Scroll",
+          "description": "You can create a scroll of any spell that you know. Scribing a scroll takes one day for each 1,000 gp in its base price. The base price of a scroll is its spell level x its caster level x 25 gp. To scribe a scroll, you must spend 1/25 of this base price in XP and use up raw materials costing one-half of this base price. Any scroll that stores a spell with a costly material component or an XP cost also carries a commensurate cost. In addition to the costs derived from the base price, you must expend the material component or pay the XP when scribing the scroll."
+        }
+      ],
+      "5": [
+        {
+          "name": "Bonus Feat (5)",
+          "description": "You gain a bonus feat.",
+          "is_bonus_feat": true,
+          "bonus_feat_pool": "wizard"
+        }
+      ],
+      "10": [
+        {
+          "name": "Bonus Feat (10)",
+          "description": "You gain a bonus feat.",
+          "is_bonus_feat": true,
+          "bonus_feat_pool": "wizard"
+        }
+      ],
+      "15": [
+        {
+          "name": "Bonus Feat (15)",
+          "description": "You gain a bonus feat.",
+          "is_bonus_feat": true,
+          "bonus_feat_pool": "wizard"
+        }
+      ],
+      "20": [
+        {
+          "name": "Bonus Feat (20)",
+          "description": "You gain a bonus feat.",
+          "is_bonus_feat": true,
+          "bonus_feat_pool": "wizard"
+        }
+      ]
+    },
+    "spellcasting": {
+      "type": "arcane",
+      "ability": "Intelligence",
+      "progression": "full",
+      "caster_levels": {
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 4,
+        "5": 5,
+        "6": 6,
+        "7": 7,
+        "8": 8,
+        "9": 9,
+        "10": 10,
+        "11": 11,
+        "12": 12,
+        "13": 13,
+        "14": 14,
+        "15": 15,
+        "16": 16,
+        "17": 17,
+        "18": 18,
+        "19": 19,
+        "20": 20
+      },
+      "spells_per_day": {
+        "1": [
+          3,
+          1
+        ],
+        "2": [
+          4,
+          2
+        ],
+        "3": [
+          4,
+          2,
+          1
+        ],
+        "4": [
+          4,
+          3,
+          2
+        ],
+        "5": [
+          4,
+          3,
+          2,
+          1
+        ],
+        "6": [
+          4,
+          3,
+          3,
+          2
+        ],
+        "7": [
+          4,
+          4,
+          3,
+          2,
+          1
+        ],
+        "8": [
+          4,
+          4,
+          3,
+          3,
+          2
+        ],
+        "9": [
+          4,
+          4,
+          4,
+          3,
+          2,
+          1
+        ],
+        "10": [
+          4,
+          4,
+          4,
+          3,
+          3,
+          2
+        ],
+        "11": [
+          4,
+          4,
+          4,
+          4,
+          3,
+          2,
+          1
+        ],
+        "12": [
+          4,
+          4,
+          4,
+          4,
+          3,
+          3,
+          2
+        ],
+        "13": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          2,
+          1
+        ],
+        "14": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          3,
+          2
+        ],
+        "15": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          2,
+          1
+        ],
+        "16": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          3,
+          2
+        ],
+        "17": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          2,
+          1
+        ],
+        "18": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          3,
+          2
+        ],
+        "19": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          3
+        ],
+        "20": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ]
+      }
+    }
+  },
+  "Rogue": {
+    "hit_die": "d6",
+    "bab": "medium",
+    "fort": "poor",
+    "ref": "good",
+    "will": "poor",
+    "skill_points_per_level": 8,
+    "class_skills": [
+      "Appraise",
+      "Balance",
+      "Bluff",
+      "Climb",
+      "Craft",
+      "Decipher Script",
+      "Diplomacy",
+      "Disable Device",
+      "Disguise",
+      "Escape Artist",
+      "Forgery",
+      "Gather Information",
+      "Hide",
+      "Intimidate",
+      "Jump",
+      "Listen",
+      "Move Silently",
+      "Open Lock",
+      "Perform",
+      "Profession",
+      "Search",
+      "Sense Motive",
+      "Sleight of Hand",
+      "Spot",
+      "Swim",
+      "Tumble",
+      "Use Magic Device"
+    ],
+    "features": {
+      "1": [
+        {
+          "name": "Sneak Attack",
+          "description": "Sneak Attack +1d6"
+        },
+        {
+          "name": "Trapfinding",
+          "description": "You can use the Search skill to locate traps when the task has a DC higher than 20."
+        }
+      ],
+      "2": [
+        {
+          "name": "Evasion",
+          "description": "If you make a successful Reflex saving throw against an attack that normally deals half damage on a successful save, you instead take no damage."
+        },
+        {
+          "name": "Trap Sense",
+          "description": "Trap Sense +1"
+        }
+      ],
+      "3": [
+        {
+          "name": "Sneak Attack",
+          "description": "Sneak Attack +2d6"
+        }
+      ],
+      "4": [
+        {
+          "name": "Uncanny Dodge",
+          "description": "You cannot be caught flat-footed."
+        }
+      ],
+      "5": [
+        {
+          "name": "Sneak Attack",
+          "description": "Sneak Attack +3d6"
+        }
+      ],
+      "6": [
+        {
+          "name": "Trap Sense",
+          "description": "Trap Sense +2"
+        }
+      ],
+      "7": [
+        {
+          "name": "Sneak Attack",
+          "description": "Sneak Attack +4d6"
+        }
+      ],
+      "8": [
+        {
+          "name": "Improved Uncanny Dodge",
+          "description": "You can no longer be flanked."
+        }
+      ],
+      "9": [
+        {
+          "name": "Sneak Attack",
+          "description": "Sneak Attack +5d6"
+        }
+      ],
+      "10": [
+        {
+          "name": "Special Ability (10)",
+          "description": "Choose one Rogue special ability.",
+          "is_choice": true,
+          "choices": [
+            "Crippling Strike",
+            "Defensive Roll",
+            "Improved Evasion",
+            "Opportunist",
+            "Skill Mastery",
+            "Slippery Mind",
+            "Cunning Strike"
+          ]
+        }
+      ],
+      "11": [
+        {
+          "name": "Sneak Attack",
+          "description": "Sneak Attack +6d6"
+        }
+      ],
+      "12": [
+        {
+          "name": "Trap Sense",
+          "description": "Trap Sense +4"
+        }
+      ],
+      "13": [
+        {
+          "name": "Special Ability (13)",
+          "description": "Choose one Rogue special ability.",
+          "is_choice": true,
+          "choices": [
+            "Crippling Strike",
+            "Defensive Roll",
+            "Improved Evasion",
+            "Opportunist",
+            "Skill Mastery",
+            "Slippery Mind",
+            "Cunning Strike"
+          ]
+        }
+      ],
+      "14": [
+        {
+          "name": "Trap Sense",
+          "description": "Trap Sense +5"
+        }
+      ],
+      "15": [
+        {
+          "name": "Sneak Attack",
+          "description": "Sneak Attack +8d6"
+        }
+      ],
+      "16": [
+        {
+          "name": "Special Ability (16)",
+          "description": "Choose one Rogue special ability.",
+          "is_choice": true,
+          "choices": [
+            "Crippling Strike",
+            "Defensive Roll",
+            "Improved Evasion",
+            "Opportunist",
+            "Skill Mastery",
+            "Slippery Mind",
+            "Cunning Strike"
+          ]
+        }
+      ],
+      "17": [
+        {
+          "name": "Sneak Attack",
+          "description": "Sneak Attack +9d6"
+        }
+      ],
+      "18": [
+        {
+          "name": "Trap Sense",
+          "description": "Trap Sense +7"
+        }
+      ],
+      "19": [
+        {
+          "name": "Special Ability (19)",
+          "description": "Choose one Rogue special ability.",
+          "is_choice": true,
+          "choices": [
+            "Crippling Strike",
+            "Defensive Roll",
+            "Improved Evasion",
+            "Opportunist",
+            "Skill Mastery",
+            "Slippery Mind",
+            "Cunning Strike"
+          ]
+        }
+      ],
+      "20": [
+        {
+          "name": "Sneak Attack",
+          "description": "Sneak Attack +10d6"
+        }
+      ]
+    },
+    "spellcasting": null
+  },
+  "Sorcerer": {
+    "hit_die": "d4",
+    "bab": "poor",
+    "fort": "poor",
+    "ref": "poor",
+    "will": "good",
+    "skill_points_per_level": 2,
+    "class_skills": [
+      "Bluff",
+      "Concentration",
+      "Craft",
+      "Knowledge (arcana)",
+      "Profession",
+      "Spellcraft"
+    ],
+    "features": {
+      "1": [
+        {
+          "name": "Weapon and Armor Proficiency",
+          "description": "Proficient with all simple weapons. Not proficient with armor or shields; armor interferes with somatic components and can cause arcane spell failure."
+        },
+        {
+          "name": "Familiar",
+          "description": "You can obtain a familiar. Doing so takes 24 hours and uses up magical materials that cost 100 gp. A familiar is a magical beast that resembles a small animal and is unusually tough and intelligent. The creature serves as a companion and servant.\n\nThe sorcerer chooses the kind of familiar he gets. As the sorcerer advances in level, his familiar also increases in power.\n\nIf the familiar dies or is dismissed by the sorcerer, the sorcerer must attempt a DC 15 Fortitude saving throw. Failure means he loses 200 experience points per sorcerer level; success reduces the loss to one-half that amount. However, a sorcerer's experience point total can never go below 0 as the result of a familiar's demise or dismissal. A slain or dismissed familiar cannot be replaced for a year and day. A slain familiar can be raised from the dead just as a character can be, and it does not lose a level or a Constitution point when this happy event occurs.\n\nA character with more than one class that grants a familiar may have only one familiar at a time.",
+          "familiar_choice": true
+        }
+      ]
+    },
+    "spellcasting": {
+      "type": "arcane",
+      "ability": "Charisma",
+      "casting_style": "spontaneous",
+      "progression": "full",
+      "caster_levels": {
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 4,
+        "5": 5,
+        "6": 6,
+        "7": 7,
+        "8": 8,
+        "9": 9,
+        "10": 10,
+        "11": 11,
+        "12": 12,
+        "13": 13,
+        "14": 14,
+        "15": 15,
+        "16": 16,
+        "17": 17,
+        "18": 18,
+        "19": 19,
+        "20": 20
+      },
+      "spells_known": {
+        "1": [
+          4,
+          2
+        ],
+        "2": [
+          5,
+          2
+        ],
+        "3": [
+          5,
+          3
+        ],
+        "4": [
+          6,
+          3,
+          1
+        ],
+        "5": [
+          6,
+          4,
+          2
+        ],
+        "6": [
+          7,
+          4,
+          2,
+          1
+        ],
+        "7": [
+          7,
+          5,
+          3,
+          2
+        ],
+        "8": [
+          8,
+          5,
+          3,
+          2,
+          1
+        ],
+        "9": [
+          8,
+          5,
+          4,
+          3,
+          2
+        ],
+        "10": [
+          9,
+          5,
+          4,
+          3,
+          2,
+          1
+        ],
+        "11": [
+          9,
+          5,
+          5,
+          4,
+          3,
+          2
+        ],
+        "12": [
+          9,
+          5,
+          5,
+          4,
+          3,
+          2,
+          1
+        ],
+        "13": [
+          9,
+          5,
+          5,
+          4,
+          4,
+          3,
+          2
+        ],
+        "14": [
+          9,
+          5,
+          5,
+          4,
+          4,
+          3,
+          2,
+          1
+        ],
+        "15": [
+          9,
+          5,
+          5,
+          4,
+          4,
+          4,
+          3,
+          2
+        ],
+        "16": [
+          9,
+          5,
+          5,
+          4,
+          4,
+          4,
+          3,
+          2,
+          1
+        ],
+        "17": [
+          9,
+          5,
+          5,
+          4,
+          4,
+          4,
+          3,
+          3,
+          2
+        ],
+        "18": [
+          9,
+          5,
+          5,
+          4,
+          4,
+          4,
+          3,
+          3,
+          2,
+          1
+        ],
+        "19": [
+          9,
+          5,
+          5,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3,
+          2
+        ],
+        "20": [
+          9,
+          5,
+          5,
+          4,
+          4,
+          4,
+          3,
+          3,
+          3,
+          3
+        ]
+      },
+      "spells_per_day": {
+        "1": [
+          5,
+          3
+        ],
+        "2": [
+          6,
+          4
+        ],
+        "3": [
+          6,
+          5
+        ],
+        "4": [
+          6,
+          6,
+          3
+        ],
+        "5": [
+          6,
+          6,
+          4
+        ],
+        "6": [
+          6,
+          6,
+          5,
+          3
+        ],
+        "7": [
+          6,
+          6,
+          6,
+          4
+        ],
+        "8": [
+          6,
+          6,
+          6,
+          5,
+          3
+        ],
+        "9": [
+          6,
+          6,
+          6,
+          6,
+          4
+        ],
+        "10": [
+          6,
+          6,
+          6,
+          6,
+          5,
+          3
+        ],
+        "11": [
+          6,
+          6,
+          6,
+          6,
+          6,
+          4
+        ],
+        "12": [
+          6,
+          6,
+          6,
+          6,
+          6,
+          5,
+          3
+        ],
+        "13": [
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          4
+        ],
+        "14": [
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          5,
+          3
+        ],
+        "15": [
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          4
+        ],
+        "16": [
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          5,
+          3
+        ],
+        "17": [
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          4
+        ],
+        "18": [
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          5,
+          3
+        ],
+        "19": [
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          4
+        ],
+        "20": [
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6
+        ]
+      }
+    }
+  },
+  "Paladin": {
+    "hit_die": "d10",
+    "bab": "full",
+    "fort": "good",
+    "ref": "poor",
+    "will": "good",
+    "restricted_alignments": [
+      "Neutral Good",
+      "Chaotic Good",
+      "Lawful Neutral",
+      "True Neutral",
+      "Chaotic Neutral",
+      "Lawful Evil",
+      "Neutral Evil",
+      "Chaotic Evil"
+    ],
+    "skill_points_per_level": 2,
+    "class_skills": [
+      "Craft",
+      "Diplomacy",
+      "Handle Animal",
+      "Heal",
+      "Knowledge (nobility and royalty)",
+      "Knowledge (religion)",
+      "Profession",
+      "Ride",
+      "Sense Motive"
+    ],
+    "features": {
+      "1": [
+        {
+          "name": "Weapon and Armor Proficiency",
+          "description": "Proficient with all simple and martial weapons, all armor (heavy, medium, and light), and shields (except tower shields)."
+        },
+        {
+          "name": "Aura of Good",
+          "description": "The power of a paladin's aura of good (see the detect good spell) is equal to her paladin level."
+        },
+        {
+          "name": "Detect Evil",
+          "description": "At will, a paladin can use detect evil, as the spell."
+        },
+        {
+          "name": "Smite Evil",
+          "description": "Once per day, a paladin may attempt to smite evil with one normal melee attack. At 5th level, and at every five levels thereafter, the paladin may smite evil one additional time per day. A smite attack deals extra damage equal to the paladin's level (maximum +20).",
+          "use_tracker": {
+            "id": "smite_evil",
+            "formula": "paladin_smite"
+          }
+        },
+        {
+          "name": "Divine Grace",
+          "description": "A paladin applies her Charisma modifier (if positive) as a bonus on all saving throws."
+        },
+        {
+          "name": "Lay on Hands",
+          "description": "A paladin can heal wounds (her own or others') by touch. Each day she can heal a total number of hit points of damage equal to her paladin level × her Charisma modifier."
+        },
+        {
+          "name": "Aura of Courage",
+          "description": "A paladin is immune to fear (magical or otherwise). Allies within 10 feet gain a +4 morale bonus on saving throws against fear effects."
+        },
+        {
+          "name": "Divine Health",
+          "description": "A paladin is immune to all diseases, including supernatural and magical diseases."
+        }
+      ],
+      "5": [
+        {
+          "name": "Special Mount",
+          "description": "Beginning at 5th level, a paladin gains the service of an unusually intelligent, strong, and loyal steed."
+        }
+      ],
+      "4": [
+        {
+          "name": "Turn Undead",
+          "description": "When a paladin reaches 4th level, she gains the supernatural ability to turn undead. She may use this ability a number of times per day equal to 3 + her Charisma modifier. She turns undead as a cleric of three levels lower would.",
+          "use_tracker": {
+            "id": "turn_undead",
+            "formula": "3_plus_cha"
+          }
+        }
+      ],
+      "6": [
+        {
+          "name": "Remove Disease",
+          "description": "At 6th level, a paladin can produce a remove disease effect, once per week."
+        }
+      ]
+    },
+    "spellcasting": {
+      "type": "divine",
+      "ability": "Wisdom",
+      "spells_per_day": {
+        "4": [
+          0
+        ],
+        "5": [
+          0
+        ],
+        "6": [
+          1
+        ],
+        "7": [
+          1
+        ],
+        "8": [
+          1,
+          0
+        ],
+        "9": [
+          1,
+          0
+        ],
+        "10": [
+          1,
+          1
+        ],
+        "11": [
+          1,
+          1,
+          0
+        ],
+        "12": [
+          1,
+          1,
+          1
+        ],
+        "13": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "14": [
+          2,
+          1,
+          1,
+          0
+        ],
+        "15": [
+          2,
+          1,
+          1,
+          1
+        ],
+        "16": [
+          2,
+          2,
+          1,
+          1
+        ],
+        "17": [
+          2,
+          2,
+          2,
+          1
+        ],
+        "18": [
+          3,
+          2,
+          2,
+          1
+        ],
+        "19": [
+          3,
+          3,
+          3,
+          2
+        ],
+        "20": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "Barbarian": {
+    "hit_die": "d12",
+    "bab": "full",
+    "fort": "good",
+    "ref": "poor",
+    "will": "poor",
+    "restricted_alignments": [
+      "Lawful Good",
+      "Lawful Neutral",
+      "Lawful Evil"
+    ],
+    "skill_points_per_level": 4,
+    "class_skills": [
+      "Climb",
+      "Craft",
+      "Handle Animal",
+      "Intimidate",
+      "Jump",
+      "Listen",
+      "Ride",
+      "Survival",
+      "Swim"
+    ],
+    "features": {
+      "1": [
+        {
+          "name": "Weapon and Armor Proficiency",
+          "description": "Proficient with all simple and martial weapons, light and medium armor, and shields (except tower shields)."
+        },
+        {
+          "name": "Fast Movement",
+          "description": "Land speed is faster than the norm for your race by +10 feet when wearing no armor, light armor, or medium armor and not carrying a heavy load."
+        },
+        {
+          "name": "Rage",
+          "description": "Enter a rage for a number of rounds equal to 3 + your Constitution modifier (after the rage bonus). While raging: +4 Strength, +4 Constitution, +2 morale bonus on Will saves, and -2 penalty to AC. At 11th level these become +6/+6/+3 (Greater Rage). At 20th level: +8/+8/+4 (Mighty Rage). You are fatigued afterward (or exhausted if already fatigued when rage ends).",
+          "use_tracker": {
+            "id": "rage",
+            "formula": "barbarian_rage"
+          },
+          "rage_toggle": true
+        },
+        {
+          "name": "Illiteracy",
+          "description": "Barbarians are not automatically literate. Spending 2 skill points grants literacy in all languages you speak."
+        }
+      ],
+      "2": [
+        {
+          "name": "Uncanny Dodge",
+          "description": "Retain Dexterity bonus to AC when flat-footed or struck by an invisible attacker."
+        }
+      ],
+      "3": [
+        {
+          "name": "Trap Sense +1",
+          "description": "+1 bonus on Reflex saves made to avoid traps and +1 dodge bonus to AC against attacks by traps."
+        }
+      ],
+      "5": [
+        {
+          "name": "Improved Uncanny Dodge",
+          "description": "Can no longer be flanked except by a rogue at least four levels higher."
+        }
+      ],
+      "6": [
+        {
+          "name": "Trap Sense +2",
+          "description": "Trap sense bonuses increase to +2."
+        }
+      ],
+      "7": [
+        {
+          "name": "Damage Reduction 1/-",
+          "description": "Subtract 1 from the damage taken from weapons and natural attacks."
+        }
+      ],
+      "9": [
+        {
+          "name": "Trap Sense +3",
+          "description": "Trap sense bonuses increase to +3."
+        }
+      ],
+      "10": [
+        {
+          "name": "Damage Reduction 2/-",
+          "description": "Damage reduction increases to 2/-."
+        }
+      ],
+      "11": [
+        {
+          "name": "Greater Rage",
+          "description": "Rage bonuses increase to +6 Strength, +6 Constitution, and +3 morale bonus on Will saves."
+        }
+      ],
+      "12": [
+        {
+          "name": "Trap Sense +4",
+          "description": "Trap sense bonuses increase to +4."
+        }
+      ],
+      "13": [
+        {
+          "name": "Damage Reduction 3/-",
+          "description": "Damage reduction increases to 3/-."
+        }
+      ],
+      "14": [
+        {
+          "name": "Indomitable Might",
+          "description": "Add your Strength modifier (if positive) to any Strength check you make."
+        }
+      ],
+      "15": [
+        {
+          "name": "Trap Sense +5",
+          "description": "Trap sense bonuses increase to +5."
+        }
+      ],
+      "16": [
+        {
+          "name": "Damage Reduction 4/-",
+          "description": "Damage reduction increases to 4/-."
+        }
+      ],
+      "17": [
+        {
+          "name": "Tireless Rage",
+          "description": "No longer becomes fatigued at the end of rage."
+        }
+      ],
+      "18": [
+        {
+          "name": "Trap Sense +6",
+          "description": "Trap sense bonuses increase to +6."
+        }
+      ],
+      "19": [
+        {
+          "name": "Damage Reduction 5/-",
+          "description": "Damage reduction increases to 5/-."
+        }
+      ],
+      "20": [
+        {
+          "name": "Mighty Rage",
+          "description": "Rage bonuses increase to +8 Strength, +8 Constitution, and +4 morale bonus on Will saves."
+        }
+      ]
+    },
+    "spellcasting": null
+  },
+  "Ranger": {
+    "hit_die": "d8",
+    "bab": "full",
+    "fort": "good",
+    "ref": "good",
+    "will": "poor",
+    "restricted_alignments": [],
+    "skill_points_per_level": 6,
+    "class_skills": [
+      "Climb",
+      "Concentration",
+      "Craft",
+      "Handle Animal",
+      "Heal",
+      "Hide",
+      "Jump",
+      "Knowledge (dungeoneering)",
+      "Knowledge (geography)",
+      "Knowledge (nature)",
+      "Listen",
+      "Move Silently",
+      "Profession",
+      "Ride",
+      "Search",
+      "Spot",
+      "Survival",
+      "Swim",
+      "Use Rope"
+    ],
+    "features": {
+      "1": [
+        {
+          "name": "Weapon and Armor Proficiency",
+          "description": "Proficient with all simple and martial weapons, light armor, and shields (except tower shields)."
+        },
+        {
+          "name": "Track",
+          "description": "You gain a +1 bonus on Survival checks to follow tracks for every 2 ranger levels."
+        },
+        {
+          "name": "Wild Empathy",
+          "description": "You can improve the attitude of an animal as if using Diplomacy (d20 + ranger level + Cha mod)."
+        },
+        {
+          "name": "Favored Enemy",
+          "description": "+2 bonus on Bluff, Listen, Sense Motive, Spot, and Survival checks and +2 damage against one favored enemy type. Choose a new type every 5 levels."
+        }
+      ],
+      "2": [
+        {
+          "name": "Combat Style",
+          "description": "Choose Archery or Two-Weapon Combat. Gain the associated feat (or bonus feat) even if you don't meet prerequisites."
+        }
+      ],
+      "3": [
+        {
+          "name": "Endurance",
+          "description": "You gain the Endurance feat as a bonus feat."
+        }
+      ],
+      "4": [
+        {
+          "name": "Animal Companion",
+          "description": "You gain an animal companion as a druid of your ranger level - 3."
+        }
+      ]
+    },
+    "spellcasting": {
+      "type": "divine",
+      "ability": "Wisdom",
+      "spells_per_day": {
+        "4": [
+          0
+        ],
+        "5": [
+          0
+        ],
+        "6": [
+          1
+        ],
+        "7": [
+          1
+        ],
+        "8": [
+          1,
+          0
+        ],
+        "9": [
+          1,
+          0
+        ],
+        "10": [
+          1,
+          1
+        ],
+        "11": [
+          1,
+          1,
+          0
+        ],
+        "12": [
+          1,
+          1,
+          1
+        ],
+        "13": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "14": [
+          2,
+          1,
+          1,
+          0
+        ],
+        "15": [
+          2,
+          1,
+          1,
+          1
+        ],
+        "16": [
+          2,
+          2,
+          1,
+          1
+        ],
+        "17": [
+          2,
+          2,
+          2,
+          1
+        ],
+        "18": [
+          3,
+          2,
+          2,
+          1
+        ],
+        "19": [
+          3,
+          3,
+          3,
+          2
+        ],
+        "20": [
+          3,
+          3,
+          3,
+          3
+        ]
+      }
+    }
+  },
+  "Druid": {
+    "hit_die": "d8",
+    "bab": "medium",
+    "fort": "good",
+    "ref": "poor",
+    "will": "good",
+    "restricted_alignments": [
+      "Lawful Good",
+      "Lawful Neutral",
+      "Lawful Evil",
+      "Chaotic Good",
+      "Chaotic Neutral",
+      "Chaotic Evil"
+    ],
+    "skill_points_per_level": 4,
+    "class_skills": [
+      "Concentration",
+      "Craft",
+      "Diplomacy",
+      "Handle Animal",
+      "Heal",
+      "Hide",
+      "Knowledge (nature)",
+      "Listen",
+      "Move Silently",
+      "Perform",
+      "Profession",
+      "Ride",
+      "Spellcraft",
+      "Spot",
+      "Survival",
+      "Swim",
+      "Use Rope"
+    ],
+    "features": {
+      "1": [
+        {
+          "name": "Animal Companion",
+          "description": "A druid may begin play with an animal companion. The druid's class level determines the abilities and advancement of the companion."
+        },
+        {
+          "name": "Nature Sense",
+          "description": "+2 bonus on Knowledge (nature) and Survival checks."
+        },
+        {
+          "name": "Wild Empathy",
+          "description": "Improve the attitude of an animal like a Diplomacy check (d20 + druid level + Charisma modifier)."
+        }
+      ],
+      "2": [
+        {
+          "name": "Woodland Stride",
+          "description": "Move through natural thorns, briars, overgrown areas, and similar terrain at normal speed without damage or impairment."
+        }
+      ],
+      "3": [
+        {
+          "name": "Trackless Step",
+          "description": "Leaves no trail in natural surroundings and cannot be tracked."
+        }
+      ],
+      "4": [
+        {
+          "name": "Resist Nature's Lure",
+          "description": "+4 bonus on saving throws against the spell-like and supernatural abilities of fey."
+        }
+      ],
+      "5": [
+        {
+          "name": "Wild Shape",
+          "description": "Turn into animals (including dire animals) and back again. Uses/day by druid level: 1 (5th), 2 (6th), 3 (7th–9th), 4 (10th–11th), 5 (12th–13th), 6 (14th–15th), 7 (16th–17th), 8 (18th–19th), 9 (20th). Extra Wild Shape adds +2 uses per feat. Size options: Small/Medium at 5th, Large at 8th, Tiny at 11th, Huge at 15th, Gargantuan at 20th. HD limit: druid level. Duration: druid level hours. You gain the form's physical ability scores, natural armor, movement modes, size, and special qualities; you retain Intelligence, Wisdom, and Charisma.",
+          "use_tracker": {
+            "id": "wild_shape",
+            "formula": "druid_wild_shape"
+          },
+          "wild_shape_toggle": true
+        }
+      ],
+      "9": [
+        {
+          "name": "Venom Immunity",
+          "description": "Immune to all poisons."
+        }
+      ],
+      "13": [
+        {
+          "name": "A Thousand Faces",
+          "description": "Change appearance at will as disguise self."
+        }
+      ],
+      "16": [
+        {
+          "name": "Wild Shape (Elemental)",
+          "description": "In addition to animal forms, transform into air, earth, fire, or water elementals. Uses/day: 1 (16th–17th), 2 (18th–19th), 3 (20th). Small, Medium, or Large elementals at 16th; Huge elementals at 20th. These uses are separate from your animal wild shape uses.",
+          "use_tracker": {
+            "id": "elemental_wild_shape",
+            "formula": "druid_elemental_wild_shape"
+          }
+        },
+        {
+          "name": "Timeless Body",
+          "description": "No longer takes ability score penalties for aging; cannot be magically aged."
+        }
+      ]
+    },
+    "spellcasting": {
+      "type": "divine",
+      "ability": "Wisdom",
+      "spells_per_day": {
+        "1": [
+          3,
+          1
+        ],
+        "2": [
+          4,
+          2
+        ],
+        "3": [
+          4,
+          2,
+          1
+        ],
+        "4": [
+          5,
+          3,
+          2
+        ],
+        "5": [
+          5,
+          3,
+          2,
+          1
+        ],
+        "6": [
+          5,
+          3,
+          3,
+          2
+        ],
+        "7": [
+          6,
+          4,
+          3,
+          2,
+          1
+        ],
+        "8": [
+          6,
+          4,
+          3,
+          3,
+          2
+        ],
+        "9": [
+          6,
+          4,
+          4,
+          3,
+          2,
+          1
+        ],
+        "10": [
+          6,
+          4,
+          4,
+          3,
+          3,
+          2
+        ],
+        "11": [
+          6,
+          5,
+          4,
+          4,
+          3,
+          2,
+          1
+        ],
+        "12": [
+          6,
+          5,
+          4,
+          4,
+          3,
+          3,
+          2
+        ],
+        "13": [
+          6,
+          5,
+          5,
+          4,
+          4,
+          3,
+          2,
+          1
+        ],
+        "14": [
+          6,
+          5,
+          5,
+          4,
+          4,
+          3,
+          3,
+          2
+        ],
+        "15": [
+          6,
+          5,
+          5,
+          5,
+          4,
+          4,
+          3,
+          2,
+          1
+        ],
+        "16": [
+          6,
+          5,
+          5,
+          5,
+          4,
+          4,
+          3,
+          3,
+          2
+        ],
+        "17": [
+          6,
+          5,
+          5,
+          5,
+          5,
+          4,
+          4,
+          3,
+          2,
+          1
+        ],
+        "18": [
+          6,
+          5,
+          5,
+          5,
+          5,
+          4,
+          4,
+          3,
+          3,
+          2
+        ],
+        "19": [
+          6,
+          5,
+          5,
+          5,
+          5,
+          5,
+          4,
+          4,
+          3,
+          3
+        ],
+        "20": [
+          6,
+          5,
+          5,
+          5,
+          5,
+          5,
+          4,
+          4,
+          4,
+          4
+        ]
+      }
+    }
+  },
+  "Radiant Servant of Pelor": {
+    "prestige": true,
+    "max_level": 10,
+    "source": "Complete Divine",
+    "hit_die": "d6",
+    "bab": "medium",
+    "fort": "good",
+    "ref": "poor",
+    "will": "good",
+    "skill_points_per_level": 2,
+    "stacks_with_class": "Cleric",
+    "class_skills": [
+      "Concentration",
+      "Craft",
+      "Diplomacy",
+      "Heal",
+      "Knowledge (arcana)",
+      "Knowledge (religion)",
+      "Profession",
+      "Sense Motive",
+      "Spellcraft"
+    ],
+    "prerequisites": {
+      "alignment": "Neutral Good",
+      "skills": {
+        "Heal": 5,
+        "Knowledge (religion)": 9
+      },
+      "feats": [
+        "Extra Turning"
+      ],
+      "base_saves": {
+        "will": 5
+      },
+      "spellcasting": {
+        "type": "divine",
+        "min_spell_level": 1,
+        "domains": [
+          "Sun"
+        ]
+      },
+      "deity": "Pelor",
+      "class_levels": {
+        "Cleric": 1
+      }
+    },
+    "prerequisite_summary": "Neutral Good; Heal 5 ranks; Knowledge (religion) 9 ranks; Extra Turning; base Will save +5; able to cast 1st-level divine spells with access to the Sun domain; patron deity Pelor.",
+    "features": {
+      "1": [
+        {
+          "name": "Weapon and Armor Proficiency",
+          "description": "Proficient with all simple and martial weapons, all armor, and shields."
+        },
+        {
+          "name": "Radiance",
+          "description": "When you cast a spell with the light descriptor, its illumination radius is doubled and the spell is treated as one level higher for all purposes, including countering or dispelling darkness effects."
+        },
+        {
+          "name": "Extra Greater Turning",
+          "description": "If you have access to the Sun domain, you can use greater turning a number of times per day equal to 3 + your Charisma modifier.",
+          "use_tracker": {
+            "id": "greater_turning",
+            "formula": "3_plus_cha"
+          }
+        },
+        {
+          "name": "Turn Undead",
+          "description": "Add your radiant servant levels to your cleric levels for all purposes related to turning undead."
+        }
+      ],
+      "2": [
+        {
+          "name": "Divine Health",
+          "description": "Immune to all diseases, including magical diseases such as mummy rot and lycanthropy."
+        },
+        {
+          "name": "Empower Healing",
+          "description": "When you cast a domain spell from the Healing domain, it is affected as though by the Empower Spell feat without using a higher-level slot."
+        }
+      ],
+      "3": [
+        {
+          "name": "Aura of Warding",
+          "description": "You and all allies within 10 feet gain a +2 morale bonus on Will saving throws."
+        }
+      ],
+      "5": [
+        {
+          "name": "Bonus Domain",
+          "description": "You gain a third clerical domain granted by Pelor. You can use its granted power and choose domain spells from three domains each day."
+        }
+      ],
+      "6": [
+        {
+          "name": "Maximize Healing",
+          "description": "When you cast a domain spell from the Healing domain, it is affected as though by the Maximize Spell feat without using a higher-level slot. This supersedes Empower Healing until 10th level."
+        }
+      ],
+      "8": [
+        {
+          "name": "Positive Energy Burst",
+          "description": "As a standard action, deal 1d6 damage per class level to all undead within 100 feet (Reflex DC 10 + class level for half). Uses two turning attempts."
+        }
+      ],
+      "10": [
+        {
+          "name": "Supreme Healing",
+          "description": "When you cast a domain spell from the Healing domain, it is affected as though by both Empower Spell and Maximize Spell without using a higher-level slot."
+        }
+      ]
+    },
+    "spellcasting": {
+      "advancement": "divine"
+    }
+  },
+  "Monk": {
+    "hit_die": "d8",
+    "bab": "medium",
+    "fort": "good",
+    "ref": "good",
+    "will": "good",
+    "restricted_alignments": [
+      "Lawful Good",
+      "Lawful Neutral",
+      "Lawful Evil"
+    ],
+    "skill_points_per_level": 4,
+    "class_skills": [
+      "Balance",
+      "Climb",
+      "Concentration",
+      "Craft",
+      "Diplomacy",
+      "Escape Artist",
+      "Hide",
+      "Jump",
+      "Knowledge (arcana)",
+      "Knowledge (religion)",
+      "Listen",
+      "Move Silently",
+      "Perform",
+      "Profession",
+      "Sense Motive",
+      "Spot",
+      "Swim",
+      "Tumble"
+    ],
+    "features": {
+      "1": [
+        {
+          "name": "Bonus feat",
+          "description": "Select Improved Grapple or Stunning Fist as a bonus feat (ignore prerequisites)."
+        },
+        {
+          "name": "Flurry of Blows",
+          "description": "When unarmored, may make one extra attack at highest base attack bonus but all attacks that round take -2 penalty (improves at 5th to -1, 9th to 0). Use only unarmed strikes or special monk weapons (kama, nunchaku, quarterstaff, sai, shuriken, siangham). Apply Str bonus to damage (not 1.5x or 0.5x). See special UI on this feature for to-hit/damage ability choices and bonuses. Quarterstaff ends count separate. Full attack action only."
+        },
+        {
+          "name": "Unarmed Strike",
+          "description": "Gain Improved Unarmed Strike as bonus feat. Attacks with fists, elbows, knees, feet interchangeably even with hands full. No off-hand penalty; full Str to all damage. Choose lethal or nonlethal at no penalty. Treated as both manufactured and natural weapon. Damage per Monk table (Medium: 1d6 at 1-3, 1d8 at 4-7, 1d10 at 8-11, 2d6 at 12-15, 2d8 at 16-19, 2d10 at 20). Small/Large adjusted per table."
+        }
+      ],
+      "2": [
+        {
+          "name": "Bonus feat",
+          "description": "Select Combat Reflexes or Deflect Arrows as bonus feat (ignore prereqs)."
+        },
+        {
+          "name": "Evasion",
+          "description": "On successful Reflex save against attack that normally deals half damage, take no damage instead. Only while wearing light armor or no armor. Helpless monk does not gain benefit."
+        }
+      ],
+      "3": [
+        {
+          "name": "Still Mind",
+          "description": "+2 bonus on saving throws against spells and effects from the school of enchantment."
+        },
+        {
+          "name": "Fast Movement",
+          "description": "Gain +10 ft. enhancement bonus to speed (shown on table). Lost when wearing armor, using shield, or medium/heavy load."
+        }
+      ],
+      "4": [
+        {
+          "name": "Ki Strike (magic)",
+          "description": "Unarmed attacks are treated as magic weapons for overcoming damage reduction."
+        },
+        {
+          "name": "Slow Fall 20 ft.",
+          "description": "If within arm's reach of a wall, use it to slow descent. Take damage as if fall were 20 ft shorter than actual."
+        }
+      ],
+      "5": [
+        {
+          "name": "Purity of Body",
+          "description": "Immune to all diseases except supernatural and magical diseases."
+        }
+      ],
+      "6": [
+        {
+          "name": "Bonus feat",
+          "description": "Select Improved Disarm or Improved Trip as bonus feat (ignore prereqs)."
+        },
+        {
+          "name": "Slow Fall 30 ft.",
+          "description": "Slow fall distance as if 30 ft shorter."
+        }
+      ],
+      "7": [
+        {
+          "name": "Wholeness of Body",
+          "description": "Heal her own wounds. Can heal a number of hit points equal to twice her current monk level each day, spread among several uses. See UI for remaining pool tracker."
+        }
+      ],
+      "8": [
+        {
+          "name": "Slow Fall 40 ft.",
+          "description": "Slow fall as if 40 ft shorter."
+        }
+      ],
+      "9": [
+        {
+          "name": "Improved Evasion",
+          "description": "On successful Reflex save vs half-damage attack, take no damage. On failed save, take only half damage. Helpless does not benefit."
+        }
+      ],
+      "10": [
+        {
+          "name": "Ki Strike (lawful)",
+          "description": "Unarmed attacks treated as lawful for damage reduction."
+        },
+        {
+          "name": "Slow Fall 50 ft.",
+          "description": "Slow fall as if 50 ft shorter."
+        }
+      ],
+      "11": [
+        {
+          "name": "Diamond Body",
+          "description": "Immune to poisons of all kinds."
+        },
+        {
+          "name": "Greater Flurry",
+          "description": "In addition to the standard single extra attack from flurry of blows, gets a second extra attack at full base attack bonus."
+        }
+      ],
+      "12": [
+        {
+          "name": "Abundant Step",
+          "description": "Slip magically between spaces as dimension door once per day. Caster level for this effect is one-half her monk level (rounded down)."
+        },
+        {
+          "name": "Slow Fall 60 ft.",
+          "description": "Slow fall as if 60 ft shorter."
+        }
+      ],
+      "13": [
+        {
+          "name": "Diamond Soul",
+          "description": "Spell resistance equal to her current monk level + 10."
+        }
+      ],
+      "14": [
+        {
+          "name": "Slow Fall 70 ft.",
+          "description": "Slow fall as if 70 ft shorter."
+        }
+      ],
+      "15": [
+        {
+          "name": "Quivering Palm",
+          "description": "Once per week, set up vibrations in another creature that can be fatal. Announce intent before attack roll. Constructs, oozes, plants, undead, incorporeal, crit-immune immune. If successful unarmed hit that deals damage, quivering palm succeeds. Later (within monk level days), will the target to die as free action (Fort DC 10 + 1/2 monk level + Wis mod) or dies. Successful save removes danger from that particular palm."
+        }
+      ],
+      "16": [
+        {
+          "name": "Ki Strike (adamantine)",
+          "description": "Unarmed attacks treated as adamantine weapons for damage reduction and bypassing hardness."
+        },
+        {
+          "name": "Slow Fall 80 ft.",
+          "description": "Slow fall as if 80 ft shorter."
+        }
+      ],
+      "17": [
+        {
+          "name": "Timeless Body",
+          "description": "No longer takes penalties to ability scores for aging and cannot be magically aged. Any penalties already taken remain. Bonuses accrue, dies of old age normally."
+        },
+        {
+          "name": "Tongue of the Sun and Moon",
+          "description": "Can speak with any living creature."
+        }
+      ],
+      "18": [
+        {
+          "name": "Slow Fall 90 ft.",
+          "description": "Slow fall as if 90 ft shorter."
+        }
+      ],
+      "19": [
+        {
+          "name": "Empty Body",
+          "description": "Assume ethereal state for 1 round per monk level per day, as etherealness spell. Can split uses across multiple occasions as long as total rounds <= monk level."
+        }
+      ],
+      "20": [
+        {
+          "name": "Perfect Self",
+          "description": "Forevermore treated as an outsider rather than humanoid (or previous type) for spells and magical effects. Gains DR 10/magic. Unlike other outsiders, can still be brought back from the dead as if previous creature type."
+        },
+        {
+          "name": "Slow Fall any distance",
+          "description": "Use a nearby wall to slow descent and fall any distance without harm."
+        }
+      ]
+    }
+  }
+}

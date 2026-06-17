@@ -1,0 +1,1023 @@
+{
+  "Additional Magic Item Space": {
+    "prerequisites": "None",
+    "description": "Benefit\nChoose one type of magic item that has a limit on the number you can simultaneously wear and gain its benefit. You can now wear one more magic item of this type and also gain its benefit.\n\nNormal\nWithout this feat, you are limited to one headband, hat, or helmet; one pair of eye lenses or goggles; one cloak, cape, or mantle; one amulet, brooch, medallion, necklace, periapt, or scarab; one suit of armor; one robe; one vest, vestment, or shirt; one pair of bracers or bracelets; one pair of gloves or gauntlets; two rings; one belt; and one pair of boots.\n\nSpecial\nYou can gain this feat multiple times. Each time you take the feat, it applies to a new type of wearable magic item.",
+    "effects": {},
+    "epic": true
+  },
+  "Armor Skin": {
+    "prerequisites": "None",
+    "description": "Benefit\nYou gain a +1 natural armor bonus to Armor Class, or your existing natural armor bonus increases by 1.\n\nSpecial\nYou can gain this feat multiple times. Its effects stack.",
+    "effects": {
+      "natural_armor": 1
+    },
+    "epic": true
+  },
+  "Augmented Alchemy": {
+    "prerequisites": "Int 21, Craft (alchemy) 24 ranks.",
+    "description": "Benefit\nWhenever creating an alchemical item or substance, you can choose to make it more powerful than normal by adding +20 to the DC required to create it and multiplying its price by 5. If the item or substance deals damage, double the damage dealt. If the item or substance doesn’t deal damage, double the duration of its effect. If the item or substance doesn’t deal damage and doesn’t have a specific listed duration (or has an instantaneous duration), double all dimensions of its area. If the item or substance doesn’t fit any of these categories, then it cannot be affected by this feat. See the Craft (alchemy) skill description.",
+    "effects": {},
+    "epic": true
+  },
+  "Automatic Quicken Spell": {
+    "prerequisites": "Quicken Spell, Spellcraft 30 ranks, ability to cast 9th-level arcane or divine spells.",
+    "description": "Benefit\nYou may cast all 0-, 1st-, 2nd-, and 3rd-level spells as quickened spells without using higher-level spell slots. The normal limit to the number of quickened spells you may cast per round applies. Spells with a casting time of more than 1 full round can’t be quickened.\n\nSpecial\nYou can gain this feat multiple times. Each time you take the feat, the spells of your next three lowest spell levels can now be quickened with no adjustment to their spell slots. This feat doesn’t increase the casting time for those spells that normally become full-round actions when cast in metamagic form.",
+    "effects": {},
+    "epic": true
+  },
+  "Automatic Silent Spell": {
+    "prerequisites": "Silent Spell, Spellcraft 24 ranks, ability to cast 9th-level arcane or divine spells.",
+    "description": "Benefit\nYou may cast all 0-, 1st-, 2nd-, and 3rd-level spells as silent spells without using higher-level spell slots.\n\nSpecial\nYou can gain this feat multiple times. Each time you take the feat, the spells of your next three lowest spell levels can now be silenced with no adjustment to their spell slots. This feat doesn’t increase the casting time for those spells that normally become full-round actions when cast in metamagic form. However, since bard spells can’t be enhanced with the Silent Spell feat, they can’t be affected by this feat either.",
+    "effects": {},
+    "epic": true
+  },
+  "Automatic Still Spell": {
+    "prerequisites": "Still Spell, Spellcraft 27 ranks, ability to cast 9th-level arcane or divine spells.",
+    "description": "Benefit\nYou may cast all 0-, 1st-, 2nd-, and 3rd-level spells as stilled spells without using higher-level spell slots.\n\nSpecial\nYou can gain this feat multiple times. Each time you take the feat, the spells of your next three lowest spell levels can now be stilled with no adjustment to their spell slots. This feat doesn’t increase the casting time for those spells that normally become full-round actions when cast in metamagic form.",
+    "effects": {},
+    "epic": true
+  },
+  "Bane Of Enemies": {
+    "prerequisites": "Survival 24 ranks, five or more favored enemies.",
+    "description": "Benefit\nAny weapon you wield against one of your favored enemies is treated as a bane weapon for that creature type (thus, its enhancement bonus is increased by +2 and it deals +2d6 points of damage). This ability doesn’t stack with similar abilities.",
+    "effects": {},
+    "epic": true
+  },
+  "Blinding Speed": {
+    "prerequisites": "Dex 25.",
+    "description": "Benefit\nYou can act as if hasted for 5 rounds each day. The duration of the effect need not be consecutive rounds. Activating this power is a free action.\n\nSpecial\nYou can gain this feat multiple times. Each time you take the feat, it grants an additional 5 rounds of haste per day.",
+    "effects": {},
+    "epic": true
+  },
+  "Bonus Domain": {
+    "prerequisites": "Wis 21, ability to cast 9th-level divine spells.",
+    "description": "Benefit\nChoose an additional domain from your deity’s domain list. You now have access to that domain’s spells and granted powers as normal for your domain spells and the domain’s granted powers.\n\nSpecial\nYou can gain this feat multiple times. Each time you take the feat, it applies to a different domain.",
+    "effects": {},
+    "epic": true
+  },
+  "Bulwark Of Defense": {
+    "prerequisites": "Con 25, defensive stance 3/day.",
+    "description": "Benefit\nYour defensive stance bonuses increase to +4 Strength, +6 Constitution, +4 resistance bonus on all saves, and +6 dodge bonus to AC.",
+    "effects": {},
+    "epic": true
+  },
+  "Chaotic Rage": {
+    "prerequisites": "Rage 5/day, chaotic alignment.",
+    "description": "Benefit\nAny weapon you wield while in a rage is treated as an anarchic weapon (it is chaos-aligned and deals an extra 2d6 points of damage against creatures of lawful alignment). This ability does not stack with similar abilities.",
+    "effects": {},
+    "epic": true
+  },
+  "Colossal Wild Shape": {
+    "prerequisites": "The ability to wild shape into a Gargantuan creature.",
+    "description": "Benefit\nYou can use your wild shape to take the shape of a Colossal animal.\n\nNormal\nWithout this feat, you cannot wild shape into an animal of greater than Huge size.",
+    "effects": {},
+    "epic": true,
+    "epic_type": "wild"
+  },
+  "Combat Archery": {
+    "prerequisites": "Dodge, Mobility, Point Blank Shot.",
+    "description": "Benefit\nYou do not incur any attacks of opportunity for firing a bow when threatened.\n\nNormal\nWithout this feat, you incur an attack of opportunity from all opponents who threaten you whenever you use a bow.",
+    "effects": {},
+    "epic": true
+  },
+  "Craft Epic Magic Arms And Armor": {
+    "prerequisites": "Craft Magic Arms and Armor, Knowledge (arcana) 28 ranks, Spellcraft 28 ranks.",
+    "description": "Benefit\nYou can craft magic arms and armor which exceed the normal limits for such items",
+    "effects": {},
+    "epic": true
+  },
+  "Craft Epic Rod": {
+    "prerequisites": "Craft Rod, Knowledge (arcana) 32 ranks, Spellcraft 32 ranks.",
+    "description": "Benefit\nYou can craft rods that exceed the normal limits for such items.",
+    "effects": {},
+    "epic": true
+  },
+  "Craft Epic Staff": {
+    "prerequisites": "Craft Staff, Knowledge (arcana) 35 ranks, Spellcraft 35 ranks.",
+    "description": "Benefit\nYou can craft staffs that exceed the normal limits for such items.",
+    "effects": {},
+    "epic": true
+  },
+  "Craft Epic Wondrous Item": {
+    "prerequisites": "Craft Wondrous Item, Knowledge (arcana) 26 ranks, Spellcraft 26 ranks.",
+    "description": "Benefit\nYou can craft wondrous items that exceed the normal limits for such items.",
+    "effects": {},
+    "epic": true
+  },
+  "Damage Reduction": {
+    "prerequisites": "Con 21.",
+    "description": "Benefit\nYou gain damage reduction 3/-. This does not stack with damage reduction granted by magic items or nonpermanent magical effects, but it does stack with any damage reduction granted by permanent magical effects, class features, or this feat itself.\n\nSpecial\nYou can gain this feat multiple times. Each time you gain the feat, your damage reduction increases by 3.",
+    "effects": {
+      "damage_reduction": 3
+    },
+    "epic": true
+  },
+  "Deafening Song": {
+    "prerequisites": "Perform 24 ranks, bardic music class feature.",
+    "description": "Benefit\nYou can use song or poetics to temporarily deafen all enemies within a 30-foot spread. A successful Fortitude save (DC 10 + ½ your class level + the your Charisma modifier) negates the effect. The deafening effect lasts for as long as you continue the deafening song. You can choose to exclude any characters from this effect. You may sing, play, or recite a deafening song while taking other mundane actions, but not magical ones (see the bard’s inspire courage ability for more details). You may keep up the deafening song for a maximum of 10 rounds. Using the deafening song counts as one of your uses of song or poetics for the day.",
+    "effects": {},
+    "epic": true
+  },
+  "Death Of Enemies": {
+    "prerequisites": "Bane of Enemies, Survival 30 ranks, five or more favored enemies.",
+    "description": "Benefit\nAny time you score a critical hit against one of your favored enemies, it must make a Fortitude save (DC 10 + ½ your ranger class level + your Wisdom modifier) or die instantly.\n\nSpecial\nCreatures immune to critical hits can’t be affected by this feat.",
+    "effects": {},
+    "epic": true
+  },
+  "Devastating Critical": {
+    "prerequisites": "Str 25, Cleave, Great Cleave, Improved Critical (chosen weapon), Overwhelming Critical (chosen weapon), Power Attack, Weapon Focus (chosen weapon).",
+    "description": "Benefit\nWhenever you score a critical hit with the chosen weapon, the target must make a Fortitude save (DC 10 + ½ your level + your Strength modifier) or die instantly. (Creatures immune to critical hits can’t be affected by this feat.)\n\nSpecial\nYou can gain this feat multiple times. Its effects do not stack. Each time you take the feat, it applies to a different type of weapon.",
+    "effects": {},
+    "epic": true
+  },
+  "Dexterous Fortitude": {
+    "prerequisites": "Dex 25, slippery mind class feature.",
+    "description": "Benefit\nOnce per round, when targeted by an effect that requires a Fortitude saving throw, you may make a Reflex save instead to avoid the effect (evasion is not applicable).",
+    "effects": {},
+    "epic": true
+  },
+  "Dexterous Will": {
+    "prerequisites": "Dex 25, slippery mind class feature.",
+    "description": "Benefit\nOnce per round, when targeted by an effect that requires a Will saving throw, you may make a Reflex save instead to avoid the effect (evasion is not applicable).",
+    "effects": {},
+    "epic": true
+  },
+  "Diminutive Wild Shape": {
+    "prerequisites": "Ability to wild shape into a Huge animal.",
+    "description": "Benefit\nYou can use wild shape to take the shape of a Diminutive animal.\n\nNormal\nWithout this feat, you cannot wild shape into an animal of smaller than Tiny size.",
+    "effects": {},
+    "epic": true,
+    "epic_type": "wild"
+  },
+  "Dire Charge": {
+    "prerequisites": "Improved Initiative.",
+    "description": "Benefit\nIf you charge a foe during the first round of combat (or the surprise round, if you are allowed to act in it), you can make a full attack against the opponent charged.\n\nNormal\nWithout this feat, you may only make a single attack as part of a charge.",
+    "effects": {},
+    "epic": true
+  },
+  "Distant Shot": {
+    "prerequisites": "Dex 25, Far Shot, Point Blank Shot, Spot 20 ranks.",
+    "description": "Benefit\nYou may throw or fire a ranged weapon at any target within line of sight, with no penalty for range.",
+    "effects": {},
+    "epic": true
+  },
+  "Dragon Wild Shape": {
+    "prerequisites": "Wis 30, Knowledge (nature) 30 ranks, wild shape 6/day.",
+    "description": "Benefit\nYou may use wild shape to change into a dragon (black, blue, green, red, white, brass, bronze, copper, gold, or silver). The size limitation is the same as your limitation on animal size. You gain all extraordinary and supernatural abilities of the dragon whose form you take.",
+    "effects": {},
+    "epic": true,
+    "epic_type": "wild"
+  },
+  "Efficient Item Creation": {
+    "prerequisites": "Item creation feat to be selected, Knowledge (arcana) 24 ranks, Spellcraft 24 ranks.",
+    "description": "Benefit\nSelect an item creation feat. Creating a magic item using that feat requires one day per 10,000 gp of the item’s market price, with a minimum of one day.\n\nNormal\nWithout this feat, creating a magic item requires one day for each 1,000 gp of the item’s market price.\n\nSpecial\nYou can gain this feat multiple times. Its effects do not stack. Each time you take the feat, it applies to a different item creation feat.",
+    "effects": {},
+    "epic": true
+  },
+  "Energy Resistance": {
+    "prerequisites": "None",
+    "description": "Benefit\nChoose a type of energy (acid, cold, electricity, fire, or sonic). You gain resistance 10 to that type of energy, or your existing resistance to that type of energy increases by 10. This feat does not stack with energy resistance granted by magic items or nonpermanent magical effects.\n\nSpecial\nYou can gain this feat multiple times. If the same type of energy is chosen, the effects stack.",
+    "effects": {},
+    "epic": true
+  },
+  "Enhance Spell": {
+    "prerequisites": "Maximize Spell.",
+    "description": "Benefit\nThe damage cap for your spells increases by 10 dice (for spells that deal a number of dice of damage equal to caster level) or by 5 dice (for spells that deal a number of dice of damage equal to half caster level). An enhanced spell uses up a spell slot four levels higher than the spell’s actual level. This feat has no effect on spells that don’t specifically deal a number of dice of damage equal to the caster’s level or half level, even if the spell’s effect is largely dictated by the caster’s level.\n\nNormal\nWithout this feat, use the damage dice caps indicated in the spell’s description.\n\nSpecial\nYou may gain this feat multiple times. Each time you select this feat, the damage cap increases by 10 dice or 5 dice, as appropriate to the spell, and the enhanced spell takes up a spell slot an additional four levels higher.",
+    "effects": {},
+    "epic": true
+  },
+  "Epic Dodge": {
+    "prerequisites": "Dex 25, Dodge, Tumble 30 ranks, improved evasion, defensive roll class feature.",
+    "description": "Benefit\nOnce per round, when struck by an attack from an opponent you have designated as the object of your dodge, you may automatically avoid all damage from the attack.",
+    "effects": {},
+    "epic": true
+  },
+  "Epic Endurance": {
+    "prerequisites": "Con 25, Endurance.",
+    "description": "Benefit\nWhenever you make a check for performing a physical action that extends over a period of time, you get a +10 bonus on the check.",
+    "effects": {},
+    "epic": true
+  },
+  "Epic Expanded Knowledge": {
+    "prerequisites": "Character level 21st, ability to manifest powers of the normal maximum power level in at least one psionic class.",
+    "description": "Benefit\nYou learn one additional power at any level up to the highest level of power you can manifest. You can choose any power, even one that is part of another discipline’s list or another class’s list.\n\nSpecial\nYou can gain this feat multiple times. Each time, you learn one new power at any level up to the highest level of power you can manifest.",
+    "effects": {},
+    "epic": true,
+    "epic_type": "psionic"
+  },
+  "Epic Fortitude": {
+    "prerequisites": "None",
+    "description": "Benefit\nYou gain a +4 bonus on all Fortitude saving throws.",
+    "effects": {
+      "fort_save": 4
+    },
+    "epic": true
+  },
+  "Epic Inspiration": {
+    "prerequisites": "Cha 25, Perform 30 ranks, bardic music class feature.",
+    "description": "Benefit\nAll competence bonuses, dodge bonuses, and morale bonuses granted by your bardic music ability increase by +1. If you have the inspire greatness bardic music ability, it grants one additional bonus HD.\n\nSpecial\nYou can gain this feat multiple times. Its effects stack.\n\n\tTable: Epic Leadership\n\n\t\t\tLeadership\nScore\n\t\t\tCohort\nLevel\n\t\t\tNumber of Followers by Level\n\n\t\t\t1st\n\t\t\t2nd\n\t\t\t3rd\n\t\t\t4th\n\t\t\t5th\n\t\t\t6th\n\t\t\t7th\n\t\t\t8th\n\t\t\t9th\n\t\t\t10th\n\n\t\t\t\t\tLeadership Score: Your Leadership score equals your level plus any Charisma modifier. Outside factors can affect a character’s Leadership score, as detailed in the Leadership feat.\n\n\t\t\t\t\tCohort Level: You can attract a cohort of up to this level. Regardless of your Leadership score, you can’t recruit a cohort of your level or higher.\n\n\t\t\t\t\tNumber of Followers by Level: You can lead up to the indicated number of characters of each level.\n\n\t\t\t\t\t*The maximum cohort level increases by 1 for every 2 points of Leadership above 40.\n\n\t\t\t\t\t**The number of 1st-level followers increases by 100 for every point of Leadership above 40.\n\n\t\t\t\t\t†You can command one-tenth as many 2nd-level followers as 1st-level followers. You can command one-half as many 3rd-level followers as 2nd-level followers, one-half as many 4th-level followers as 3rd-level followers, and so on (round fractions up, except any fraction less than 1 rounds to 0). You can’t have a follower of higher than 20th level.\n\n\t\t\t25\n\t\t\t17th\n\t\t\t135\n\t\t\t13\n\t\t\t7\n\t\t\t4\n\t\t\t2\n\t\t\t2\n\t\t\t1\n\t\t\t—\n\t\t\t—\n\t\t\t—\n\n\t\t\t26\n\t\t\t18th\n\t\t\t160\n\t\t\t16\n\t\t\t8\n\t\t\t4\n\t\t\t2\n\t\t\t2\n\t\t\t1\n\t\t\t—\n\t\t\t—\n\t\t\t—\n\n\t\t\t27\n\t\t\t18th\n\t\t\t190\n\t\t\t19\n\t\t\t10\n\t\t\t5\n\t\t\t3\n\t\t\t2\n\t\t\t1\n\t\t\t—\n\t\t\t—\n\t\t\t—\n\n\t\t\t28\n\t\t\t19th\n\t\t\t220\n\t\t\t22\n\t\t\t11\n\t\t\t6\n\t\t\t3\n\t\t\t2\n\t\t\t1\n\t\t\t—\n\t\t\t—\n\t\t\t—\n\n\t\t\t29\n\t\t\t19th\n\t\t\t260\n\t\t\t26\n\t\t\t13\n\t\t\t7\n\t\t\t4\n\t\t\t2\n\t\t\t1\n\t\t\t—\n\t\t\t—\n\t\t\t—\n\n\t\t\t30\n\t\t\t20th\n\t\t\t300\n\t\t\t30\n\t\t\t15\n\t\t\t8\n\t\t\t4\n\t\t\t2\n\t\t\t1\n\t\t\t—\n\t\t\t—\n\t\t\t—\n\n\t\t\t31\n\t\t\t20th\n\t\t\t350\n\t\t\t35\n\t\t\t18\n\t\t\t9\n\t\t\t5\n\t\t\t3\n\t\t\t2\n\t\t\t1\n\t\t\t—\n\t\t\t—\n\n\t\t\t32\n\t\t\t21st\n\t\t\t400\n\t\t\t40\n\t\t\t20\n\t\t\t10\n\t\t\t5\n\t\t\t3\n\t\t\t2\n\t\t\t1\n\t\t\t—\n\t\t\t—\n\n\t\t\t33\n\t\t\t21st\n\t\t\t460\n\t\t\t46\n\t\t\t23\n\t\t\t12\n\t\t\t6\n\t\t\t3\n\t\t\t2\n\t\t\t1\n\t\t\t—\n\t\t\t—\n\n\t\t\t34\n\t\t\t22nd\n\t\t\t520\n\t\t\t52\n\t\t\t26\n\t\t\t13\n\t\t\t6\n\t\t\t3\n\t\t\t2\n\t\t\t1\n\t\t\t—\n\t\t\t—\n\n\t\t\t35\n\t\t\t22nd\n\t\t\t590\n\t\t\t59\n\t\t\t30\n\t\t\t15\n\t\t\t8\n\t\t\t4\n\t\t\t2\n\t\t\t1\n\t\t\t—\n\t\t\t—\n\n\t\t\t36\n\t\t\t23rd\n\t\t\t660\n\t\t\t66\n\t\t\t33\n\t\t\t17\n\t\t\t9\n\t\t\t5\n\t\t\t3\n\t\t\t2\n\t\t\t1\n\t\t\t—\n\n\t\t\t37\n\t\t\t23rd\n\t\t\t740\n\t\t\t74\n\t\t\t37\n\t\t\t19\n\t\t\t10\n\t\t\t5\n\t\t\t3\n\t\t\t2\n\t\t\t1\n\t\t\t—\n\n\t\t\t38\n\t\t\t24th\n\t\t\t820\n\t\t\t82\n\t\t\t41\n\t\t\t21\n\t\t\t11\n\t\t\t6\n\t\t\t3\n\t\t\t2\n\t\t\t1\n\t\t\t—\n\n\t\t\t39\n\t\t\t24th\n\t\t\t910\n\t\t\t91\n\t\t\t46\n\t\t\t23\n\t\t\t12\n\t\t\t6\n\t\t\t3\n\t\t\t2\n\t\t\t1\n\t\t\t—\n\n\t\t\t40\n\t\t\t25th\n\t\t\t1000\n\t\t\t100\n\t\t\t50\n\t\t\t25\n\t\t\t13\n\t\t\t7\n\t\t\t4\n\t\t\t2\n\t\t\t1\n\t\t\t—\n\n\t\t\tper +1\n\t\t\t+½*\n\t\t\t+100**\n\t\t\t†\n\t\t\t†\n\t\t\t†\n\t\t\t†\n\t\t\t†\n\t\t\t†\n\t\t\t†\n\t\t\t†\n\t\t\t†\n\n\tTable: Example Special Epic Cohorts\n\n\t\tCreature\n\t\tAlignment\n\t\tLevel\nEquivalent\n\n\t\tAngel, astral deva\n\t\tAny good\n\t\t20nd\n\n\t\tDragon, ancient silver\n\t\tLawful good\n\t\t42nd\n\n\t\tCouatl\n\t\tLawful good\n\t\t16th\n\n\t\tGiant, cloud\n\t\tNeutral good\n\t\t24th\n\n\t\tGhaele\n\t\tChaotic good\n\t\t20st\n\n\t\tGiant, storm\n\t\tChaotic good\n\t\t28th\n\n\t\tDragon, wyrm brass\n\t\tChaotic good\n\t\t42th\n\n\t\tDragon turtle\n\t\tNeutral\n\t\t21st\n\n\t\tHydra, 12-headed\n\t\tNeutral\n\t\t19th\n\n\t\tRoc\n\t\tNeutral\n\t\t23rd\n\n\t\tDragon, ancient green\n\t\tLawful evil\n\t\t40th\n\n\t\tDevil, ice (gelugon)\n\t\tLawful evil\n\t\t21st\n\n\t\tGiant, cloud\n\t\tNeutral evil\n\t\t24th\n\n\t\tDemon, glabrezu\n\t\tChaotic evil\n\t\t23rd\n\n\t\tDemon, succubus\n\t\tChaotic evil\n\t\t12th\n\n\t\tDragon, wyrm white\n\t\tChaotic evil\n\t\t41th",
+    "effects": {},
+    "epic": true
+  },
+  "Epic Leadership": {
+    "prerequisites": "Cha 25, Leadership, Leadership score 25.",
+    "description": "Benefit\nYou attract a cohort and followers as shown on Table: Epic Leadership.  In all other ways Epic Leadership functions as the Leadership feat.\n\nNormal\nThe Leadership feat provides no benefit for leadership scores beyond 25.\n\n\tTable: Example Special Epic Cohorts presents some creatures that make good cohorts for epic characters.",
+    "effects": {},
+    "epic": true
+  },
+  "Epic Prowess": {
+    "prerequisites": "None",
+    "description": "Benefit\nGain a +1 bonus on all attacks.\n\nSpecial\nYou can gain this feat multiple times. Its effects stack.",
+    "effects": {
+      "attack_bonus": 1
+    },
+    "epic": true
+  },
+  "Epic Psionic Focus": {
+    "prerequisites": "Character level 21st, ability to manifest powers of the normal maximum power level in at least one psionic class.",
+    "description": "Benefit\nWhen you expend your psionic focus, you can simultaneously use two feats that require a psionic focus to be expended, instead of just one. The feats must be stackable. You must still spend the requisite power points required to use each metapsionic feat, and you cannot exceed the power point limit set by your manifester level.\n\nSpecial\nYou can take this feat multiple times. Each time you do so, you can simultaneously use one additional feat that requires a psionic focus to be expended.",
+    "effects": {},
+    "epic": true,
+    "epic_type": "psionic"
+  },
+  "Epic Reflexes": {
+    "prerequisites": "None",
+    "description": "Benefit\nYou gain a +4 bonus on all Reflex saving throws.",
+    "effects": {
+      "reflex_save": 4
+    },
+    "epic": true
+  },
+  "Epic Reputation": {
+    "prerequisites": "None",
+    "description": "Benefit\nYou gain a +4 bonus on Bluff, Diplomacy, Gather Information, Intimidate, and Perform checks.",
+    "effects": {
+      "skill_bonus": {
+        "Bluff": 4,
+        "Diplomacy": 4,
+        "Gather Information": 4,
+        "Intimidate": 4,
+        "Perform": 4
+      }
+    },
+    "epic": true
+  },
+  "Epic Skill Focus": {
+    "prerequisites": "20 ranks in the skill selected.",
+    "description": "Benefit\nYou gain a +10 bonus on all skill checks with that skill.\n\nSpecial\nYou can gain this feat multiple times. Its effects do not stack. Each time you take the feat, it applies to a different skill.",
+    "effects": {},
+    "epic": true
+  },
+  "Epic Speed": {
+    "prerequisites": "Dex 21, Run.",
+    "description": "Benefit\nYour speed increases by 30 feet. This benefit does not stack with increased speed granted by magic items or nonpermanent magical effects.\n\nSpecial\nThis feat only functions when you are wearing medium armor, light armor, or no armor.",
+    "effects": {
+      "speed_bonus": 30
+    },
+    "epic": true
+  },
+  "Epic Spell Focus": {
+    "prerequisites": "Greater Spell Focus and Spell Focus in the school selected, ability to cast at least one 9th-level spell of the school to be chosen.",
+    "description": "Benefit\nAdd +1 to the Difficulty Class for all saving throws against spells from the school of magic you select to focus on. This stacks with the bonuses from Spell Focus and Greater Spell Focus.\n\nSpecial\nYou can gain this feat multiple times. Its effects do not stack. Each time you take the feat, it applies to a different school of magic.",
+    "effects": {},
+    "epic": true
+  },
+  "Epic Spell Penetration": {
+    "prerequisites": "Greater Spell Penetration, Spell Penetration.",
+    "description": "Benefit\nYou get a +2 bonus on caster level checks to beat a creature’s spell resistance. This stacks with the bonuses from Spell Penetration and Greater Spell Penetration.",
+    "effects": {},
+    "epic": true
+  },
+  "Epic Spellcasting": {
+    "prerequisites": "Spellcraft 24 ranks, Knowledge (arcana) 24 ranks, ability to cast 9th-level arcane spells. OR Spellcraft 24 ranks, Knowledge (religion) 24 ranks, ability to cast 9th-level divine spells. OR Spellcraft 24 ranks, Knowledge (nature) 24 ranks, ability to cast 9th-level divine spells.",
+    "description": "Benefit\nYou may develop and cast epic spells.  If you are an arcane spellcaster, you may cast a number of epic spells per day equal to your ranks in Knowledge (arcana) divided by 10. If you are a divine spellcaster, you may cast a number of epic spells per day equal to your ranks in Knowledge (religion) or Knowledge (nature) divided by 10.\n\nSpecial\nIf you meet more than one set of prerequisites, the limit on the number of spells you may cast per day is cumulative.",
+    "effects": {},
+    "epic": true
+  },
+  "Epic Toughness": {
+    "prerequisites": "None",
+    "description": "Benefit\nYou gain +30 hit points.\n\nSpecial\nYou can gain this feat multiple times. Its effects stack.",
+    "effects": {
+      "hp_bonus": 30
+    },
+    "epic": true
+  },
+  "Epic Trapfinding": {
+    "prerequisites": "Search 25 ranks, Spot 25 ranks, trapfinding class ability.",
+    "description": "Benefit\nIf you pass within 5 feet of a trap, you are entitled to a Search check to notice it as if you were actively looking for it.",
+    "effects": {},
+    "epic": true
+  },
+  "Epic Weapon Focus": {
+    "prerequisites": "Weapon Focus and Greater Weapon Focus in the chosen weapon.",
+    "description": "Benefit\nAdd a +2 bonus to all attack rolls you make using the selected weapon.\n\nSpecial\nYou can gain this feat multiple times. Its effects do not stack. Each time you take the feat it applies to a different type of weapon.",
+    "effects": {},
+    "epic": true
+  },
+  "Epic Weapon Specialization": {
+    "prerequisites": "Epic Weapon Focus, Weapon Focus, Weapon Specialization (all in the chosen weapon).",
+    "description": "Benefit\nAdd +4 to all damage you deal using the selected weapon. If the weapon is a ranged weapon, the damage bonus only applies if the target is within 30 feet.\n\nSpecial\nYou can gain this feat multiple times. Its effects do not stack. Each time you take the feat, it applies to a different type of weapon.",
+    "effects": {},
+    "epic": true
+  },
+  "Epic Will": {
+    "prerequisites": "None",
+    "description": "Benefit\nYou gain a +4 bonus on all Will saving throws.",
+    "effects": {
+      "will_save": 4
+    },
+    "epic": true
+  },
+  "Exceptional Deflection": {
+    "prerequisites": "Dex 21, Wis 19, Deflect Arrows, Improved Unarmed Strike.",
+    "description": "Benefit\nYou can deflect any ranged attacks (including spells that require ranged touch attacks) as if they were arrows.",
+    "effects": {},
+    "epic": true
+  },
+  "Extended Life Span": {
+    "prerequisites": "None",
+    "description": "Benefit\nAdd one-half the maximum result of your race’s maximum age modifier to your normal middle age, old, and venerable age categories. Calculate your maximum age using the new venerable number. This feat can’t lower your current age category.\n\nSpecial\nYou can gain this feat multiple times. Its effects stack.",
+    "effects": {},
+    "epic": true
+  },
+  "Familiar Spell": {
+    "prerequisites": "Int 25 (if your spellcasting is controlled by Intelligence) or Cha 25 (if your spellcasting is controlled by Charisma).",
+    "description": "Benefit\nChoose one arcane spell you know of 8th level or lower. Your familiar can now use this spell once per day as a spell-like ability, at a caster level equal to your caster level. Your cannot bestow a spell to your familiar if the spell normally has a material component cost of more than 1 gp or an XP cost.\n\nSpecial\nYou can gain this feat multiple times. Each time you take the feat, you can give your familiar a different spell-like ability or another daily use of the same spell-like ability.",
+    "effects": {},
+    "epic": true
+  },
+  "Fast Healing": {
+    "prerequisites": "Con 25.",
+    "description": "Benefit\nYou gain fast healing 3, or your existing fast healing increases by 3. This feat does not stack with fast healing granted by magic items or nonpermanent magical effects.\n\nSpecial\nYou can gain this feat multiple times. Its effects stack.",
+    "effects": {},
+    "epic": true
+  },
+  "Fine Wild Shape": {
+    "prerequisites": "Ability to wild shape into a Diminutive creature.",
+    "description": "Benefit\nYou can use your wild shape to take the shape of a Fine animal.\n\nNormal\nWithout this feat, you cannot wild shape into an animal smaller than Tiny size.",
+    "effects": {},
+    "epic": true,
+    "epic_type": "wild"
+  },
+  "Forge Epic Ring": {
+    "prerequisites": "Forge Ring, Knowledge (arcana) 35 ranks, Spellcraft 35 ranks.",
+    "description": "Benefit\nYou can forge magic rings that exceed the normal limits for such items.",
+    "effects": {},
+    "epic": true
+  },
+  "Gargantuan Wild Shape": {
+    "prerequisites": "Ability to wild shape into a Huge animal.",
+    "description": "Benefit\nYou can use your wild shape to take the shape of a Gargantuan animal.\n\nNormal\nWithout this feat, you cannot wild shape into an animal greater than Huge size.",
+    "effects": {},
+    "epic": true,
+    "epic_type": "wild"
+  },
+  "Great Charisma": {
+    "prerequisites": "None",
+    "description": "Benefit\nYour Charisma increases by 1 point.\n\nSpecial\nYou can gain this feat multiple times. Its effects stack.",
+    "effects": {
+      "ability_enh": {
+        "Charisma": 1
+      }
+    },
+    "epic": true
+  },
+  "Great Constitution": {
+    "prerequisites": "None",
+    "description": "Benefit\nYour Constitution increases by 1 point.\n\nSpecial\nYou can gain this feat multiple times. Its effects stack.",
+    "effects": {
+      "ability_enh": {
+        "Constitution": 1
+      }
+    },
+    "epic": true
+  },
+  "Great Dexterity": {
+    "prerequisites": "None",
+    "description": "Benefit\nYour Dexterity increases by 1 point.\n\nSpecial\nYou can gain this feat multiple times. Its effects stack.",
+    "effects": {
+      "ability_enh": {
+        "Dexterity": 1
+      }
+    },
+    "epic": true
+  },
+  "Great Intelligence": {
+    "prerequisites": "None",
+    "description": "Benefit\nYour Intelligence increases by 1 point.\n\nSpecial\nYou can gain this feat multiple times. Its effects stack.",
+    "effects": {
+      "ability_enh": {
+        "Intelligence": 1
+      }
+    },
+    "epic": true
+  },
+  "Great Smiting": {
+    "prerequisites": "Cha 25, smite ability (from class feature or domain granted power).",
+    "description": "Benefit\nWhenever you make a successful smite attack, add twice the appropriate level to damage (rather than just your level).\n\nSpecial\nYou may select this feat multiple times. Its effects stack. Remember that two doublings equals a tripling, and so forth.",
+    "effects": {},
+    "epic": true
+  },
+  "Great Strength": {
+    "prerequisites": "None",
+    "description": "Benefit\nYour Strength increases by 1 point.\n\nSpecial\nYou can gain this feat multiple times. Its effects stack.",
+    "effects": {
+      "ability_enh": {
+        "Strength": 1
+      }
+    },
+    "epic": true
+  },
+  "Great Wisdom": {
+    "prerequisites": "None",
+    "description": "Benefit\nYour Wisdom increases by 1 point.\n\nSpecial\nYou can gain this feat multiple times. Its effects stack.",
+    "effects": {
+      "ability_enh": {
+        "Wisdom": 1
+      }
+    },
+    "epic": true
+  },
+  "Group Inspiration": {
+    "prerequisites": "Perform 30 ranks, bardic music class feature.",
+    "description": "Benefit\nThe number of allies you can affect with your inspire competence or inspire greatness bardic music ability doubles. When inspiring competence in multiple allies, you can choose different skills to inspire for different allies.\n\nSpecial\nYou can gain this feat multiple times. Its effects stack. Remember that two doublings equals a tripling, and so forth.",
+    "effects": {},
+    "epic": true
+  },
+  "Hindering Song": {
+    "prerequisites": "Deafening Song, Perform 27 ranks, bardic music class feature.",
+    "description": "Benefit\nYou can use song or poetics to hinder enemy spellcasters within a 30-foot spread centered on you. To successfully cast a spell within this area, a spellcaster must make a Concentration check as if he or she were casting defensively, and all such checks have a penalty equal to half your level. You can choose to exclude any characters from this effect. You may sing, play, or recite a hindering song while taking other mundane actions, but not magical ones (see the bard’s inspire courage ability for more details). You may keep up the hindering song for a maximum of 10 rounds. Using the hindering song counts as one of your uses of song or poetics for the day.",
+    "effects": {},
+    "epic": true
+  },
+  "Holy Strike": {
+    "prerequisites": "Smite evil class feature, any good alignment.",
+    "description": "Benefit\nAny weapon you wield is treated as a holy weapon (is good-aligned and deals an extra 2d6 points of damage against creatures of evil alignment).If the weapon already has an alignment, this feat has no effect on the weapon.",
+    "effects": {},
+    "epic": true
+  },
+  "Ignore Material Components": {
+    "prerequisites": "Eschew Materials, Spellcraft 25 ranks, ability to cast 9th-level arcane or divine spells.",
+    "description": "Benefit\nYou may cast spells without any material components. This feat does not affect the need for a focus or divine focus.",
+    "effects": {},
+    "epic": true
+  },
+  "Improved Alignment-Based Casting": {
+    "prerequisites": "Access to domain of Chaos, Evil, Good, or Law, alignment must match domain chosen, ability to cast 9th-level divine spells.",
+    "description": "Benefit\nSelect an alignment-based domain (Chaos, Evil, Good, or Law) to which you have access. You cast spells with that alignment descriptor at +3 caster level.\n\nSpecial\nThis benefit overrides (does not stack with) the granted powers of the Chaos, Evil, Good, and Law domains. You may select this feat multiple times. Its effects do not stack. Each time you take the feat, it applies to a different alignment-based domain to which you have access.",
+    "effects": {},
+    "epic": true
+  },
+  "Improved Arrow Of Death": {
+    "prerequisites": "Dex 19, Wis 19, Point Blank Shot, Precise Shot, arrow of death class feature.",
+    "description": "Benefit\nAdd +2 to the DC of your arrows of death. This feat may be taken multiple times. Its effects stack.",
+    "effects": {},
+    "epic": true
+  },
+  "Improved Aura Of Courage": {
+    "prerequisites": "Cha 25, aura of courage class ability.",
+    "description": "Benefit\nYour aura of courage grants a +8 morale bonus on saving throws against fear effects.",
+    "effects": {},
+    "epic": true
+  },
+  "Improved Aura Of Despair": {
+    "prerequisites": "Cha 25, aura of despair class ability.",
+    "description": "Benefit\nYour aura of despair causes a -4 morale penalty on all saving throws.",
+    "effects": {},
+    "epic": true
+  },
+  "Improved Combat Casting": {
+    "prerequisites": "Combat Casting, Concentration 25 ranks.",
+    "description": "Benefit\nYou don’t incur attacks of opportunity for casting spells when threatened.",
+    "effects": {},
+    "epic": true
+  },
+  "Improved Combat Reflexes": {
+    "prerequisites": "Dex 21, Combat Reflexes.",
+    "description": "Benefit\nThere is no limit to the number of attacks of opportunity you can make in one round. (you still can’t make more than one attack of opportunity for a given opportunity.)",
+    "effects": {},
+    "epic": true
+  },
+  "Improved Darkvision": {
+    "prerequisites": "Darkvision.",
+    "description": "Benefit\nThe range of your darkvision doubles. This feat does not stack with darkvision granted by magic items or nonpermanent magical effects.\n\nSpecial\nYou can gain this feat multiple times. Its effects stack. Remember that two doublings equals a tripling, and so on.",
+    "effects": {},
+    "epic": true
+  },
+  "Improved Death Attack": {
+    "prerequisites": "Death attack class feature, sneak attack +5d6.",
+    "description": "Benefit\nAdd +2 to the DC of your death attack.\n\nSpecial\nYou can gain this feat multiple times. Its effects stack.",
+    "effects": {},
+    "epic": true
+  },
+  "Improved Elemental Wild Shape": {
+    "prerequisites": "Wis 25, ability to wild shape into an elemental.",
+    "description": "Benefit\nYour ability to wild shape into an elemental is expanded to include all elemental creatures (not just air, earth, fire, and water elementals) of any size that you can take when using wild shape to become an animal. You gain all extraordinary and supernatural abilities of the elemental whose form you take.\n\nNormal\nWithout this feat, you may only wild shape into a Small, Medium-size, or Large air, earth, fire, or water elemental.",
+    "effects": {},
+    "epic": true,
+    "epic_type": "wild"
+  },
+  "Improved Favored Enemy": {
+    "prerequisites": "Five or more favored enemies.",
+    "description": "Benefit\nAdd +1 to the bonus on Bluff, Listen, Sense Motive, Spot, and Survival checks and damage rolls against all your favored enemies.\n\nSpecial\nYou can gain this feat multiple times. Its effects stack.",
+    "effects": {},
+    "epic": true
+  },
+  "Improved Heighten Spell": {
+    "prerequisites": "Heighten Spell, Spellcraft 20 ranks.",
+    "description": "Benefit\nAs Heighten Spell, but there is no limit to the level to which you can heighten the spell.\n\nNormal\nWithout this feat, a spell can only be heightened to a maximum of 9th level.",
+    "effects": {},
+    "epic": true
+  },
+  "Improved Ki Strike": {
+    "prerequisites": "Wis 21, Ki strike (adamantine).",
+    "description": "Benefit\nYour unarmed strikes are treated as epic magic weapons for the purposes of damage reduction.",
+    "effects": {},
+    "epic": true
+  },
+  "Improved Low-Light Vision": {
+    "prerequisites": "Low-light vision.",
+    "description": "Benefit\nThe range of your low-light vision doubles. This feat does not stack with low-light vision granted by magic items or nonpermanent magical effects.\n\nSpecial\nYou can gain this feat multiple times. Its effects stack. Remember that two doublings equals a tripling, and so on.",
+    "effects": {},
+    "epic": true
+  },
+  "Improved Manifestation": {
+    "prerequisites": "Character level 21st, ability to manifest powers of the normal maximum power level in at least one psionic class.",
+    "description": "Benefit\nWhen you select this feat, you gain 19 power points.\n\nSpecial\nYou can gain this feat multiple times. Each time you do so, you gain an additional number of power points equal to your previous benefit +2.",
+    "effects": {},
+    "epic": true,
+    "epic_type": "psionic"
+  },
+  "Improved Manyshot": {
+    "prerequisites": "Dex 19, base attack bonus +21, Many-shot, Point Blank Shot, Rapid Shot",
+    "description": "Normal\nWith the Manyshot feat, you are limited to a maximum of four arrows fired (when your base attack bonus is +16 or higher).\n\nSpecial\nRegardless of the number of arrows you fire, you only apply precision-based damage (such as sneak attack damage or the ranger’s favored enemy bonus) once. If you score a critical hit, only one of the arrows deals critical damage (your choice); all others deal normal damage.\n\nBenefits\nAs Manyshot, but the number of arrows you can fire is limited only by your base attack bonus (two arrows, plus one arrow for every 5 points of base attack bonus above +6).",
+    "effects": {},
+    "epic": true
+  },
+  "Improved Metamagic": {
+    "prerequisites": "Four metamagic feats, Spellcraft 30 ranks.",
+    "description": "Benefit\nThe spell slot modifier of all your metamagic feats is reduced by one level, to a minimum of +1. This feat has no effect on metamagic feats whose spell slot modifier is +1 or less.\n\nSpecial\nYou can gain this feat multiple times. The effects stack, though you can’t reduce any metamagic feat’s spell slot modifier to less than +1.",
+    "effects": {},
+    "epic": true
+  },
+  "Improved Metapsionics": {
+    "prerequisites": "Character level 21st, four metapsionic feats, Psicraft 30 ranks.",
+    "description": "Benefit\nMetapsionic powers you manifest cost 2 power points less than normal (to a minimum of 1 power point).\n\n\tThis feat has no effect on metapsionic powers that inflate the cost by only 2 power points.\n\nSpecial\nYou can gain this feat multiple times. The effects stack, though you can’t lower the cost of any metapsionic power to less than 1 power point.",
+    "effects": {},
+    "epic": true,
+    "epic_type": "psionic"
+  },
+  "Improved Sneak Attack": {
+    "prerequisites": "Sneak attack +8d6.",
+    "description": "Benefit\nAdd +1d6 to your sneak attack damage.\n\nSpecial\nYou can gain this feat multiple times. Its effects stack.",
+    "effects": {},
+    "epic": true
+  },
+  "Improved Spell Capacity": {
+    "prerequisites": "Ability to cast spells of the normal maximum spell level in at least one spellcasting class.",
+    "description": "Benefit\nWhen you select this feat, you gain one spell slot per day of any level up to one level higher than the highest-level spell you can already cast in a particular class. You must still have the requisite ability score (10 + spell level) in order to cast any spell stored in this slot. If you have a high enough ability modifier to gain one or more bonus spells for this spell level, you also gain the bonus spells for this spell level. You must use the spell slot as a member of the class in which you can already cast spells of the normal maximum spell level.\n\nSpecial\nYou can gain this feat multiple times.\n\nSpell Slots Above 9th Level\n\n\tThe Improved Spell Capacity feat allows characters to gain spell slots above 9th level (which can be used to hold lower-level spells or spells whose level has been increased beyond 9th by the use of metamagic feats).\n\n\tA character with a very high score in the ability associated with his or her spellcasting (Intelligence for wizards; Wisdom for clerics, druids, paladins, and rangers; or Charisma for bards and sorcerers) may receive bonus spells of those levels, as shown on Table: Expanded Ability Modifiers and Bonus Spells, but only if they already have at least one spell slot of that level (such as from the Improved Spell Capacity feat). A character without any spell slots of a level can’t receive any bonus spells of that level, even if the appropriate ability score is high enough to award them.\n\n\tEven though the table only includes ability scores up to 61 and spell slots up to 25th level, the progression continues infinitely in both directions. For ability scores beyond 61, or for spell slots above 25th level, expand the table to follow the same patterns as shown.\n\n\tTable: Expanded Ability Modifiers and Bonus Spells\n\n\t\tScore\n\t\tModifier\n\t\tSpells per Day\n\n\t\t10th\n\t\t11th\n\t\t12th\n\t\t13th\n\t\t14th\n\t\t15th\n\t\t16th\n\t\t17th\n\t\t18th\n\t\t19th\n\t\t20th\n\t\t21st\n\t\t22nd\n\t\t23rd\n\t\t24th\n\t\t25th\n\n\t\t10-11\n\t\t+0\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t12-13\n\t\t+1\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t14-15\n\t\t+2\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t16-17\n\t\t+3\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t18-19\n\t\t+4\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t20-21\n\t\t+5\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t22-23\n\t\t+6\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t24-25\n\t\t+7\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t26-27\n\t\t+8\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t28-29\n\t\t+9\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t30-31\n\t\t+10\n\t\t1\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t32-33\n\t\t+11\n\t\t1\n\t\t1\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t34-35\n\t\t+12\n\t\t1\n\t\t1\n\t\t1\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t36-37\n\t\t+13\n\t\t1\n\t\t1\n\t\t1\n\t\t1\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t38-39\n\t\t+14\n\t\t2\n\t\t1\n\t\t1\n\t\t1\n\t\t1\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t40-41\n\t\t+15\n\t\t2\n\t\t2\n\t\t1\n\t\t1\n\t\t1\n\t\t1\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t42-43\n\t\t+16\n\t\t2\n\t\t2\n\t\t2\n\t\t1\n\t\t1\n\t\t1\n\t\t1\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t44-45\n\t\t+17\n\t\t2\n\t\t2\n\t\t2\n\t\t2\n\t\t1\n\t\t1\n\t\t1\n\t\t1\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t46-47\n\t\t+18\n\t\t3\n\t\t2\n\t\t2\n\t\t2\n\t\t2\n\t\t1\n\t\t1\n\t\t1\n\t\t1\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t48-49\n\t\t+19\n\t\t3\n\t\t3\n\t\t2\n\t\t2\n\t\t2\n\t\t2\n\t\t1\n\t\t1\n\t\t1\n\t\t1\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t50-51\n\t\t+20\n\t\t3\n\t\t3\n\t\t3\n\t\t2\n\t\t2\n\t\t2\n\t\t2\n\t\t1\n\t\t1\n\t\t1\n\t\t1\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t52-53\n\t\t+21\n\t\t3\n\t\t3\n\t\t3\n\t\t3\n\t\t2\n\t\t2\n\t\t2\n\t\t2\n\t\t1\n\t\t1\n\t\t1\n\t\t1\n\t\t—\n\t\t—\n\t\t—\n\t\t—\n\n\t\t54-55\n\t\t+22\n\t\t4\n\t\t3\n\t\t3\n\t\t3\n\t\t3\n\t\t2\n\t\t2\n\t\t2\n\t\t2\n\t\t1\n\t\t1\n\t\t1\n\t\t1\n\t\t—\n\t\t—\n\t\t—\n\n\t\t56-57\n\t\t+23\n\t\t4\n\t\t4\n\t\t3\n\t\t3\n\t\t3\n\t\t3\n\t\t2\n\t\t2\n\t\t2\n\t\t2\n\t\t1\n\t\t1\n\t\t1\n\t\t1\n\t\t—\n\t\t—\n\n\t\t58-59\n\t\t+24\n\t\t4\n\t\t4\n\t\t4\n\t\t3\n\t\t3\n\t\t3\n\t\t3\n\t\t2\n\t\t2\n\t\t2\n\t\t2\n\t\t1\n\t\t1\n\t\t1\n\t\t1\n\t\t—\n\n\t\t60-61\n\t\t+25\n\t\t4\n\t\t4\n\t\t4\n\t\t4\n\t\t3\n\t\t3\n\t\t3\n\t\t3\n\t\t2\n\t\t2\n\t\t2\n\t\t2\n\t\t1\n\t\t1\n\t\t1\n\t\t1\n\n\t\tetc…",
+    "effects": {},
+    "epic": true
+  },
+  "Improved Spell Resistance": {
+    "prerequisites": "Must have spell resistance from a feat, class feature, or other permanent effect.",
+    "description": "Benefit\nYour spell resistance increases by +2.\n\nSpecial\nYou can gain this feat multiple times. Its effects stack.",
+    "effects": {},
+    "epic": true
+  },
+  "Improved Stunning Fist": {
+    "prerequisites": "Dex 19, Wis 19, Improved Unarmed Strike, Stunning Fist.",
+    "description": "Benefit\nAdd +2 to the DC of your stunning attack.\n\nSpecial\nYou can gain this feat multiple times. Its effects stack.",
+    "effects": {},
+    "epic": true
+  },
+  "Improved Whirlwind Attack": {
+    "prerequisites": "Int 13, Dex 23, Combat Expertise, Dodge, Mobility, Spring Attack, Whirlwind Attack.",
+    "description": "Benefit\nAs a standard action, you can make one melee attack for every five points of your base attack bonus (including epic attack bonus, round fractions down).\n\n\tYou cannot attack any one opponent more than once as part of this action.  These attacks (as well as all other attacks made until the start of your next turn) suffer a -4 penalty.\n\n\tWhen using the Improved Whirlwind feat, you also forfeit any bonus or extra attacks granted by other spells or abilities (such as Cleave or the haste spell).\n\n\tSince these attacks are made as part of a standard action, you can’t make a 5-foot step between any two of the attacks.\n\nNormal\nWithout this feat, using the Whirlwind Attack feat requires a full attack action, and you can take a 5-foot step between any two of the attacks.",
+    "effects": {},
+    "epic": true
+  },
+  "Incite Rage": {
+    "prerequisites": "Cha 25, greater rage class feature.",
+    "description": "Benefit\nWhen you enter a rage, you can incite a barbarian rage in any or all allies within 60 feet. (Any ally who doesn’t wish to become enraged is unaffected.) The ally gains +4 to Strength, +4 to Constitution, and a +2 morale bonus on Will saves, but takes a -2 penalty to AC, for as long as you remain raging. The rage of affected allies lasts a number of rounds equal to 3 + their Constitution modifier, regardless of whether they remain within 60 feet of you. This is otherwise identical with normal barbarian rage (including the fatigue at its end).\n\nSpecial\nThis is a mind-affecting effect.",
+    "effects": {},
+    "epic": true
+  },
+  "Infinite Deflection": {
+    "prerequisites": "Dex 25, Combat Reflexes, Deflect Arrows, Improved Unarmed Strike.",
+    "description": "Benefit\nYou may perform any number of deflections each round, as the Deflect Arrows feat.",
+    "effects": {},
+    "epic": true
+  },
+  "Inspire Excellence": {
+    "prerequisites": "Perform 30 ranks, bardic music class feature.",
+    "description": "Benefit\nYou can use song or poetics to grant a bonus to one ability score to your allies. To be affected, an ally must hear you sing for 1 full round. The effect lasts as long as you sing and for 5 rounds after you stop singing (or 5 rounds after the ally can no longer hear you). While singing, you can fight but cannot cast spells, activate magic items by spell completion (such as scrolls), by spell trigger (such as wands), or by command word. Each ally to be inspired gains a +4 competence bonus to the same ability score, which you must choose before you begin inspiring. Inspire excellence is a supernatural, mind-affecting ability. Using the feat counts as one of your uses of song or poetics for the day.\n\nSpecial\nThis feat is treated as a bardic music inspiration ability for purposes of feats that affect such abilities.",
+    "effects": {},
+    "epic": true
+  },
+  "Instant Reload": {
+    "prerequisites": "Quick Draw, Rapid Reload, Weapon Focus (crossbow type to be selected).",
+    "description": "Benefit\nYou may fire the selected type of crossbow at your full normal attack rate. Reloading the crossbow does not provoke attacks of opportunity.\n\nSpecial\nYou can gain this feat multiple times. Its effects do not stack. Each time you take the feat, it applies to a different type of crossbow.",
+    "effects": {},
+    "epic": true
+  },
+  "Intensify Spell": {
+    "prerequisites": "Empower Spell, Maximize Spell, Spellcraft 30 ranks, ability to cast 9th-level arcane or divine spells.",
+    "description": "Benefit\nAll variable, numeric effects of an intensified spell are maximized, then doubled. An intensified spell deals twice maximum damage, cures twice the maximum number of hit points, affects twice the maximum number of targets, and so forth, as appropriate. Saving throws and opposed rolls are not affected. An intensified spell uses up a spell slot seven levels higher than the spell’s actual level. You can’t combine the effects of this feat with any other feat that affects the variable, numeric effects of a spell.",
+    "effects": {},
+    "epic": true
+  },
+  "Keen Strike": {
+    "prerequisites": "Str 23, Wis 23, Improved Critical (unarmed strike), Improved Unarmed Strike, Stunning Fist, ki strike (adamantine).",
+    "description": "Benefit\nYour unarmed strike has a critical threat range of 18-20 and deals slashing damage (at your option any attack can deal bludgeoning damage, but cannot then take advantage of the enhanced threat range). This ability doesn’t stack with other abilities that expand your unarmed strike’s threat range.",
+    "effects": {},
+    "epic": true
+  },
+  "Lasting Inspiration": {
+    "prerequisites": "Perform 25 ranks, bardic music class feature.",
+    "description": "Benefit\nThe effects of your bardic music inspiration abilities last for ten times as long as normal after you stop singing. This feat has no effect on inspiration abilities that have no duration after you stop singing.",
+    "effects": {},
+    "epic": true
+  },
+  "Legendary Climber": {
+    "prerequisites": "Dex 21, Balance 12 ranks, Climb 24 ranks.",
+    "description": "Benefit\nYou can ignore any check penalties applied for accelerated climbing or rapid climbing.\n\nNormal\nWithout this feat, you take a -5 penalty on Climb checks when attempting to cover your full speed in climbing distance in a round, or a -20 penalty when attempting to cover twice your speed in climbing distance in a round.",
+    "effects": {},
+    "epic": true
+  },
+  "Legendary Commander": {
+    "prerequisites": "Cha 25, Epic Leadership, Leadership, Diplomacy 30 ranks, must rule own kingdom and have a stronghold.",
+    "description": "Benefit\nMultiply the number of followers of each level that you can lead by 10. This has no effect on cohorts.",
+    "effects": {},
+    "epic": true
+  },
+  "Legendary Leaper": {
+    "prerequisites": "Jump 24 ranks.",
+    "description": "Benefit\nYou need only move 5 feet in a straight line to make a running jump.\n\nNormal\nWithout this feat, you must move at least 20 feet in a straight line before attempting a running jump.",
+    "effects": {},
+    "epic": true
+  },
+  "Legendary Rider": {
+    "prerequisites": "Ride 24 ranks.",
+    "description": "Benefit\nYou don’t take a penalty on Ride checks when riding a mount without a saddle (bareback).  You never need to make a Ride check to control a mount in combat (and even controlling a mount not trained for combat doesn’t require an action).\n\nNormal\nWithout this feat, you take a -5 penalty on Ride checks without a saddle, and must make a Ride check to control a mount in combat (and controlling a mount not trained for combat requires a move action).\n\n\t\tSurface\n\t\tDC\n\n\t\tWater\n\t\t60\n\n\t\tUnderwater\n\t\t80\n\n\t\tAir\n\t\t120",
+    "effects": {},
+    "epic": true
+  },
+  "Legendary Tracker": {
+    "prerequisites": "Wis 25, Track, Knowledge (nature) 30 ranks, Survival 30 ranks.",
+    "description": "Benefit\nYou can track creatures across water, under-water, or through the air. This adds the surfaces of water, underwater, and air to the list of surfaces found under the Track feat.",
+    "effects": {},
+    "epic": true
+  },
+  "Legendary Wrestler": {
+    "prerequisites": "Str 21, Dex 21, Improved Unarmed Strike, Escape Artist 15 ranks.",
+    "description": "Benefit\nYou gain a +10 bonus on all grapple checks.",
+    "effects": {},
+    "epic": true
+  },
+  "Lingering Damage": {
+    "prerequisites": "Sneak attack +8d6, crippling strike class feature.",
+    "description": "Benefit\nAny time you deal damage with a sneak attack, that target takes damage equal to your sneak attack bonus damage on your next turn as well.",
+    "effects": {},
+    "epic": true
+  },
+  "Magical Beast Companion": {
+    "prerequisites": "Knowledge (nature) 24 ranks, wild shape 6/day.",
+    "description": "Benefit\nThe following magical beasts are added to the lists of animal companions from which you can select.\n\n1st Level (No Adjustment)\n\n\tStirge\n\tDarkmantle\n\n4th Level (-3)\n\n\tHippogriff\n\tShocker lizard\n\n7th Level (-6)\n\n\tCockatrice\n\tAnkheg\n\tGriffon\n\tOwlbear\n\tSea cat*\n\n10th Level (-9)\n\n\tBasilisk\n\tDigester\n\tGirallon\n\tSpider eater\n\n13th Level (-12)\n\n\tBulette\n\tChimera\n\tRemorhaz\n\n16th Level (-15)\n\n\tGorgon\n\tGray render\n\nSpecial\nCreatures marked with an asterisk are available only in an aquatic environment.",
+    "effects": {},
+    "epic": true,
+    "epic_type": "wild"
+  },
+  "Magical Beast Wild Shape": {
+    "prerequisites": "Wis 25, Knowledge (nature) 27 ranks, wild shape 6/day.",
+    "description": "Benefit\nYou can use your normal wild shape ability to take the form of a magical beast. The size limitation is the same as your limitation on animal size. You gain all supernatural abilities of the magical beast whose form you take.",
+    "effects": {},
+    "epic": true,
+    "epic_type": "wild"
+  },
+  "Master Staff": {
+    "prerequisites": "Craft Staff, Spellcraft 15 ranks.",
+    "description": "Benefit\nWhen you activate a staff, you can substitute a spell slot instead of using a charge. The spell slot must be one you have not used for the day, though you may lose a prepared spell to emulate a staff charge (you may not lose prepared spells from your school of specialty, if any). The spell slot lost must be equal to or higher in level than the specific spell stored in the staff, including any level-increasing metamagic enhancements. You cannot emulate a charge for a staff function that does not match a specific spell.",
+    "effects": {},
+    "epic": true
+  },
+  "Master Wand": {
+    "prerequisites": "Craft Wand, Spellcraft 15 ranks.",
+    "description": "Benefit\nWhen you activate a wand, you can substitute a spell slot instead of using a charge. The spell slot must be one you have not used for the day, though you may lose a prepared spell to emulate a wand charge (you may not lose prepared spells from your school of specialty, if any). The spell slot lost must be equal to or higher in level than the spell stored in the wand, including any level-increasing metamagic enhancements.",
+    "effects": {},
+    "epic": true
+  },
+  "Mighty Rage": {
+    "prerequisites": "Str 21, Con 21, greater rage class feature, rage 5/day.",
+    "description": "Benefit\nWhen you rage, you gain a +8 bonus to Strength and Constitution and a +4 morale bonus on Will saves. (These bonuses replace the normal rage bonuses.)",
+    "effects": {},
+    "epic": true
+  },
+  "Mobile Defense": {
+    "prerequisites": "Dex 15, Dodge, Mobility, Spring Attack, defensive stance 3/day class feature.",
+    "description": "Benefit\nWhile in a defensive stance, the character may take one 5-foot adjustment each round without losing the benefits of the stance.\n\nNormal\nWithout this feat, a character can’t move while in a defensive stance.",
+    "effects": {},
+    "epic": true
+  },
+  "Multispell": {
+    "prerequisites": "Quicken Spell, ability to cast 9th-level arcane or divine spells.",
+    "description": "Benefit\nYou may cast one additional quickened spell in a round.\n\nSpecial\nYou can gain this feat multiple times. Its effects stack.",
+    "effects": {},
+    "epic": true
+  },
+  "Multiweapon Rend": {
+    "prerequisites": "Dex 15, base attack bonus +9, three or more hands, Multiweapon Fighting.",
+    "description": "Benefit\nIf you hit an opponent with two or more weapons (wielded in different hands) in the same round, you may automatically rend the opponent. This rending deals additional damage equal to the base damage of the smallest weapon that hit plus 1 ½ times your Strength modifier. You can only rend once per round, regardless of how many successful attacks you make.\n\nSpecial\nThis feat replaces the Two-Weapon Rend feat for creatures with more than two arms.",
+    "effects": {},
+    "epic": true
+  },
+  "Music Of The Gods": {
+    "prerequisites": "Cha 25, Perform 30 ranks, bardic music class feature.",
+    "description": "Benefit\nYour bardic music can affect even those normally immune to mind-affecting effects. However, such creatures gain a +10 bonus on their Will saves to resist such effects.",
+    "effects": {},
+    "epic": true
+  },
+  "Negative Energy Burst": {
+    "prerequisites": "Cha 25, ability to rebuke or command undead, ability to cast inflict critical wounds, any evil alignment.",
+    "description": "Benefit\nYou can use one rebuke or command undead attempt to unleash a wave of negative energy in a 60-foot-burst. Roll a normal rebuke (or command) check, except that the negative energy burst affects living creatures rather than undead. Any creature that would be rebuked by this result gains one negative level. Any creature that would be commanded by this check gains two negative levels. The Fortitude save DC to remove these levels one day later is equal to 10 + ½ your effective turning level + your Charisma modifier.",
+    "effects": {},
+    "epic": true,
+    "epic_type": "divine"
+  },
+  "Overwhelming Critical": {
+    "prerequisites": "Str 23, Cleave, Great Cleave, Improved Critical (chosen weapon), Power Attack, Weapon Focus (chosen weapon).",
+    "description": "Benefit\nWhen using the weapon you have selected, you deal an extra 1d6 points of bonus damage on a successful critical hit. If the weapon’s critical multiplier is ×3, add +2d6 points of bonus damage instead, and if the multiplier is ×4, add +3d6 points of bonus damage instead. Creatures immune to critical hits can’t be affected by this feat.\n\nSpecial\nYou can gain this feat multiple times. Its effects do not stack. Each time you take this feat, it applies to a different type of weapon.",
+    "effects": {},
+    "epic": true
+  },
+  "Penetrate Damage Reduction": {
+    "prerequisites": "None",
+    "description": "Benefit\nYour melee weapons (including natural weapons) are treated as being crafted from the chosen special material for the purposes of bypassing the damage reduction of any creature you strike. None of the other special properties of special materials are gained by your melee weapons.\n\nSpecial\nYou can gain this feat multiple times.  Each time the feat is selected you select a different special material.  Your melee attacks are treated as being crafted of all chosen materials for the purposes of bypassing damage reduction.",
+    "effects": {},
+    "epic": true
+  },
+  "Perfect Health": {
+    "prerequisites": "Con 25, Great Fortitude.",
+    "description": "Benefit\nYou are immune to all nonmagical diseases, as well as to all poisons whose Fortitude save DC is 25 or less.",
+    "effects": {},
+    "epic": true
+  },
+  "Perfect Multiweapon Fighting": {
+    "prerequisites": "Dex 25, three or more hands, Greater Multiweapon Fighting, Multiweapon Fighting.",
+    "description": "Benefit\nYou can make as many attacks with each extra weapon as with your primary weapon, using the same base attack bonus. You still take the normal penalties for fighting with two weapons.\n\nNormal\nWithout this feat, you can make only one attack per round with each extra weapon (or two attacks per round with each weapon if you have Multiweapon Fighting, or three attacks per round with each extra weapon if you have Greater Multiweapon Fighting). Each attack after the first extra attack has a cumulative -5 penalty.\n\nSpecial\nThis feat replaces the Perfect Two-Weapon Fighting feat for creatures with more than two arms.",
+    "effects": {},
+    "epic": true
+  },
+  "Perfect Two-Weapon Fighting": {
+    "prerequisites": "Dex 25, Greater Two-Weapon Fighting, Improved Two-Weapon Fighting, Two-Weapon Fighting.",
+    "description": "Benefit\nYou can make as many attacks with your off-hand weapon as with your primary weapon, using the same base attack bonus. You still take the normal penalties for fighting with two weapons.\n\nNormal\nWithout this feat, you can only get a single attack with an off-hand weapon (or two attacks with an off-hand weapon if you have Improved Two-Weapon Fighting, or three attacks with an off-hand weapon if you have Greater Two-Weapon Fighting).",
+    "effects": {},
+    "epic": true
+  },
+  "Permanent Emanation": {
+    "prerequisites": "Spellcraft 25 ranks, ability to cast the spell to be made permanent.",
+    "description": "Benefit\nDesignate any one of your spells whose area is an emanation centered on you. This spell’s effect is permanent (though you can dismiss or restart it as a free action). Effects that would normally dispel this spell instead suppress it for 2d4 rounds.\n\nSpecial\nYou can gain this feat multiple times. Each time, select a different spell to become permanent.",
+    "effects": {},
+    "epic": true
+  },
+  "Planar Turning": {
+    "prerequisites": "Wis 25, Cha 25, ability to turn or rebuke undead.",
+    "description": "Benefit\nYou can turn or rebuke outsiders as if they were undead. An outsider has effective turn resistance equal to half its spell resistance (round down). If you can turn undead, you turn (or destroy) all evil outsiders and rebuke (or command) all nonevil outsiders. If you can rebuke undead, you rebuke (or command) all evil outsiders and turn (or destroy) all nonevil outsiders.",
+    "effects": {},
+    "epic": true
+  },
+  "Plant Wild Shape": {
+    "prerequisites": "Knowledge (nature) 24 ranks, wild shape 4/day.",
+    "description": "Benefit\nYou can use your normal wild shape ability to take the form of a plant. The size limitation is the same as your limitation on animal size.",
+    "effects": {},
+    "epic": true,
+    "epic_type": "wild"
+  },
+  "Polyglot": {
+    "prerequisites": "Int 25, Speak Language (five languages).",
+    "description": "Benefit\nYou can speak all languages. If you are literate, you can also read and write all languages (not including magical script).",
+    "effects": {},
+    "epic": true
+  },
+  "Positive Energy Aura": {
+    "prerequisites": "Cha 25, ability to turn undead, ability to cast dispel evil.",
+    "description": "Benefit\nEvery undead creature that comes within 15 feet of you is automatically affected as if you had turned it. This doesn’t cost a turning attempt, and you don’t have to roll turning damage (it automatically affects all undead in a 15-foot burst), but it only turns undead with Hit Dice equal to or less than your effective cleric level minus 10 (and automatically destroys undead with Hit Dice equal to or less than your effective cleric level minus 20). Just as with normal turning, you can’t affect undead that have total cover relative to you.",
+    "effects": {},
+    "epic": true
+  },
+  "Power Knowledge": {
+    "prerequisites": "Character level 21st, ability to manifest powers of the normal maximum power level in at least one psionic class.",
+    "description": "Benefit\nYou learn two new powers of any level up to the highest level of power you can manifest. The powers you select must be on your class list or the list for your discipline.\n\nSpecial\nYou can gain this feat multiple times. Each time, you learn two new powers at any level up to the highest level of power you can manifest.",
+    "effects": {},
+    "epic": true,
+    "epic_type": "psionic"
+  },
+  "Psicrystal Power": {
+    "prerequisites": "Character level 21st, Intelligence 25 or Charisma 25 (depending on which is your key ability score for manifesting).",
+    "description": "Benefit\nChoose one power you know of 8th level or lower. Your psicrystal can now manifest this power once per day at your manifester level (the psicrystal gains sufficient power points to manifest the power once). You cannot bestow a power upon your psicrystal if the power normally has any experience point cost.\n\nSpecial\nYou can gain this feat multiple times. Each time you take the feat, you can give your psicrystal knowledge of a new power (and it gains sufficient power points to manifest that power once).\n\n\tAll power points gained by a psicrystal from multiple applications of this feat go into its reserve and can be used to manifest the powers it knows as you desire.",
+    "effects": {},
+    "epic": true,
+    "epic_type": "psionic"
+  },
+  "Ranged Inspiration": {
+    "prerequisites": "Bardic music class feature, Perform 25 ranks",
+    "description": "Benefit\nDouble the range of any bardic music ability that has a range. (If the creature must hear you to be affected by the ability, that requirement doesn’t change regardless of any extended range your ability may have.)\n\nSpecial\nYou can gain this feat multiple times. Its effects stack. Remember that two doublings equals a tripling, and so forth.",
+    "effects": {},
+    "epic": true
+  },
+  "Rapid Inspiration": {
+    "prerequisites": "Perform 25 ranks, bardic music class feature.",
+    "description": "Benefit\nYou can use any of your bardic music inspiration abilities as a standard action. The inspiration takes effect immediately after you conclude the action.",
+    "effects": {},
+    "epic": true
+  },
+  "Reactive Countersong": {
+    "prerequisites": "Combat Reflexes, Perform 30 ranks, bardic music class feature.",
+    "description": "Benefit\nYou can begin a countersong at any time, even when it isn’t your turn (much like a wizard who has readied a counterspell action), though you don’t have to ready an action to do so. You can’t use Reactive Countersong at the same time you are using another bardic music ability (though you could stop the other bardic music ability to begin Reactive Countersong if so desired).\n\nNormal\nWithout this feat, you can only use counter-song on your turn.",
+    "effects": {},
+    "epic": true
+  },
+  "Reflect Arrows": {
+    "prerequisites": "Dex 25, Deflect Arrows, Improved Unarmed Strike.",
+    "description": "Benefit\nWhen you deflect an arrow or other ranged attack, the attack is reflected back upon the attacker at your base ranged attack bonus.",
+    "effects": {},
+    "epic": true
+  },
+  "Righteous Strike": {
+    "prerequisites": "Wis 19, Improved Unarmed Strike, Stunning Fist, any lawful alignment.",
+    "description": "Benefit\nYour unarmed strike is treated as an axiomatic weapon (it is lawfully aligned and deals an extra 2d6 points of damage against creatures of chaotic alignment). This ability doesn’t stack with similar abilities.",
+    "effects": {},
+    "epic": true
+  },
+  "Ruinous Rage": {
+    "prerequisites": "Str 25, Improved Sunder, Power Attack, rage 5/day.",
+    "description": "Benefit\nWhile in a rage, you ignore the hardness of any object you strike. Also, double your Strength bonus for the purposes of any Strength check made to break an object with sudden force rather than by dealing normal damage (including bursting bindings, such as ropes or manacles).",
+    "effects": {},
+    "epic": true
+  },
+  "Scribe Epic Scroll": {
+    "prerequisites": "Scribe Scroll, Knowledge (arcana) 24 ranks, Spellcraft 24 ranks.",
+    "description": "Benefit\nYou can scribe scrolls that exceed the normal limits for such items. Even this feat does not allow you to scribe a scroll with an epic spell.",
+    "effects": {},
+    "epic": true
+  },
+  "Self-Concealment": {
+    "prerequisites": "Dex 30, Hide 30 ranks, Tumble 30 ranks, improved evasion.",
+    "description": "Benefit\nAttacks against you have a 10% miss chance, similar to the effect of concealment. You lose this benefit whenever you would lose your Dexterity bonus to AC.\n\nSpecial\nYou can gain this feat multiple times. Each time it is taken, the miss chance increases by 10% to a maximum of 50% after it has been taken five times.",
+    "effects": {},
+    "epic": true
+  },
+  "Shattering Strike": {
+    "prerequisites": "Epic Weapon Focus (unarmed strike), Weapon Focus (unarmed strike), Concentration 25 ranks, ki strike (adamantine).",
+    "description": "Benefit\nWhen using an unarmed strike to attempt to break an object with sudden force (rather than by dealing normal damage), make a Concentration check rather than a Strength check. The break DC remains the same. Using Shattering Strike is a full-round action that incurs attacks of opportunity. You can’t use Shattering Strike to escape bonds (unless you are so bound as to allow you to make an unarmed strike against your bindings).",
+    "effects": {},
+    "epic": true
+  },
+  "Sneak Attack Of Opportunity": {
+    "prerequisites": "Sneak attack +8d6, opportunist class feature.",
+    "description": "Benefit\nAny attack of opportunity you make is considered a sneak attack.",
+    "effects": {},
+    "epic": true
+  },
+  "Spectral Strike": {
+    "prerequisites": "Wis 19, ability to turn or rebuke undead.",
+    "description": "Benefit\nYour attacks deal damage normally against incorporeal creatures.\n\nNormal\nWithout this feat, even attacks that can damage an incorporeal creature have a 50% chance to deal no damage.",
+    "effects": {},
+    "epic": true
+  },
+  "Spell Knowledge": {
+    "prerequisites": "Ability to cast spells of the maximum normal spell level of an arcane spellcasting class.",
+    "description": "Benefit\nYou learn two new arcane spells of any level up to the maximum level you can cast. This feat does not grant any additional spell slots.\n\nSpecial\nYou can gain this feat multiple times.",
+    "effects": {},
+    "epic": true
+  },
+  "Spell Opportunity": {
+    "prerequisites": "Combat Casting, Combat Reflexes, Quicken Spell, Spellcraft 25 ranks.",
+    "description": "Benefit\nWhenever you are allowed an attack of opportunity, you may cast (and attack with) a touch spell as your attack of opportunity. This incurs attacks of opportunity just as if you had cast the spell normally.\n\nNormal\nWithout this feat, you can only make a melee attack as an attack of opportunity.",
+    "effects": {},
+    "epic": true
+  },
+  "Spell Stowaway": {
+    "prerequisites": "Spellcraft 24 ranks, caster level 12th.",
+    "description": "Benefit\nChoose a spell-like ability you have, or a spell you can cast.  You are attuned to the magic you choose. If another spellcaster within 300 feet of you uses this magic, you also immediately gain the magic’s effect as if it had been used on you by the same caster. You must have direct line of effect to the spellcaster in order to gain the benefit of the attuned magic (though you do not have to know the spellcaster is present, and you can be flat-footed). The magic’s duration, effect, and other specifics are determined by its original caster’s level.\n\nSpecial\nYou can gain this feat multiple times. Its effects do not stack. Each time you take this feat, it applies to a different spell or spell-like ability.",
+    "effects": {},
+    "epic": true
+  },
+  "Spellcasting Harrier": {
+    "prerequisites": "Combat Reflexes.",
+    "description": "Benefit\nAny spellcaster you threaten in melee provokes an attack of opportunity if he or she tries to cast defensively.  You get a +4 bonus on this attack roll.",
+    "effects": {},
+    "epic": true
+  },
+  "Spontaneous Domain Access": {
+    "prerequisites": "Wis 25, Spellcraft 30 ranks, ability to cast 9th-level divine spells.",
+    "description": "Benefit\nSelect a domain you have access to. You may spontaneously convert any prepared cleric spell (except a domain spell) into a domain spell of the same level in the selected domain, just as a cleric channels energy to convert spells into cure spells.\n\nSpecial\nYou can gain this feat multiple times. Each time you take this feat, it applies to a different domain.",
+    "effects": {},
+    "epic": true
+  },
+  "Spontaneous Spell": {
+    "prerequisites": "Spellcraft 25 ranks, ability to cast the maximum normal spell level of at least one spell-casting class.",
+    "description": "Benefit\nSelect a spell you can cast. You may spontaneously convert any prepared spell of the selected spell’s level into the selected spell, just as a cleric channels energy to convert spells into cure spells.\n\nSpecial\nYou can gain this feat multiple times. Each time you take this feat, it applies to a different spell.",
+    "effects": {},
+    "epic": true
+  },
+  "Storm Of Throws": {
+    "prerequisites": "Dex 23, Point Blank Shot, Quick Draw, Rapid Shot.",
+    "description": "Benefit\nAs a full-round action, you may throw a light weapon at your full base attack bonus at each opponent within 30 feet. All light weapons thrown need not be the same type.",
+    "effects": {},
+    "epic": true
+  },
+  "Superior Initiative": {
+    "prerequisites": "Improved Initiative.",
+    "description": "Benefit\nYou get a +8 bonus on initiative checks. This bonus overlaps (does not stack with) the bonus from Improved Initiative.",
+    "effects": {},
+    "epic": true
+  },
+  "Swarm Of Arrows": {
+    "prerequisites": "Dex 23, Point Blank Shot, Rapid Shot, Weapon Focus (type of bow used).",
+    "description": "Benefit\nAs a full-round action, you may fire an arrow at your full base attack bonus at each opponent within 30 feet.",
+    "effects": {},
+    "epic": true
+  },
+  "Tenacious Magic": {
+    "prerequisites": "Spellcraft 15 ranks.",
+    "description": "Benefit\nChoose one spell you know or spell-like ability you possess. Whenever the chosen form of magic would otherwise end due to a dispel effect, the magic is instead only suppressed for 1d4 rounds. The magic still ends when its duration expires, but the suppressed rounds do not count against its duration. You can dismiss your own spell or spell-like ability (if dismissible) or dispel your own tenacious magic normally.\n\nSpecial\nYou can gain this feat multiple times. Each time you take this feat, it applies to a different spell or spell-like ability.",
+    "effects": {},
+    "epic": true
+  },
+  "Terrifying Rage": {
+    "prerequisites": "Intimidate 25 ranks, rage 5/day",
+    "description": "Benefit\nWhile you are raging, any enemy that views you must make a Will save opposed by your Intimidate check of become panicked (if it has HD less than your character level) or shaken (if it has HD equal to or up to twice your character level) for 4d6 rounds.  An enemy with Hit Dice greater than twice your character level is not affected by this feat.",
+    "effects": {},
+    "epic": true
+  },
+  "Thundering Rage": {
+    "prerequisites": "Str 25, rage 5/day.",
+    "description": "Benefit\nAny weapon you wield while in a rage is treated as a thundering weapon. The DC of the Fortitude save to resist deafness is equal to 10 + ½ your level. This ability does not stack with similar abilities.",
+    "effects": {},
+    "epic": true
+  },
+  "Trap Sense": {
+    "prerequisites": "Search 25 ranks, Spot 25 ranks, trapfinding class ability.",
+    "description": "Benefit\nIf the character passes within 5 feet of a trap, he or she is entitled to a Search check to notice it as if the character was actively looking for it.",
+    "effects": {},
+    "epic": true
+  },
+  "Two-Weapon Rend": {
+    "prerequisites": "Dex 15, base attack bonus +9, Improved Two-Weapon Fighting, Two-Weapon Fighting.",
+    "description": "Benefit\nIf you hit an opponent with a weapon in each hand in the same round, you may automatically rend the opponent. This deals additional damage equal to the base damage of the smaller weapon plus 1 ½ times your Strength modifier. Base weapon damage includes an enhancement bonus on damage, if any. You can only rend once per round, regardless of how many successful attacks you make.",
+    "effects": {},
+    "epic": true
+  },
+  "Uncanny Accuracy": {
+    "prerequisites": "Dex 21, base attack bonus +11, Point Blank Shot, Precise Shot, Improved Precise Shot, Spot 20 ranks.",
+    "description": "Benefit\nYour ranged attacks ignore the miss chance granted to targets by total concealment. You must aim your attacks at the correct square to take advantage of this feat.\n\nNormal\nWithout this feat, you suffer a 50% miss chance when making a ranged attack against a target with total concealment.\n\nSpecial\nA character with at least 11 levels of ranger can qualify for this feat even if he or she does not have the prerequisites for it, but can only use it when wearing light or no armor.",
+    "effects": {},
+    "epic": true
+  },
+  "Undead Mastery": {
+    "prerequisites": "Cha 21, ability to rebuke or command undead.",
+    "description": "Benefit\nYou may command up to ten times your level in HD of undead.",
+    "effects": {},
+    "epic": true,
+    "epic_type": "divine"
+  },
+  "Unholy Strike": {
+    "prerequisites": "Smite good class feature, any evil alignment.",
+    "description": "Benefit\nAny weapon your wield is treated as an unholy weapon (it is evil-aligned and deals an extra 2d6 points of damage against creatures of good alignment). This ability doesn’t stack with similar abilities. If the weapon already has an alignment, this feat has no effect on the weapon.",
+    "effects": {},
+    "epic": true
+  },
+  "Vermin Wild Shape": {
+    "prerequisites": "Knowledge (nature) 24 ranks, wild shape 6/day.",
+    "description": "Benefit\nYou can use your normal wild shape ability to take the form of a vermin. The size limitation is the same as your limitation on animal size.",
+    "effects": {},
+    "epic": true,
+    "epic_type": "wild"
+  },
+  "Vorpal Strike": {
+    "prerequisites": "Str 25, Wis 25, Improved Critical (unarmed strike), Improved Unarmed Strike, Keen Strike, Stunning Fist, ki strike (adamantine).",
+    "description": "Benefit\nYour unarmed strike is considered to be a slashing vorpal weapon. (At your option, any unarmed strike can do bludgeoning damage instead, but it loses the vorpal quality.) This ability doesn’t stack with similar abilities",
+    "effects": {},
+    "epic": true
+  },
+  "Widen Aura Of Courage": {
+    "prerequisites": "Cha 25, aura of courage class ability.",
+    "description": "Benefit\nYour aura of courage extends to all allies within 100 feet of you.",
+    "effects": {},
+    "epic": true
+  },
+  "Widen Aura Of Despair": {
+    "prerequisites": "Cha 25, aura of despair class ability.",
+    "description": "Benefit\nYour aura of despair extends to all enemies within 100 feet of you.",
+    "effects": {},
+    "epic": true
+  },
+  "Zone Of Animation": {
+    "prerequisites": "Cha 25, Undead Mastery, ability to rebuke or command undead.",
+    "description": "Benefit\nYou can use a rebuke or command undead attempt to animate corpses within range of your rebuke or command attempt. You animate a total number of HD of undead equal to the number of undead that would be commanded by your result (though you can’t animate more undead than there are available corpses within range). You can’t animate more undead with any single attempt than the maximum number you can command (including any undead already under your command). These undead are automatically under your command, though your normal limit of commanded undead still applies. If the corpses are relatively fresh, the animated undead are zombies. Otherwise, they are skeletons.\n\nNonepic General Feats\n\n\tThese feats are not epic feats, so they may be selected by a character any time he or she could select a new feat.",
+    "effects": {},
+    "epic": true,
+    "epic_type": "divine"
+  }
+}

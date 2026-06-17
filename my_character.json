@@ -1,0 +1,255 @@
+{
+  "name": "New Hero",
+  "alignment": "Neutral Good",
+  "race": "Human",
+  "classes": [
+    "Rogue",
+    "Fighter",
+    "Wizard"
+  ],
+  "levels": [
+    15,
+    5,
+    5
+  ],
+  "size": "Medium",
+  "abilities": {
+    "Strength": {
+      "base": 10,
+      "racial": 0,
+      "enh": 0,
+      "misc": 0,
+      "total": 10
+    },
+    "Dexterity": {
+      "base": 10,
+      "racial": 0,
+      "enh": 0,
+      "misc": 0,
+      "total": 10
+    },
+    "Constitution": {
+      "base": 10,
+      "racial": 0,
+      "enh": 0,
+      "misc": 0,
+      "total": 10
+    },
+    "Intelligence": {
+      "base": 10,
+      "racial": 0,
+      "enh": 0,
+      "misc": 0,
+      "total": 10
+    },
+    "Wisdom": {
+      "base": 10,
+      "racial": 0,
+      "enh": 0,
+      "misc": 0,
+      "total": 10
+    },
+    "Charisma": {
+      "base": 10,
+      "racial": 0,
+      "enh": 0,
+      "misc": 0,
+      "total": 10
+    }
+  },
+  "coins": {
+    "PP": 0,
+    "GP": 0,
+    "EP": 0,
+    "SP": 0,
+    "CP": 0
+  },
+  "weapons": [
+    {
+      "status": "stowed",
+      "name": "",
+      "weight": 0,
+      "enh": 0,
+      "feat_atk": 0,
+      "feat_dmg": 0,
+      "damage": "",
+      "special": "",
+      "value": 0,
+      "ability": "Strength"
+    },
+    {
+      "status": "stowed",
+      "name": "",
+      "weight": 0,
+      "enh": 0,
+      "feat_atk": 0,
+      "feat_dmg": 0,
+      "damage": "",
+      "special": "",
+      "value": 0,
+      "ability": "Strength"
+    },
+    {
+      "status": "stowed",
+      "name": "",
+      "weight": 0,
+      "enh": 0,
+      "feat_atk": 0,
+      "feat_dmg": 0,
+      "damage": "",
+      "special": "",
+      "value": 0,
+      "ability": "Strength"
+    },
+    {
+      "status": "stowed",
+      "name": "",
+      "weight": 0,
+      "enh": 0,
+      "feat_atk": 0,
+      "feat_dmg": 0,
+      "damage": "",
+      "special": "",
+      "value": 0,
+      "ability": "Strength"
+    },
+    {
+      "status": "stowed",
+      "name": "",
+      "weight": 0,
+      "enh": 0,
+      "feat_atk": 0,
+      "feat_dmg": 0,
+      "damage": "",
+      "special": "",
+      "value": 0,
+      "ability": "Strength"
+    }
+  ],
+  "armor": {
+    "status": "stored",
+    "name": "",
+    "bonus": 0,
+    "enh": 0,
+    "feat": 0,
+    "special": "",
+    "value": 0,
+    "max_dex": 99
+  },
+  "shield": {
+    "status": "stored",
+    "name": "",
+    "bonus": 0,
+    "enh": 0,
+    "feat": 0,
+    "special": "",
+    "value": 0
+  },
+  "magic_items": [
+    "Headband of Intellect +2",
+    "",
+    "Amulet of Natural Armor +2",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "inventory": [
+    {
+      "name": "Test",
+      "weight": 0.0,
+      "value": 0.0
+    },
+    {
+      "name": "Test",
+      "weight": 1.0,
+      "value": 1.0
+    },
+    {
+      "name": "Test",
+      "weight": 1.0,
+      "value": 1.0
+    }
+  ],
+  "notes": "",
+  "known_spells": [
+    "Bull's Strength"
+  ],
+  "spell_states": {},
+  "wands": [],
+  "scrolls": [],
+  "material_components": [],
+  "defenses": [],
+  "health": {
+    "current_hp": 0,
+    "hit_dice_rolls": [
+      6,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      6,
+      6,
+      6,
+      6,
+      6
+    ],
+    "death_threshold": -10,
+    "skill_points_per_level": [
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  "general_feats": [
+    ""
+  ],
+  "special_abilities": {
+    "Rogue_10": "Defensive Roll",
+    "Rogue_13": "Slippery Mind"
+  },
+  "bonus_feats": {
+    "Fighter_1_bonus": "",
+    "Fighter_2_bonus": "Craft Wand",
+    "Fighter_4_bonus": "Diligent",
+    "Wizard_5_bonus": "Extend Spell"
+  },
+  "combat_expertise": 0,
+  "prepared_spells": []
+}

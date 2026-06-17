@@ -1,0 +1,8 @@
+{
+  "version": "1.2",
+  "app_name": "D&D Before",
+  "github_owner": "christopherpeades-debug",
+  "github_repo": "D-DBefore",
+  "installer_asset_keyword": "Setup",
+  "check_on_startup": true
+}
