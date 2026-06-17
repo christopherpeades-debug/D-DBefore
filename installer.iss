@@ -1,12 +1,12 @@
 ; Inno Setup script for D&D Before (character sheet)
 #ifndef MyAppVersion
-  #define MyAppVersion "1.2"
+  #define MyAppVersion "1.22"
 #endif
 #ifndef MyAppExeName
-  #define MyAppExeName "D&D Before v1.2.exe"
+  #define MyAppExeName "D&D Before v1.22.exe"
 #endif
 #ifndef MyBuildDir
-  #define MyBuildDir "dist\D&D Before v1.2"
+  #define MyBuildDir "dist\D&D Before v1.22"
 #endif
 #define MyAppName "D&D Before"
 #define MyAppPublisher "DnD Before"
@@ -59,13 +59,14 @@ var
   LegacyDirs: TArrayOfString;
   I: Integer;
 begin
-  SetArrayLength(LegacyDirs, 6);
+  SetArrayLength(LegacyDirs, 7);
   LegacyDirs[0] := 'C:\D&D Before v1.1';
   LegacyDirs[1] := 'C:\D&D Before v1.11';
   LegacyDirs[2] := 'C:\D&D Before v1.12';
   LegacyDirs[3] := 'C:\D&D Before v1.01';
   LegacyDirs[4] := 'C:\D&D Before v1.21';
   LegacyDirs[5] := 'C:\D&D Before v1.2';
+  LegacyDirs[6] := 'C:\D&D Before v1.22';
   for I := 0 to GetArrayLength(LegacyDirs) - 1 do
   begin
     if DirExists(LegacyDirs[I]) then
