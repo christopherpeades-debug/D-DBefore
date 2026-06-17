@@ -1,9 +1,9 @@
 ; Inno Setup script for D&D Before (character sheet)
-#define MyAppName "D&D Before v1.12"
-#define MyAppVersion "1.12"
+#define MyAppName "D&D Before"
+#define MyAppVersion "1.21"
 #define MyAppPublisher "DnD Before"
-#define MyAppExeName "D&D Before v1.12.exe"
-#define MyBuildDir "dist\D&D Before v1.12"
+#define MyAppExeName "D&D Before v1.21.exe"
+#define MyBuildDir "dist\D&D Before v1.21"
 
 [Setup]
 AppId={{B8C4D0E2-5F3A-6B7C-9D0E-1F2A3B4C5D6E}
@@ -16,7 +16,7 @@ UsePreviousAppDir=no
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
 OutputDir=installer_output
-OutputBaseFilename=D&D_Before_v1.12_Setup
+OutputBaseFilename=D&D_Before_v1.21_Setup
 SetupIconFile=icon.ico
 Compression=lzma2
 SolidCompression=yes
@@ -50,10 +50,13 @@ var
   LegacyDirs: TArrayOfString;
   I: Integer;
 begin
-  SetArrayLength(LegacyDirs, 3);
+  SetArrayLength(LegacyDirs, 6);
   LegacyDirs[0] := 'C:\D&D Before v1.1';
   LegacyDirs[1] := 'C:\D&D Before v1.11';
-  LegacyDirs[2] := 'C:\D&D Before v1.2';
+  LegacyDirs[2] := 'C:\D&D Before v1.12';
+  LegacyDirs[3] := 'C:\D&D Before v1.01';
+  LegacyDirs[4] := 'C:\D&D Before v1.2';
+  LegacyDirs[5] := 'C:\D&D Before v1.21';
   for I := 0 to GetArrayLength(LegacyDirs) - 1 do
   begin
     if DirExists(LegacyDirs[I]) then
