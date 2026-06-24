@@ -40,12 +40,16 @@ foreach ($asset in $release.assets) {
         Write-Host "Deleted old asset: $($asset.name)"
     }
 }
-$uploadUrl = $release.upload_url -replace "\{.*$", ""
-$encodedName = [uri]::EscapeDataString($setupExe.Name)
+$uploadUrl = $release.upload_url -replace "\{\?name,label\}", ""
+$assetName = if ($setupExe.Name -match '[&]') {
+    "DnD_Before_v$version`_Setup.exe"
+} else {
+    $setupExe.Name
+}
 $uploadHeaders = @{
     Authorization = "Bearer $Token"
     Accept = "application/vnd.github+json"
     "Content-Type" = "application/octet-stream"
 }
-Invoke-RestMethod -Method Post -Uri "$uploadUrl?name=$encodedName" -Headers $uploadHeaders -InFile $setupExe.FullName | Out-Null
-Write-Host "Uploaded $($setupExe.Name) to release $tag"
+Invoke-RestMethod -Method Post -Uri "$uploadUrl`?name=$assetName" -Headers $uploadHeaders -InFile $setupExe.FullName | Out-Null
+Write-Host "Uploaded $assetName to release $tag"
