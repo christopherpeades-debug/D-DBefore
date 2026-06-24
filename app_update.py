@@ -19,9 +19,21 @@ USER_AGENT = "DnD-Before-Updater"
 
 
 def _parse_version_tuple(value):
+    """Normalize app versions for comparison.
+
+    Legacy builds used patch-style numbers like 1.21 (1.2 patch 1). Newer releases
+    use 1.3-style minor versions. Treat two-part values with a trailing segment >= 10
+    as major.minor.patch so 1.3 is newer than 1.21/1.22.
+    """
     text = re.sub(r"^v", "", str(value or "").strip(), flags=re.I)
-    parts = re.findall(r"\d+", text)
-    return tuple(int(p) for p in parts) if parts else (0,)
+    parts = [int(part) for part in re.findall(r"\d+", text)]
+    if not parts:
+        return (0,)
+    if len(parts) == 2 and parts[1] >= 10:
+        return (parts[0], parts[1] // 10, parts[1] % 10)
+    while len(parts) < 3:
+        parts.append(0)
+    return tuple(parts[:3])
 
 
 def version_is_newer(candidate, current):
@@ -104,6 +116,28 @@ class AppUpdateManager:
         except urllib.error.URLError as exc:
             raise RuntimeError(f"Could not reach GitHub: {exc.reason}") from exc
 
+    def _release_version(self, release):
+        tag_name = str(release.get("tag_name") or "").strip()
+        return re.sub(r"^v", "", tag_name, flags=re.I)
+
+    def _select_latest_release(self, releases):
+        best = None
+        best_version = ""
+        for release in releases or []:
+            if release.get("draft"):
+                continue
+            if release.get("prerelease"):
+                continue
+            version = self._release_version(release)
+            if not version:
+                continue
+            if best is None or version_is_newer(version, best_version):
+                best = release
+                best_version = version
+        if best is None:
+            raise RuntimeError("No published GitHub releases with a version tag were found.")
+        return best
+
     def _pick_installer_asset(self, assets):
         keyword = str(self.config.get("installer_asset_keyword") or "Setup").lower()
         exe_assets = [
@@ -126,11 +160,15 @@ class AppUpdateManager:
             )
         owner = urllib.parse.quote(str(self.config["github_owner"]).strip(), safe="")
         repo = urllib.parse.quote(str(self.config["github_repo"]).strip(), safe="")
-        payload = self._github_request(f"https://api.github.com/repos/{owner}/{repo}/releases/latest")
-        tag_name = str(payload.get("tag_name") or "").strip()
-        if not tag_name:
+        releases = self._github_request(
+            f"https://api.github.com/repos/{owner}/{repo}/releases?per_page=100"
+        )
+        if not isinstance(releases, list):
+            raise RuntimeError("GitHub releases response was not a list.")
+        payload = self._select_latest_release(releases)
+        latest_version = self._release_version(payload)
+        if not latest_version:
             raise RuntimeError("Latest GitHub release did not include a version tag.")
-        latest_version = re.sub(r"^v", "", tag_name, flags=re.I)
         current_version = self.get_current_version()
         asset = self._pick_installer_asset(payload.get("assets"))
         return {
