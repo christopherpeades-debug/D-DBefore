@@ -1,0 +1,178 @@
+{
+  "Clasp of Energy Protection, Acid (least)": {
+    "description": "Resistance 5 to acid (max 25 prevented/day, then inert).",
+    "rank": "least",
+    "cost": "500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Clasp of Energy Protection, Acid (lesser)": {
+    "description": "Resistance 10 (max 50/day).",
+    "rank": "lesser",
+    "cost": "1,500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Clasp of Energy Protection, Acid (greater)": {
+    "description": "Resistance 15 (max 75/day).",
+    "rank": "greater",
+    "cost": "3,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Clasp of Energy Protection, Cold (least)": {
+    "description": "Resistance 5 to cold (max 25 prevented/day, then inert).",
+    "rank": "least",
+    "cost": "500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Clasp of Energy Protection, Cold (lesser)": {
+    "description": "Resistance 10 (max 50/day).",
+    "rank": "lesser",
+    "cost": "1,500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Clasp of Energy Protection, Cold (greater)": {
+    "description": "Resistance 15 (max 75/day).",
+    "rank": "greater",
+    "cost": "3,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Clasp of Energy Protection, Electricity (least)": {
+    "description": "Resistance 5 to electricity (max 25 prevented/day, then inert).",
+    "rank": "least",
+    "cost": "500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Clasp of Energy Protection, Electricity (lesser)": {
+    "description": "Resistance 10 (max 50/day).",
+    "rank": "lesser",
+    "cost": "1,500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Clasp of Energy Protection, Electricity (greater)": {
+    "description": "Resistance 15 (max 75/day).",
+    "rank": "greater",
+    "cost": "3,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Clasp of Energy Protection, Fire (least)": {
+    "description": "Resistance 5 to fire (max 25 prevented/day, then inert).",
+    "rank": "least",
+    "cost": "500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Clasp of Energy Protection, Fire (lesser)": {
+    "description": "Resistance 10 (max 50/day).",
+    "rank": "lesser",
+    "cost": "1,500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Clasp of Energy Protection, Fire (greater)": {
+    "description": "Resistance 15 (max 75/day).",
+    "rank": "greater",
+    "cost": "3,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Clasp of Energy Protection, Sonic (least)": {
+    "description": "Resistance 5 to sonic (max 25 prevented/day, then inert).",
+    "rank": "least",
+    "cost": "500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Clasp of Energy Protection, Sonic (lesser)": {
+    "description": "Resistance 10 (max 50/day).",
+    "rank": "lesser",
+    "cost": "1,500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Clasp of Energy Protection, Sonic (greater)": {
+    "description": "Resistance 15 (max 75/day).",
+    "rank": "greater",
+    "cost": "3,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Adamant Armor (least)": {
+    "description": "Improves shield hardness by 2.",
+    "rank": "least",
+    "cost": "300 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Adamant Armor (lesser)": {
+    "description": "Improves shield hardness by 5.",
+    "rank": "lesser",
+    "cost": "1,400 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Adamant Armor (greater)": {
+    "description": "Improves shield hardness by 10.",
+    "rank": "greater",
+    "cost": "3,400 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Arrow Deflection (least)": {
+    "description": "+2 bonus to AC against ranged attacks.",
+    "rank": "least",
+    "cost": "500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Arrow Deflection (lesser)": {
+    "description": "Bonus is +5.",
+    "rank": "lesser",
+    "cost": "2,500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Arrow Deflection (greater)": {
+    "description": "As least, and deflect one ranged attack per round (Deflect Arrows).",
+    "rank": "greater",
+    "cost": "5,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Bent Sight": {
+    "description": "Avert your eyes from gaze attackers without suffering a miss chance against them.",
+    "rank": "least",
+    "cost": "500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  }
+}

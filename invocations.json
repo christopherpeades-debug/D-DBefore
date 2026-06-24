@@ -1,0 +1,497 @@
+{
+  "Eldritch Blast": {
+    "grade": "at-will",
+    "type": "blast",
+    "source": "CAr",
+    "min_warlock_level": 1,
+    "prerequisites": [],
+    "description": "Supernatural ray. Ranged touch attack vs AC, 60 ft. range (longer with Eldritch Spear). Deals 1d6 damage per warlock level. Not a spell, but affected by spell resistance. One eldritch essence and one blast shape invocation may modify each blast.",
+    "modifies_eldritch_blast": false,
+    "blast_role": "base",
+    "attack_type": "Ranged Touch",
+    "vs": "AC"
+  },
+  "Frightful Blast": {
+    "grade": "least",
+    "type": "essence",
+    "source": "CAr",
+    "min_warlock_level": 2,
+    "prerequisites": [],
+    "description": "Target must make Will save or become shaken.",
+    "modifies_eldritch_blast": true,
+    "blast_role": "essence",
+    "save": "Will"
+  },
+  "Sickening Blast": {
+    "grade": "least",
+    "type": "essence",
+    "source": "CAr",
+    "min_warlock_level": 2,
+    "prerequisites": [],
+    "description": "Target must make Fortitude save or become sickened.",
+    "modifies_eldritch_blast": true,
+    "blast_role": "essence",
+    "save": "Fort"
+  },
+  "Eldritch Spear": {
+    "grade": "least",
+    "type": "blast",
+    "source": "CAr",
+    "min_warlock_level": 2,
+    "prerequisites": [],
+    "description": "Blast range increases to 250 feet.",
+    "modifies_eldritch_blast": true,
+    "blast_role": "shape"
+  },
+  "Hideous Blow": {
+    "grade": "least",
+    "type": "blast",
+    "source": "CAr",
+    "min_warlock_level": 2,
+    "prerequisites": [],
+    "description": "Melee attack channels eldritch blast.",
+    "modifies_eldritch_blast": true,
+    "blast_role": "shape"
+  },
+  "Baleful Utterance": {
+    "grade": "least",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 2,
+    "prerequisites": [],
+    "description": "Speak word of Dark Speech; shatter objects as the shatter spell.",
+    "modifies_eldritch_blast": false
+  },
+  "Beguiling Influence": {
+    "grade": "least",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 2,
+    "prerequisites": [],
+    "description": "Gain +6 bonus on Bluff, Diplomacy, and Intimidate checks.",
+    "modifies_eldritch_blast": false
+  },
+  "Breath of the Night": {
+    "grade": "least",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 2,
+    "prerequisites": [],
+    "description": "Create a fog cloud as the fog cloud spell.",
+    "modifies_eldritch_blast": false
+  },
+  "Dark One's Own Luck": {
+    "grade": "least",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 2,
+    "prerequisites": [],
+    "description": "Gain a luck bonus on Fortitude, Reflex, or Will saves.",
+    "modifies_eldritch_blast": false
+  },
+  "Darkness": {
+    "grade": "least",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 2,
+    "prerequisites": [],
+    "description": "Use darkness as the spell.",
+    "modifies_eldritch_blast": false
+  },
+  "Devil's Sight": {
+    "grade": "least",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 2,
+    "prerequisites": [],
+    "description": "See normally in darkness and magical darkness.",
+    "modifies_eldritch_blast": false
+  },
+  "Earthen Grasp": {
+    "grade": "least",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 2,
+    "prerequisites": [],
+    "description": "Use earthen grasp as the spell.",
+    "modifies_eldritch_blast": false
+  },
+  "Entropic Warding": {
+    "grade": "least",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 2,
+    "prerequisites": [],
+    "description": "Deflect ranged attacks; no trail; cannot be tracked by scent.",
+    "modifies_eldritch_blast": false
+  },
+  "Leaps and Bounds": {
+    "grade": "least",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 2,
+    "prerequisites": [],
+    "description": "Gain +6 bonus on Balance, Jump, and Tumble checks.",
+    "modifies_eldritch_blast": false
+  },
+  "Miasmic Cloud": {
+    "grade": "least",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 2,
+    "prerequisites": [],
+    "description": "Create a cloud of mist that grants concealment and fatigues those who enter.",
+    "modifies_eldritch_blast": false
+  },
+  "See the Unseen": {
+    "grade": "least",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 2,
+    "prerequisites": [],
+    "description": "Gain see invisibility and darkvision.",
+    "modifies_eldritch_blast": false
+  },
+  "Spiderwalk": {
+    "grade": "least",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 2,
+    "prerequisites": [],
+    "description": "Gain spider climb and immunity to webs.",
+    "modifies_eldritch_blast": false
+  },
+  "Summon Swarm": {
+    "grade": "least",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 2,
+    "prerequisites": [],
+    "description": "Use summon swarm as the spell.",
+    "modifies_eldritch_blast": false
+  },
+  "Beshadowed Blast": {
+    "grade": "lesser",
+    "type": "essence",
+    "source": "CAr",
+    "min_warlock_level": 6,
+    "prerequisites": [],
+    "description": "Target must make Fortitude save or become blind for 1 round.",
+    "modifies_eldritch_blast": true,
+    "blast_role": "essence",
+    "save": "Fort"
+  },
+  "Brimstone Blast": {
+    "grade": "lesser",
+    "type": "essence",
+    "source": "CAr",
+    "min_warlock_level": 6,
+    "prerequisites": [],
+    "description": "Blast deals fire damage; Reflex save or catch fire.",
+    "modifies_eldritch_blast": true,
+    "blast_role": "essence",
+    "save": "Ref",
+    "damage_type": "fire"
+  },
+  "Hellrime Blast": {
+    "grade": "lesser",
+    "type": "essence",
+    "source": "CAr",
+    "min_warlock_level": 6,
+    "prerequisites": [],
+    "description": "Blast deals cold damage; Fort save or -2 Dex.",
+    "modifies_eldritch_blast": true,
+    "blast_role": "essence",
+    "save": "Fort",
+    "damage_type": "cold"
+  },
+  "Eldritch Chain": {
+    "grade": "lesser",
+    "type": "blast",
+    "source": "CAr",
+    "min_warlock_level": 6,
+    "prerequisites": [
+      "least_blast"
+    ],
+    "description": "Blast jumps from initial target to secondary targets.",
+    "modifies_eldritch_blast": true,
+    "blast_role": "shape"
+  },
+  "Charm": {
+    "grade": "lesser",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 6,
+    "prerequisites": [],
+    "description": "Cause a single creature to regard you as a friend.",
+    "modifies_eldritch_blast": false
+  },
+  "Curse of Despair": {
+    "grade": "lesser",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 6,
+    "prerequisites": [],
+    "description": "Curse one creature as bestow curse, or hinder attacks.",
+    "modifies_eldritch_blast": false
+  },
+  "The Dead Walk": {
+    "grade": "lesser",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 6,
+    "prerequisites": [],
+    "description": "Create undead as animate dead.",
+    "modifies_eldritch_blast": false
+  },
+  "Fell Flight": {
+    "grade": "lesser",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 6,
+    "prerequisites": [],
+    "description": "Gain fly speed with good maneuverability.",
+    "modifies_eldritch_blast": false
+  },
+  "Flee the Scene": {
+    "grade": "lesser",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 6,
+    "prerequisites": [],
+    "description": "Short-range dimension door, leaving a major image.",
+    "modifies_eldritch_blast": false
+  },
+  "Hungry Darkness": {
+    "grade": "lesser",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 6,
+    "prerequisites": [],
+    "description": "Create shadows filled with a swarm of bats.",
+    "modifies_eldritch_blast": false
+  },
+  "Stony Grasp": {
+    "grade": "lesser",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 6,
+    "prerequisites": [],
+    "description": "Use stony grasp as the spell.",
+    "modifies_eldritch_blast": false
+  },
+  "Voidsense": {
+    "grade": "lesser",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 6,
+    "prerequisites": [],
+    "description": "Gain blindsense 30 feet.",
+    "modifies_eldritch_blast": false
+  },
+  "Voracious Dispelling": {
+    "grade": "lesser",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 6,
+    "prerequisites": [],
+    "description": "Use dispel magic; damages creatures whose effects are dispelled.",
+    "modifies_eldritch_blast": false
+  },
+  "Walk Unseen": {
+    "grade": "lesser",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 6,
+    "prerequisites": [],
+    "description": "Use invisibility (self only) as the spell.",
+    "modifies_eldritch_blast": false
+  },
+  "Wall of Gloom": {
+    "grade": "lesser",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 6,
+    "prerequisites": [],
+    "description": "Use wall of gloom as the spell.",
+    "modifies_eldritch_blast": false
+  },
+  "Bewitching Blast": {
+    "grade": "greater",
+    "type": "essence",
+    "source": "CAr",
+    "min_warlock_level": 11,
+    "prerequisites": [],
+    "description": "Will save or confused for 1 round.",
+    "modifies_eldritch_blast": true,
+    "blast_role": "essence",
+    "save": "Will"
+  },
+  "Noxious Blast": {
+    "grade": "greater",
+    "type": "essence",
+    "source": "CAr",
+    "min_warlock_level": 11,
+    "prerequisites": [],
+    "description": "Fortitude save or nauseated.",
+    "modifies_eldritch_blast": true,
+    "blast_role": "essence",
+    "save": "Fort"
+  },
+  "Repelling Blast": {
+    "grade": "greater",
+    "type": "essence",
+    "source": "CAr",
+    "min_warlock_level": 11,
+    "prerequisites": [],
+    "description": "Reflex save or knocked back.",
+    "modifies_eldritch_blast": true,
+    "blast_role": "essence",
+    "save": "Ref"
+  },
+  "Vitriolic Blast": {
+    "grade": "greater",
+    "type": "essence",
+    "source": "CAr",
+    "min_warlock_level": 11,
+    "prerequisites": [],
+    "description": "Blast ignores SR and deals acid damage over several rounds.",
+    "modifies_eldritch_blast": true,
+    "blast_role": "essence",
+    "damage_type": "acid"
+  },
+  "Eldritch Cone": {
+    "grade": "greater",
+    "type": "blast",
+    "source": "CAr",
+    "min_warlock_level": 11,
+    "prerequisites": [
+      "least_blast"
+    ],
+    "description": "Blast takes the shape of a cone.",
+    "modifies_eldritch_blast": true,
+    "blast_role": "shape"
+  },
+  "Chilling Tentacles": {
+    "grade": "greater",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 11,
+    "prerequisites": [],
+    "description": "Use Evard's black tentacles plus extra cold damage.",
+    "modifies_eldritch_blast": false
+  },
+  "Devour Magic": {
+    "grade": "greater",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 11,
+    "prerequisites": [],
+    "description": "Targeted greater dispel magic; gain temp HP from dispelled levels.",
+    "modifies_eldritch_blast": false
+  },
+  "Enervating Shadow": {
+    "grade": "greater",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 11,
+    "prerequisites": [],
+    "description": "Total concealment in dark areas; Strength penalty on adjacent living creatures.",
+    "modifies_eldritch_blast": false
+  },
+  "Tenacious Plague": {
+    "grade": "greater",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 11,
+    "prerequisites": [],
+    "description": "Use insect plague; locust swarm deals magic weapon damage.",
+    "modifies_eldritch_blast": false
+  },
+  "Wall of Perilous Flame": {
+    "grade": "greater",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 11,
+    "prerequisites": [],
+    "description": "Create a wall of fire; half damage is supernatural.",
+    "modifies_eldritch_blast": false
+  },
+  "Warlock's Call": {
+    "grade": "greater",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 11,
+    "prerequisites": [],
+    "description": "Use sending as the spell, but risk damage from recipient.",
+    "modifies_eldritch_blast": false
+  },
+  "Utterdark Blast": {
+    "grade": "dark",
+    "type": "essence",
+    "source": "CAr",
+    "min_warlock_level": 16,
+    "prerequisites": [],
+    "description": "Fortitude save or gain two negative levels.",
+    "modifies_eldritch_blast": true,
+    "blast_role": "essence",
+    "save": "Fort"
+  },
+  "Eldritch Doom": {
+    "grade": "dark",
+    "type": "blast",
+    "source": "CAr",
+    "min_warlock_level": 16,
+    "prerequisites": [
+      "least_blast"
+    ],
+    "description": "Blast affects all enemies within 20 feet.",
+    "modifies_eldritch_blast": true,
+    "blast_role": "shape"
+  },
+  "Dark Discorporation": {
+    "grade": "dark",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 16,
+    "prerequisites": [],
+    "description": "Become a swarm of batlike shadows.",
+    "modifies_eldritch_blast": false
+  },
+  "Dark Foresight": {
+    "grade": "dark",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 16,
+    "prerequisites": [],
+    "description": "Use foresight; telepathy with one close target.",
+    "modifies_eldritch_blast": false
+  },
+  "Path of Shadow": {
+    "grade": "dark",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 16,
+    "prerequisites": [],
+    "description": "Use shadow walk; speed natural healing.",
+    "modifies_eldritch_blast": false
+  },
+  "Retributive Invisibility": {
+    "grade": "dark",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 16,
+    "prerequisites": [],
+    "description": "Greater invisibility (self) that deals damage if dispelled.",
+    "modifies_eldritch_blast": false
+  },
+  "Word of Changing": {
+    "grade": "dark",
+    "type": "other",
+    "source": "CAr",
+    "min_warlock_level": 16,
+    "prerequisites": [],
+    "description": "Use baleful polymorph; effect may become permanent.",
+    "modifies_eldritch_blast": false
+  }
+}

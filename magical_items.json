@@ -7628,6 +7628,678 @@
       "description": "+1 hide, damage reduction 5/slashing",
       "weight": "25 lb.",
       "cost": "14,165 gp"
+    },
+    "Crystal of Adamant Weaponry (least)": {
+      "description": "Improves weapon hardness by 2.",
+      "weight": "—",
+      "cost": "300 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Adamant Weaponry (lesser)": {
+      "description": "Improves weapon hardness by 5.",
+      "weight": "—",
+      "cost": "1,400 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Adamant Weaponry (greater)": {
+      "description": "Improves weapon hardness by 10.",
+      "weight": "—",
+      "cost": "3,400 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Arcane Steel (least)": {
+      "description": "+1 insight bonus on weapon damage when delivering a spell through a melee attack.",
+      "weight": "—",
+      "cost": "500 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Arcane Steel (lesser)": {
+      "description": "As least, and +1 insight bonus on the attack roll.",
+      "weight": "—",
+      "cost": "2,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Arcane Steel (greater)": {
+      "description": "As lesser, and increases the spell save DC by 1.",
+      "weight": "—",
+      "cost": "6,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Energy Assault, Acid (least)": {
+      "description": "Adds 1 point of acid damage to the weapon's damage.",
+      "weight": "—",
+      "cost": "600 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Energy Assault, Acid (lesser)": {
+      "description": "Adds an extra 1d6 points of acid damage.",
+      "weight": "—",
+      "cost": "3,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Energy Assault, Acid (greater)": {
+      "description": "Adds 1d6 acid damage plus a secondary rider effect on hit.",
+      "weight": "—",
+      "cost": "6,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Energy Assault, Cold (least)": {
+      "description": "Adds 1 point of cold damage to the weapon's damage.",
+      "weight": "—",
+      "cost": "600 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Energy Assault, Cold (lesser)": {
+      "description": "Adds an extra 1d6 points of cold damage.",
+      "weight": "—",
+      "cost": "3,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Energy Assault, Cold (greater)": {
+      "description": "Adds 1d6 cold damage plus a secondary rider effect on hit.",
+      "weight": "—",
+      "cost": "6,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Energy Assault, Electricity (least)": {
+      "description": "Adds 1 point of electricity damage to the weapon's damage.",
+      "weight": "—",
+      "cost": "600 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Energy Assault, Electricity (lesser)": {
+      "description": "Adds an extra 1d6 points of electricity damage.",
+      "weight": "—",
+      "cost": "3,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Energy Assault, Electricity (greater)": {
+      "description": "Adds 1d6 electricity damage plus a secondary rider effect on hit.",
+      "weight": "—",
+      "cost": "6,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Energy Assault, Fire (least)": {
+      "description": "Adds 1 point of fire damage to the weapon's damage.",
+      "weight": "—",
+      "cost": "600 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Energy Assault, Fire (lesser)": {
+      "description": "Adds an extra 1d6 points of fire damage.",
+      "weight": "—",
+      "cost": "3,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Energy Assault, Fire (greater)": {
+      "description": "Adds 1d6 fire damage plus a secondary rider effect on hit.",
+      "weight": "—",
+      "cost": "6,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Illumination (least)": {
+      "description": "Swift (command): weapon sheds bright light 5 ft. and shadowy light 5 ft. beyond.",
+      "weight": "—",
+      "cost": "100 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Illumination (lesser)": {
+      "description": "Bright light 20 ft. and shadowy light 20 ft. beyond.",
+      "weight": "—",
+      "cost": "400 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Illumination (greater)": {
+      "description": "Bright light 60 ft. and shadowy light 60 ft. beyond.",
+      "weight": "—",
+      "cost": "1,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Life Drinking (least)": {
+      "description": "Heal 1 hp per hit on a living creature (max 10 hp/day, then inert until next day).",
+      "weight": "—",
+      "cost": "400 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Life Drinking (lesser)": {
+      "description": "Heal 3 hp per hit (max 30 hp/day).",
+      "weight": "—",
+      "cost": "1,500 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Life Drinking (greater)": {
+      "description": "Heal 5 hp per hit (max 50 hp/day).",
+      "weight": "—",
+      "cost": "6,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Return (least)": {
+      "description": "Draw the weapon as a free action.",
+      "weight": "—",
+      "cost": "300 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Return (lesser)": {
+      "description": "As least, and call the weapon from up to 30 ft. away as a move action.",
+      "weight": "—",
+      "cost": "1,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Return (greater)": {
+      "description": "As lesser, and thrown weapons also gain the returning property.",
+      "weight": "—",
+      "cost": "4,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Security (least)": {
+      "description": "+2 bonus on checks to draw the weapon or keep it in your hand.",
+      "weight": "—",
+      "cost": "300 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Security (lesser)": {
+      "description": "Bonus is +5.",
+      "weight": "—",
+      "cost": "1,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Security (greater)": {
+      "description": "Bonus is +10.",
+      "weight": "—",
+      "cost": "3,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Demolition Crystal (least)": {
+      "description": "+1d6 damage to constructs.",
+      "weight": "—",
+      "cost": "1,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Demolition Crystal (lesser)": {
+      "description": "As least, and weapon counts as adamantine vs. construct DR.",
+      "weight": "—",
+      "cost": "3,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Demolition Crystal (greater)": {
+      "description": "As lesser, and weapon can sneak attack and critically hit constructs.",
+      "weight": "—",
+      "cost": "6,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Fiendslayer Crystal (least)": {
+      "description": "+1d6 damage to evil outsiders.",
+      "weight": "—",
+      "cost": "1,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Fiendslayer Crystal (lesser)": {
+      "description": "As least, and weapon counts as good-aligned for overcoming DR.",
+      "weight": "—",
+      "cost": "3,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Fiendslayer Crystal (greater)": {
+      "description": "As lesser, and a critical hit prevents teleportation for 1 round.",
+      "weight": "—",
+      "cost": "5,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Phoenix Ash Threat (least)": {
+      "description": "Target hit last round takes 1 fire damage at the start of your turn.",
+      "weight": "—",
+      "cost": "500 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Phoenix Ash Threat (lesser)": {
+      "description": "Target takes 3 fire damage.",
+      "weight": "—",
+      "cost": "2,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Phoenix Ash Threat (greater)": {
+      "description": "Target takes 5 fire damage.",
+      "weight": "—",
+      "cost": "6,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Revelation Crystal (least)": {
+      "description": "Invisible creature you damage glows for 1 round (reveals its square).",
+      "weight": "—",
+      "cost": "400 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Revelation Crystal (lesser)": {
+      "description": "Also suppresses invisibility effects for 1 round.",
+      "weight": "—",
+      "cost": "1,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Revelation Crystal (greater)": {
+      "description": "Also suppresses blur/displacement-like concealment for 1 round.",
+      "weight": "—",
+      "cost": "5,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Truedeath Crystal (least)": {
+      "description": "+1d6 damage to undead.",
+      "weight": "—",
+      "cost": "1,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Truedeath Crystal (lesser)": {
+      "description": "As least, and weapon functions as ghost touch.",
+      "weight": "—",
+      "cost": "5,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Truedeath Crystal (greater)": {
+      "description": "As lesser, and weapon can sneak attack and critically hit undead.",
+      "weight": "—",
+      "cost": "10,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Witchlight Reservoir": {
+      "description": "Greater crystal. Swift (mental): imbue next melee hit with sunlight (+2d6 fire, +4d6 vs undead), moonlight (+2d6 electricity, +4d6 vs lycanthropes), blood (+2d6 vs living), or wine (–2 Will saves 1 round) depending on 8-hour exposure. Functions 5 times before re-imbuing.",
+      "weight": "—",
+      "cost": "5,000 gp",
+      "augment_gem": true,
+      "augment_type": "weapon"
+    },
+    "Crystal of Adamant Armor (least)": {
+      "description": "Improves shield hardness by 2.",
+      "weight": "—",
+      "cost": "300 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
+    },
+    "Crystal of Adamant Armor (lesser)": {
+      "description": "Improves shield hardness by 5.",
+      "weight": "—",
+      "cost": "1,400 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
+    },
+    "Crystal of Adamant Armor (greater)": {
+      "description": "Improves shield hardness by 10.",
+      "weight": "—",
+      "cost": "3,400 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
+    },
+    "Crystal of Adaptation (least)": {
+      "description": "Protects from temperature extremes as endure elements.",
+      "weight": "—",
+      "cost": "500 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Crystal of Adaptation (lesser)": {
+      "description": "As least, and protects from alignment traits of planes.",
+      "weight": "—",
+      "cost": "1,500 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Crystal of Adaptation (greater)": {
+      "description": "As lesser, and protects from positive/negative dominant traits.",
+      "weight": "—",
+      "cost": "3,000 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Crystal of Aquatic Action (least)": {
+      "description": "Armor imposes no armor check penalty on Swim checks.",
+      "weight": "—",
+      "cost": "250 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Crystal of Aquatic Action (lesser)": {
+      "description": "As least, and grants Swim speed equal to half land speed.",
+      "weight": "—",
+      "cost": "1,000 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Crystal of Aquatic Action (greater)": {
+      "description": "As lesser, and freedom of movement underwater plus breathe water.",
+      "weight": "—",
+      "cost": "3,000 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Crystal of Glancing Blows (least)": {
+      "description": "+2 competence bonus on grapple checks to prevent a grapple being initiated.",
+      "weight": "—",
+      "cost": "500 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Crystal of Glancing Blows (lesser)": {
+      "description": "Bonus is +5.",
+      "weight": "—",
+      "cost": "3,000 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Crystal of Glancing Blows (greater)": {
+      "description": "Bonus is +10.",
+      "weight": "—",
+      "cost": "5,000 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Crystal of Lifekeeping (least)": {
+      "description": "+1 competence bonus on saves vs energy drain, inflict, death spells, and death effects.",
+      "weight": "—",
+      "cost": "200 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Crystal of Lifekeeping (lesser)": {
+      "description": "Bonus is +3.",
+      "weight": "—",
+      "cost": "1,000 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Crystal of Lifekeeping (greater)": {
+      "description": "Bonus is +5; once per day reroll a failed save against those effects (immediate).",
+      "weight": "—",
+      "cost": "5,000 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Crystal of Mind Cloaking (least)": {
+      "description": "+1 competence bonus on saves vs mind-affecting spells and abilities.",
+      "weight": "—",
+      "cost": "500 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Crystal of Mind Cloaking (lesser)": {
+      "description": "Bonus is +3.",
+      "weight": "—",
+      "cost": "4,000 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Crystal of Mind Cloaking (greater)": {
+      "description": "Bonus is +5; once per day reroll a failed save (immediate).",
+      "weight": "—",
+      "cost": "10,000 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Crystal of Screening (least)": {
+      "description": "–2 penalty on incorporeal touch attacks against you.",
+      "weight": "—",
+      "cost": "400 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Crystal of Screening (lesser)": {
+      "description": "Penalty is –5.",
+      "weight": "—",
+      "cost": "1,000 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Crystal of Screening (greater)": {
+      "description": "Penalty is –10.",
+      "weight": "—",
+      "cost": "3,000 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Crystal of Stamina (least)": {
+      "description": "+1 competence bonus on saves vs disease and poison.",
+      "weight": "—",
+      "cost": "300 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Crystal of Stamina (lesser)": {
+      "description": "Bonus is +3.",
+      "weight": "—",
+      "cost": "900 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Crystal of Stamina (greater)": {
+      "description": "Bonus is +5; once per day reroll a failed save (immediate).",
+      "weight": "—",
+      "cost": "2,700 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Iron Ward Diamond (least)": {
+      "description": "DR 1/— until 10 damage prevented (then inert until next day).",
+      "weight": "—",
+      "cost": "500 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Iron Ward Diamond (lesser)": {
+      "description": "DR 3/— until 30 damage prevented (medium or heavy armor only).",
+      "weight": "—",
+      "cost": "2,000 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Iron Ward Diamond (greater)": {
+      "description": "DR 5/— until 50 damage prevented (heavy armor only).",
+      "weight": "—",
+      "cost": "8,000 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Restful Crystal": {
+      "description": "Sleeping in armor with this crystal attached does not make you fatigued.",
+      "weight": "—",
+      "cost": "500 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Rubicund Frenzy (least)": {
+      "description": "While at half hp or below: +1 morale bonus on weapon damage and saves vs fear.",
+      "weight": "—",
+      "cost": "500 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Rubicund Frenzy (lesser)": {
+      "description": "Bonus is +3.",
+      "weight": "—",
+      "cost": "2,000 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Rubicund Frenzy (greater)": {
+      "description": "Bonus is +5.",
+      "weight": "—",
+      "cost": "6,000 gp",
+      "augment_gem": true,
+      "augment_type": "armor"
+    },
+    "Clasp of Energy Protection, Acid (least)": {
+      "description": "Resistance 5 to acid (max 25 prevented/day, then inert).",
+      "weight": "—",
+      "cost": "500 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
+    },
+    "Clasp of Energy Protection, Acid (lesser)": {
+      "description": "Resistance 10 (max 50/day).",
+      "weight": "—",
+      "cost": "1,500 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
+    },
+    "Clasp of Energy Protection, Acid (greater)": {
+      "description": "Resistance 15 (max 75/day).",
+      "weight": "—",
+      "cost": "3,000 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
+    },
+    "Clasp of Energy Protection, Cold (least)": {
+      "description": "Resistance 5 to cold (max 25 prevented/day, then inert).",
+      "weight": "—",
+      "cost": "500 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
+    },
+    "Clasp of Energy Protection, Cold (lesser)": {
+      "description": "Resistance 10 (max 50/day).",
+      "weight": "—",
+      "cost": "1,500 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
+    },
+    "Clasp of Energy Protection, Cold (greater)": {
+      "description": "Resistance 15 (max 75/day).",
+      "weight": "—",
+      "cost": "3,000 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
+    },
+    "Clasp of Energy Protection, Electricity (least)": {
+      "description": "Resistance 5 to electricity (max 25 prevented/day, then inert).",
+      "weight": "—",
+      "cost": "500 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
+    },
+    "Clasp of Energy Protection, Electricity (lesser)": {
+      "description": "Resistance 10 (max 50/day).",
+      "weight": "—",
+      "cost": "1,500 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
+    },
+    "Clasp of Energy Protection, Electricity (greater)": {
+      "description": "Resistance 15 (max 75/day).",
+      "weight": "—",
+      "cost": "3,000 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
+    },
+    "Clasp of Energy Protection, Fire (least)": {
+      "description": "Resistance 5 to fire (max 25 prevented/day, then inert).",
+      "weight": "—",
+      "cost": "500 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
+    },
+    "Clasp of Energy Protection, Fire (lesser)": {
+      "description": "Resistance 10 (max 50/day).",
+      "weight": "—",
+      "cost": "1,500 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
+    },
+    "Clasp of Energy Protection, Fire (greater)": {
+      "description": "Resistance 15 (max 75/day).",
+      "weight": "—",
+      "cost": "3,000 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
+    },
+    "Clasp of Energy Protection, Sonic (least)": {
+      "description": "Resistance 5 to sonic (max 25 prevented/day, then inert).",
+      "weight": "—",
+      "cost": "500 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
+    },
+    "Clasp of Energy Protection, Sonic (lesser)": {
+      "description": "Resistance 10 (max 50/day).",
+      "weight": "—",
+      "cost": "1,500 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
+    },
+    "Clasp of Energy Protection, Sonic (greater)": {
+      "description": "Resistance 15 (max 75/day).",
+      "weight": "—",
+      "cost": "3,000 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
+    },
+    "Crystal of Arrow Deflection (least)": {
+      "description": "+2 bonus to AC against ranged attacks.",
+      "weight": "—",
+      "cost": "500 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
+    },
+    "Crystal of Arrow Deflection (lesser)": {
+      "description": "Bonus is +5.",
+      "weight": "—",
+      "cost": "2,500 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
+    },
+    "Crystal of Arrow Deflection (greater)": {
+      "description": "As least, and deflect one ranged attack per round (Deflect Arrows).",
+      "weight": "—",
+      "cost": "5,000 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
+    },
+    "Crystal of Bent Sight": {
+      "description": "Avert your eyes from gaze attackers without suffering a miss chance against them.",
+      "weight": "—",
+      "cost": "500 gp",
+      "augment_gem": true,
+      "augment_type": "shield"
     }
   }
 }

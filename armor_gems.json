@@ -1,0 +1,250 @@
+{
+  "Crystal of Adamant Armor (least)": {
+    "description": "Improves armor hardness by 2.",
+    "rank": "least",
+    "cost": "300 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Adamant Armor (lesser)": {
+    "description": "Improves armor hardness by 5.",
+    "rank": "lesser",
+    "cost": "1,400 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Adamant Armor (greater)": {
+    "description": "Improves armor hardness by 10.",
+    "rank": "greater",
+    "cost": "3,400 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Adaptation (least)": {
+    "description": "Protects from temperature extremes as endure elements.",
+    "rank": "least",
+    "cost": "500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Adaptation (lesser)": {
+    "description": "As least, and protects from alignment traits of planes.",
+    "rank": "lesser",
+    "cost": "1,500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Adaptation (greater)": {
+    "description": "As lesser, and protects from positive/negative dominant traits.",
+    "rank": "greater",
+    "cost": "3,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Aquatic Action (least)": {
+    "description": "Armor imposes no armor check penalty on Swim checks.",
+    "rank": "least",
+    "cost": "250 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Aquatic Action (lesser)": {
+    "description": "As least, and grants Swim speed equal to half land speed.",
+    "rank": "lesser",
+    "cost": "1,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Aquatic Action (greater)": {
+    "description": "As lesser, and freedom of movement underwater plus breathe water.",
+    "rank": "greater",
+    "cost": "3,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Glancing Blows (least)": {
+    "description": "+2 competence bonus on grapple checks to prevent a grapple being initiated.",
+    "rank": "least",
+    "cost": "500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Glancing Blows (lesser)": {
+    "description": "Bonus is +5.",
+    "rank": "lesser",
+    "cost": "3,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Glancing Blows (greater)": {
+    "description": "Bonus is +10.",
+    "rank": "greater",
+    "cost": "5,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Lifekeeping (least)": {
+    "description": "+1 competence bonus on saves vs energy drain, inflict, death spells, and death effects.",
+    "rank": "least",
+    "cost": "200 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Lifekeeping (lesser)": {
+    "description": "Bonus is +3.",
+    "rank": "lesser",
+    "cost": "1,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Lifekeeping (greater)": {
+    "description": "Bonus is +5; once per day reroll a failed save against those effects (immediate).",
+    "rank": "greater",
+    "cost": "5,000 gp",
+    "uses_per_day": 1,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Mind Cloaking (least)": {
+    "description": "+1 competence bonus on saves vs mind-affecting spells and abilities.",
+    "rank": "least",
+    "cost": "500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Mind Cloaking (lesser)": {
+    "description": "Bonus is +3.",
+    "rank": "lesser",
+    "cost": "4,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Mind Cloaking (greater)": {
+    "description": "Bonus is +5; once per day reroll a failed save (immediate).",
+    "rank": "greater",
+    "cost": "10,000 gp",
+    "uses_per_day": 1,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Screening (least)": {
+    "description": "–2 penalty on incorporeal touch attacks against you.",
+    "rank": "least",
+    "cost": "400 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Screening (lesser)": {
+    "description": "Penalty is –5.",
+    "rank": "lesser",
+    "cost": "1,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Screening (greater)": {
+    "description": "Penalty is –10.",
+    "rank": "greater",
+    "cost": "3,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Stamina (least)": {
+    "description": "+1 competence bonus on saves vs disease and poison.",
+    "rank": "least",
+    "cost": "300 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Stamina (lesser)": {
+    "description": "Bonus is +3.",
+    "rank": "lesser",
+    "cost": "900 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Stamina (greater)": {
+    "description": "Bonus is +5; once per day reroll a failed save (immediate).",
+    "rank": "greater",
+    "cost": "2,700 gp",
+    "uses_per_day": 1,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Iron Ward Diamond (least)": {
+    "description": "DR 1/— until 10 damage prevented (then inert until next day).",
+    "rank": "least",
+    "cost": "500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Iron Ward Diamond (lesser)": {
+    "description": "DR 3/— until 30 damage prevented (medium or heavy armor only).",
+    "rank": "lesser",
+    "cost": "2,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Iron Ward Diamond (greater)": {
+    "description": "DR 5/— until 50 damage prevented (heavy armor only).",
+    "rank": "greater",
+    "cost": "8,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Restful Crystal": {
+    "description": "Sleeping in armor with this crystal attached does not make you fatigued.",
+    "rank": "least",
+    "cost": "500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Rubicund Frenzy (least)": {
+    "description": "While at half hp or below: +1 morale bonus on weapon damage and saves vs fear.",
+    "rank": "least",
+    "cost": "500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Rubicund Frenzy (lesser)": {
+    "description": "Bonus is +3.",
+    "rank": "lesser",
+    "cost": "2,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Rubicund Frenzy (greater)": {
+    "description": "Bonus is +5.",
+    "rank": "greater",
+    "cost": "6,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  }
+}

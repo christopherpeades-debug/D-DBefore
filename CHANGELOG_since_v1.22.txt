@@ -1,0 +1,146 @@
+================================================================================
+  CHANGELOG — Changes since last compile/publish (v1.22)
+  Generated: June 18, 2026
+================================================================================
+
+Baseline: D&D Before (Beside) v1.22 — version.json / installer.iss
+          D&D Behind — no formal version file; changes tracked from same dev
+          session.
+
+--------------------------------------------------------------------------------
+D&D BEFORE (Beside) — candidate v1.23
+--------------------------------------------------------------------------------
+
+NEW FEATURES
+------------
+
+Session card image sharing (player side)
+  - New image_share_sync.py module polls Supabase table campaign_shared_images.
+  - When the DM shares a session card image from D&D Behind, connected player
+    sheets show a popup with the image on the next cloud poll.
+  - Unseen images are tracked in sync_config.json (seen_shared_image_ids).
+  - Only images from the last 5 minutes are shown (DEFAULT_PLAYER_IMAGE_MAX_AGE_SEC
+    = 300), so returning players are not flooded with old shares.
+  - Requires Supabase setup: run supabase_image_share_setup.sql once in the
+    SQL Editor.
+
+Stats page — skill click behavior
+  - Normal click on a skill name: TaleSpire clipboard copy or local die roll
+    (per character setting), same as clicking the Total column.
+  - Shift+click on a skill name: opens the skill detail popup (SRD text).
+  - Skill Total column remains click-to-roll only.
+
+BUG FIXES
+---------
+
+Sync config no longer resets on every load
+  - Partial saves (character ID, campaign ID, poll intervals, etc.) no longer
+    wipe Supabase URL, anon key, or other unrelated keys from sync_config.json.
+  - merge_sync_config_file() in cloud_sync.py; merge-on-save in image_share_sync,
+    loot_sync, homebrew_sync, roll_log_sync, trade_sync, and campaign_id_picker.
+  - is_configured() uses in-memory config instead of reloading disk on every call.
+  - _sync_image_share_from_cloud() merges credentials in memory without
+    overwriting the on-disk file.
+  - Settings and character-ID saves use partial updates only.
+
+Tooltip binding on unsupported widgets (Beside)
+  - _add_tooltip() catches NotImplementedError / TclError so composite widgets
+    (e.g. CTkTabview) do not crash page builds.
+
+FILES CHANGED (Beside)
+----------------------
+  dnd_character_sheet.py
+  image_share_sync.py          (new)
+  cloud_sync.py
+  loot_sync.py
+  homebrew_sync.py
+  roll_log_sync.py
+  trade_sync.py
+  campaign_id_picker.py
+  supabase_image_share_setup.sql (new)
+
+UPGRADE NOTES (Beside)
+----------------------
+  - Run supabase_image_share_setup.sql in Supabase before using image share.
+  - If sync_config.json was already stripped of server details, re-enter
+    Supabase URL and anon key once in Cloud settings after updating.
+
+
+--------------------------------------------------------------------------------
+D&D BEHIND
+--------------------------------------------------------------------------------
+
+NEW FEATURES
+------------
+
+Session card image sharing (DM side)
+  - Session card image viewer includes a "Share to Players" button.
+  - Share popup lists campaign characters (session-active players selected by
+    default); DM picks recipients and pushes image URL + title to Supabase.
+  - image_share_sync.py handles posting; clear error if
+    campaign_shared_images table is missing (points to setup SQL).
+  - Polling / callback wiring so shares propagate reliably.
+
+Monsters page — layout redesign
+  - Two-column layout: 400px scrollable left editor, live BCC statblock preview
+    on the right (middle column removed).
+  - Left editor organized into sections: Stats & Identity, Defense, Perception,
+    Advancement, Special Qualities, Spell-like Abilities, Spellcasting,
+    Attacks & Actions, Feats/Skills/Gear, Template & Features.
+  - "+ Features" under Template adds custom combat features (title + description);
+    features render in the statblock right column with bold red titles.
+  - Editable combat inserts at the bottom of the page removed; combat content
+    lives in the statblock preview column.
+
+Monsters page — defense & special qualities UI
+  - BAB, Fort, Ref, and Will on a single compact row.
+  - "..." popup editors on DR, Immune, Resist, SR, SQ, Combat Gear (and other
+    long text fields: SLA lists, melee/ranged attacks, feats/skills/equipment).
+
+Equipment → hoard loot on encounter clear
+  - When Clear & Grant XP succeeds, defeated monsters' Equipment CSV is parsed.
+  - Each item name is matched against the Hoard item database (case-insensitive).
+  - Matching items are added to the campaign hoard; unmatched names are reported
+    in the success summary.
+  - Encounter entries store monster_id and equipment when added from Statblocks
+    or when the monster name matches the SQL DB.
+  - hoard_item_db.py: new find_entry_by_name() helper.
+
+BUG FIXES
+---------
+
+Monsters page grey/blank window
+  - _mon_labeled_entry() merged pack() kwargs correctly; Speed field no longer
+    passed duplicate fill= and crashed the page build mid-way.
+
+Wrong statblock header name ("and Tumble")
+  - Skills parsing loop reused variable name, overwriting the monster name with
+    the last skill token. Renamed to sk_name in _update_bcc_preview().
+
+Statblocks page empty / viewer missing
+  - _add_tooltip() on CTkTabview raised NotImplementedError and aborted page
+    build before sb_tabview was created. Tooltip bind now skips unsupported
+    widgets gracefully.
+  - _open_statblock_tab() shows an error or retries building the Statblocks page
+    if the tab viewer was never initialized.
+
+Image share reliability
+  - Cloud config merge, on_remote_update callback, and _notified_image_ids
+    tracking so player popups fire consistently after DM share.
+
+FILES CHANGED (Behind)
+----------------------
+  DND_BEHIND.py
+  image_share_sync.py          (new)
+  hoard_item_db.py
+  supabase_image_share_setup.sql (new)
+
+UPGRADE NOTES (Behind)
+----------------------
+  - Run supabase_image_share_setup.sql in Supabase (same table as Beside).
+  - Cloud / Supabase must be configured for image sharing to work.
+
+
+================================================================================
+  END OF CHANGELOG
+================================================================================

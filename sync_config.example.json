@@ -4,6 +4,7 @@
   "supabase_url": "https://YOUR_PROJECT.supabase.co",
   "supabase_anon_key": "YOUR_SUPABASE_ANON_KEY",
   "campaign_id": "your-shared-campaign-code",
+  "saved_campaign_ids": ["your-shared-campaign-code", "another-campaign"],
   "character_id": "playername-charactername",
   "player_name": "Player Name",
   "auto_sync": true,

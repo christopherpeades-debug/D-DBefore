@@ -428,6 +428,24 @@
           4
         ]
       }
+    },
+    "proficiencies": {
+      "weapon_categories": [
+        "simple"
+      ],
+      "weapons": [
+        "Longsword",
+        "Rapier",
+        "Sap",
+        "Short Sword",
+        "Shortbow",
+        "Whip"
+      ],
+      "armor": [
+        "light"
+      ],
+      "shield": true,
+      "tower_shield": false
     }
   },
   "Cleric": {
@@ -460,10 +478,10 @@
           }
         },
         {
-		  "name": "Spontaneous Casting", 
-		  "description": "Good or Neutral clerics can lose a prepared spell that is not a domain spell to cast any cure spell of the same level or lower."
-		},  
-		{
+          "name": "Spontaneous Casting",
+          "description": "Good or Neutral clerics can lose a prepared spell that is not a domain spell to cast any cure spell of the same level or lower."
+        },
+        {
           "name": "Domains",
           "description": "Choose two domains from your deity (or any if no deity). You gain the granted power of each domain and may prepare one domain spell per spell level in your domain slot.",
           "is_domain_choice": true
@@ -643,6 +661,20 @@
           4
         ]
       }
+    },
+    "proficiencies": {
+      "weapon_categories": [
+        "simple",
+        "martial"
+      ],
+      "weapons": [],
+      "armor": [
+        "light",
+        "medium",
+        "heavy"
+      ],
+      "shield": true,
+      "tower_shield": false
     }
   },
   "Fighter": {
@@ -755,7 +787,21 @@
         }
       ]
     },
-    "spellcasting": null
+    "spellcasting": null,
+    "proficiencies": {
+      "weapon_categories": [
+        "simple",
+        "martial"
+      ],
+      "weapons": [],
+      "armor": [
+        "light",
+        "medium",
+        "heavy"
+      ],
+      "shield": true,
+      "tower_shield": true
+    }
   },
   "Wizard": {
     "hit_die": "d4",
@@ -1013,6 +1059,15 @@
           4
         ]
       }
+    },
+    "proficiencies": {
+      "weapon_categories": [
+        "simple"
+      ],
+      "weapons": [],
+      "armor": [],
+      "shield": false,
+      "tower_shield": false
     }
   },
   "Rogue": {
@@ -1221,7 +1276,24 @@
         }
       ]
     },
-    "spellcasting": null
+    "spellcasting": null,
+    "proficiencies": {
+      "weapon_categories": [
+        "simple"
+      ],
+      "weapons": [
+        "Hand Crossbow",
+        "Rapier",
+        "Sap",
+        "Shortbow",
+        "Short Sword"
+      ],
+      "armor": [
+        "light"
+      ],
+      "shield": false,
+      "tower_shield": false
+    }
   },
   "Sorcerer": {
     "hit_die": "d4",
@@ -1602,6 +1674,15 @@
           6
         ]
       }
+    },
+    "proficiencies": {
+      "weapon_categories": [
+        "simple"
+      ],
+      "weapons": [],
+      "armor": [],
+      "shield": false,
+      "tower_shield": false
     }
   },
   "Paladin": {
@@ -1781,6 +1862,20 @@
           3
         ]
       }
+    },
+    "proficiencies": {
+      "weapon_categories": [
+        "simple",
+        "martial"
+      ],
+      "weapons": [],
+      "armor": [
+        "light",
+        "medium",
+        "heavy"
+      ],
+      "shield": true,
+      "tower_shield": false
     }
   },
   "Barbarian": {
@@ -1933,7 +2028,20 @@
         }
       ]
     },
-    "spellcasting": null
+    "spellcasting": null,
+    "proficiencies": {
+      "weapon_categories": [
+        "simple",
+        "martial"
+      ],
+      "weapons": [],
+      "armor": [
+        "light",
+        "medium"
+      ],
+      "shield": true,
+      "tower_shield": false
+    }
   },
   "Ranger": {
     "hit_die": "d8",
@@ -2089,6 +2197,18 @@
           3
         ]
       }
+    },
+    "proficiencies": {
+      "weapon_categories": [
+        "simple",
+        "martial"
+      ],
+      "weapons": [],
+      "armor": [
+        "light"
+      ],
+      "shield": true,
+      "tower_shield": false
     }
   },
   "Druid": {
@@ -2369,6 +2489,26 @@
           4
         ]
       }
+    },
+    "proficiencies": {
+      "weapon_categories": [],
+      "weapons": [
+        "Club",
+        "Dagger",
+        "Dart",
+        "Quarterstaff",
+        "Scimitar",
+        "Sickle",
+        "Shortspear",
+        "Sling",
+        "Spear"
+      ],
+      "armor": [
+        "light",
+        "medium"
+      ],
+      "shield": true,
+      "tower_shield": false
     }
   },
   "Radiant Servant of Pelor": {
@@ -2484,6 +2624,20 @@
     },
     "spellcasting": {
       "advancement": "divine"
+    },
+    "proficiencies": {
+      "weapon_categories": [
+        "simple",
+        "martial"
+      ],
+      "weapons": [],
+      "armor": [
+        "light",
+        "medium",
+        "heavy"
+      ],
+      "shield": true,
+      "tower_shield": false
     }
   },
   "Monk": {
@@ -2493,9 +2647,12 @@
     "ref": "good",
     "will": "good",
     "restricted_alignments": [
-      "Lawful Good",
-      "Lawful Neutral",
-      "Lawful Evil"
+      "Neutral Good",
+      "Chaotic Good",
+      "True Neutral",
+      "Chaotic Neutral",
+      "Neutral Evil",
+      "Chaotic Evil"
     ],
     "skill_points_per_level": 4,
     "class_skills": [
@@ -2687,6 +2844,215 @@
           "description": "Use a nearby wall to slow descent and fall any distance without harm."
         }
       ]
+    },
+    "proficiencies": {
+      "weapon_categories": [],
+      "weapons": [
+        "Club",
+        "Crossbow, Heavy",
+        "Crossbow, Light",
+        "Dagger",
+        "Handaxe",
+        "Javelin",
+        "Kama",
+        "Nunchaku",
+        "Quarterstaff",
+        "Sai",
+        "Shuriken",
+        "Siangham",
+        "Sling"
+      ],
+      "armor": [],
+      "shield": false,
+      "tower_shield": false
+    }
+  },
+  "Warlock": {
+    "srd": true,
+    "hit_die": "d6",
+    "bab": "poor",
+    "fort": "poor",
+    "ref": "poor",
+    "will": "good",
+    "skill_points_per_level": 4,
+    "class_skills": [
+      "Bluff",
+      "Concentration",
+      "Craft",
+      "Disguise",
+      "Intimidate",
+      "Jump",
+      "Knowledge (arcana)",
+      "Knowledge (the planes)",
+      "Listen",
+      "Profession",
+      "Speak Language",
+      "Spellcraft",
+      "Use Magic Device"
+    ],
+    "features": {
+      "1": [
+        {
+          "name": "Weapon and Armor Proficiency",
+          "description": "Proficient with all simple weapons. Not proficient with armor or shields. Armor can cause arcane spell failure for invocations with somatic components."
+        },
+        {
+          "name": "Eldritch Blast",
+          "description": "At will, you may fire a 60-foot ranged touch attack that deals 1d6 damage per warlock level. This is a supernatural ability, not a spell, but is affected by spell resistance. Apply one eldritch essence and one blast shape invocation to a single blast when you use those options.",
+          "eldritch_blast": true
+        },
+        {
+          "name": "Invocations",
+          "description": "You know invocations drawn from the warlock list. Least invocations are available at 2nd level, lesser at 6th, greater at 11th, and dark at 16th. Choose invocations from the class features picker or during level up.",
+          "invocation_picker": true
+        }
+      ],
+      "2": [
+        {
+          "name": "Detect Magic",
+          "feature_key": "Detect Magic",
+          "description": "Beginning at 2nd level, you can use detect magic as the spell at will. Your caster level equals your warlock class level.",
+          "granted_spell": "Detect Magic",
+          "spell_like": true,
+          "at_will": true
+        }
+      ],
+      "3": [
+        {
+          "name": "Damage Reduction",
+          "feature_key": "Damage Reduction",
+          "description": "Fortified by supernatural power, you gain damage reduction 1/cold iron."
+        }
+      ],
+      "4": [
+        {
+          "name": "Deceive Item",
+          "feature_key": "Deceive Item",
+          "description": "When making a Use Magic Device check, you can take 10 even if distracted or threatened."
+        }
+      ],
+      "7": [
+        {
+          "name": "Damage Reduction",
+          "feature_key": "Damage Reduction",
+          "description": "Your damage reduction improves to DR 2/cold iron."
+        }
+      ],
+      "8": [
+        {
+          "name": "Fiendish Resilience",
+          "feature_key": "Fiendish Resilience",
+          "description": "Once per day as a free action, enter a state lasting 2 minutes that grants fast healing 1.",
+          "use_tracker": {
+            "uses_per_day": 1
+          },
+          "fast_healing_toggle": true
+        }
+      ],
+      "10": [
+        {
+          "name": "Energy Resistance",
+          "feature_key": "Energy Resistance",
+          "description": "Choose two energy types: acid, cold, electricity, fire, or sonic. You gain resistance 5 against both. Once chosen, these types cannot be changed.",
+          "energy_resistance_picker": true,
+          "energy_resistance_choices": 2
+        }
+      ],
+      "11": [
+        {
+          "name": "Damage Reduction",
+          "feature_key": "Damage Reduction",
+          "description": "Your damage reduction improves to DR 3/cold iron."
+        }
+      ],
+      "12": [
+        {
+          "name": "Imbue Item",
+          "feature_key": "Imbue Item",
+          "description": "You can create magic items even if you do not know the required spells, substituting a Use Magic Device check (DC 15 + spell level for arcane spells, or 25 + spell level for divine spells) when you know the appropriate item creation feat."
+        }
+      ],
+      "13": [
+        {
+          "name": "Fiendish Resilience",
+          "feature_key": "Fiendish Resilience",
+          "description": "While fiendish resilience is active, you gain fast healing 2 instead of fast healing 1.",
+          "use_tracker": {
+            "uses_per_day": 1
+          },
+          "fast_healing_toggle": true
+        }
+      ],
+      "15": [
+        {
+          "name": "Damage Reduction",
+          "feature_key": "Damage Reduction",
+          "description": "Your damage reduction improves to DR 4/cold iron."
+        }
+      ],
+      "18": [
+        {
+          "name": "Fiendish Resilience",
+          "feature_key": "Fiendish Resilience",
+          "description": "While fiendish resilience is active, you gain fast healing 5.",
+          "use_tracker": {
+            "uses_per_day": 1
+          },
+          "fast_healing_toggle": true
+        }
+      ],
+      "19": [
+        {
+          "name": "Damage Reduction",
+          "feature_key": "Damage Reduction",
+          "description": "Your damage reduction improves to DR 5/cold iron."
+        }
+      ],
+      "20": [
+        {
+          "name": "Energy Resistance",
+          "feature_key": "Energy Resistance",
+          "description": "Your chosen energy resistances improve to 10.",
+          "energy_resistance_picker": true,
+          "energy_resistance_choices": 2
+        }
+      ]
+    },
+    "spellcasting": {
+      "type": "invocations",
+      "ability": "Charisma",
+      "casting_style": "at_will",
+      "invocations_known": {
+        "1": 1,
+        "2": 2,
+        "3": 2,
+        "4": 3,
+        "5": 3,
+        "6": 4,
+        "7": 4,
+        "8": 5,
+        "9": 5,
+        "10": 6,
+        "11": 7,
+        "12": 7,
+        "13": 8,
+        "14": 8,
+        "15": 9,
+        "16": 10,
+        "17": 10,
+        "18": 11,
+        "19": 11,
+        "20": 12
+      }
+    },
+    "proficiencies": {
+      "weapon_categories": [
+        "simple"
+      ],
+      "weapons": [],
+      "armor": [],
+      "shield": false,
+      "tower_shield": false
     }
   }
 }

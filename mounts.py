@@ -3,10 +3,12 @@
 import copy
 import json
 import os
+import re
 import sys
 
 import customtkinter as ctk
-from tkinter import messagebox, simpledialog
+from tkinter import simpledialog
+import dark_dialog as messagebox
 
 THEME_ORANGE = "#c77626"
 
@@ -24,6 +26,15 @@ RIDE_TASKS = (
     ("Spur mount", 15, "Move action; +10 ft. for 1 round (mount takes damage)."),
     ("Control mount in battle", 20, "Move action; untrained mount in battle."),
     ("Fast mount or dismount", 20, "Free action; fail = move action instead."),
+)
+
+_MOUNT_ATTACK_SEGMENT_RE = re.compile(
+    r"(?:(\d+)\s+)?"
+    r"([\w\s]+?)\s+"
+    r"([+-]?\d+)\s+"
+    r"(melee|ranged)\s+"
+    r"\(([^)]+)\)",
+    re.IGNORECASE,
 )
 
 PALADIN_MOUNT_ABILITY_INFO = {
@@ -106,6 +117,167 @@ class MountsMixin:
         mount = self._get_mount_data()
         return str(mount.get("name") or mount.get("base") or "Mount").strip()
 
+    def _parse_mount_damage_in_parens(self, dmg_raw):
+        text = str(dmg_raw or "").strip().replace("*", "")
+        match = re.match(r"^(\d+d\d+)([+-]\d+)?", text, re.IGNORECASE)
+        if not match:
+            return "1d4", 0
+        die = match.group(1).lower()
+        dmg_mod = int(match.group(2) or 0)
+        return die, dmg_mod
+
+    def _parse_mount_attack_components(self, attack_str):
+        """Parse SRD-style mount attack lines into structured attack parts."""
+        text = str(attack_str or "").strip()
+        if not text:
+            return []
+        components = []
+        for segment in re.split(r"\s+and\s+", text, flags=re.IGNORECASE):
+            segment = segment.strip()
+            if not segment:
+                continue
+            match = _MOUNT_ATTACK_SEGMENT_RE.search(segment)
+            if not match:
+                continue
+            die, dmg_mod = self._parse_mount_damage_in_parens(match.group(5))
+            components.append({
+                "name": match.group(2).strip().title(),
+                "count": max(1, int(match.group(1) or 1)),
+                "attack_bonus": int(match.group(3)),
+                "reach": str(match.group(4) or "melee").strip().lower(),
+                "damage_die": die,
+                "damage_mod": dmg_mod,
+            })
+        return components
+
+    def _format_mount_attack_bonus_display(self, components):
+        bonuses = []
+        for comp in components or []:
+            for _ in range(int(comp.get("count", 1) or 1)):
+                bonuses.append(self._format_modifier(int(comp.get("attack_bonus", 0) or 0)))
+        if not bonuses:
+            return ""
+        return f"[{'/'.join(bonuses)}]"
+
+    def _format_mount_damage_display(self, components):
+        parts = []
+        seen = set()
+        for comp in components or []:
+            die = str(comp.get("damage_die") or "1d4")
+            mod = int(comp.get("damage_mod", 0) or 0)
+            text = f"{die}{self._format_modifier(mod)}" if mod else die
+            key = (comp.get("name"), text)
+            if key in seen:
+                continue
+            seen.add(key)
+            parts.append(text)
+        return " ".join(parts)
+
+    def _build_talespire_mount_attack_roll(self):
+        mount_name = self._get_mount_summary_name() or "Mount"
+        components = self._parse_mount_attack_components(self._get_mount_attack_string())
+        if not components:
+            return self._build_talespire_mount_fallback_roll(attack_only=True)
+        groups = []
+        for comp in components:
+            bonus = int(comp.get("attack_bonus", 0) or 0)
+            for _ in range(int(comp.get("count", 1) or 1)):
+                groups.append(self._format_talespire_dice_with_modifier("1d20", bonus))
+        return self._format_talespire_roll(mount_name, groups)
+
+    def _build_talespire_mount_damage_roll(self):
+        mount_name = self._get_mount_summary_name() or "Mount"
+        components = self._parse_mount_attack_components(self._get_mount_attack_string())
+        if not components:
+            return self._build_talespire_mount_fallback_roll(damage_only=True)
+        groups = []
+        seen = set()
+        for comp in components:
+            label = self._sanitize_talespire_label(str(comp.get("name") or "Attack"))
+            dmg = self._format_talespire_dice_with_modifier(
+                comp.get("damage_die", "1d4"),
+                int(comp.get("damage_mod", 0) or 0),
+            )
+            group = f"{label}:{dmg}"
+            if group in seen:
+                continue
+            seen.add(group)
+            groups.append(group)
+        return self._format_talespire_roll(f"{mount_name} Damage", groups)
+
+    def _build_talespire_mount_full_roll(self):
+        mount_name = self._get_mount_summary_name() or "Mount"
+        components = self._parse_mount_attack_components(self._get_mount_attack_string())
+        if not components:
+            return self._build_talespire_mount_fallback_roll()
+        groups = []
+        seen_damage = set()
+        for comp in components:
+            bonus = int(comp.get("attack_bonus", 0) or 0)
+            for _ in range(int(comp.get("count", 1) or 1)):
+                groups.append(self._format_talespire_dice_with_modifier("1d20", bonus))
+        for comp in components:
+            label = self._sanitize_talespire_label(str(comp.get("name") or "Attack"))
+            dmg = self._format_talespire_dice_with_modifier(
+                comp.get("damage_die", "1d4"),
+                int(comp.get("damage_mod", 0) or 0),
+            )
+            group = f"{label}:{dmg}"
+            if group in seen_damage:
+                continue
+            seen_damage.add(group)
+            groups.append(group)
+        return self._format_talespire_roll(mount_name, groups)
+
+    def _build_talespire_mount_fallback_roll(self, *, attack_only=False, damage_only=False):
+        """Best-effort Talespire roll when the mount attack line is not fully structured."""
+        text = self._get_mount_attack_string()
+        mount_name = self._get_mount_summary_name() or "Mount"
+        if not text:
+            return None
+        groups = []
+        atk_match = re.search(r"([+-]?\d+)\s+(?:melee|ranged)", text, re.IGNORECASE)
+        dmg_match = re.search(r"\((\d+d\d+)([+-]\d+)?", text, re.IGNORECASE)
+        if atk_match and not damage_only:
+            groups.append(
+                self._format_talespire_dice_with_modifier("1d20", int(atk_match.group(1))),
+            )
+        if dmg_match and not attack_only:
+            groups.append(
+                self._format_talespire_dice_with_modifier(
+                    dmg_match.group(1),
+                    int(dmg_match.group(2) or 0),
+                ),
+            )
+        if not groups:
+            return None
+        label = mount_name
+        if damage_only:
+            label = f"{mount_name} Damage"
+        elif attack_only:
+            label = mount_name
+        return self._format_talespire_roll(label, groups)
+
+    def _bind_talespire_mount_summary_clicks(self, widgets, *, include_damage=True, include_full=True):
+        attack_builder = lambda: self._build_talespire_mount_attack_roll()
+        for widget in widgets or []:
+            if widget is not None:
+                self._bind_talespire_click(widget, attack_builder)
+        if include_damage:
+            dmg_lbl = getattr(self, "_combat_mount_summary_damage_label", None)
+            if dmg_lbl is not None:
+                self._bind_talespire_click(
+                    dmg_lbl,
+                    lambda: self._build_talespire_mount_damage_roll(),
+                )
+        if include_full:
+            card = getattr(self, "_combat_mount_summary_card", None)
+            if card is not None:
+                self._bind_talespire_click(
+                    card,
+                    lambda: self._build_talespire_mount_full_roll(),
+                )
+
     def _refresh_mount_attack_summary(self):
         """Show or hide the mount attack card in Combat Attack Summaries."""
         if not hasattr(self, "combat_summary_scroll"):
@@ -117,12 +289,17 @@ class MountsMixin:
             except Exception:
                 pass
         self._combat_mount_summary_widgets = []
+        self._combat_mount_summary_card = None
+        self._combat_mount_summary_damage_label = None
         if not self._has_mount():
             return
         attack_str = self._get_mount_attack_string()
         if not attack_str:
             return
         mount_name = self._get_mount_summary_name()
+        components = self._parse_mount_attack_components(attack_str)
+        atk_suffix = self._format_mount_attack_bonus_display(components)
+        dmg_display = self._format_mount_damage_display(components)
         header = ctk.CTkFrame(self.combat_summary_scroll, fg_color="#3a2f2a", height=22)
         header.pack(fill="x", pady=(6, 1), padx=4)
         header.pack_propagate(False)
@@ -140,26 +317,64 @@ class MountsMixin:
             text=f"{mount_name}:",
             font=ctk.CTkFont(size=12, weight="bold"),
             text_color=THEME_ORANGE,
+            cursor="hand2",
         )
         name_lbl.pack(side="left", padx=(8, 4), pady=2)
-        atk_lbl = ctk.CTkLabel(
-            card,
-            text=attack_str,
-            wraplength=620,
-            justify="left",
-            anchor="w",
-            font=ctk.CTkFont(size=12),
-        )
-        atk_lbl.pack(side="left", padx=(0, 8), pady=2)
+        atk_row = ctk.CTkFrame(card, fg_color="transparent")
+        atk_row.pack(side="left", padx=(0, 2), pady=2)
+        if atk_suffix:
+            suffix_lbl = ctk.CTkLabel(
+                atk_row,
+                text=atk_suffix,
+                font=ctk.CTkFont(size=12),
+                cursor="hand2",
+            )
+            suffix_lbl.pack(side="left")
+            atk_lbl = suffix_lbl
+        else:
+            atk_lbl = ctk.CTkLabel(
+                atk_row,
+                text=attack_str,
+                wraplength=420,
+                justify="left",
+                anchor="w",
+                font=ctk.CTkFont(size=12),
+                cursor="hand2",
+            )
+            atk_lbl.pack(side="left")
+            suffix_lbl = atk_lbl
+        dmg_lbl = None
+        if dmg_display:
+            dmg_lbl = ctk.CTkLabel(
+                card,
+                text=" " + dmg_display,
+                wraplength=420,
+                justify="left",
+                anchor="w",
+                font=ctk.CTkFont(size=12),
+                cursor="hand2",
+            )
+            dmg_lbl.pack(side="left", padx=(2, 8), pady=2)
         mount = self._get_mount_data()
         special = str(mount.get("special") or (mount.get("stats") or {}).get("special") or "").strip()
-        tooltip_lines = [mount_name, f"Attack: {attack_str}"]
+        tooltip_lines = [
+            mount_name,
+            f"Attack: {attack_str}",
+            "Click name/attack for attack roll; click damage for damage roll; click card for full roll.",
+        ]
         if special:
             tooltip_lines.append(special)
         self._bind_hover_tooltip(card, "\n".join(tooltip_lines), wraplength=420)
         self._combat_mount_summary_widgets = [header, card]
         self._combat_mount_summary_attack_label = atk_lbl
         self._combat_mount_summary_name_label = name_lbl
+        self._combat_mount_summary_card = card
+        self._combat_mount_summary_damage_label = dmg_lbl
+        self._bind_talespire_mount_summary_clicks(
+            [name_lbl, atk_lbl],
+            include_damage=bool(dmg_display),
+            include_full=True,
+        )
 
     def _refresh_mount_related_displays(self):
         self._refresh_mount_button_appearance()

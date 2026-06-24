@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import copy
 import json
+import math
 import os
 import threading
 import time
@@ -12,8 +13,11 @@ import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 
+from sync_http import supabase_request
+from sync_intervals import FOCUS_SLOW_POLL_MAX_SEC, apply_focus_multiplier
+
 LOOT_TABLE = "campaign_loot"
-DEFAULT_POLL_INTERVAL_SEC = 2
+DEFAULT_POLL_INTERVAL_SEC = 4
 COIN_TYPES = ("PP", "GP", "EP", "SP", "CP")
 
 
@@ -21,12 +25,26 @@ def empty_coin_dict():
     return {coin: 0 for coin in COIN_TYPES}
 
 
+def snapshot_shared_coins(shared_coins):
+    """Copy coin totals for hoard-push snapshot (stable per-player share basis)."""
+    shared = shared_coins or {}
+    return {coin: int(shared.get(coin, 0) or 0) for coin in COIN_TYPES}
+
+
+def pushed_coin_pool(state):
+    """Return coin totals from the last hoard push; fall back to shared_coins for legacy data."""
+    pushed = (state or {}).get("pushed_shared_coins")
+    if isinstance(pushed, dict) and any(int(pushed.get(c, 0) or 0) for c in COIN_TYPES):
+        return pushed
+    return (state or {}).get("shared_coins") or {}
+
+
 def calculate_coin_share(shared_coins, party_member_count):
-    """Each player's take from the shared pool (floor division)."""
+    """Each player's take from the shared pool (divide evenly, round up)."""
     members = max(1, int(party_member_count or 1))
     shared = shared_coins or {}
     return {
-        coin: int(shared.get(coin, 0) or 0) // members
+        coin: math.ceil(int(shared.get(coin, 0) or 0) / members)
         for coin in COIN_TYPES
     }
 
@@ -53,6 +71,7 @@ def default_loot_state():
         "sell_multiplier": 1.0,
         "coins_claimed_by": [],
         "shared_coins": empty_coin_dict(),
+        "pushed_shared_coins": empty_coin_dict(),
         "character_coins": {},
         "items": [],
         "updated_at": _utc_now_iso(),
@@ -71,6 +90,9 @@ def normalize_loot_state(data):
         merged["party_member_count"] = 4
     for coin in COIN_TYPES:
         merged["shared_coins"][coin] = int((data.get("shared_coins") or {}).get(coin, 0) or 0)
+        merged["pushed_shared_coins"][coin] = int(
+            (data.get("pushed_shared_coins") or {}).get(coin, 0) or 0
+        )
     merged["character_coins"] = copy.deepcopy(data.get("character_coins") or {})
     try:
         merged["loot_push_id"] = max(0, int(data.get("loot_push_id", 0) or 0))
@@ -78,6 +100,13 @@ def normalize_loot_state(data):
         merged["loot_push_id"] = 0
     claimed = data.get("coins_claimed_by") or []
     merged["coins_claimed_by"] = [str(char_id) for char_id in claimed if str(char_id).strip()]
+    if (
+        not any(merged["pushed_shared_coins"].values())
+        and int(merged.get("loot_push_id", 0) or 0) > 0
+        and not merged["coins_claimed_by"]
+        and any(merged["shared_coins"].values())
+    ):
+        merged["pushed_shared_coins"] = snapshot_shared_coins(merged["shared_coins"])
     merged["items"] = copy.deepcopy(data.get("items") or [])
     merged["buy_multiplier"] = clamp_trade_multiplier(data.get("buy_multiplier", 1.0))
     merged["sell_multiplier"] = clamp_trade_multiplier(data.get("sell_multiplier", 1.0))
@@ -85,11 +114,46 @@ def normalize_loot_state(data):
     return merged
 
 
+def player_visible_name(item):
+    if not item:
+        return ""
+    if item.get("identified") or not item.get("is_magical"):
+        return item.get("name") or item.get("generic_name") or "Item"
+    return item.get("generic_name") or item.get("flavor") or "Unidentified item"
+
+
+def player_visible_flavor(item):
+    if not item:
+        return ""
+    if item.get("identified") or not item.get("is_magical"):
+        return item.get("flavor") or item.get("generic_name") or ""
+    return (
+        item.get("unidentified_flavor")
+        or item.get("flavor")
+        or item.get("generic_name")
+        or "An unidentified item of unknown origin and power."
+    )
+
+
+def player_safe_icon(item):
+    if not item:
+        return "•"
+    if item.get("identified") or not item.get("is_magical"):
+        return item.get("icon") or "•"
+    return "•"
+
+
 def loot_state_fingerprint(state):
     """Stable signature for detecting remote hoard changes between polls."""
     normalized = normalize_loot_state(state)
     item_sig = tuple(
-        (str(item.get("id", "")), str(item.get("claimed_by") or ""))
+        (
+            str(item.get("id", "")),
+            str(item.get("claimed_by") or ""),
+            bool(item.get("identified")),
+            player_visible_name(item),
+            player_visible_flavor(item),
+        )
         for item in (normalized.get("items") or [])
     )
     coin_sig = tuple(
@@ -109,14 +173,6 @@ def loot_state_fingerprint(state):
     )
 
 
-def player_visible_name(item):
-    if not item:
-        return ""
-    if item.get("identified") or not item.get("is_magical"):
-        return item.get("name") or item.get("generic_name") or "Item"
-    return item.get("generic_name") or item.get("flavor") or "Unidentified item"
-
-
 class LootSyncClient:
     """Read/write campaign loot state via Supabase REST."""
 
@@ -129,6 +185,7 @@ class LootSyncClient:
         self._thread = None
         self._last_seen_at = None
         self._last_seen_fingerprint = None
+        self._focus_interval_multiplier = 1
 
     def note_remote_state(self, state):
         """Record the latest known cloud state so polling only reacts to real changes."""
@@ -151,19 +208,49 @@ class LootSyncClient:
         return self.config
 
     def save_config(self, config):
-        self.config = dict(config or {})
+        existing = {}
+        if os.path.isfile(self.config_path):
+            try:
+                with open(self.config_path, "r", encoding="utf-8") as handle:
+                    data = json.load(handle)
+                if isinstance(data, dict):
+                    existing = data
+            except (OSError, json.JSONDecodeError):
+                pass
+        self.config = dict(existing)
+        if config:
+            self.config.update(dict(config))
         os.makedirs(os.path.dirname(self.config_path) or ".", exist_ok=True)
         with open(self.config_path, "w", encoding="utf-8") as handle:
             json.dump(self.config, handle, indent=2)
         return self.config
 
     def is_configured(self):
-        self.load_config()
         return bool(
             self.config.get("enabled")
             and self.config.get("supabase_url")
             and self.config.get("supabase_anon_key")
             and self.config.get("campaign_id")
+        )
+
+    def set_focus_multiplier(self, multiplier):
+        try:
+            self._focus_interval_multiplier = max(1, min(8, int(multiplier or 1)))
+        except (TypeError, ValueError):
+            self._focus_interval_multiplier = 1
+
+    def _get_poll_interval_sec(self):
+        try:
+            base = int(
+                self.config.get("loot_poll_interval_sec", DEFAULT_POLL_INTERVAL_SEC)
+                or DEFAULT_POLL_INTERVAL_SEC
+            )
+        except (TypeError, ValueError):
+            base = DEFAULT_POLL_INTERVAL_SEC
+        return apply_focus_multiplier(
+            max(2, base),
+            multiplier=self._focus_interval_multiplier,
+            max_sec=FOCUS_SLOW_POLL_MAX_SEC,
         )
 
     def _invoke_callback(self, callback, *args, **kwargs):
@@ -192,21 +279,10 @@ class LootSyncClient:
 
     def _request(self, method, path, body=None, prefer=None):
         base = str(self.config.get("supabase_url", "")).rstrip("/")
-        if not base:
-            raise RuntimeError("Supabase URL is not configured.")
-        url = f"{base}{path}"
-        data = None
-        if body is not None:
-            data = json.dumps(body).encode("utf-8")
-        request = urllib.request.Request(
-            url, data=data, headers=self._headers(prefer=prefer), method=method,
-        )
         try:
-            with urllib.request.urlopen(request, timeout=20) as response:
-                raw = response.read().decode("utf-8")
-                if not raw.strip():
-                    return None
-                return json.loads(raw)
+            return supabase_request(
+                base, method, path, self._headers(prefer=prefer), body=body,
+            )
         except urllib.error.HTTPError as exc:
             detail = exc.read().decode("utf-8", errors="replace")
             if exc.code == 404 and "PGRST205" in detail:
@@ -218,6 +294,32 @@ class LootSyncClient:
             raise RuntimeError(f"Loot sync HTTP {exc.code}: {detail}") from exc
         except urllib.error.URLError as exc:
             raise RuntimeError(f"Loot sync network error: {exc.reason}") from exc
+
+    def fetch_loot_revision(self):
+        if not self.is_configured():
+            return None
+        campaign_id = urllib.parse.quote(str(self.config["campaign_id"]), safe="")
+        path = (
+            f"/rest/v1/{LOOT_TABLE}?campaign_id=eq.{campaign_id}"
+            "&select=updated_at&limit=1"
+        )
+        rows = self._request("GET", path) or []
+        if not rows:
+            return None
+        return rows[0].get("updated_at")
+
+    def poll_loot_updates(self):
+        revision = self.fetch_loot_revision()
+        if revision and self._last_seen_at and revision == self._last_seen_at:
+            return None
+        remote = self.fetch_loot_state()
+        if not remote:
+            return None
+        fingerprint = loot_state_fingerprint(remote)
+        if fingerprint == self._last_seen_fingerprint:
+            self._last_seen_at = remote.get("updated_at") or self._last_seen_at
+            return None
+        return remote
 
     def test_connection(self):
         if not self.is_configured():
@@ -292,7 +394,7 @@ class LootSyncClient:
                 "You already took your coin share. Wait for the DM to push a new hoard."
             )
         party_count = max(1, int(state.get("party_member_count", 1) or 1))
-        payout = calculate_coin_share(state.get("shared_coins"), party_count)
+        payout = calculate_coin_share(pushed_coin_pool(state), party_count)
         if not any(int(payout.get(c, 0) or 0) for c in COIN_TYPES):
             raise RuntimeError("No coins available to loot.")
         shared = state.setdefault("shared_coins", empty_coin_dict())
@@ -340,18 +442,12 @@ class LootSyncClient:
         self._thread = None
 
     def _poll_loop(self):
-        interval = max(
-            2,
-            int(self.config.get("loot_poll_interval_sec", DEFAULT_POLL_INTERVAL_SEC) or DEFAULT_POLL_INTERVAL_SEC),
-        )
         while not self._stop_event.is_set():
             try:
-                remote = self.fetch_loot_state()
+                remote = self.poll_loot_updates()
                 if remote:
-                    fingerprint = loot_state_fingerprint(remote)
-                    if fingerprint != self._last_seen_fingerprint:
-                        self.note_remote_state(remote)
-                        self._invoke_callback(self.on_remote_update, remote)
+                    self.note_remote_state(remote)
+                    self._invoke_callback(self.on_remote_update, remote)
             except Exception as exc:
                 self._set_status(str(exc), is_error=True)
-            self._stop_event.wait(interval)
+            self._stop_event.wait(self._get_poll_interval_sec())

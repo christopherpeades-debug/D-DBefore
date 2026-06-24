@@ -9,6 +9,8 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+
+from sync_http import supabase_request
 from datetime import datetime, timezone
 
 TRADE_TABLE = "campaign_pending_trades"
@@ -87,7 +89,7 @@ def format_trade_log_line(entry):
     to_player = str(entry.get("to_player_name") or "").strip()
     to_char = str(entry.get("to_character_name") or "").strip()
     if from_id == DM_CHARACTER_ID:
-        sender = "DM (Treasure Horde)"
+        sender = "DM (Treasure Hoard)"
     elif from_player and from_char:
         sender = f"{from_player} ({from_char})"
     else:
@@ -174,14 +176,24 @@ class TradeSyncClient:
         return self.config
 
     def save_config(self, config):
-        self.config = dict(config or {})
+        existing = {}
+        if os.path.isfile(self.config_path):
+            try:
+                with open(self.config_path, "r", encoding="utf-8") as handle:
+                    data = json.load(handle)
+                if isinstance(data, dict):
+                    existing = data
+            except (OSError, json.JSONDecodeError):
+                pass
+        self.config = dict(existing)
+        if config:
+            self.config.update(dict(config))
         os.makedirs(os.path.dirname(self.config_path) or ".", exist_ok=True)
         with open(self.config_path, "w", encoding="utf-8") as handle:
             json.dump(self.config, handle, indent=2)
         return self.config
 
     def is_dm_configured(self):
-        self.load_config()
         return bool(
             self.config.get("enabled")
             and self.config.get("supabase_url")
@@ -190,7 +202,6 @@ class TradeSyncClient:
         )
 
     def is_configured(self):
-        self.load_config()
         return bool(
             self.is_dm_configured()
             and self.config.get("character_id")
@@ -222,21 +233,10 @@ class TradeSyncClient:
 
     def _request(self, method, path, body=None, prefer=None):
         base = str(self.config.get("supabase_url", "")).rstrip("/")
-        if not base:
-            raise RuntimeError("Supabase URL is not configured.")
-        url = f"{base}{path}"
-        data = None
-        if body is not None:
-            data = json.dumps(body).encode("utf-8")
-        request = urllib.request.Request(
-            url, data=data, headers=self._headers(prefer=prefer), method=method,
-        )
         try:
-            with urllib.request.urlopen(request, timeout=20) as response:
-                raw = response.read().decode("utf-8")
-                if not raw.strip():
-                    return None
-                return json.loads(raw)
+            return supabase_request(
+                base, method, path, self._headers(prefer=prefer), body=body,
+            )
         except urllib.error.HTTPError as exc:
             detail = exc.read().decode("utf-8", errors="replace")
             if exc.code == 404 and "PGRST205" in detail:
@@ -332,7 +332,7 @@ class TradeSyncClient:
                 else ("" if is_dm else self.config.get("player_name", "") or ""),
             ),
             "from_character_name": str(
-                from_character_name or ("Treasure Horde" if is_dm else ""),
+                from_character_name or ("Treasure Hoard" if is_dm else ""),
             ),
             "to_character_id": to_id,
             "to_player_name": str(to_player_name or ""),

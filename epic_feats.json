@@ -673,6 +673,9 @@
     "prerequisites": "Str 21, Dex 21, Improved Unarmed Strike, Escape Artist 15 ranks.",
     "description": "Benefit\nYou gain a +10 bonus on all grapple checks.",
     "effects": {},
+    "combat_modifiers": {
+      "grapple": 10
+    },
     "epic": true
   },
   "Lingering Damage": {

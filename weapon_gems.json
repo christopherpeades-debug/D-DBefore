@@ -1,0 +1,370 @@
+{
+  "Crystal of Adamant Weaponry (least)": {
+    "description": "Improves weapon hardness by 2.",
+    "rank": "least",
+    "cost": "300 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Adamant Weaponry (lesser)": {
+    "description": "Improves weapon hardness by 5.",
+    "rank": "lesser",
+    "cost": "1,400 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Adamant Weaponry (greater)": {
+    "description": "Improves weapon hardness by 10.",
+    "rank": "greater",
+    "cost": "3,400 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Arcane Steel (least)": {
+    "description": "+1 insight bonus on weapon damage when delivering a spell through a melee attack.",
+    "rank": "least",
+    "cost": "500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Arcane Steel (lesser)": {
+    "description": "As least, and +1 insight bonus on the attack roll.",
+    "rank": "lesser",
+    "cost": "2,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Arcane Steel (greater)": {
+    "description": "As lesser, and increases the spell save DC by 1.",
+    "rank": "greater",
+    "cost": "6,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Energy Assault, Acid (least)": {
+    "description": "Adds 1 point of acid damage to the weapon's damage.",
+    "rank": "least",
+    "cost": "600 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Energy Assault, Acid (lesser)": {
+    "description": "Adds an extra 1d6 points of acid damage.",
+    "rank": "lesser",
+    "cost": "3,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Energy Assault, Acid (greater)": {
+    "description": "Adds 1d6 acid damage plus a secondary rider effect on hit.",
+    "rank": "greater",
+    "cost": "6,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Energy Assault, Cold (least)": {
+    "description": "Adds 1 point of cold damage to the weapon's damage.",
+    "rank": "least",
+    "cost": "600 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Energy Assault, Cold (lesser)": {
+    "description": "Adds an extra 1d6 points of cold damage.",
+    "rank": "lesser",
+    "cost": "3,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Energy Assault, Cold (greater)": {
+    "description": "Adds 1d6 cold damage plus a secondary rider effect on hit.",
+    "rank": "greater",
+    "cost": "6,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Energy Assault, Electricity (least)": {
+    "description": "Adds 1 point of electricity damage to the weapon's damage.",
+    "rank": "least",
+    "cost": "600 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Energy Assault, Electricity (lesser)": {
+    "description": "Adds an extra 1d6 points of electricity damage.",
+    "rank": "lesser",
+    "cost": "3,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Energy Assault, Electricity (greater)": {
+    "description": "Adds 1d6 electricity damage plus a secondary rider effect on hit.",
+    "rank": "greater",
+    "cost": "6,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Energy Assault, Fire (least)": {
+    "description": "Adds 1 point of fire damage to the weapon's damage.",
+    "rank": "least",
+    "cost": "600 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Energy Assault, Fire (lesser)": {
+    "description": "Adds an extra 1d6 points of fire damage.",
+    "rank": "lesser",
+    "cost": "3,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Energy Assault, Fire (greater)": {
+    "description": "Adds 1d6 fire damage plus a secondary rider effect on hit.",
+    "rank": "greater",
+    "cost": "6,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Illumination (least)": {
+    "description": "Swift (command): weapon sheds bright light 5 ft. and shadowy light 5 ft. beyond.",
+    "rank": "least",
+    "cost": "100 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Illumination (lesser)": {
+    "description": "Bright light 20 ft. and shadowy light 20 ft. beyond.",
+    "rank": "lesser",
+    "cost": "400 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Illumination (greater)": {
+    "description": "Bright light 60 ft. and shadowy light 60 ft. beyond.",
+    "rank": "greater",
+    "cost": "1,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Life Drinking (least)": {
+    "description": "Heal 1 hp per hit on a living creature (max 10 hp/day, then inert until next day).",
+    "rank": "least",
+    "cost": "400 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Life Drinking (lesser)": {
+    "description": "Heal 3 hp per hit (max 30 hp/day).",
+    "rank": "lesser",
+    "cost": "1,500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Life Drinking (greater)": {
+    "description": "Heal 5 hp per hit (max 50 hp/day).",
+    "rank": "greater",
+    "cost": "6,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Return (least)": {
+    "description": "Draw the weapon as a free action.",
+    "rank": "least",
+    "cost": "300 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Return (lesser)": {
+    "description": "As least, and call the weapon from up to 30 ft. away as a move action.",
+    "rank": "lesser",
+    "cost": "1,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Return (greater)": {
+    "description": "As lesser, and thrown weapons also gain the returning property.",
+    "rank": "greater",
+    "cost": "4,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Security (least)": {
+    "description": "+2 bonus on checks to draw the weapon or keep it in your hand.",
+    "rank": "least",
+    "cost": "300 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Security (lesser)": {
+    "description": "Bonus is +5.",
+    "rank": "lesser",
+    "cost": "1,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Crystal of Security (greater)": {
+    "description": "Bonus is +10.",
+    "rank": "greater",
+    "cost": "3,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Demolition Crystal (least)": {
+    "description": "+1d6 damage to constructs.",
+    "rank": "least",
+    "cost": "1,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Demolition Crystal (lesser)": {
+    "description": "As least, and weapon counts as adamantine vs. construct DR.",
+    "rank": "lesser",
+    "cost": "3,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Demolition Crystal (greater)": {
+    "description": "As lesser, and weapon can sneak attack and critically hit constructs.",
+    "rank": "greater",
+    "cost": "6,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Fiendslayer Crystal (least)": {
+    "description": "+1d6 damage to evil outsiders.",
+    "rank": "least",
+    "cost": "1,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Fiendslayer Crystal (lesser)": {
+    "description": "As least, and weapon counts as good-aligned for overcoming DR.",
+    "rank": "lesser",
+    "cost": "3,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Fiendslayer Crystal (greater)": {
+    "description": "As lesser, and a critical hit prevents teleportation for 1 round.",
+    "rank": "greater",
+    "cost": "5,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Phoenix Ash Threat (least)": {
+    "description": "Target hit last round takes 1 fire damage at the start of your turn.",
+    "rank": "least",
+    "cost": "500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Phoenix Ash Threat (lesser)": {
+    "description": "Target takes 3 fire damage.",
+    "rank": "lesser",
+    "cost": "2,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Phoenix Ash Threat (greater)": {
+    "description": "Target takes 5 fire damage.",
+    "rank": "greater",
+    "cost": "6,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Revelation Crystal (least)": {
+    "description": "Invisible creature you damage glows for 1 round (reveals its square).",
+    "rank": "least",
+    "cost": "400 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Revelation Crystal (lesser)": {
+    "description": "Also suppresses invisibility effects for 1 round.",
+    "rank": "lesser",
+    "cost": "1,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Revelation Crystal (greater)": {
+    "description": "Also suppresses blur/displacement-like concealment for 1 round.",
+    "rank": "greater",
+    "cost": "5,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Truedeath Crystal (least)": {
+    "description": "+1d6 damage to undead.",
+    "rank": "least",
+    "cost": "1,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Truedeath Crystal (lesser)": {
+    "description": "As least, and weapon functions as ghost touch.",
+    "rank": "lesser",
+    "cost": "5,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Truedeath Crystal (greater)": {
+    "description": "As lesser, and weapon can sneak attack and critically hit undead.",
+    "rank": "greater",
+    "cost": "10,000 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": []
+  },
+  "Witchlight Reservoir": {
+    "description": "Greater crystal. Swift (mental): imbue next melee hit with sunlight (+2d6 fire, +4d6 vs undead), moonlight (+2d6 electricity, +4d6 vs lycanthropes), blood (+2d6 vs living), or wine (–2 Will saves 1 round) depending on 8-hour exposure. Functions 5 times before re-imbuing.",
+    "rank": "greater",
+    "cost": "5,000 gp",
+    "uses_per_day": 5,
+    "max_charges": 0,
+    "granted_spells": []
+  }
+}

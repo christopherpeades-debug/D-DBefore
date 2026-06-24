@@ -533,7 +533,7 @@
     "description": "You get a +2 bonus on all Disable Device checks and Open Lock checks.",
     "effects": {}
   },
-   "Persistent Spell": {
+  "Persistent Spell": {
     "prerequisites": "None",
     "description": "Spells with a fixed or personal range can have their duration increased to 24 hours.\n\n Spells of instantaneous duration cannot be affected by this feat, nor can spells whose effects are discharged. You don't need to maintain concentration on persistent detect spells (such as detect magic or detect thoughts) for you to be aware of the mere presence or absence of the subject detected, but gaining additional information requires concentration as normal. A persistent spell uses up a spell slot six levels higher than the spell's actual level."
   },
@@ -817,7 +817,9 @@
     "prerequisites": "Tumble 12 ranks",
     "description": "If you succeed in using Tumble to avoid an opponent's attack of opportunity, you gain a +4 bonus on the next attack that you make against that foe as long as the attack occurs before the end of your current turn. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Arcane Flourish": {
     "prerequisites": "Perform 4 ranks, arcane caster level 1st",
@@ -833,7 +835,9 @@
     "prerequisites": "Knowledge (arcana) 9 ranks, ability to cast arcane spells",
     "description": "Choose one arcane spell to be your thesis. +2 CL with it. Other metamagic (not Heighten) costs 1 less slot level. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["wizard"]
+    "bonus_feat_pools": [
+      "wizard"
+    ]
   },
   "Arcane Toughness": {
     "prerequisites": "Toughness, arcane caster level 3rd",
@@ -849,13 +853,17 @@
     "prerequisites": "Proficiency with selected armor type, base attack bonus +12",
     "description": "Choose one medium or heavy armor type. With masterwork or magic version of it: DR 2/-. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Battle Dancer": {
     "prerequisites": "Base attack bonus +2, bardic music",
     "description": "While using bardic music to grant an ally a bonus, you gain +2 morale on attack rolls if you move at least 1 square before attacking. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Bonded Familiar": {
     "prerequisites": "Familiar",
@@ -866,25 +874,33 @@
     "prerequisites": "Dex 13, Dodge, Mobility, Spring Attack, base attack bonus +12",
     "description": "Spring Attack against two designated foes (no AoO from either). You may make a second attack at -5. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Rapid Blitz": {
     "prerequisites": "Dex 13, Bounding Assault, Dodge, Mobility, Spring Attack, base attack bonus +18",
     "description": "You can make a third attack as part of a Spring Attack. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Brutal Strike": {
     "prerequisites": "Str 13, Power Attack, base attack bonus +6",
     "description": "Power Attack with bludgeoning weapon: foe Fort saves (DC 10 + your extra PA damage) or sickened 1 round. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Combat Acrobat": {
     "prerequisites": "Balance 9 ranks, Tumble 9 ranks",
     "description": "DC 20 Balance to avoid being knocked prone by an effect. DC 15 Balance to ignore up to 4 squares of difficult terrain. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Combat Familiar": {
     "prerequisites": "Arcane caster level 1st, familiar",
@@ -900,13 +916,17 @@
     "prerequisites": "Dex 13, Dodge, base attack bonus +12",
     "description": "Free action designate a foe. If you start your turn not threatening each other, +2 on melee damage against it this turn. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Cometary Collision": {
     "prerequisites": "Str 13, Improved Bull Rush, Power Attack",
     "description": "Ready vs a charger: you charge them gaining +2 attack and +4 damage, and they lose the benefits of charging against you. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Companion Spellbond": {
     "prerequisites": "Animal companion",
@@ -917,7 +937,9 @@
     "prerequisites": "Proficiency with hand, heavy or light crossbow, Weapon Focus (chosen crossbow), base attack bonus +1, skirmish or sneak attack",
     "description": "With chosen crossbow (Weapon Focus): +1/2 Dex bonus on damage. Skirmish or sneak attack range increases to 60 ft. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Cunning Evasion": {
     "prerequisites": "Hide 9 ranks, evasion",
@@ -933,13 +955,17 @@
     "prerequisites": "Point Blank Shot, Precise Shot, base attack bonus +4, skirmish or sneak attack",
     "description": "Ready a ranged attack vs a target. If an ally strikes it first, it loses Dex bonus to AC against your attack. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Defensive Sweep": {
     "prerequisites": "Base attack bonus +15",
     "description": "An adjacent opponent that begins its turn and does not move provokes an attack of opportunity from you immediately after its turn ends. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Elven Spell Lore": {
     "prerequisites": "Int 17 or elf, Knowledge (arcana) 12 ranks",
@@ -955,14 +981,16 @@
     "prerequisites": "Dex 13, Wis 13, Improved Unarmed Strike, Stunning Fist, base attack bonus +8",
     "description": "Expend one Stunning Fist use: your unarmed strikes deal +1d6 fire damage for a number of rounds equal to your Wisdom modifier. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Fiery Ki": {
     "prerequisites": "Dex 13, Wis 13, Fiery Fist, Improved Unarmed Strike, Stunning Fist, base attack bonus +8",
     "description": "Expend a Stunning Fist use to cloak yourself in flame. Any creature that strikes you takes 1d6 fire damage. (PHB2)",
     "effects": {}
   },
-   "Force of Personality": {
+  "Force of Personality": {
     "prerequisites": "Cha 13",
     "description": "You add your Charisma modifier (instead of your Wisdom modifier) to Will (PHB2)",
     "effects": {
@@ -978,7 +1006,9 @@
     "prerequisites": "Str 13, Power Attack",
     "description": "When using Power Attack with a slashing weapon against an unarmored or lightly armored target, the target takes a -2 penalty on attack rolls and skill checks for 1 round. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Grenadier": {
     "prerequisites": "None",
@@ -994,7 +1024,9 @@
     "prerequisites": "Combat Reflexes, base attack bonus +3",
     "description": "When a foe provokes an attack of opportunity from you, you can choose to perform the aid another action instead of attacking. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Stalwart Defense": {
     "prerequisites": "Combat Reflexes, Hindering Opportunist, base attack bonus +9",
@@ -1006,19 +1038,23 @@
     "description": "You roll twice and take the better result on Will saves against fear and mind-affecting attacks. (PHB2)",
     "effects": {}
   },
-    "Insightful Reflexes": {
+  "Insightful Reflexes": {
     "prerequisites": "Intimidate 4 ranks",
     "description": "You add your Intelligence modifier (instead of your Dexterity modifier) to Reflex saves. (Complete Adventurer)",
     "effects": {
-		"SaveSub": "Ref Int"
-	},
-    "bonus_feat_pools": ["fighter"]
+      "SaveSub": "Ref Int"
+    },
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Intimidating Strike": {
     "prerequisites": "Intimidate 4 ranks",
     "description": "As a standard action make a melee attack. If it hits, you may immediately attempt to demoralize the target with Intimidate as a free action. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Keen-Eared Scout": {
     "prerequisites": "Listen 6 ranks, Alertness or Skill Focus (Listen)",
@@ -1029,13 +1065,17 @@
     "prerequisites": "Jump 4 ranks",
     "description": "You do not double the DC for standing long jumps. You gain a +5 bonus on Jump checks made after a running start. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Lunging Strike": {
     "prerequisites": "Base attack bonus +6",
     "description": "As a standard action, you can make a single melee attack with 5 feet greater reach than normal. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Mad Foam Rager": {
     "prerequisites": "Rage or frenzy ability",
@@ -1051,67 +1091,89 @@
     "prerequisites": "Dex 13, Int 13, Combat Expertise, Dodge",
     "description": "While fighting defensively, you can negate one melee attack against you per round as an immediate action (opposed attack roll at -4). (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Melee Weapon Mastery": {
     "prerequisites": "Proficiency with selected weapon, Weapon Focus with selected weapon",
-    "description": "Choose bludgeoning, piercing, or slashing. You gain +1 on attack and damage rolls with weapons that deal the chosen damage type. (PHB2)",
+    "description": "Choose bludgeoning, piercing, or slashing. You gain +2 on attack and damage rolls with weapons that deal the chosen damage type. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Crushing Strike": {
     "prerequisites": "Proficiency with a bludgeoning weapon, Weapon Focus (bludgeoning), Melee Weapon Mastery (bludgeoning), Weapon Specialization (bludgeoning), base attack bonus +14",
     "description": "Full attack with bludgeoning weapon: each successful hit grants a cumulative +1 bonus on attack rolls against that foe until the end of your turn. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Driving Attack": {
     "prerequisites": "Proficiency with selected piercing weapon, Weapon Focus (piercing), Melee Weapon Mastery (piercing), Weapon Specialization (piercing), base attack bonus +14",
     "description": "As a full-round action, make a single attack with a piercing weapon. If it hits, you can immediately make a bull rush attempt against the target. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Slashing Flurry": {
     "prerequisites": "Proficiency with selected slashing weapon, Weapon Focus (slashing), Melee Weapon Mastery (slashing), Weapon Specialization (slashing), base attack bonus +14",
     "description": "Full attack with a slashing weapon: you gain one additional attack at your highest base attack bonus. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Weapon Supremacy": {
     "prerequisites": "Proficiency with selected weapon, Greater Weapon Focus (selected), Greater Weapon Specialization (selected), Weapon Focus (selected), Weapon Specialization (selected), Melee Weapon Mastery (type), fighter level 18th",
     "description": "With the chosen weapon you gain multiple benefits including increased critical range/multiplier and the ability to ignore some damage reduction. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Overwhelming Assault": {
     "prerequisites": "Base attack bonus +15",
     "description": "An adjacent foe that does not attack you on its turn grants you a +4 bonus on attack rolls against it until the start of its next turn. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Penetrating Shot": {
     "prerequisites": "Str 15, Point Blank Shot, base attack bonus +10",
     "description": "As a standard action make a single ranged attack that targets every creature in a 60-foot line. Make one attack roll and compare it to each target's AC. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Ranged Weapon Mastery": {
     "prerequisites": "Proficiency with selected weapon, Weapon Focus (selected), Weapon Specialization (selected), base attack bonus +8",
     "description": "Choose a ranged weapon type. You gain +1 on attack and damage rolls with it, and these bonuses also apply to all similar weapons (e.g. all bows). (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Robilar's Gambit": {
     "prerequisites": "Combat Reflexes, base attack bonus +12",
     "description": "You can grant any threatening foe a +4 bonus on its attack and damage rolls against you, but any attack it makes against you provokes an attack of opportunity from you. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Shield Specialization": {
     "prerequisites": "Proficiency with shields",
     "description": "You gain an additional +1 shield bonus to your Armor Class when using a shield. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Active Shield Defense": {
     "prerequisites": "Proficiency with shields, Shield Specialization",
@@ -1122,13 +1184,17 @@
     "prerequisites": "Proficiency with shields, Improved Shield Bash, Shield Specialization",
     "description": "When making a shield bash and an armed strike in the same round, the penalties are only -2 on each attack. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Shield Sling": {
     "prerequisites": "Proficiency with shields, Improved Shield Bash, Shield Specialization, base attack bonus +9",
     "description": "You can throw your shield as a ranged weapon (20 ft range increment) that returns to you at the end of the round. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Shield Ward": {
     "prerequisites": "Proficiency with shields, Shield Specialization",
@@ -1139,13 +1205,17 @@
     "prerequisites": "Proficiency with selected weapon, Weapon Focus with selected weapon, base attack bonus +3",
     "description": "You can use a reach weapon to attack adjacent foes without the normal -4 penalty. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Spectral Skirmisher": {
     "prerequisites": "Base attack bonus +6",
     "description": "While invisible or incorporeal you gain a +2 bonus on attack and damage rolls, and your attacks ignore 5 points of damage reduction. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Spell-Linked Familiar": {
     "prerequisites": "Arcane caster level 9th, familiar",
@@ -1178,13 +1248,17 @@
     "prerequisites": "Dex 15, Two-Weapon Fighting, base attack bonus +6",
     "description": "When charging while wielding two weapons, you can attack with both weapons at the end of the charge (normal two-weapon fighting penalties apply). (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Two-Weapon Rend": {
     "prerequisites": "Dex 15, Two-Weapon Fighting, base attack bonus +11",
     "description": "If you hit the same opponent with both of your weapons in the same round, you deal an extra 1d6 + 1-1/2 times your Strength modifier damage. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Vatic Gaze": {
     "prerequisites": "Arcane caster level 9th",
@@ -1195,19 +1269,25 @@
     "prerequisites": "Improved Unarmed Strike",
     "description": "You may choose to deal bludgeoning, piercing, or slashing damage with your unarmed strikes (declare the type before the attack). (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Vexing Flanker": {
     "prerequisites": "Combat Reflexes",
     "description": "You gain a +4 bonus on attack rolls when flanking (instead of the normal +2). (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Adaptable Flanker": {
     "prerequisites": "Combat Reflexes, Vexing Flanker, base attack bonus +4",
     "description": "As a swift action designate one opponent. You count as occupying any square you threaten for purposes of flanking that opponent (for you and your allies). (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Wanderer's Diplomacy": {
     "prerequisites": "Halfling or 4 ranks in Bluff, Diplomacy, and Sense Motive",
@@ -1218,7 +1298,9 @@
     "prerequisites": "Dex 13, Wis 13, Improved Unarmed Strike, Stunning Fist, base attack bonus +9",
     "description": "When you successfully strike a creature that possesses damage reduction, you gain a +4 bonus on the damage roll for that attack. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Ritual Blessing": {
     "prerequisites": "Good alignment, Knowledge (religion) 4 ranks",
@@ -1239,37 +1321,49 @@
     "prerequisites": "Wis 13",
     "description": "After your first successful attack in an encounter you enter a state of combat focus lasting 10 + number of combat form feats rounds. While focused you gain +2 on Will saves (+4 with 3 or more combat form feats). (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Combat Stability": {
     "prerequisites": "Wis 13, Combat Focus, base attack bonus +3",
     "description": "While maintaining combat focus you gain +4 on checks or rolls to resist bull rush, disarm, grapple, overrun, and trip (+8 with 3+ combat form feats). (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Combat Defense": {
     "prerequisites": "Dex 13, Wis 13, Combat Focus, Dodge, base attack bonus +6",
     "description": "While focused you can change the target of your Dodge feat as an immediate action. With 3+ combat form feats you gain an extra +1 dodge bonus to AC against the Dodge target. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Combat Vigor": {
     "prerequisites": "Wis 13, Combat Focus, base attack bonus +9",
     "description": "While maintaining combat focus you gain fast healing 2 (fast healing 4 with 3 or more combat form feats). (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Combat Awareness": {
     "prerequisites": "Wis 13, Blind-Fight, Combat Focus, base attack bonus +12",
     "description": "While focused you learn the current hit point totals of all adjacent creatures. With 3+ combat form feats you gain blindsight out to 5 feet. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Combat Strike": {
     "prerequisites": "Wis 13, Combat Focus, any two other combat form feats, base attack bonus +15",
     "description": "End your combat focus as a swift action to gain a bonus on attack and damage rolls equal to your total number of combat form feats for the rest of your turn. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Divine Armor": {
     "prerequisites": "Divine caster level 5th, ability to turn or rebuke undead",
@@ -1284,6 +1378,11 @@
   "Divine Justice": {
     "prerequisites": "Ability to turn or rebuke undead",
     "description": "Expend a turn/rebuke to mark a foe. The next time it strikes you in melee, record the damage. Your next successful melee attack against it deals the greater of its damage to you or your normal damage. (PHB2)",
+    "effects": {}
+  },
+  "Divine Metamagic": {
+    "prerequisites": "Ability to turn undead or rebuke undead",
+    "description": "When you take this feat, choose a metamagic feat that you have. This feat applies only to that metamagic feat. As a free action, you can channel turn or rebuke undead uses to apply that metamagic feat to divine spells you know. Spend one turn or rebuke attempt, plus one additional attempt for each level the metamagic feat increases the spell. The spell slot does not change. This feat may be taken multiple times; each time, choose a different metamagic feat. (Complete Divine)",
     "effects": {}
   },
   "Divine Ward": {
@@ -1360,43 +1459,57 @@
     "prerequisites": "None",
     "description": "Metamagic (fire descriptor spells only): the spell deals an extra 2 points of fire damage per spell level. Creatures that fail their save take a -2 penalty on attack rolls and checks for 1 round. Uses a slot one level higher. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["wizard"]
+    "bonus_feat_pools": [
+      "wizard"
+    ]
   },
   "Earthbound Spell": {
     "prerequisites": "None",
     "description": "Metamagic: you place the spell in an adjacent square as a trap (Search/Disable DC 25 + level). It triggers when a creature enters the square. Uses a slot two levels higher. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["wizard"]
+    "bonus_feat_pools": [
+      "wizard"
+    ]
   },
   "Flash Frost Spell": {
     "prerequisites": "None",
     "description": "Metamagic (cold descriptor area spells only): the spell deals an extra 2 cold damage per level. The area is covered with slippery ice for 1 round (Balance DC 10 or 20 or fall prone). Uses a slot one level higher. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["wizard"]
+    "bonus_feat_pools": [
+      "wizard"
+    ]
   },
   "Imbued Summoning": {
     "prerequisites": "Augment Summoning, Spell Focus (conjuration)",
     "description": "Metamagic: when you cast a summoning spell you can also cast a touch-range spell of 3rd level or lower; the summoned creature gains the benefit of that spell. Uses a slot one level higher. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["wizard"]
+    "bonus_feat_pools": [
+      "wizard"
+    ]
   },
   "Smiting Spell": {
     "prerequisites": "Base attack bonus +1, caster level 1st",
     "description": "Metamagic: transfer a touch spell into a weapon you hold. The next successful strike with that weapon discharges the spell. Must be used within 1 minute. Uses a slot one level higher. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["wizard"]
+    "bonus_feat_pools": [
+      "wizard"
+    ]
   },
   "Blood-Spiked Charger": {
     "prerequisites": "Str 13, proficiency with armor spikes and shield spikes, Power Attack, Weapon Focus (armor spikes), Weapon Focus (shield spikes), base attack bonus +6",
     "description": "Tactical feat granting special maneuvers and bonuses when charging with spiked armor and shield. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Combat Cloak": {
     "prerequisites": "Dex 15, Int 13, Combat Expertise, Dodge, base attack bonus +6",
     "description": "Tactical feat granting special combat maneuvers using a cloak (trip, disarm, and more). (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Combat Panache": {
     "prerequisites": "Bluff 8 ranks, Intimidate 8 ranks, Perform 8 ranks",
@@ -1407,7 +1520,9 @@
     "prerequisites": "Tumble 6 ranks, base attack bonus +6",
     "description": "Tactical feat granting one-handed weapon combat maneuvers. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
   },
   "Mad Alchemist": {
     "prerequisites": "Grenadier, Craft (alchemy) 6 ranks",
@@ -1423,6 +1538,514 @@
     "prerequisites": "Hide 12 ranks, Move Silently 12 ranks",
     "description": "Tactical feat granting stealthy combat maneuvers while using Hide and Move Silently. (PHB2)",
     "effects": {},
-    "bonus_feat_pools": ["fighter"]
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Arcane Strike": {
+    "prerequisites": "Ability to cast 3rd-level arcane spells, base attack bonus +4",
+    "description": "You can channel arcane energy into your melee attacks. Prerequisites: Ability to cast 3rd-level arcane spells, base attack bonus +4. Benefit: When you activate this feat (a free action that does not provoke an attack of opportunity), you can channel arcane energy into a melee weapon, your unarmed strike, or natural weapons. You must sacrifice one of your spells for the day (of 1st level or higher) to do this, but you gain a bonus on all your attack rolls for 1 round equal to the level of the spell sacrificed, as well as extra damage equal to 1d4 points × the level of the spell sacrificed. The bonus you add to your attack rolls from this feat cannot be greater than your base attack bonus. For example, Yarren the bladesinger has a base attack bonus of +11 and the ability to cast 4th-level arcane spells. On his turn, he chooses to sacrifice one of his 4th-level spells for the day, marking it off as if he had cast it. Until his next turn, Yarren gains an extra +4 bonus on his attack rolls and an extra 4d4 points of damage with a single melee weapon of his choice (his rapier). (Complete Warrior)",
+    "effects": {}
+  },
+  "Arterial Strike": {
+    "prerequisites": "Sneak attack ability, base attack bonus +4",
+    "description": "Your sneak attacks target large blood vessels, leaving wounds that cause massive blood loss. Prerequisites: Sneak attack ability, base attack bonus +4. Benefit: If you hit with a sneak attack, you may choose to forgo +1d6 of extra sneak attack damage to deliver a wound that won’t stop bleeding. Each wound caused in this manner saps an extra 1 point of damage per round from the victim, until the victim receives the benefit of a DC 15 Heal check or any cure spell or other magical healing. Wounds from multiple arterial strikes result in cumulative bleeding loss (two successful arterial strikes cause an extra 2 points of damage per round until healed). You may deliver only one bleeding wound per successful sneak attack. (Complete Warrior)",
+    "effects": {}
+  },
+  "Axiomatic Strike": {
+    "prerequisites": "Ki strike (lawful), Stunning Fist",
+    "description": "You can turn your fist into an instrument of law. Prerequisites: Ki strike (lawful), Stunning Fist. Benefit: Against a chaotic opponent, you can make an unarmed attack that does an extra 2d6 points of damage. You must declare that you are using this feat before you make your attack roll (thus, a failed attack ruins the attempt). Each attempt counts as one of your uses of the Stunning Fist feat for the day. Creatures immune to stunning can be affected by this extra damage. (Complete Warrior)",
+    "effects": {}
+  },
+  "Clever Wrestling": {
+    "prerequisites": "Small or Medium size, Improved Unarmed Strike",
+    "description": "You have a better than normal chance to escape or wriggle free from a big creature’s grapple or pin. Prerequisites: Small or Medium size, Improved Unarmed Strike. Benefit: When your opponent is larger than Medium, you gain a circumstance bonus on your grapple check to escape a grapple or pin. The size of the bonus depends on your opponent’s size, according to the following table. Opponent Size Bonus Large +2 Huge +4 Gargantuan +6 Colossal +8 (Complete Warrior)",
+    "effects": {}
+  },
+  "Dash": {
+    "prerequisites": "'",
+    "description": "You can move faster than normal. Benefit: If you are wearing light armor or no armor and are carrying a light load, your speed is 5 feet faster. (Complete Warrior)",
+    "effects": {}
+  },
+  "Defensive Throw": {
+    "prerequisites": "Dex 13, Combat Reflexes, Dodge, Improved Trip, Improved Unarmed Strike",
+    "description": "You can use your opponent’s weight, strength, and momentum against her, deflecting her attack and throwing her to the ground. Prerequisites: Dex 13, Combat Reflexes, Dodge, Improved Trip, Improved Unarmed Strike. Benefit: If the opponent you have chosen to use your Dodge feat against attacks you and misses, you can make an immediate trip attack against that opponent. This attempt counts against your allowed attacks of opportunity in the round. (Complete Warrior)",
+    "effects": {}
+  },
+  "Destructive Rage": {
+    "prerequisites": "Rage or frenzy ability",
+    "description": "You can shatter barriers and objects when enraged. Prerequisites: Rage or frenzy ability. Benefit: While you are in a rage or frenzy, you gain a +8 bonus on any Strength checks you make to break down doors or break inanimate, immobile objects. (Complete Warrior)",
+    "effects": {}
+  },
+  "Eagle Claw Attack": {
+    "prerequisites": "Wis 13, Improved Sunder, Improved Unarmed Strike",
+    "description": "Your superior insight allows you to strike objects with impressive force. Prerequisites: Wis 13, Improved Sunder, Improved Unarmed Strike. Benefit: When you make an unarmed strike against an object, you may add your Wisdom bonus to the damage dealt to the object. (Complete Warrior)",
+    "effects": {}
+  },
+  "Eyes in the Back of Your Head": {
+    "prerequisites": "Wis 13, base attack bonus +1",
+    "description": "Attackers do not gain the usual +2 bonus on their attack rolls when flanking you. This feat grants no effect whenever you are attacked without benefit of your Dexterity modifier to Armor Class, such as when you are flat-footed. You may still be sneak attacked when flanked. (Complete Warrior)",
+    "effects": {}
+  },
+  "Faster Healing": {
+    "prerequisites": "Base Fortitude save bonus +5",
+    "description": "Heal hit points and ability damage faster than normal (Complete Warrior)",
+    "effects": {}
+  },
+  "Favored Power Attack": {
+    "prerequisites": "Favored enemy ability, Power Attack, base attack bonus +4",
+    "description": "You are able to deal more damage against your favored enemies. Prerequisites: Favored enemy ability, Power Attack, base attack bonus +4. Benefit: When you use the Power Attack feat against a favored enemy, you may subtract a number from your melee attack rolls and add twice that number to your melee damage rolls, if you attack with a weapon in two hands, add three times the number. The normal restrictions of the Power Attack feat apply. (Complete Warrior)",
+    "effects": {}
+  },
+  "Fists of Iron": {
+    "prerequisites": "Improved Unarmed Strike, Stunning Fist, base attack bonus +2",
+    "description": "+1d6 damage on unarmed attacks (Complete Warrior)",
+    "effects": {}
+  },
+  "Fleet of Foot": {
+    "prerequisites": "Dex 15, Run",
+    "description": "Make one direction change during a run or charge (Complete Warrior)",
+    "effects": {}
+  },
+  "Flick of the Wrist": {
+    "prerequisites": "Dex 17, Sleight of Hand 5 ranks, Quick Draw",
+    "description": "Cause opponent to be flat-footed for one attack (Complete Warrior)",
+    "effects": {}
+  },
+  "Flying Kick": {
+    "prerequisites": "Str 13, Jump 4 ranks, Improved Unarmed Strike, Power Attack",
+    "description": "You literally leap into battle, dealing devastating damage. Prerequisites: Str 13, Jump 4 ranks, Improved Unarmed Strike, Power Attack. Benefit: When fighting unarmed and using the charge action, you deal an extra 1d12 points of damage with your unarmed attack. (Complete Warrior)",
+    "effects": {}
+  },
+  "Greater Resiliency": {
+    "prerequisites": "Damage reduction ability",
+    "description": "Your extraordinary resilience to damage increases. Prerequisites: Damage reduction as a class feature or innate ability. Benefit: Your damage reduction increases by 1. if it would normally rise thereafter with level, it does so at its previous rate, adding the +1 normally. For example, a 13th-level barbarian has damage reduction 3/–. By taking this feat, he raises it to 4/–. When he reaches 16th level, his damage reduction becomes 5/– and at 19th level, it becomes 6/–. You may not take this feat more than once. This feat has no effect on the type of weapon or damage that overcomes your damage reduction. If you have more than one form of damage reduction, choose which to increase when you take this feat. (Complete Warrior)",
+    "effects": {}
+  },
+  "Hamstring": {
+    "prerequisites": "Sneak attack ability, base attack bonus +4",
+    "description": "You can wound your opponents’ legs, hampering their movement. Prerequisites: Sneak attack ability, base attack bonus +4. Benefit: If you hit with a melee sneak attack, you may choose to forgo 2d6 points of extra sneak attack damage to reduce your opponent’s base speed by half. This speed reduction ends after 24 hours have passed or a successful DC 15 Heal check or the application of any cure spell or other magical healing is made. Creatures immune to sneak attack damage and creatures with no legs or more than four legs can’t be slowed down with a hamstring attack. It takes two successful hamstring attacks to affect quadrupeds. Other speeds (fly, burrow, and so on) aren’t affected. You may use this ability once per round. (Complete Warrior)",
+    "effects": {}
+  },
+  "Hold the Line": {
+    "prerequisites": "Combat Reflexes, base attack bonus +2",
+    "description": "Make attack of opportunity against charging foe (Complete Warrior)",
+    "effects": {}
+  },
+  "Improved Familiar": {
+    "prerequisites": "Ability to acquire a new familiar, compatible alignment, sufficient arcane spellcaster level and base attack bonus",
+    "description": "This feat allows spellcasters to acquire a new familiar from a nonstandard list, but only when they could normally acquire a new familiar (see Familiars, page 52 of the Player’s Handbook). This feat was originally presented on page 200 of the Dungeon Master’s Guide; the description here provides new alternatives for arcane spellcasters who want familiars to stand beside them in battle. Prerequisite: Ability to acquire a new familiar, compatible alignment, sufficiently high arcane spellcaster level, and base attack bonus. Benefit: When choosing a familiar, the creatures listed below are also available to the spellcaster. The spellcaster may choose a familiar with an alignment up to one step away on each of the alignment axes (lawful through chaotic, good through evil). For example, a chaotic good spellcaster could acquire a neutral familiar, A lawful neutral spellcaster could acquire a neutral good familiar. The spellcaster must have at least the arcane spellcaster level and base attack bonus indicated below in order to acquire the familiar. Improved familiars otherwise use the rules presented on pages 52 and 53 of the Player’s Handbook. Granted Abilities: In addition to their own special qualities, all familiars grant their masters the Alertness feat, the benefit of an empathic link, and the ability to share spells with the familiar. Improved Evasion (Ex): If a familiar is exposed to any effect that normally allows it to attempt a Reflex saving throw for half damage, it rakes no damage with a successful saving throw and only half damage on a failed save. (Complete Warrior)",
+    "effects": {}
+  },
+  "Improved Favored Enemy": {
+    "prerequisites": "Favored enemy ability, base attack bonus +5",
+    "description": "You know how to hit your favored enemies where it hurts. Prerequisites: Favored enemy ability, base attack bonus +5. Benefit: You deal an extra 3 points of damage to your favored enemies. This benefit stacks with any existing favored enemy bonus gained from another class. (Complete Warrior)",
+    "effects": {}
+  },
+  "Instantaneous Rage": {
+    "prerequisites": "Rage or frenzy ability",
+    "description": "Your rage begins at any time you wish, even when it’s not your turn or when you’re surprised. You can activate your rage as a free action in response to another’s action. Thus, you can gain the benefits of rage in time to prevent or ameliorate an undesirable event. For example, you can choose to enter a rage when an enemy attacks you, or casts a spell at you (to gain the benefits of a higher Constitution or your bonus on Will saves) before you know the results of the attack. You must be aware of the attack, but you may be flat-footed. (Complete Warrior)",
+    "effects": {}
+  },
+  "Intimidating Rage": {
+    "prerequisites": "Rage or frenzy ability",
+    "description": "Your rage engenders fear in your opponents. Prerequisites: Rage or frenzy ability. Benefit: While you are raging, you designate a single foe within 30 feet of you that you can attempt to demoralize as a free action (see the Intimidate skill, page 76 of the Players Handbook). A foe that you successfully demoralize remains shaken for as long as you continue to rage. You may only use this feat against a single foe in any particular encounter. (Complete Warrior)",
+    "effects": {}
+  },
+  "Karmic Strike": {
+    "prerequisites": "Dex 13, Combat Expertise, Dodge",
+    "description": "You have learned to strike when your opponent is most vulnerable—the same instant your opponent strikes you. Prerequisites: Dex 13, Combat Expertise, Dodge. Benefit: You can make an attack of opportunity against an opponent that hits you in melee. On your action, you choose to take a –4 penalty to your Armor Class in exchange for the ability to make an attack of opportunity against any creature that makes a successful melee attack or melee touch attack against you. The opponent that hits you must be in your threatened area, and this feat does not grant you more attacks of opportunity than you are normally allowed in a round. You specify on your turn that you are activating this feat, and the change to your Armor Class and your ability to make these special attacks of opportunity last until your next turn. (Complete Warrior)",
+    "effects": {}
+  },
+  "Kiai Shout": {
+    "prerequisites": "Cha 13, base attack bonus +1",
+    "description": "You can bellow forth a shout that strikes terror into your enemies. Prerequisites: Cha 13, base attack bonus +1. Benefit: Making a kiai shout is a standard action. Opponents who can hear your shout and who are within 30 feet of you may become shaken for 1d6 rounds. The kiai shout affects only opponents with fewer Hit Dice or levels than you have. An opponent in the affected area can resist the effect with a successful Will save (DC 10 + 1/2 your character level + your Cha modifier). You can use the benefit of this feat three times per day. (Complete Warrior)",
+    "effects": {}
+  },
+  "Monkey Grip": {
+    "prerequisites": "Base attack bonus +1",
+    "description": "You can use melee weapons one size category larger than you are with a –2 penalty on the attack roll, but the amount of effort it takes you to use the weapon does not change. For instance, a Large longsword (a one-handed weapon for a large creature) is considered a two-handed weapon for a Medium creature that does not have this feat. For a Medium creature that has this feat, it is still considered a one-handed weapon. You can wield a larger light weapon as a light weapon, or a larger two-handed weapon in two hands. You cannot wield a larger weapon in your off hand, and you cannot use this feat with a double weapon. (Complete Warrior)",
+    "effects": {}
+  },
+  "Pain Touch": {
+    "prerequisites": "Wis 15, Stunning Fist, base attack bonus +2",
+    "description": "You cause intense pain in an opponent with a successful stunning attack. Prerequisites: Wis 15, Stunning Fist, base attack bonus +2. Benefit: Victims of a successful stunning attack are subject to such debilitating pain that they are nauseated for 1 round following the round they are stunned. Creatures that are immune to stunning attacks are also immune to the effect of this feat, as are any creatures that are more than one size category larger than the feat user. (Complete Warrior)",
+    "effects": {}
+  },
+  "Pin Shield": {
+    "prerequisites": "Two-Weapon Fighting, base attack bonus +4",
+    "description": "You know how to get inside your opponent’s guard by pinning his shield out of the way. Prerequisites: Two-Weapon Fighting, base attack bonus +4. Benefit: This feat can be used only when fighting against an opponent who is using a shield and who is your size or one size category bigger or smaller than you. When making a full attack action, you may give up all your off-hand attacks, if you do, you momentarily pin your 119 opponent’s shield with your off-hand weapon, and all your remaining attacks during the round are made with your primary weapon (with the normal penalties for fighting with two weapons), and your foe gains no Armor Class benefit from her shield until the end of your action. You cannot use this feat if you are fighting with only one weapon. (Complete Warrior)",
+    "effects": {}
+  },
+  "Roundabout Kick": {
+    "prerequisites": "Str 15, Improved Unarmed Strike, Power Attack",
+    "description": "You can follow up on a particularly powerful unarmed attack with a mighty kick, spinning in a complete circle before landing the kick. Prerequisites: Str 15, Improved Unarmed Strike, Power Attack. Benefit: If you score a critical hit on an unarmed attack, you can immediately make an additional unarmed attack against the same opponent, using the same attack bonus that you used for the critical hit roll. For example, Ember the 15th-level monk can make three unarmed attacks in a round, at base attack bonuses of+11, +6, and +1. if she scores a critical hit on her second attack, she can make an additional attack using her +6 base attack bonus. She then makes her third attack (at +1) as normal. (Complete Warrior)",
+    "effects": {}
+  },
+  "Swarmfighting": {
+    "prerequisites": "Small size, Dex 13, base attack bonus +1",
+    "description": "You and allies with this feat can coordinate melee attacks against a single target and are adept at fighting side by side in close quarters. Prerequisites: Small size, Dex 13, base attack bonus +1. Benefit: You can occupy the same 5-foot square in combat with any other allied Small creature that also possesses the Swarmfighting feat at no penalty. When you engage a Medium or larger creature in melee, and at least one other ally with the Swarmfighting feat threatens the target, you gain a +1 morale bonus on the attack roll. This bonus increases by +1 for each additional ally beyond the first with the Swarmfighting feat that threatens the same target. The total morale bonus imparted to your attack roll cannot exceed your Dexterity bonus. (Complete Warrior)",
+    "effects": {}
+  },
+  "Throw Anything": {
+    "prerequisites": "Dex 15, proficiency with weapon, base attack bonus +2",
+    "description": "You can throw a melee weapon you are proficient with as if it were a ranged weapon. The range increment of weapons used in conjunction with this feat is 10 feet. (Complete Warrior)",
+    "effects": {}
+  },
+  "Zen Archery": {
+    "prerequisites": "Wis 13, base attack bonus +1",
+    "description": "Your intuition guides your hand when you use a ranged weapon. Prerequisites: Wis 13, base attack bonus +1. Benefit: You can use your Wisdom modifier instead of your Dexterity modifier when making a ranged attack roll. DIVINE FEATS (Complete Warrior)",
+    "effects": {}
+  },
+  "Earth's Embrace": {
+    "prerequisites": "Str 15, Improved Grapple or improved grab, Improved Unarmed Strike",
+    "description": "Extra damage while pinning an opponent (Complete Warrior)",
+    "effects": {}
+  },
+  "Freezing the Lifeblood": {
+    "prerequisites": "Wis 17, Improved Unarmed Strike, Stunning Fist, base attack bonus +10",
+    "description": "Declare that you are using this feat before you make your attack roll (thus, a missed attack roll ruins the attempt). Against a humanoid opponent, you can make an unarmed attack that deals no damage but has a chance of paralyzing your target. If your attack is successful, your target must attempt a Fortitude saving throw (DC 10 + 1/2 your character level + your Wis modifier), if the target fails this saving throw, it is paralyzed for 1d4+1 rounds. Each attempt to paralyze an opponent counts as one of your uses of the Stunning Fist feat for the day. Creatures immune to stunning cannot be paralyzed in this manner. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Close-Quarters Fighting": {
+    "prerequisites": "Base attack bonus +3",
+    "description": "You gain an attack of opportunity whenever an enemy attempts to grapple you, even if the enemy has a feat or special ability that would normally bypass the attack, if you deal damage with this attack, the enemy fails to Stan the grapple unless it has the Improved Grapple feat or a special ability such as improved grab. If the enemy has such an ability, you may add the damage you deal as a bonus on your opposed check to resist being grappled. This feat does not give you extra attacks of opportunity during a round or allow you to make an attack of opportunity when you would be denied one for being surprised, helpless, or in a similar situation. For example, an ogre attempts to grapple Tordek. Tordek gains an attack of opportunity, hits, and causes damage. Since the ogre does not have any sort of grappling special ability or feat, it fails to start a grapple. Then an ankheg—a creature with the improved grab special ability—attempts to grapple Tordek. He takes an attack of opportunity, hits, and deals 10 points of damage to the creature. Tordek then adds +10 to his opposed check to resist being grappled. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Defensive Strike": {
+    "prerequisites": "Dex 13, Int 13, Combat Expertise, Dodge",
+    "description": "If an opponent attacks you and misses while you are using the total defense action, you can attack that opponent on your next turn with a +4 bonus on your attack roll. You gain no bonus against an opponent that does not attack you or against an opponent that attacks and hits you. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Extend Rage": {
+    "prerequisites": "Rage or frenzy ability",
+    "description": "Each of the uses of your rage or frenzy ability lasts an additional 5 rounds beyond its normal duration. (Complete Warrior)",
+    "effects": {}
+  },
+  "Extra Rage": {
+    "prerequisites": "Rage or frenzy ability",
+    "description": "You rage or frenzy two more times per day than you otherwise could. (Complete Warrior)",
+    "effects": {}
+  },
+  "Extra Smiting": {
+    "prerequisites": "Smite ability, base attack bonus +4",
+    "description": "When you take this feat, you gain two extra attempts to smite per day. Use whatever smite ability you have (the paladin’s smite evil ability or the hunter of the dead’s ability to smite undead, for example). (Complete Warrior)",
+    "effects": {}
+  },
+  "Extra Stunning": {
+    "prerequisites": "Stunning Fist, base attack bonus +2",
+    "description": "You gain the ability to make three extra stunning attacks per day. (Complete Warrior)",
+    "effects": {}
+  },
+  "Greater Two-Weapon Defense": {
+    "prerequisites": "Dex 19, Improved Two-Weapon Fighting, Two-Weapon Defense, Two-Weapon Fighting, base attack bonus +11",
+    "description": "When wielding two weapons (not including natural weapons or unarmed strikes), you gain a +3 shield bonus to your AC. When you are fighting defensively or using the total defense action, this shield bonus increases to +6. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Improved Buckler Defense": {
+    "prerequisites": "Shield Proficiency",
+    "description": "When you attack with a weapon in your offhand, you may still apply your buckler’s shield bonus to your Armor Class. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Improved Combat Expertise": {
+    "prerequisites": "Int 13, Combat Expertise, base attack bonus +6",
+    "description": "When you use the Combat Expertise feat to improve your Armor Class, the number you subtract from your attack roll and add to your AC can be any number that does not exceed your base attack bonus. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Improved Mounted Archery": {
+    "prerequisites": "Ride 1 rank, Mounted Archery, Mounted Combat",
+    "description": "The penalty you take when using a ranged weapon if your mount is taking a double move is eliminated, and the penalty for using a ranged weapon when your mount is running is lessened from –4 to –2. You can attack at any time during your mount’s move. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Improved Rapid Shot": {
+    "prerequisites": "Manyshot, Point Blank Shot, Rapid Shot",
+    "description": "When using the Rapid Shot feat, you may ignore the –2 penalty on all your ranged attack rolls. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Improved Toughness": {
+    "prerequisites": "Base Fortitude save bonus +2",
+    "description": "You gain a number of hit points equal to your current Hit Dice. Each time you gain a HD (such as by gaining a level), you gain 1 additional hit point. If you lose a HD (such as by losing a level), you lose 1 hit point permanently. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Improved Two-Weapon Defense": {
+    "prerequisites": "Dex 17, Two-Weapon Defense, Two-Weapon Fighting, base attack bonus +6",
+    "description": "When wielding two weapons (not including natural weapons or unarmed strikes), you gain a +2 shield bonus to your Armor Class. When you are fighting defensively or using the total defense action, this shield bonus increases to +4. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Improved Weapon Familiarity": {
+    "prerequisites": "Base attack bonus +1",
+    "description": "You can treat all the exotic weapons associated with your race as martial weapons rather than as exotic weapons. A weapon is treated as being associated with a race if the race’s name appears as part of the weapon’s name, such as the elven thinblade (see Chapter 4 of this book) or the dwarven urgrosh. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Phalanx Fighting": {
+    "prerequisites": "Proficiency with a heavy shield, base attack bonus +1",
+    "description": "If you are using a heavy shield and a light weapon, you gain a +1 bonus to your Armor Class. In addition, if you are within 5 feet of an ally who is also using a heavy shield and light weapon and who also has this feat, you may form a shield wall. A shield wall provides an extra +2 bonus to AC and a +1 bonus on Reflex saves to all eligible characters participating in the shield wall. For example, a single character with this feat gains a +1 bonus to his AC. If two or more characters who all know this feat are adjacent, they each gain an extra +2 bonus to AC (for a total of+3) and a +1 bonus on Reflex saves. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Power Critical": {
+    "prerequisites": "Weapon Focus with weapon, base attack bonus +4",
+    "description": "When using the weapon you selected, you gain a +4 bonus on the roll to confirm a threat. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Prone Attack": {
+    "prerequisites": "Dex 15, Lightning Reflexes, base attack bonus +2",
+    "description": "You can make an attack from the prone position and take no penalty on your attack roll, if your attack roll is successful, you may regain your feet immediately as a free action. Opponents gain no bonus on melee attacks against you while you are prone. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Ranged Disarm": {
+    "prerequisites": "Dex 15, Point Blank Shot, Precise Shot, base attack bonus +5",
+    "description": "Choose one type of ranged weapon with which you are proficient. You can make a disarm attempt with this weapon as long as your target is within 30 feet. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Ranged Pin": {
+    "prerequisites": "Dex 15, Point Blank Shot, Precise Shot, base attack bonus +5",
+    "description": "You can perform a ranged grapple attempt against an opponent by pinning a bit of its clothing to a nearby surface. The target must be within 5 feet of a wall, tree, or other surface in which a thrown weapon or projectile can he stuck and must be wearing some sort of clothing, armor, or other accoutrement. You must succeed on a ranged attack (not a ranged touch attack) and then win an opposed grapple check (your size modifier and the target’s size modifiers still apply). To break free, the victim must make a DC 15 Strength check or a DC 15 Escape Artist check as a standard action. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Rapid Stunning": {
+    "prerequisites": "Combat Reflexes, Stunning Fist, base attack bonus +6",
+    "description": "You may use one additional stunning attack (or other special attack that counts against your daily limit of stunning attacks) per round. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Sharp-Shooting": {
+    "prerequisites": "Point Blank Shot, Precise Shot, base attack bonus +3",
+    "description": "Your targets only receive a +2 bonus to Armor Class due to cover, This feat has no effect against foes with no cover or total cover. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Shield Charge": {
+    "prerequisites": "Improved Shield Bash, base attack bonus +3",
+    "description": "If you hit an opponent with your shield as part of a charge action, in addition to dealing damage normally, you may make a trip attack without provoking an attack of opportunity, if you lose, the defender does not get to try to trip you in return. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Weakening Touch": {
+    "prerequisites": "Wis 17, Improved Unarmed Strike, Stunning Fist, base attack bonus +2",
+    "description": "Declare that you are using this feat before you make your attack roll (thus, a missed attack roll ruins the attempt). You can make an unarmed attack that deals no damage, but instead applies a –6 penalty to the target’s Strength score for 1 minute. Multiple weakening touches delivered on the same target are not cumulative. Each attempt to deliver a weakening touch counts as one of your Stunning Fist attacks for the day. Creatures with immunity to stun effects cannot be affected by this feat. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Anvil Of Thunder": {
+    "prerequisites": "Str 13, Improved Sunder, Power Attack, Two-Weapon Fighting, Weapon Focus (warhammer or light hammer), Weapon Focus (battleaxe, handaxe, or dwarven waraxe)",
+    "description": "You have mastered the style of fighting with hammer and axe at the same time, arid have learned to deal thunderous blows with this unique pairing of weapons. Prerequisites: Str 13, Improved Sunder, Power Attack, Two-Weapon Fighting, Weapon Focus (warhammer or light hammer), Weapon Focus (battleaxe, handaxe, or dwarven waraxe). Benefit: If you hit the same creature with both your axe and your hammer in the same round, it must make a Fortitude saving throw (DC 10 +1/2 your character level + your Strmodifier) or be dazed for 1 round. (Complete Warrior)",
+    "effects": {}
+  },
+  "Bear Fang": {
+    "prerequisites": "Str 15, Power Attack, Two-Weapon Fighting, Weapon Focus (dagger), Weapon Focus (battleaxe, handaxe, or dwarven waraxe)",
+    "description": "You have mastered the fierce style of fighting with axe and dagger at the same time. You can bring the fight to close quarters in the blink of an eye. Prerequisites: Str 15, Power Attack, Two-Weapon Fighting, Weapon Focus (dagger), Weapon Focus (battleaxe, handaxe, or dwarven waraxe). Benefit: If you hit a creature with both your axe and your dagger in the same round, you deal normal damage with both weapons, and you can choose to immediately attempt to start a grapple as a free action without provoking an attack of opportunity, as if you had the improved grab ability. No initial touch attack is required. It you succeed on your grapple attempt, you drop your axe, but you immediately gain an additional attack against your grappled foe with your dagger at your highest base attack bonus (with the normal –4 penalty for attacking in a grapple). In subsequent rounds, you can use the dagger to attack while grappling at the normal penalty. (Complete Warrior)",
+    "effects": {}
+  },
+  "Cavalry Charger": {
+    "prerequisites": "Mounted Combat, Spirited Charge, Trample, base attack bonus +6",
+    "description": "The Cavalry Charger feat enables the use of three tactical maneuvers. Unhorse: To use this maneuver, you must be mounted and charge a mounted foe. If your charge attack hits, you may make a free bull rush attempt. If the bull rush attempt succeeds, you move your foe normally, but his mount remains where it was. Leaping Charge: To use this maneuver, you must be mounted and charge a foe at least one size category smaller than your mount. Make a Ride check at the conclusion of the move portion of the charge action. Prior to making the roll, determine the DC of the check: either DC 10 for a chance to deal 2 extra points of damage or DC 20 for a chance to deal 4 extra points of damage. If you fail this Ride check, you miss your target (no attack roll) and if you fail this Ride check by 5 or more, you miss your target and fall off your mount, landing in a square adjacent to the mount’s space. Fell Trample:You can make mounted overrun attempts against more than one foe, resolving each attempt according to the rules on page 157 and 158 of the Player’s Handbook. Your mount gets a hoof attack against each foe you successfully overrun. (Complete Warrior)",
+    "effects": {}
+  },
+  "Combat Brute": {
+    "prerequisites": "Improved Sunder, Power Attack, base attack bonus +6",
+    "description": "The Combat Brute feat enables the use of three tactical maneuvers. Advancing Blows: To use this maneuver, you must make a successful bull rush attempt against a foe. During the next round, all your attacks against that foe gain a +1 bonus on attack and damage rolls for each square your bull rush moved that foe. For example, if you pushed an ore back 10 (2 squares) feet with a bull rush, you would gain a +2 bonus on attack and damage rolls against that ore on the following round. Sundering Cleave: To use this maneuver, you must destroy a foe’s weapon or shield with a successful sunder attempt (see page 158 of the Player’s Handbook). If you do so, you gain an immediate additional melee attack against the foe. The additional attack is with the same weapon and at the same attack bonus as the attack that destroyed the weapon or shield. Momentum Swing: To use this maneuver, you must charge a toe in the first round, and you must make an attack using your Power Attack feat in the second round. The penalty you take on your attack roll must be –5 or worse. Your attacks during the second round gain a bonus equal to your attack roll penalty ×1-1/2, or × 3 if you’re using a two- handed weapon or a one-handed weapon wielded in two hands. For instance, if you choose to take a –6 penalty on your attack roll, you can deal an extra 9 points of damage, or an extra 18 points if you’re using a two-handed weapon or a one-handed weapon wielded in two hands. (Complete Warrior)",
+    "effects": {}
+  },
+  "Crescent Moon": {
+    "prerequisites": "Improved Disarm, Improved Two- Weapon Fighting, Two-Weapon Fighting, Weapon Focus (dagger), Weapon Focus (bastard sword, longsword, scimitar, or short sword)",
+    "description": "You have mastered the style of fighting with sword and dagger. You know how to twist an opponent’s weapons from its grasp with a single graceful motion while using your two weapons together. Prerequisites: Improved Disarm, Improved Two- Weapon Fighting, Two-Weapon Fighting, Weapon Focus (dagger), Weapon Focus (bastard sword, longsword, scimitar, or short sword). Benefit: If you hit the same creature with both your sword and your dagger in the same round, you may make an immediate disarm attempt as a free action. (Complete Warrior)",
+    "effects": {}
+  },
+  "Divine Cleansing": {
+    "prerequisites": "Turn or rebuke undead ability",
+    "description": "You can channel energy to improve your allies’ ability to resist attacks against their vitality and health. Prerequisites: Turn or rebuke undead ability. Benefit: As a standard action, you can spend one of your turn or rebuke undead attempts to grant all allies (including yourself; within a 60-foot burst a +2 sacred bonus on fortitude saving throws for a number of rounds equal to your Charisma modifier. (Complete Warrior)",
+    "effects": {}
+  },
+  "Divine Might": {
+    "prerequisites": "Str 13, turn or rebuke undead ability, Power Attack",
+    "description": "You can channel energy to increase the damage you deal in combat. Prerequisites: Str 13, turn or rebuke undead ability, Power Attack. Benefit: As a free action, spend one of your turn or rebuke undead attempts to add your Charisma bonus to your weapon damage for 1 full round. (Complete Warrior)",
+    "effects": {}
+  },
+  "Divine Resistance": {
+    "prerequisites": "Turn or rebuke undead ability, Divine Cleansing",
+    "description": "You can channel energy to temporarily reduce damage you and your allies take from some sources. Prerequisites: Turn or rebuke undead ability, Divine Cleansing. Benefit: As a standard action, spend one of your turn or rebuke undead attempts to imbue all allies within a 60-foot burst (including yourself) with resistance to cold 5, electricity S, and fire 5. This resistance does not stack with similar resistances, such as those granted by spells or special abilities. The protection lasts for a number of rounds equal to your Charisma modifier. (Complete Warrior)",
+    "effects": {}
+  },
+  "Divine Shield": {
+    "prerequisites": "Turn or rebuke undead ability, proficiency with a shield",
+    "description": "You can channel energy to make your shield more effective for either offense or defense. Prerequisites: Turn or rebuke undead ability, proficiency with a shield. Benefit: As a standard action, spend one of your turn/rebuke undead attempts to channel energy into your shield, granting it a bonus equal to your Charisma modifier. This bonus applies to the shield’s bonus to Armor Class and lasts for a number of rounds equal to half your character level. (Complete Warrior)",
+    "effects": {}
+  },
+  "Divine Vigor": {
+    "prerequisites": "Turn or rebuke undead ability",
+    "description": "You can channel energy to increase your speed and durability. Prerequisites: Turn or rebuke undead ability. Benefit: As a standard action, spend one of your turn or rebuke undead attempts to increase your base speed by 10 feet and gain +2 temporary hit points per character level. These effects last a number of minutes equal to your Charisma modifier. (Complete Warrior)",
+    "effects": {}
+  },
+  "Earth’s Embrace": {
+    "prerequisites": "Str 15, Improved Grapple or improved grab, Improved Unarmed Strike",
+    "description": "While grappling, if you pin your opponent, you deal an extra 1d12 points of damage in each round that you maintain the pin. You must hold your opponent immobile as normal (with an opposed grapple check), but you must also remain immobile, giving opponents (other than the one you’re pinning) a +4 bonus on attack rolls against you (but you are not helpless). You do not gain this extra damage against creatures that are immune to critical hits. (Complete Warrior)",
+    "effects": {}
+  },
+  "Elusive Target": {
+    "prerequisites": "Dodge, Mobility, base attack bonus +6",
+    "description": "Trying to land a blow against you can be a maddening experience. Prerequisites: Dodge, Mobility, base attack bonus +6. Benefit: The Elusive Target feat enables the use of three tactical maneuvers. Negate Power Attack: To use this maneuver, you must designate a specific foe to be affected by your Dodge feat, if that foe uses the Power Attack feat against you. the foe gains no bonus on the damage roll but still takes the corresponding penalty on the attack roll. Diverting Defense: To use this maneuver, you must be flanked and you must designate one of the flanking attackers to be affected by your Dodge feat. The first attack of the round from the designated attacker automatically misses you and may strike the other flanking foe instead; the attacking creature makes an attack roll normally, and its ally is considered flat-footed. If the designated attacker is making a full attack against you, its second and subsequent attacks function normally. Cause Overreach: To use this maneuver, you must provoke an attack of opportunity from a foe by moving out of a threatened square. If the toe misses you, you can make a free trip attempt against this foe, and the foe does not get a chance to trip you if your attempt fails. (Complete Warrior)",
+    "effects": {}
+  },
+  "Fists Of Iron": {
+    "prerequisites": "Improved Unarmed Strike, Stunning Fist, base attack bonus +2",
+    "description": "You have learned the secrets of imbuing your unarmed attacks with extra force. Prerequisites: Improved Unarmed Strike, Stunning Fist, base attack bonus +2. Benefit: Declare that you are using this feat before you make your attack roll (thus, a missed attack roll ruins the attempt). You deal an extra 1d6 points of damage when you make a successful unarmed attack. Each attempt counts as one of your uses of the Stunning Fist feat for the day. (Complete Warrior)",
+    "effects": {}
+  },
+  "Fleet Of Foot": {
+    "prerequisites": "Dex 15, Run",
+    "description": "When running or charging, you can make a single direction change of 90 degrees or less. You can’t use this feat in medium or heavy armor, or if you’re carrying a medium or heavier load. If you are charging, you must move in a straight line for 10 feet (2 squares) after the turn to maintain the charge. (Complete Warrior)",
+    "effects": {}
+  },
+  "Flick Of The Wrist": {
+    "prerequisites": "Dex 17, Sleight of Hand 5 ranks, Quick Draw",
+    "description": "With a single motion, you can draw a light weapon and make a devastating attack. Prerequisites: Dex 17, Sleight of Hand 5 ranks, Quick Draw. Benefit: If you draw a light weapon and make a melee attack with it in the same round, you catch your opponent flat-footed (for the purpose of this attack only). You may use this feat only once per round and once per opponent during any single combat encounter. (Complete Warrior)",
+    "effects": {}
+  },
+  "Formation Expert": {
+    "prerequisites": "Base attack bonus +6",
+    "description": "The Formation Expert feat enables the use of three tactical maneuvers. You gain the benefit of the feat even if you are fighting in formation with allies that do not have this feat. Lock Shields: To use this maneuver, you must have a ready shield, and adjacent allies on opposite sides of you must have ready shields. You gain a +1 bonus to Armor Class. Step into the Breach: To use this maneuver, you must be within a single move of an ally who falls in combat, and an ally must occupy every square between you and the fallen comrade. You can immediately Take a single move action (as if you had readied an action to do so) to move into the square the fallen ally occupies. Wall of Polearms: To use this maneuver, you must be wielding a shortspear, longspear, trident, glaive, guisarme, halberd, or ranseur, and you must have adjacent allies wielding weapons identical to yours on opposite sides of you. You gain a +2 bonus on attack rolls. (Complete Warrior)",
+    "effects": {}
+  },
+  "Giantbane": {
+    "prerequisites": "Medium or smaller size. Tumble 5 ranks, base attack bonus +6",
+    "description": "The Giantbane feat enables the use of three tactical maneuvers. Duck Underneath: To use this maneuver, you must have taken a total defense action, then have been attacked by a foe at least two size categories larger than you. You gain a +4 dodge bonus to your Armor Class, which stacks with the bonus for total defense. If that foe misses you, on your next turn, as a free action, you may make a DC 15 Tumble check.124 If the check succeeds, you move immediately to any unoccupied square on the opposite side of the foe (having success fully ducked underneath your foe). If there is no unoccupied square on the opposite side of the foe or you fail the Tumble check, you remain in the square you are in and have failed to duck underneath your foe. Death from Below: To use this maneuver, you must have successfully used the duck underneath maneuver. You may make an immediate single attack against the foe you ducked underneath. That foe is treated as fiat-footed, and you gain a +4 bonus on your attack roll. Climb Aboard: To use this maneuver, you must move adjacent to a foe at least two size categories larger than you. In the following round, you may make a DC 10 Climb check as a free action to clamber onto the creature’s back or limbs (you move into one of the squares the creature occupies). The creature you’re standing on takes a –4 penalty on attack rolls against you, because it can strike at you only awkwardly, if the creature moves during its action, you move along with it. The creature can try to shake you off by making a grapple check opposed by your Climb check, if the creature succeeds, you wind up in a random adjacent square. (Complete Warrior)",
+    "effects": {}
+  },
+  "Greater Kiai Shout": {
+    "prerequisites": "Cha 13, Kiai Shout, base attack bonus +9",
+    "description": "Your kiai shout can panic your opponents. Prerequisites: Cha 13, Kiai Shout, base attack bonus +9. Benefit: When you make a kiai shout, your opponents are panicked for 2d6 rounds unless they succeed on Will saves (DC 10 + 1/2 your character level + your Cha modifier). The kiai shout affects only opponents with fewer Hit Dice or levels than you have. (Complete Warrior)",
+    "effects": {}
+  },
+  "Hammer’s Edge": {
+    "prerequisites": "Str 15, Improved Bull Rush, Two- Weapon Fighting, Weapon Focus (bastard sword, longsword, or scimitar), Weapon Focus (warhammer or light hammer)",
+    "description": "You are a master of the style of fighting with a hammer and sword at the same time, and have learned to hammer your foes into the ground with your tremendous blows. Prerequisites: Str 15, Improved Bull Rush, Two- Weapon Fighting, Weapon Focus (bastard sword, longsword, or scimitar), Weapon Focus (warhammer or light hammer). Benefit: If you hit the same creature with both your sword and your hammer in the same round, it must make a Fortitude saving throw (DC 10 + 1/2 your character level + your Str modifier) or fall prone. (Complete Warrior)",
+    "effects": {}
+  },
+  "High Sword Low Axe": {
+    "prerequisites": "Improved Trip, Two-Weapon Fighting, Weapon Focus (bastard sword, longsword, scimitar or shortsword), Weapon Focus (battleaxe, handaxe, or dwarven waraxe)",
+    "description": "You have mastered, the style of fighting with sword and axe at the same time, and have learned to use this unusual pairing of weapons to pull your opponents off their feet. Prerequisites: Improved Trip, Two-Weapon Fighting, Weapon Focus (bastard sword, longsword, scimitar or shortsword), Weapon Focus (battleaxe, handaxe, or dwarven waraxe). Benefit: If you hit the same creature with both your sword and your axe in the same round, you may make a free trip attempt against that foe. (if you succeed, you may immediately use your Improved Trip feat to gain an additional attack against your foe). (Complete Warrior)",
+    "effects": {}
+  },
+  "Hold The Line": {
+    "prerequisites": "Combat Reflexes, base attack bonus +2",
+    "description": "You may make an attack of opportunity against a charging opponent who enters an area you threaten. Your attack of opportunity happens immediately before the charge attack is resolved. (Complete Warrior)",
+    "effects": {}
+  },
+  "Lightning Mace": {
+    "prerequisites": "Combat Reflexes, Two-Weapon Fighting, Weapon Focus (light mace)",
+    "description": "You are a master of fighting with two maces at the same time, and have learned to strike your foes with lightning speed. Prerequisites: Combat Reflexes, Two-Weapon Fighting, Weapon Focus (light mace). Benefit: Whenever you roll a threat on an attack roll while using a light mace in each hand, you gain an additional attack at that same attack bonus. (Complete Warrior)",
+    "effects": {}
+  },
+  "Net And Trident": {
+    "prerequisites": "Dex 15, Exotic Weapon Proficiency (net), Two-Weapon Fighting, Weapon Focus (trident)",
+    "description": "You are a master of fighting with the net and the trident, and have learned to quickly follow up a successful net throw with a deadly jab of the trident. Prerequisites: Dex 15, Exotic Weapon Proficiency (net), Two-Weapon Fighting, Weapon Focus (trident). Benefit: As a full-round action, you can make a combined attack with your net and trident. First, you throw your net; if you hit and successfully control your foe by winning the opposed Strength check, you may immediately take a 5-toot step toward your opponent and make a full attack with your trident. (Complete Warrior)",
+    "effects": {}
+  },
+  "Quick Staff": {
+    "prerequisites": "Combat Expertise, Dodge, Two-Weapon Fighting, Weapon Focus (quarterstaff)",
+    "description": "You have mastered the style of fighting with a quarterstaff, and have learned special maneuvers that complement this unique weapon. Prerequisites: Combat Expertise, Dodge, Two-Weapon Fighting, Weapon Focus (quarterstaff). Benefit: When you use Combat Expertise to gain a dodge bonus while wielding a quarterstaff, you gain a dodge bonus 2 points higher than the penalty you take on your attack rolls. For example, if you take a –1 penalty on your attack rolls, you gain a+3 dodge bonus to your AC.126 (Complete Warrior)",
+    "effects": {}
+  },
+  "Ranged Sunder": {
+    "prerequisites": "Str 13, Point Blank Shot, Precise Shot, base attack bonus +5",
+    "description": "When attacking objects, you deal full damage (instead of half damage) with slashing or bludgeoning ranged weapons. You can make ranged sunder attempts with piercing weapons, such as arrows, but you only deal half damage; divide the damage dealt by 2 before applying the object’s hardness. (See the sunder special attack on page 158 of the Player’s Handbook, as well as page 166 for the hardness of common substances and kerns). You must be within 30 feet of your opponent to make a ranged sunder attempt. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Raptor School": {
+    "prerequisites": "Wis 13, Jump 5 ranks, base attack bonus +6",
+    "description": "You know martial arts techniques inspired by hunting birds. Prerequisites: Wis 13, Jump 5 ranks, base attack bonus +6. Benefit: The Raptor School feat enables the use of three tactical maneuvers. Eagle’s Swoop: To use this maneuver, you must charge a foe or jump down on your enemy from at least 10 feet up (see page 77 of the Player’s Handbook). Wake a jump check as a free action immediately before your next attack. Prior to making the roll, determine the DC of the check: either DC 15 for a chance to deal 2 extra points of damage or DC 25 for a chance to deal 4 extra points of damage. If you fail this Jump check, you miss your target, and if you fail this Jump check by 5 or more, you fall prone in an adjacent square. Falcon’s Feathers: To use this maneuver, you must be wearing a cloak. As a standard action, you can whip the cloak around you in a distracting fashion. Make an attempt to feint in combat (see page 68 of the Player’s Handbook), using your base attack bonus instead of your Bluff modifier, if you succeed, your target is treated as flat-footed for the next melee attack you make against it. Hawk’s Eye: To use this maneuver, you must spend at least 1 full round observing your foe. While doing so, you can take no other actions. The next melee attack you make against your foe gains a +2 bonus on the attack and damage rolls for every round you have just spent observing the foe, to a maximum bonus of +6 (for 3 consecutive full rounds of observation), if the target of your observation attacks you while you’re observing, or if you don’t make the melee attack within 3 rounds of the end of your observation, you don’t get the benefit of the feat. (Complete Warrior)",
+    "effects": {}
+  },
+  "Sacred Vengeance": {
+    "prerequisites": "Turn or rebuke undead ability",
+    "description": "You can channel energy to deal extra damage against undead in melee. Prerequisites: Turn or rebuke undead ability. Benefit: As a free action, spend one of your turn undead attempts to add 2d6 points of damage to all your successful melee attacks against undead until the end of the current round. TACTICAL FEATS (Complete Warrior)",
+    "effects": {}
+  },
+  "Shield Slam": {
+    "prerequisites": "Improved Shield Bash, Shield Charge, base attack bonus +6",
+    "description": "As a full-round action or as a charge action, you may make an attack with your shield against an opponent, if you hit, you force the target damaged by this attack to make a Fortitude saving throw (DC 10 + 1/2 your character level + your Str modifier) addition to dealing damage normally. A defender who fails this saving throw is dazed for 1 round (until just before your next action). Constructs, oozes, plants, undead, incorporeal creatures, and creatures immune to critical hits cannot be dazed. (Complete Warrior)",
+    "effects": {},
+    "bonus_feat_pools": [
+      "fighter"
+    ]
+  },
+  "Shock Trooper": {
+    "prerequisites": "Improved Bull Rush, Power Attack, base attack bonus +6",
+    "description": "The Shock Trooper feat enables the use of three tactical maneuvers. Directed Bull Rush: To use this maneuver, you must make a successful bull rush attempt as part of a charge, for every square you push your foe back, you may also push that foe one square to the left or right. Domino Rush: To use this maneuver, you must make a successful bull rush attempt that forces a foe into the same square as another foe. You may make a free trip attempt against both foes at the same time, and neither foe gets a chance to trip you if your attempt fails. Heedless Charge: To use this maneuver, you must charge and make the attack at the end of the charge using your Power Attack feat. The penalty you take on your attack roll must be —5 or worse. In addition to normal charge modifiers (which give you a – 2 penalty to AC and a +2 bonus on the attack roll), you can assign any portion of the attack roll penalty from Power Attack to your Armor Class instead, up to a maximum equal to your base attack bonus. (Complete Warrior)",
+    "effects": {}
+  },
+  "Spinning Halberd": {
+    "prerequisites": "Combat Reflexes, Two-Weapon Fighting, Weapon Focus (halberd)",
+    "description": "You have mastered the style of fighting with a halberd, and can use all parts of the weapon—blade, spike, hook, or butt—to strike devastating blows. Prerequisites: Combat Reflexes, Two-Weapon Fighting, Weapon Focus (halberd). Benefit: When you make a full attack with your halberd, you gain a +1 dodge bonus to your Armor Class as well as an additional attack with the weapon at a –5 penalty. This attack deals points of bludgeoning damage equal to 1d6 + 1/2 your Strength modifier. (Complete Warrior)",
+    "effects": {}
+  },
+  "Sun School": {
+    "prerequisites": "Flurry of blows ability, base attack bonus +4",
+    "description": "You have learned a number of esoteric martial arts techniques inspired by the sun. Prerequisites: Flurry of blows ability, base attack bonus +4. Benefit: The Sun School feat enables the use of three tactical maneuvers. Inexorable Progress of Dawn: To use this maneuver, you must hit the same foe with the first two unarmed attacks from a flurry of blows, if you do, your foe must move back 5 feet, and you may move 5 feet forward if you wish. This movement does not provoke an attack of opportunity for either character. Blinding Sun of Noon: To use this maneuver, you must successfully stun the same foe with an unarmed attack two rounds in a row. In addition to being stunned, that enemy is confused for 1d4 rounds thereafter. Flash of Sunset: To use this maneuver, you must move adjacent to a foe instantaneously, as with a dimension door spell or the monk’s abundant step class feature. If you do so, you can immediately make a single attack at your highest attack bonus against that foe. WEAPON STYLE FEATS (Complete Warrior)",
+    "effects": {}
+  },
+  "Three Mountains": {
+    "prerequisites": "Str 13, Cleave, Improved Bull Rush, Power Attack, Weapon Focus (heavy mace, morningstar, or greatclub)",
+    "description": "You are a master of fighting with powerful bludgeoning weapons. Prerequisites: Str 13, Cleave, Improved Bull Rush, Power Attack, Weapon Focus (heavy mace, morningstar, or greatclub). Benefit: If you strike the same creature twice in the same round with your heavy mace, morningstar, or greatclub, it must make a Fortitude saving throw (DC 10 + 1/2 your character level + your Str modifier) or be nauseated by the pain for 1 round. (Complete Warrior)",
+    "effects": {}
   }
 }

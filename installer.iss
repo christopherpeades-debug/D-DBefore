@@ -1,12 +1,12 @@
 ; Inno Setup script for D&D Before (character sheet)
 #ifndef MyAppVersion
-  #define MyAppVersion "1.22"
+  #define MyAppVersion "1.3"
 #endif
 #ifndef MyAppExeName
-  #define MyAppExeName "D&D Before v1.22.exe"
+  #define MyAppExeName "D&D Before v1.3.exe"
 #endif
 #ifndef MyBuildDir
-  #define MyBuildDir "dist\D&D Before v1.22"
+  #define MyBuildDir "dist\D&D Before v1.3"
 #endif
 #define MyAppName "D&D Before"
 #define MyAppPublisher "DnD Before"
@@ -59,7 +59,7 @@ var
   LegacyDirs: TArrayOfString;
   I: Integer;
 begin
-  SetArrayLength(LegacyDirs, 7);
+  SetArrayLength(LegacyDirs, 8);
   LegacyDirs[0] := 'C:\D&D Before v1.1';
   LegacyDirs[1] := 'C:\D&D Before v1.11';
   LegacyDirs[2] := 'C:\D&D Before v1.12';
@@ -67,10 +67,31 @@ begin
   LegacyDirs[4] := 'C:\D&D Before v1.21';
   LegacyDirs[5] := 'C:\D&D Before v1.2';
   LegacyDirs[6] := 'C:\D&D Before v1.22';
+  LegacyDirs[7] := 'C:\D&D Before v1.3';
   for I := 0 to GetArrayLength(LegacyDirs) - 1 do
   begin
     if DirExists(LegacyDirs[I]) then
       DelTree(LegacyDirs[I], True, True, True);
+  end;
+end;
+
+procedure RemoveOldAppExecutables;
+var
+  AppDir, CurrentExe: String;
+  FindRec: TFindRec;
+begin
+  AppDir := ExpandConstant('{app}');
+  CurrentExe := ExpandConstant('{#MyAppExeName}');
+  if FindFirst(AppDir + '\D&D Before v*.exe', FindRec) then
+  begin
+    try
+      repeat
+        if (FindRec.Name <> CurrentExe) and ((FindRec.Attributes and FILE_ATTRIBUTE_DIRECTORY) = 0) then
+          DeleteFile(AppDir + '\' + FindRec.Name);
+      until not FindNext(FindRec);
+    finally
+      FindClose(FindRec);
+    end;
   end;
 end;
 
@@ -104,6 +125,7 @@ begin
   if CurStep = ssInstall then
   begin
     BackupSyncConfig;
+    RemoveOldAppExecutables;
     RemoveLegacyInstallDirs;
   end;
   if CurStep = ssPostInstall then
