@@ -4162,17 +4162,18 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         return True
 
     def _execute_clickable_roll(self, roll_text, *, ammo_detail=None, show_copied_toast=False):
-        """Show the local dice roller and optionally copy the TaleSpire string."""
+        """Copy TaleSpire text or show the local dice roller (per hamburger setting)."""
         if not roll_text:
             return
-        if HAS_DICE_ROLLER:
-            self._begin_local_dice_roll(roll_text, ammo_detail=ammo_detail)
         if self._talespire_uses_clipboard():
             self._queue_talespire_roll(
                 roll_text,
                 copied_detail=ammo_detail or None,
                 show_copied_toast=show_copied_toast,
             )
+            return
+        if HAS_DICE_ROLLER:
+            self._begin_local_dice_roll(roll_text, ammo_detail=ammo_detail)
 
     def _ensure_dice_roller(self):
         if not HAS_DICE_ROLLER:
@@ -42549,6 +42550,41 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         w = self.prepared_widgets.get(entry_key) or {}
         self._set_sword_active(w.get("sword_btn"), active)
 
+    def _resolve_spell_attack_summary_die(self, spell_name, assigned=None, spell=None):
+        """Resolve attack-summary dice for a spell, including [CL,...] bonus formulas."""
+        spell = spell or self.spells_db.get(spell_name, {}) or {}
+        die = spell.get("damage_die")
+        if die:
+            return die
+        raw_desc = self._get_raw_spell_description(spell_name) or spell.get("description", "")
+        desc = spell.get("description", "") + " " + str(spell.get("effects", {}))
+        m = re.search(r"(\d+d\d+(?:[+-]\d+)?)", desc)
+        die = m.group(1) if m else "varies"
+        if "[CL," not in raw_desc:
+            return die
+        try:
+            cl = self._get_effective_cl_for_spell(spell_name, assigned)
+            m_cl = re.search(r"\[CL,([^\]]+)\]", raw_desc)
+            if m_cl:
+                parsed = self._parse_cl_formula("CL," + m_cl.group(1))
+                if parsed:
+                    disp, dice = self._compute_cl_value(parsed, cl)
+                    base_dice = re.search(r"(\d+d\d+)\s*\+\s*\[CL", raw_desc, re.I)
+                    if base_dice:
+                        die = base_dice.group(1)
+                        if disp and dice is None:
+                            return f"{die}+{disp}"
+                        if disp and dice:
+                            return disp
+                        return die
+            formatted = self._resolve_cl_formulas(raw_desc, cl)
+            m2 = re.search(r"(\d+d\d+(?:[+-]\d+)?)", formatted)
+            if m2:
+                return m2.group(1)
+        except Exception:
+            pass
+        return die
+
     def _toggle_spell_attack_summary(self, spell_name, prepared_entry):
         """Toggle a qualifying prepared spell into/out of the Combat 'Spells' attack summaries.
         Button only appears for spells with 'vs' or [CL, formula. Transparent no-border icon.
@@ -42586,21 +42622,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             vs = spell.get("vs")
             assigned = norm.get("caster_class") or "Cleric"
 
-            die = spell.get("damage_die")
-            if not die:
-                desc = spell.get("description", "") + " " + str(spell.get("effects", {}))
-                m = re.search(r'(\d+d\d+(?:[+-]\d+)?)', desc)
-                die = m.group(1) if m else "varies"
-                raw_desc = self._get_raw_spell_description(spell_name) or spell.get("description", "")
-                if "[CL," in raw_desc:
-                    try:
-                        cl = self._get_effective_cl_for_spell(spell_name, assigned)
-                        formatted = self._resolve_cl_formulas(raw_desc, cl)
-                        m2 = re.search(r'(\d+d\d+(?:[+-]\d+)?)', formatted)
-                        if m2:
-                            die = m2.group(1)
-                    except Exception:
-                        pass
+            die = self._resolve_spell_attack_summary_die(spell_name, assigned, spell)
 
             dc = None
             if vs and vs in ("Fort", "Ref", "Will", "AC"):
@@ -42619,6 +42641,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 "vs": vs,
                 "die": die,
                 "dc": dc,
+                "caster_class": assigned,
             }
             attacks.append(entry)
             self._set_sword_active_for_entry(entry_key, True)
@@ -42737,8 +42760,10 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 type_str = f"+Touch attack {self._format_modifier(melee_touch)}"
             elif is_touch_attack and vs and str(vs).strip().upper() == "AC":
                 type_str = f"+ranged touch {self._format_modifier(ranged_touch)}"
+            elif attack_type and attack_type not in ("Special", "None"):
+                type_str = f"+{attack_type}"
             else:
-                type_str = f"+{attack_type}" if attack_type else ""
+                type_str = ""
             extra = ""
             if not is_eldritch_blast or not essence_save:
                 extra = f" {die}" if (die and die != "varies") else ""
@@ -42754,14 +42779,33 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 dmg_lbl = ctk.CTkLabel(frame, text=die, font=ctk.CTkFont(size=11), cursor="hand2")
                 dmg_lbl.pack(side="left", padx=4)
 
-            if attack_type in ("Touch", "Ranged Touch", "Melee Touch", "Melee", "Ranged") or is_touch_attack:
+            assigned_caster = sp_data.get("caster_class")
+            has_attack_roll = (
+                attack_type in ("Touch", "Ranged Touch", "Melee Touch", "Melee", "Ranged")
+                or is_touch_attack
+            )
+
+            def _spell_summary_damage_roll_builder(sn=spell_name, lbl=display_name, caster=assigned_caster):
+                def _builder():
+                    resolved_die = self._resolve_spell_attack_summary_die(sn, caster)
+                    if not resolved_die or resolved_die == "varies":
+                        return None
+                    return self._format_talespire_roll(lbl, [resolved_die])
+                return _builder
+
+            if has_attack_roll:
                 is_ranged = "Ranged" in str(attack_type or "")
-                self._bind_talespire_click(atk_lbl, lambda ir=is_ranged: self._build_talespire_touch_attack_roll(ir))
+                self._bind_talespire_click(
+                    atk_lbl,
+                    lambda ir=is_ranged: self._build_talespire_touch_attack_roll(ir),
+                )
                 if dmg_lbl is not None:
-                    self._bind_talespire_click(
-                        dmg_lbl,
-                        lambda d=die, lbl=display_name: self._format_talespire_roll(f"{lbl} Damage", [d]),
-                    )
+                    self._bind_talespire_click(dmg_lbl, _spell_summary_damage_roll_builder())
+            elif die and die != "varies":
+                damage_builder = _spell_summary_damage_roll_builder()
+                self._bind_talespire_click(atk_lbl, damage_builder)
+                if dmg_lbl is not None:
+                    self._bind_talespire_click(dmg_lbl, damage_builder)
             self._bind_hover_tooltip(frame, main_text)
 
         return frame
