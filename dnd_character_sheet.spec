@@ -4,7 +4,7 @@ import os
 from PyInstaller.utils.hooks import collect_all
 
 block_cipher = None
-APP_VERSION = os.environ.get("APP_VERSION", "1.3")
+APP_VERSION = os.environ.get("APP_VERSION", "1.23")
 APP_DIST_NAME = f"D&D Before v{APP_VERSION}"
 
 ctk_datas, ctk_binaries, ctk_hiddenimports = collect_all('customtkinter')

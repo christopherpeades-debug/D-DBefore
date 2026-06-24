@@ -32105,7 +32105,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
     def _get_app_version_label(self):
         if self.app_updater:
-            return f"v{self.app_updater.get_current_version()}"
+            return f"v{self.app_updater.get_display_version()}"
         return "v?"
 
     def _close_app_update_popup(self):

@@ -82,6 +82,10 @@ class AppUpdateManager:
     def get_current_version(self):
         return str(self.config.get("version") or "0.0.0").strip()
 
+    def get_display_version(self):
+        display = str(self.config.get("display_version") or "").strip()
+        return display or self.get_current_version()
+
     def get_app_name(self):
         return str(self.config.get("app_name") or "D&D Before").strip()
 
