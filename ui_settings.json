@@ -1,3 +1,4 @@
 {
-  "display_scale": "100%"
+  "display_scale": "Auto",
+  "performance_mode": "ultra_smooth"
 }

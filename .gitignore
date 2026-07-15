@@ -12,6 +12,7 @@ __pycache__/
 *.egg-info/
 
 # User / local data (never commit)
+window_state.json
 sync_config.json
 last_character.json
 last_character*.json
@@ -32,6 +33,9 @@ desktop.ini
 # One-off dev scripts / backups
 temp_*.py
 test_*.py
+*_backup*.py
+resize_*_test.py
+RESIZE_AUDIT.txt
 *dnd_character_sheet - Copy*
 magical_items.json.bak
 New folder/

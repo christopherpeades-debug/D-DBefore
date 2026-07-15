@@ -608,6 +608,51 @@ class LevelUpWizard:
 
     # --- Progression step ---
 
+    def _create_wizard_feat_combo(
+        self,
+        parent,
+        *,
+        width=280,
+        feat_pool=None,
+        general_feat_index=None,
+        string_var=None,
+        initial="",
+    ):
+        """Searchable overlay feat picker (same as character creation wizard)."""
+        create_combo = getattr(self.sheet, "_create_feat_combo", None)
+        if not create_combo:
+            return None
+
+        def _sync_var(value):
+            if string_var is not None:
+                string_var.set(value)
+
+        combo = create_combo(
+            parent,
+            width=width,
+            feat_pool=feat_pool,
+            on_select=_sync_var,
+            general_feat_index=general_feat_index,
+            initial=initial or (string_var.get().strip() if string_var else ""),
+        )
+        combo.pack(side="left", padx=(8, 0))
+        if string_var is not None:
+            combo.bind(
+                "<FocusOut>",
+                lambda _e, c=combo: string_var.set(c.get().strip()),
+                add="+",
+            )
+        if hasattr(self.sheet, "show_feat_details"):
+            ctk.CTkButton(
+                parent,
+                text="ℹ",
+                width=30,
+                height=28,
+                fg_color="#666666",
+                command=lambda c=combo: self.sheet.show_feat_details(c.get()),
+            ).pack(side="left", padx=(8, 0))
+        return combo
+
     def _build_progression_step(self):
         cls = self.state.get("class_name") or "?"
         new_lvl = self.state.get("new_class_level") or "?"
@@ -663,9 +708,18 @@ class LevelUpWizard:
                 width=320,
                 anchor="w",
             ).pack(side="left")
-            values = [""] + sorted((getattr(self.sheet, "feats_db", {}) or {}).keys())
-            combo = ctk.CTkComboBox(row, values=values, variable=self._general_feat_var, width=280)
-            combo.pack(side="left", padx=(8, 0))
+            self._general_feat_combo = self._create_wizard_feat_combo(
+                row,
+                general_feat_index=self.state.get("general_feat_slot"),
+                string_var=self._general_feat_var,
+                initial=self._general_feat_var.get().strip(),
+            )
+            if self._general_feat_combo is None:
+                values = [""] + sorted((getattr(self.sheet, "feats_db", {}) or {}).keys())
+                combo = ctk.CTkComboBox(
+                    row, values=values, variable=self._general_feat_var, width=280,
+                )
+                combo.pack(side="left", padx=(8, 0))
 
         if self.state.get("bonus_feat_key"):
             has_any = True
@@ -681,11 +735,18 @@ class LevelUpWizard:
                 anchor="w",
             ).pack(side="left")
             options = self.sheet._get_bonus_feat_options(pool)
-            combo = ctk.CTkComboBox(
-                row, values=[""] + options,
-                variable=self._bonus_feat_var, width=280,
+            self._bonus_feat_combo = self._create_wizard_feat_combo(
+                row,
+                feat_pool=options,
+                string_var=self._bonus_feat_var,
+                initial=self._bonus_feat_var.get().strip(),
             )
-            combo.pack(side="left", padx=(8, 0))
+            if self._bonus_feat_combo is None:
+                combo = ctk.CTkComboBox(
+                    row, values=[""] + options,
+                    variable=self._bonus_feat_var, width=280,
+                )
+                combo.pack(side="left", padx=(8, 0))
 
         if not has_any:
             ctk.CTkLabel(
@@ -710,6 +771,12 @@ class LevelUpWizard:
             messagebox.showwarning("Bonus Feat", "Choose a class bonus feat.", parent=self.popup)
             return False
         self.state["asi_ability"] = self._asi_var.get().strip()
+        general_combo = getattr(self, "_general_feat_combo", None)
+        if general_combo is not None:
+            self._general_feat_var.set(general_combo.get().strip())
+        bonus_combo = getattr(self, "_bonus_feat_combo", None)
+        if bonus_combo is not None:
+            self._bonus_feat_var.set(bonus_combo.get().strip())
         self.state["general_feat"] = self._general_feat_var.get().strip()
         self.state["bonus_feat"] = self._bonus_feat_var.get().strip()
         return True

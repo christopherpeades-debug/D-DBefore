@@ -114,33 +114,59 @@ def normalize_loot_state(data):
     return merged
 
 
+def _player_sees_as_unidentified(item):
+    """True when Identified is unchecked — players must not see the DM's true name/details."""
+    return bool(item) and not bool(item.get("identified"))
+
+
 def player_visible_name(item):
     if not item:
         return ""
-    if item.get("identified") or not item.get("is_magical"):
-        return item.get("name") or item.get("generic_name") or "Item"
-    return item.get("generic_name") or item.get("flavor") or "Unidentified item"
+    if _player_sees_as_unidentified(item):
+        return player_visible_flavor(item)
+    return item.get("name") or item.get("generic_name") or "Item"
 
 
 def player_visible_flavor(item):
+    """Description text players should see (identified flavor vs unidentified only)."""
     if not item:
         return ""
-    if item.get("identified") or not item.get("is_magical"):
+    if not _player_sees_as_unidentified(item):
         return item.get("flavor") or item.get("generic_name") or ""
-    return (
-        item.get("unidentified_flavor")
-        or item.get("flavor")
-        or item.get("generic_name")
-        or "An unidentified item of unknown origin and power."
-    )
+    unid = str(item.get("unidentified_flavor") or "").strip()
+    if unid:
+        return unid
+    generic = str(item.get("generic_name") or "").strip()
+    name = str(item.get("name") or "").strip()
+    if generic and generic.casefold() != name.casefold():
+        return generic
+    # Legacy player-safe cloud rows may only have unidentified text in flavor.
+    if not item.get("is_magical"):
+        flavor = str(item.get("flavor") or "").strip()
+        if flavor and flavor.casefold() != name.casefold():
+            return flavor
+    return "An unidentified item of unknown origin and power."
 
 
 def player_safe_icon(item):
+    """Neutral icon for unidentified items so players cannot spot magic from glyphs."""
     if not item:
         return "•"
-    if item.get("identified") or not item.get("is_magical"):
-        return item.get("icon") or "•"
-    return "•"
+    if _player_sees_as_unidentified(item):
+        return "•"
+    return item.get("icon") or "•"
+
+
+def player_loot_display_lines(item):
+    """Return (primary, secondary) text for the player loot list."""
+    if _player_sees_as_unidentified(item):
+        text = player_visible_flavor(item)
+        return text, ""
+    name = player_visible_name(item)
+    desc = player_visible_flavor(item)
+    if desc and desc != name:
+        return name, desc
+    return name, ""
 
 
 def loot_state_fingerprint(state):
@@ -225,13 +251,16 @@ class LootSyncClient:
             json.dump(self.config, handle, indent=2)
         return self.config
 
-    def is_configured(self):
+    def is_loot_configured(self):
+        """True when Supabase campaign loot can be read (independent of cloud-save enabled)."""
         return bool(
-            self.config.get("enabled")
-            and self.config.get("supabase_url")
+            self.config.get("supabase_url")
             and self.config.get("supabase_anon_key")
             and self.config.get("campaign_id")
         )
+
+    def is_configured(self):
+        return bool(self.config.get("enabled")) and self.is_loot_configured()
 
     def set_focus_multiplier(self, multiplier):
         try:

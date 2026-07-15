@@ -14,6 +14,7 @@ import shutil
 import sys
 import time
 import threading
+from contextlib import contextmanager
 import uuid
 import math
 import random
@@ -58,6 +59,7 @@ try:
         LootSyncClient,
         calculate_coin_share,
         clamp_trade_multiplier,
+        player_loot_display_lines,
         player_visible_name,
         player_visible_flavor,
         player_safe_icon,
@@ -68,6 +70,7 @@ except ImportError:
     LootSyncClient = None
     calculate_coin_share = None
     pushed_coin_pool = None
+    player_loot_display_lines = None
     player_visible_name = None
     player_visible_flavor = None
     player_safe_icon = None
@@ -639,7 +642,7 @@ ENERGY_RESISTANCE_RING_ALIASES = {
     "Ring of Energy Resistance, Major": "Ring of Fire Resistance, Major",
     "Ring of Energy Resistance, Greater": "Ring of Fire Resistance, Greater",
 }
-ELEMENTAL_RESISTANCE_ICON_SIZE = 28
+ELEMENTAL_RESISTANCE_ICON_SIZE = 34
 COMBAT_ELEMENTAL_RESIST_ICON_SIZE = 22
 THEME_TEAL_HOVER = "#1f7f75"
 KNOWN_SPELLS_COLLAPSED_HEIGHT = 220
@@ -1217,11 +1220,12 @@ SKILL_NAME_ABBREVIATIONS = {
     "Sense Motive": "Sense Mot",
     "Concentration": "Concentr",
 }
-SKILLS_COLUMN_WIDTHS = (108, 72, 36, 30, 36, 36, 36, 32)
-SKILLS_NUMERIC_COLUMNS = frozenset({2, 3, 4, 5, 6, 7})
+SKILLS_COLUMN_WIDTHS = (180, 36, 30, 36, 36, 36, 32)
+SKILLS_NUMERIC_COLUMNS = frozenset({1, 2, 3, 4, 5, 6})
 SKILLS_CELL_PADX = 2
 SKILLS_GRID_WIDTH = sum(SKILLS_COLUMN_WIDTHS) + len(SKILLS_COLUMN_WIDTHS) * (SKILLS_CELL_PADX * 2)
-SKILLS_SCROLLBAR_PAD = 18
+SKILLS_SCROLLBAR_PAD = 22
+SKILLS_HEADER_HEIGHT = 25
 SKILLS_VIEWPORT_WIDTH = SKILLS_GRID_WIDTH + SKILLS_SCROLLBAR_PAD
 SKILLS_MIN_TABLE_WIDTH = SKILLS_GRID_WIDTH
 LEGACY_COIN_WIDGET_KEYS = tuple(f"coin_{c}" for c in ("PP", "GP", "EP", "SP", "CP"))
@@ -1249,6 +1253,65 @@ SIDEBAR_WIDTH = 200
 CONTENT_PAD_X = 20
 LAYOUT_MIN_WIDTH = 880
 LAYOUT_MIN_HEIGHT = 580
+CONTENT_VIEWPORT_PAD = 10
+CONTENT_SCROLL_CANVAS_BG = "#2b2b2b"
+# When True, moving or resizing the window does NOT reflow page widgets.
+# Scrollbars still update; full layout runs only on startup, load, maximize toggle,
+# hamburger layout-profile change, and UI-scale restart (Display Size menu).
+DISABLE_DYNAMIC_RESIZE = True
+# Debounce edge-resize end before a cheap scrollbar-only refresh (fixed layout).
+FIXED_LAYOUT_RESIZE_END_DEBOUNCE_MS = 200
+# Only mount the active tab (6 other pages unmapped — far fewer HWNDs while dragging).
+SINGLE_ACTIVE_PAGE_MOUNT = True
+# Hide heavy CTk chrome during move/resize; restore is debounced + try/except safe.
+SUSPEND_UI_DURING_WINDOW_MOVE = True
+# Full skills table at load — all rows built up front (no scroll-time row recycling).
+USE_VIRTUAL_SKILLS_LIST = False
+SKILLS_VIRTUAL_VISIBLE_ROWS = 22
+# Shrink root to a tiny shell during title-bar drags (smooth framebuffer moves).
+DRAG_LITE_MODE = True
+# Build only Stats at startup / load; other tabs build on first visit.
+LAZY_PAGE_BUILD = True
+# Debounce maximize/resize layout refresh (ms).
+WINDOW_STATE_REFRESH_DEBOUNCE_MS = 200
+WINDOW_SIZEMOVE_END_DEBOUNCE_MS = 100
+# Min interval between cancel/reschedule of the sizemove-end timer (reduces after() churn).
+SIZEMOVE_TIMER_REARM_COOLDOWN_MS = 50
+# Child <Configure> handlers skip if this lock is contended (resize storm).
+RESIZE_LAYOUT_LOCK_TIMEOUT_SEC = 0.005
+CONFIGURE_HANDLER_DEBOUNCE_MS = 80
+# Heaviest CTkScrollableFrame hosts — unmapped during sizemove to cut redraw cost.
+HEAVY_SCROLL_FRAME_ATTRS = (
+    "known_spells_scroll",
+    "prepared_scroll",
+    "inv_scroll",
+    "character_journey_scroll",
+    "enemies_allies_scroll",
+    "factions_scroll",
+    "followers_scroll",
+    "defenses_scroll",
+)
+# Set env DND_RESIZE_PROFILE=1 to count Configure/sizemove handler invocations.
+RESIZE_PROFILE_ENABLED = os.environ.get("DND_RESIZE_PROFILE", "").strip().lower() in ("1", "true", "yes")
+# Master default: all resize optimizations on at startup (overridable via hamburger Performance menu).
+ULTRA_SMOOTH_MODE = True
+PERFORMANCE_MODE_ULTRA_SMOOTH = "ultra_smooth"
+PERFORMANCE_MODE_FULL_FEATURE = "full_feature"
+PERFORMANCE_MODE_LABELS = {
+    PERFORMANCE_MODE_ULTRA_SMOOTH: "Ultra-Smooth",
+    PERFORMANCE_MODE_FULL_FEATURE: "Full-Feature",
+}
+# Stats page bottom-half column widths (landscape, before UI scale).
+STATS_ABILITIES_PANEL_MIN_WIDTH = 420
+STATS_DEFENSE_PANEL_WIDTH = 375
+STATS_FEATURES_PANEL_WIDTH = 375
+STATS_SKILLS_PANEL_WIDTH = 500
+STATS_SKILLS_NAME_COLUMN_WIDTH = 250
+STATS_SKILLS_SCROLL_HEIGHT = 560
+# Cap class/health band when maximized so loaded sheets do not steal bottom-band viewport.
+STATS_CLASS_HEALTH_BAND_MAX_HEIGHT = 300
+DRAG_SHELL_WIDTH = 400
+DRAG_SHELL_HEIGHT = 110
 UI_SETTINGS_FILE = os.path.join(SCRIPT_DIR, "ui_settings.json")
 UI_REFERENCE_WIDTH = 1920
 UI_REFERENCE_HEIGHT = 1080
@@ -1276,6 +1339,78 @@ ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("dark-blue")
 from dark_dialog import install_dark_ui
 install_dark_ui()
+from app_window import (
+    create_application_root,
+    install_windows_drag_hooks,
+    maximize_application_window,
+    reset_window_alpha,
+    set_window_redraw,
+)
+from virtual_scroll import VirtualList
+
+_ACTIVE_CHARACTER_SHEET = None
+_CTK_SCROLLBAR_SIZEMOVE_GUARD_INSTALLED = False
+
+
+def _install_ctk_scrollbar_sizemove_guard():
+    """Skip CTkScrollbar._draw/set during window sizemove (profile hotspot)."""
+    global _CTK_SCROLLBAR_SIZEMOVE_GUARD_INSTALLED
+    if _CTK_SCROLLBAR_SIZEMOVE_GUARD_INSTALLED:
+        return
+    scrollbar_cls = ctk.CTkScrollbar
+    orig_draw = scrollbar_cls._draw
+    orig_set = scrollbar_cls.set
+
+    def _layout_paused():
+        sheet = _ACTIVE_CHARACTER_SHEET
+        if sheet is None:
+            return False
+        try:
+            return sheet._layout_updates_paused()
+        except Exception:
+            return False
+
+    def _guarded_draw(self, *args, **kwargs):
+        if _layout_paused():
+            return
+        return orig_draw(self, *args, **kwargs)
+
+    def _guarded_set(self, *args, **kwargs):
+        if _layout_paused():
+            return
+        return orig_set(self, *args, **kwargs)
+
+    scrollbar_cls._draw = _guarded_draw
+    scrollbar_cls.set = _guarded_set
+    _CTK_SCROLLBAR_SIZEMOVE_GUARD_INSTALLED = True
+
+
+def _tk_bind_all_target(widget):
+    """Return the toplevel that supports bind_all (not raw _tkinter.tkapp)."""
+    try:
+        top = widget.winfo_toplevel()
+    except (AttributeError, tk.TclError):
+        top = widget
+    if hasattr(top, "bind_all"):
+        return top
+    if widget is not top and hasattr(widget, "bind_all"):
+        return widget
+    return top
+from portrait_monitor_layout import (
+    LAYOUT_PROFILE_LANDSCAPE,
+    LAYOUT_PROFILE_PORTRAIT,
+    LAYOUT_PROFILES,
+    PORTRAIT_ABILITIES_BAND_HEIGHT,
+    PORTRAIT_DEFENSE_BAND_HEIGHT,
+    PORTRAIT_FEATURES_BAND_HEIGHT,
+    PORTRAIT_SKILLS_MIN_HEIGHT,
+    PORTRAIT_UI_REFERENCE_HEIGHT,
+    PORTRAIT_UI_REFERENCE_WIDTH,
+    is_portrait_profile,
+    merge_ui_settings,
+    portrait_window_geometry,
+)
+from window_state import load_window_state, save_window_state
 FEAT_PREREQ_ABILITY_MAP = {
     "str": "Strength", "dex": "Dexterity", "con": "Constitution",
     "int": "Intelligence", "wis": "Wisdom", "cha": "Charisma",
@@ -1323,9 +1458,8 @@ class OverlayDropdownHelper:
 
     @classmethod
     def _binding_target(cls, owner):
-        """Use the underlying tk widget; CTk's unbind_all is restricted."""
-        top = owner.winfo_toplevel()
-        return getattr(top, "tk", top)
+        """Toplevel that supports bind_all (tk.Tk shell, not raw tkapp)."""
+        return _tk_bind_all_target(owner)
 
     @classmethod
     def _ensure_global_binds(cls, owner):
@@ -1399,6 +1533,45 @@ class OverlayDropdownHelper:
             lambda _e, v=value: btn.after(0, lambda: handler(v)),
             add="+",
         )
+
+    @staticmethod
+    def bind_mousewheel_scroll(scroll_frame, *extra_roots):
+        """Scroll overlay lists with the mouse wheel (incl. middle-wheel on Linux)."""
+        canvas = getattr(scroll_frame, "_parent_canvas", None)
+        if canvas is None:
+            return
+
+        def _wheel(event):
+            try:
+                if getattr(event, "num", None) == 4:
+                    canvas.yview_scroll(-3, "units")
+                elif getattr(event, "num", None) == 5:
+                    canvas.yview_scroll(3, "units")
+                elif getattr(event, "delta", 0):
+                    canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+            except tk.TclError:
+                pass
+            return "break"
+
+        def _bind_tree(widget):
+            if widget is None:
+                return
+            try:
+                widget.bind("<MouseWheel>", _wheel, add="+")
+                widget.bind("<Button-4>", _wheel, add="+")
+                widget.bind("<Button-5>", _wheel, add="+")
+                for child in widget.winfo_children():
+                    _bind_tree(child)
+            except tk.TclError:
+                pass
+
+        roots = [scroll_frame, canvas, *extra_roots]
+        for root in roots:
+            _bind_tree(root)
+        try:
+            scroll_frame.bind("<Enter>", lambda _e, c=canvas: c.focus_set(), add="+")
+        except tk.TclError:
+            pass
 
 
 class FeatAutocompleteCombo(ctk.CTkFrame):
@@ -1639,6 +1812,7 @@ class FeatAutocompleteCombo(ctk.CTkFrame):
                 btn.pack(fill="x", padx=2, pady=1)
                 OverlayDropdownHelper.bind_option_button(btn, feat_name, self._on_select)
 
+            OverlayDropdownHelper.bind_mousewheel_scroll(scroll, panel, self._dropdown)
             self._dropdown.geometry(f"{overlay_width}x{overlay_height}+{x}+{y}")
             self._dropdown.deiconify()
             self._dropdown.lift()
@@ -2453,6 +2627,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             "magic_item_charges": {},
             "custom_magic_items": [],
             "custom_features": [],
+            "stats_pinned_features": [],
             "feature_description_overrides": {},
             "defenses": [],
             "combat": {},
@@ -2512,6 +2687,14 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
         if not isinstance(self.data.get("buffs"), list):
             self.data["buffs"] = []
+
+        pins = self.data.get("stats_pinned_features")
+        if not isinstance(pins, list):
+            self.data["stats_pinned_features"] = []
+        else:
+            self.data["stats_pinned_features"] = [
+                str(pin).strip() for pin in pins if str(pin).strip()
+            ]
 
         cc = self.data.get("carrying_container", "no")
         if cc is True:
@@ -2899,20 +3082,16 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
     @classmethod
     def _load_ui_settings(cls):
-        default = {"display_scale": "Auto"}
         if not os.path.isfile(UI_SETTINGS_FILE):
-            return dict(default)
+            return merge_ui_settings(None)
         try:
             with open(UI_SETTINGS_FILE, "r", encoding="utf-8") as handle:
                 data = json.load(handle)
             if not isinstance(data, dict):
-                return dict(default)
-            preset = str(data.get("display_scale", "Auto") or "Auto")
-            if preset not in UI_SCALE_PRESETS:
-                preset = "Auto"
-            return {"display_scale": preset}
+                return merge_ui_settings(None)
+            return merge_ui_settings(data)
         except (OSError, json.JSONDecodeError):
-            return dict(default)
+            return merge_ui_settings(None)
 
     @classmethod
     def _resolve_ui_scale(cls, settings, screen_w, screen_h):
@@ -2921,13 +3100,22 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             return max(UI_SCALE_MIN, min(UI_SCALE_MAX, float(UI_SCALE_VALUES.get(preset, 1.0))))
         if screen_w <= 0 or screen_h <= 0:
             return 1.0
-        auto = min(screen_w / UI_REFERENCE_WIDTH, screen_h / UI_REFERENCE_HEIGHT)
+        if is_portrait_profile((settings or {}).get("layout_profile")):
+            auto = min(
+                screen_w / PORTRAIT_UI_REFERENCE_WIDTH,
+                screen_h / PORTRAIT_UI_REFERENCE_HEIGHT,
+            )
+        else:
+            auto = min(screen_w / UI_REFERENCE_WIDTH, screen_h / UI_REFERENCE_HEIGHT)
         return max(UI_SCALE_MIN, min(UI_SCALE_MAX, auto))
 
     def _save_ui_settings(self, updates):
         merged = self._load_ui_settings()
         if updates:
-            merged.update(dict(updates))
+            clean = dict(updates)
+            clean.pop("layout_profile", None)
+            merged.update(clean)
+        merged.pop("layout_profile", None)
         try:
             with open(UI_SETTINGS_FILE, "w", encoding="utf-8") as handle:
                 json.dump(merged, handle, indent=2)
@@ -2936,6 +3124,37 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         self._ui_settings = merged
         return True
 
+    def _load_saved_window_state(self):
+        return load_window_state(SCRIPT_DIR)
+
+    def _save_window_state_on_exit(self):
+        try:
+            wm_state = str(self.root.state())
+            geometry = str(self.root.geometry() or "").strip()
+            save_window_state(SCRIPT_DIR, geometry=geometry, wm_state=wm_state)
+        except Exception:
+            pass
+
+    def _apply_saved_window_state(self):
+        """Restore last session window size/position if available."""
+        data = self._load_saved_window_state()
+        geometry = data.get("geometry")
+        if not geometry:
+            return False
+        try:
+            self.root.state("normal")
+            self.root.geometry(geometry)
+            self.root.update_idletasks()
+            wm_state = str(data.get("wm_state", "normal") or "normal")
+            if wm_state == "zoomed":
+                self.root.state("zoomed")
+                self._started_maximized = True
+            else:
+                self._started_maximized = False
+            return True
+        except Exception:
+            return False
+
     def _current_display_scale_label(self):
         preset = str((getattr(self, "_ui_settings", None) or {}).get("display_scale", "Auto") or "Auto")
         if preset == "Auto":
@@ -2943,23 +3162,527 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             return f"Auto ({pct}%)"
         return preset
 
+    def _layout_profile(self):
+        """Session-only — never read from or written to ui_settings.json."""
+        session = getattr(self, "_session_layout_profile", None)
+        if session:
+            return str(session)
+        if os.environ.get("DND_BESIDE_PORTRAIT_LAYOUT", "").strip().lower() in (
+            "1", "true", "yes", "on",
+        ):
+            return LAYOUT_PROFILE_PORTRAIT
+        return LAYOUT_PROFILE_LANDSCAPE
+
+    def _is_portrait_monitor_layout(self):
+        return is_portrait_profile(self._layout_profile())
+
+    def _current_layout_profile_label(self):
+        if self._is_portrait_monitor_layout():
+            return "Portrait monitor (1080×1920)"
+        return "Landscape (default)"
+
+    def _apply_portrait_monitor_window(self):
+        """Size and center the window for a vertical 1080×1920 monitor."""
+        try:
+            sw = int(self.root.winfo_screenwidth() or PORTRAIT_UI_REFERENCE_WIDTH)
+            sh = int(self.root.winfo_screenheight() or PORTRAIT_UI_REFERENCE_HEIGHT)
+            self.root.state("normal")
+            self.root.geometry(portrait_window_geometry(sw, sh))
+            self.root.update_idletasks()
+        except Exception:
+            pass
+
+    def _apply_portrait_monitor_layout(self):
+        """Re-flow Stats panels into full-width horizontal bands."""
+        if not self._is_portrait_monitor_layout():
+            self._apply_landscape_stats_layout()
+            return
+        main_row = getattr(self, "main_row", None)
+        abilities = getattr(self, "_stats_abilities_panel", None)
+        defense = getattr(self, "_stats_defense_panel", None)
+        features = getattr(self, "_stats_features_panel", None)
+        skills = getattr(self, "_stats_skills_panel", None) or getattr(self, "skills_frame", None)
+        if not main_row or not abilities or not defense or not skills:
+            return
+        try:
+            if not main_row.winfo_exists():
+                return
+        except Exception:
+            return
+
+        scale = float(getattr(self, "_ui_scale", 1.0) or 1.0)
+        abilities_h = max(300, int(PORTRAIT_ABILITIES_BAND_HEIGHT * scale))
+        defense_h = max(260, int(PORTRAIT_DEFENSE_BAND_HEIGHT * scale))
+        pins = self.data.get("stats_pinned_features") or []
+        show_features = bool(pins) and features and self._widget_is_alive(features)
+        features_h = max(140, int(PORTRAIT_FEATURES_BAND_HEIGHT * scale)) if show_features else 0
+        skills_h = max(
+            int(PORTRAIT_SKILLS_MIN_HEIGHT * scale),
+            self._stats_bottom_band_min_height(),
+        )
+        if self._dynamic_resize_enabled():
+            try:
+                root_h = int(self.root.winfo_height())
+                reserved = abilities_h + defense_h + features_h + 520
+                skills_h = max(skills_h, root_h - reserved)
+            except Exception:
+                pass
+
+        for col in range(4):
+            main_row.columnconfigure(col, weight=0, minsize=0)
+        for row in range(4):
+            main_row.rowconfigure(row, weight=0, minsize=0)
+        main_row.columnconfigure(0, weight=1)
+        main_row.rowconfigure(0, weight=0, minsize=abilities_h)
+        main_row.rowconfigure(1, weight=0, minsize=defense_h)
+        if show_features:
+            main_row.rowconfigure(2, weight=0, minsize=features_h)
+            main_row.rowconfigure(3, weight=1, minsize=skills_h)
+        else:
+            main_row.rowconfigure(2, weight=1, minsize=skills_h)
+
+        for panel in (abilities, defense, features, skills):
+            if panel is None:
+                continue
+            try:
+                panel.grid_forget()
+            except Exception:
+                pass
+        abilities.grid(row=0, column=0, sticky="ew", padx=8, pady=(0, 6))
+        defense.grid(row=1, column=0, sticky="ew", padx=8, pady=(0, 6))
+        if show_features:
+            features.grid(row=2, column=0, sticky="ew", padx=8, pady=(0, 6))
+            skills.grid(row=3, column=0, sticky="nsew", padx=(8, 4), pady=(0, 4))
+        else:
+            skills.grid(row=2, column=0, sticky="nsew", padx=(8, 4), pady=(0, 4))
+
+        class_row = getattr(self, "class_health_row", None)
+        if class_row and self._widget_is_alive(class_row):
+            panels = (
+                getattr(self, "_class_health_cls", None),
+                getattr(self, "_class_health_health", None),
+                getattr(self, "_class_health_resist", None),
+                getattr(self, "_class_health_defenses", None),
+            )
+            if all(panels):
+                for col in range(4):
+                    class_row.columnconfigure(col, weight=0, minsize=0)
+                for row in range(2):
+                    class_row.rowconfigure(row, weight=1 if row == 0 else 0)
+                class_row.columnconfigure(0, weight=1, minsize=280)
+                class_row.columnconfigure(1, weight=1, minsize=280)
+                class_row.rowconfigure(0, weight=1)
+                class_row.rowconfigure(1, weight=0, minsize=200)
+                for panel in panels:
+                    try:
+                        panel.grid_forget()
+                    except Exception:
+                        pass
+                panels[0].grid(row=0, column=0, sticky="nsew", padx=(0, 6), pady=(0, 6))
+                panels[1].grid(row=0, column=1, sticky="nsew", padx=(6, 0), pady=(0, 6))
+                panels[2].grid(row=1, column=0, sticky="nsew", padx=(0, 6), pady=(0, 0))
+                panels[3].grid(row=1, column=1, sticky="nsew", padx=(6, 0), pady=(0, 0))
+
+        speaks = getattr(self, "speaks_label", None)
+        if speaks and self._widget_is_alive(speaks):
+            try:
+                speaks.configure(wraplength=max(220, self._content_inner_width() // 2 - 40))
+            except Exception:
+                pass
+
+    def _stats_landscape_panel_widths(self):
+        """Fixed landscape widths for Defense / Features / Skills (Abilities takes the rest)."""
+        scale = float(getattr(self, "_ui_scale", 1.0) or 1.0)
+        return {
+            "defense": max(220, int(STATS_DEFENSE_PANEL_WIDTH * scale)),
+            "features": max(220, int(STATS_FEATURES_PANEL_WIDTH * scale)),
+            "skills": max(400, int(STATS_SKILLS_PANEL_WIDTH * scale)),
+        }
+
+    def _stats_abilities_content_width(self):
+        """Pixel width needed for the ability-score table (not the whole column)."""
+        scale = float(getattr(self, "_ui_scale", 1.0) or 1.0)
+        table_w = sum(ABILITY_COLUMN_WIDTHS) + len(ABILITY_COLUMN_WIDTHS) * 4
+        return max(220, int(table_w * scale) + int(24 * scale))
+
+    def _stats_landscape_fixed_columns_width(self):
+        """Defense + Features + Skills + inter-column padding (abilities not included)."""
+        widths = self._stats_landscape_panel_widths()
+        scale = float(getattr(self, "_ui_scale", 1.0) or 1.0)
+        return (
+            int(widths["defense"])
+            + int(widths["features"])
+            + int(widths["skills"])
+            + int(SKILLS_SCROLLBAR_PAD)
+            + int(64 * scale)
+        )
+
+    def _stats_main_row_usable_width(self):
+        """Live width available to the four-column Stats row."""
+        scale = float(getattr(self, "_ui_scale", 1.0) or 1.0)
+        canvas = getattr(self, "_content_canvas", None)
+        if self._is_window_maximized() and canvas and self._widget_is_alive(canvas):
+            try:
+                canvas.update_idletasks()
+                viewport_w = int(canvas.winfo_width())
+                if viewport_w > 240:
+                    return max(480, viewport_w - int(78 * scale))
+            except Exception:
+                pass
+        main_row = getattr(self, "main_row", None)
+        if main_row and self._widget_is_alive(main_row):
+            try:
+                main_row.update_idletasks()
+                measured = int(main_row.winfo_width())
+                if measured > 240:
+                    return measured
+            except Exception:
+                pass
+        return max(480, self._content_inner_width() - 48)
+
+    def _measure_stats_short_row_height(self):
+        """Height through the movement widget bottom (Defense row); Features/Skills extend below."""
+        if not self._dynamic_resize_enabled():
+            cached = getattr(self, "_fixed_stats_short_row_height", None)
+            if cached:
+                return int(cached)
+        scale = float(getattr(self, "_ui_scale", 1.0) or 1.0)
+        movement = getattr(self, "stats_movement_frame", None)
+        abilities = getattr(self, "_stats_abilities_panel", None)
+        if movement and abilities and self._widget_is_alive(movement) and self._widget_is_alive(abilities):
+            try:
+                if not self._layout_updates_paused():
+                    self.root.update_idletasks()
+                mov_bottom = movement.winfo_rooty() + movement.winfo_height()
+                abil_top = abilities.winfo_rooty()
+                measured = mov_bottom - abil_top + 8
+                if measured > 200:
+                    measured = int(measured)
+                    if not self._dynamic_resize_enabled():
+                        self._fixed_stats_short_row_height = measured
+                    return measured
+            except Exception:
+                pass
+        fallback = max(360, int(480 * scale))
+        if not self._dynamic_resize_enabled():
+            self._fixed_stats_short_row_height = fallback
+        return fallback
+
+    def _apply_landscape_stats_layout(self):
+        """Four columns filling the bottom half; Features/Skills run to the window bottom."""
+        main_row = getattr(self, "main_row", None)
+        abilities = getattr(self, "_stats_abilities_panel", None)
+        defense = getattr(self, "_stats_defense_panel", None)
+        features = getattr(self, "_stats_features_panel", None)
+        skills = getattr(self, "_stats_skills_panel", None) or getattr(self, "skills_frame", None)
+        if not main_row or not abilities or not defense or not skills:
+            return
+        try:
+            if not main_row.winfo_exists():
+                return
+        except Exception:
+            return
+
+        widths = self._stats_landscape_panel_widths()
+        defense_w = widths["defense"]
+        features_w = widths["features"]
+        skills_w = widths["skills"]
+        scale = float(getattr(self, "_ui_scale", 1.0) or 1.0)
+        fixed_total = self._stats_landscape_fixed_columns_width()
+        abilities_floor = self._stats_abilities_content_width()
+        abilities_ceiling = max(abilities_floor, int(STATS_ABILITIES_PANEL_MIN_WIDTH * scale))
+        usable = self._stats_main_row_usable_width()
+        fit_abilities = max(abilities_floor, usable - fixed_total)
+        if self._dynamic_resize_enabled():
+            abilities_min = min(abilities_ceiling, fit_abilities)
+        elif self._is_window_maximized():
+            # Maximized: keep the row inside the viewport; shrink abilities, protect skills scrollbar.
+            abilities_min = min(abilities_ceiling, fit_abilities)
+            self._fixed_abilities_min_width = abilities_min
+        else:
+            abilities_min = getattr(self, "_fixed_abilities_min_width", None)
+            if abilities_min is None:
+                abilities_min = min(abilities_ceiling, fit_abilities)
+                self._fixed_abilities_min_width = abilities_min
+
+        short_h = self._measure_stats_short_row_height()
+        bottom_band_h = self._stats_bottom_band_min_height()
+        for row in range(3):
+            main_row.rowconfigure(row, weight=0, minsize=0)
+        main_row.rowconfigure(0, weight=0, minsize=short_h)
+        main_row.rowconfigure(1, weight=1, minsize=bottom_band_h)
+        for col in range(4):
+            main_row.columnconfigure(col, weight=0, minsize=0)
+        if self._dynamic_resize_enabled():
+            main_row.columnconfigure(0, weight=1, minsize=abilities_min)
+            skills_weight = 0
+        else:
+            main_row.columnconfigure(0, weight=0, minsize=abilities_min)
+            skills_weight = 1
+        main_row.columnconfigure(1, weight=0, minsize=defense_w)
+        main_row.columnconfigure(2, weight=0, minsize=features_w)
+        main_row.columnconfigure(3, weight=skills_weight, minsize=skills_w + SKILLS_SCROLLBAR_PAD)
+
+        bottom_half = getattr(self, "_stats_bottom_half", None)
+        if bottom_half and self._widget_is_alive(bottom_half):
+            try:
+                bottom_half.grid_rowconfigure(0, weight=1)
+                bottom_half.grid_columnconfigure(0, weight=1)
+                main_row.grid(row=0, column=0, sticky="nsew")
+            except Exception:
+                pass
+
+        for panel in (abilities, defense, features, skills):
+            if panel is None:
+                continue
+            try:
+                panel.grid_forget()
+            except Exception:
+                pass
+        try:
+            abilities.configure(width=abilities_min)
+            abilities.grid_propagate(False)
+        except Exception:
+            pass
+        abilities.grid(row=0, column=0, sticky="nw", padx=8)
+        defense.grid(row=0, column=1, sticky="new", padx=8)
+        if features and self._widget_is_alive(features):
+            features.grid(row=0, column=2, rowspan=2, sticky="nsew", padx=8)
+        skills.grid(row=0, column=3, rowspan=2, sticky="nsew", padx=(8, 4))
+
+        class_row = getattr(self, "class_health_row", None)
+        if class_row and self._widget_is_alive(class_row):
+            panels = (
+                getattr(self, "_class_health_cls", None),
+                getattr(self, "_class_health_health", None),
+                getattr(self, "_class_health_resist", None),
+                getattr(self, "_class_health_defenses", None),
+            )
+            if all(panels):
+                for row in range(2):
+                    class_row.rowconfigure(row, weight=0, minsize=0)
+                class_row.columnconfigure(0, weight=0, minsize=300)
+                class_row.columnconfigure(1, weight=1)
+                class_row.columnconfigure(2, weight=0, minsize=210)
+                class_row.columnconfigure(3, weight=0, minsize=260)
+                for panel in panels:
+                    try:
+                        panel.grid_forget()
+                    except Exception:
+                        pass
+                panels[0].grid(row=0, column=0, sticky="nsew", padx=(0, 10))
+                panels[1].grid(row=0, column=1, sticky="nsew")
+                panels[2].grid(row=0, column=2, sticky="nsew", padx=(10, 0))
+                panels[3].grid(row=0, column=3, sticky="nsew", padx=(10, 0))
+
+        speaks = getattr(self, "speaks_label", None)
+        if speaks and self._widget_is_alive(speaks):
+            try:
+                speaks.configure(wraplength=140)
+            except Exception:
+                pass
+
+        self._refresh_skills_scroll_geometry()
+        self.root.after_idle(self._refresh_skills_scroll_geometry)
+
+    def _debounced_skills_scroll_geometry(self):
+        self._skills_scroll_geom_timer = None
+        self._refresh_skills_scroll_geometry()
+
+    def _refresh_skills_scroll_geometry(self, *, force=False):
+        """Resize the skills list viewport so it scrolls vertically within the Stats column."""
+        if not hasattr(self, "skills_scroll"):
+            return
+        scroll = self.skills_scroll
+        if not scroll or not self._widget_is_alive(scroll):
+            return
+        target_h = self._skills_scroll_target_height()
+        if not force and target_h == getattr(self, "_skills_scroll_last_height", None):
+            return
+        self._skills_scroll_last_height = target_h
+        virtual = getattr(self, "_skills_virtual_list", None)
+        try:
+            if virtual is not None and scroll is virtual:
+                set_height = getattr(virtual, "set_viewport_height", None)
+                if callable(set_height):
+                    set_height(target_h)
+                else:
+                    virtual.configure(height=target_h)
+            else:
+                scroll.configure(height=target_h)
+                scroll_host = getattr(self, "_skills_scroll_host", None)
+                if scroll_host and self._widget_is_alive(scroll_host):
+                    scroll_host.update_idletasks()
+        except Exception:
+            pass
+        self._refresh_skills_header_geometry()
+        self._sync_skills_canvas_width()
+
+    def _refresh_stats_skills_viewport(self, *, force=False):
+        """Re-sync skills scroll height, header, and scrollbar after load or tab return."""
+        if force:
+            self._skills_scroll_last_height = None
+        try:
+            self._apply_stats_viewport_balance()
+        except Exception:
+            pass
+        for attr in ("_stats_features_panel", "_stats_skills_panel", "skills_frame"):
+            panel = getattr(self, attr, None)
+            if panel and self._widget_is_alive(panel):
+                try:
+                    panel.update_idletasks()
+                except Exception:
+                    pass
+        self._refresh_skills_scroll_geometry(force=force)
+        self._refresh_skills_header_geometry()
+        self._sync_skills_canvas_width()
+        scroll = getattr(self, "skills_scroll", None)
+        if scroll and self._widget_is_alive(scroll):
+            try:
+                scroll.update_idletasks()
+                host = getattr(self, "_skills_scroll_host", None)
+                if host and self._widget_is_alive(host):
+                    host.update_idletasks()
+                sb = getattr(scroll, "_scrollbar", None)
+                if sb and self._widget_is_alive(sb):
+                    sb.update_idletasks()
+            except Exception:
+                pass
+        panel = getattr(self, "_stats_skills_panel", None) or getattr(self, "skills_frame", None)
+        if panel and self._widget_is_alive(panel):
+            try:
+                panel.update_idletasks()
+            except Exception:
+                pass
+
+    def _schedule_stats_skills_viewport_refresh(self):
+        """Debounced skills viewport repair after Stats tab is shown."""
+        timer = getattr(self, "_stats_skills_viewport_timer", None)
+        if timer is not None:
+            try:
+                self.root.after_cancel(timer)
+            except Exception:
+                pass
+        self._skills_scroll_last_height = None
+
+        def _run_pass():
+            self._refresh_stats_skills_viewport(force=True)
+
+        self.root.after_idle(_run_pass)
+        self._stats_skills_viewport_timer = self.root.after(80, _run_pass)
+
+    def _materialize_all_skills_on_load(self):
+        """Build-time guarantee: every skill row exists and totals are computed."""
+        if not getattr(self, "skill_vars", None):
+            return
+        for skill_key in list(self.skill_vars.keys()):
+            try:
+                self.recalc_skill(skill_key)
+            except Exception:
+                pass
+        try:
+            self._apply_skills_sort_order()
+            self._apply_skills_row_striping()
+            self._refresh_skill_tooltips()
+            self._update_skill_points_label()
+        except Exception:
+            pass
+        self._schedule_stats_skills_viewport_refresh()
+
+    def _refresh_skills_header_geometry(self):
+        header = getattr(self, "_skills_table_header", None)
+        labels = getattr(self, "_skills_header_labels", None)
+        if not header or not labels or not self._widget_is_alive(header):
+            return
+        col_w = self._skills_active_column_widths()
+        table_w = self._skills_column_table_width(col_w)
+        self._configure_skills_row_grid(header, col_w)
+        try:
+            header.configure(width=table_w, height=SKILLS_HEADER_HEIGHT)
+            header_container = header.master
+            if header_container and self._widget_is_alive(header_container):
+                header_container.configure(
+                    width=table_w + SKILLS_SCROLLBAR_PAD,
+                    height=SKILLS_HEADER_HEIGHT,
+                )
+        except Exception:
+            pass
+        for lbl, width in zip(labels, col_w):
+            if lbl and self._widget_is_alive(lbl):
+                try:
+                    lbl.configure(width=width, height=SKILLS_HEADER_HEIGHT)
+                except Exception:
+                    pass
+
     def __init__(self):
+        global _ACTIVE_CHARACTER_SHEET
+        _ACTIVE_CHARACTER_SHEET = self
+        _install_ctk_scrollbar_sizemove_guard()
         self._ui_settings = self._load_ui_settings()
         screen_w, screen_h = self._probe_screen_size()
         self._ui_scale = self._resolve_ui_scale(self._ui_settings, screen_w, screen_h)
-        ctk.set_widget_scaling(self._ui_scale)
-        ctk.set_window_scaling(self._ui_scale)
-
-        self.root = ctk.CTk()
-        self.root.title("D&D 3.5 Character Sheet - Night Mode v0.20")
-        self.root.minsize(
-            max(640, int(LAYOUT_MIN_WIDTH * self._ui_scale)),
-            max(480, int(LAYOUT_MIN_HEIGHT * self._ui_scale)),
+        self.root = create_application_root(
+            ui_scale=self._ui_scale,
+            min_width=max(640, int(LAYOUT_MIN_WIDTH * self._ui_scale)),
+            min_height=max(480, int(LAYOUT_MIN_HEIGHT * self._ui_scale)),
         )
+        self._session_layout_profile = None
+        self._restored_window_state = False
+        self._started_maximized = not self._is_portrait_monitor_layout()
+        try:
+            self.root.withdraw()
+        except Exception:
+            pass
+        self._restored_window_state = False
+        if self._is_portrait_monitor_layout():
+            self._apply_portrait_monitor_window()
+        else:
+            maximize_application_window(self.root)
+        self.root.title("D&D 3.5 Character Sheet - Night Mode v0.20")
         self.root.bind("<Escape>", self._toggle_window_maximize)
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
         self._layout_resize_timer = None
-        self.root.bind("<Configure>", self._on_root_configure)
+        self._performance_mode = PERFORMANCE_MODE_ULTRA_SMOOTH
+        self._perf_drag_lite = True
+        self._perf_suspend_ui = True
+        self._perf_stash_heavy_scrolls = True
+        self._root_layout_configure_hook_installed = False
+        self._skills_table_fixed_width = None
+        self._window_sizemove_active = False
+        self._window_interaction_end_timer = None
+        self._window_state_refresh_timer = None
+        self._suppress_window_interaction = False
+        self._last_root_size = None
+        self._last_root_pos = None
+        self._saved_normal_geometry = None
+        if not getattr(self, "_started_maximized", False):
+            self._started_maximized = False
+        self._drag_lite_active = False
+        self._drag_lite_shell = None
+        self._drag_lite_hidden_windows = []
+        self._drag_saved_geometry = None
+        self._drag_saved_state = None
+        self._move_suspend_shell = None
+        self._move_shell_label = None
+        self._move_ui_suspended = False
+        self._sizemove_start_size = None
+        self._pending_window_state_refresh = False
+        self._stats_layout_applied_key = None
+        self._lazy_pages_built = set()
+        self._win_redraw_suppressed = False
+        self._restore_transition_active = False
+        self._window_sizemove_end_timer = None
+        self._sizemove_arm_last_ms = 0.0
+        self._pending_scrollbar_visibility_refresh = False
+        self._resize_layout_lock = threading.Lock()
+        self._stashed_heavy_scrolls = []
+        self._heavy_scrolls_stashed = False
+        self._crop_popup_resize_states = []
+        self._known_spells_resize_timer = None
+        self._resize_profile_counts = defaultdict(int) if RESIZE_PROFILE_ENABLED else None
+        self._install_window_interaction_hooks()
+        install_windows_drag_hooks(self)
+        self._apply_performance_mode_from_settings()
 
         self.data = copy.deepcopy(self._default_character_data())
         self._normalize_character_data()  # ensure character_id is generated for fresh/new sheets
@@ -3348,26 +4071,1294 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         self.create_gui()
         self._bind_cloud_blur_save_handlers()
         self._start_ui_callback_queue()
-        self.root.after(0, self._maximize_startup_window)
+        self._reveal_startup_window()
+        if getattr(self, "_restored_window_state", False):
+            self.root.after(120, lambda: self._apply_stats_page_layout(force=True))
+        elif self._is_portrait_monitor_layout():
+            self.root.after(0, self._apply_portrait_monitor_startup)
+        else:
+            self.root.after(0, self._maximize_startup_window)
         # Check for updates in the background, then show the character chooser (or updater first).
         self.root.after(0, self._begin_startup_update_gate)
 
-    def _maximize_startup_window(self):
-        """Open in windowed mode, maximized to fill the current screen."""
-        self.root.update_idletasks()
+    def _reveal_startup_window(self):
+        """Show the root window (portrait default or maximized)."""
         try:
-            self.root.state("zoomed")
+            if self._is_portrait_monitor_layout():
+                self._apply_portrait_monitor_window()
+            else:
+                self._started_maximized = True
+                maximize_application_window(self.root)
+            self.root.deiconify()
+            self.root.lift()
+            self.root.update_idletasks()
         except Exception:
-            screen_w = self.root.winfo_screenwidth()
-            screen_h = self.root.winfo_screenheight()
-            self.root.geometry(f"{screen_w}x{screen_h}+0+0")
+            try:
+                self.root.deiconify()
+            except Exception:
+                pass
+
+    def _apply_portrait_monitor_startup(self):
+        """Open in portrait-monitor geometry and apply stacked Stats bands."""
+        self._started_maximized = False
+        self._apply_portrait_monitor_window()
+        self.root.after_idle(self._apply_portrait_monitor_layout)
+        if self._is_page_active("Stats"):
+            self.root.after(120, lambda: self._apply_stats_page_layout(force=True))
+
+    def _maximize_startup_window(self):
+        """Open maximized on startup and keep retrying until the WM state sticks."""
+        if self._is_portrait_monitor_layout():
+            return
+        self._started_maximized = True
+        self._apply_maximized_window(retry=True)
+
+    def _apply_maximized_window(self, *, retry=False):
+        """Maximize the main window to fill the current monitor."""
+        maximize_application_window(self.root)
+        self.root.after_idle(lambda: self._apply_content_viewport_mode(force=True))
+
+        def _refresh_stats_layout():
+            try:
+                self.root.update_idletasks()
+                if self._is_page_active("Stats"):
+                    self._finalize_stats_bottom_layout()
+            except Exception:
+                pass
+
+        if not getattr(self, "_maximize_layout_refreshed", False):
+            self._maximize_layout_refreshed = True
+            self.root.after_idle(_refresh_stats_layout)
+        if retry:
+            for delay_ms in (200, 800):
+                self.root.after(delay_ms, maximize_application_window, self.root)
+            if self._is_page_active("Stats"):
+                self.root.after(450, self._finalize_stats_bottom_layout)
+
+    def _ensure_startup_maximized(self):
+        """Re-apply startup maximize after popups, loads, or layout rebuilds."""
+        if self._is_portrait_monitor_layout():
+            return
+        self._started_maximized = True
+        self._apply_maximized_window(retry=True)
+
+    def _layout_updates_paused(self):
+        """True while the window is mid-move/resize (debounced Configure tracking)."""
+        return bool(
+            getattr(self, "_window_sizemove_active", False)
+            or getattr(self, "_restore_transition_active", False)
+            or getattr(self, "_drag_lite_active", False)
+            or getattr(self, "_move_ui_suspended", False)
+        )
+
+    def _default_performance_mode(self):
+        return PERFORMANCE_MODE_ULTRA_SMOOTH if ULTRA_SMOOTH_MODE else PERFORMANCE_MODE_FULL_FEATURE
+
+    def _performance_mode_label(self, mode=None):
+        mode = mode or getattr(self, "_performance_mode", self._default_performance_mode())
+        return PERFORMANCE_MODE_LABELS.get(mode, "Ultra-Smooth")
+
+    def _virtual_skills_list_enabled(self):
+        return bool(USE_VIRTUAL_SKILLS_LIST)
+
+    def _perf_drag_lite_enabled(self):
+        return bool(getattr(self, "_perf_drag_lite", DRAG_LITE_MODE))
+
+    def _perf_suspend_ui_enabled(self):
+        return bool(getattr(self, "_perf_suspend_ui", SUSPEND_UI_DURING_WINDOW_MOVE))
+
+    def _perf_stash_heavy_scrolls_enabled(self):
+        return bool(getattr(self, "_perf_stash_heavy_scrolls", True))
+
+    def _apply_performance_mode(self, mode=None, *, persist=False):
+        """Toggle Ultra-Smooth (debounced/lazy) vs Full-Feature (live layout reflow)."""
+        if mode is None:
+            mode = str(
+                (getattr(self, "_ui_settings", None) or {}).get(
+                    "performance_mode", "",
+                ) or self._default_performance_mode()
+            )
+        mode = str(mode).strip().lower()
+        if mode not in (PERFORMANCE_MODE_ULTRA_SMOOTH, PERFORMANCE_MODE_FULL_FEATURE):
+            mode = self._default_performance_mode()
+        ultra = mode == PERFORMANCE_MODE_ULTRA_SMOOTH
+        self._performance_mode = mode
+        self._disable_dynamic_resize = ultra
+        self._perf_drag_lite = ultra and DRAG_LITE_MODE
+        self._perf_suspend_ui = ultra and SUSPEND_UI_DURING_WINDOW_MOVE
+        self._perf_stash_heavy_scrolls = ultra
+        if ultra:
+            self._uninstall_root_layout_configure_hook()
+        else:
+            self._install_root_layout_configure_hook()
+        if persist:
+            self._save_ui_settings({"performance_mode": mode})
+        if hasattr(self, "_ui_settings") and isinstance(self._ui_settings, dict):
+            self._ui_settings["performance_mode"] = mode
+
+    def _apply_performance_mode_from_settings(self):
+        saved = str(
+            (getattr(self, "_ui_settings", None) or {}).get("performance_mode", "") or "",
+        ).strip().lower()
+        if not saved:
+            saved = self._default_performance_mode()
+        self._apply_performance_mode(saved, persist=False)
+
+    def _install_root_layout_configure_hook(self):
+        if getattr(self, "_root_layout_configure_hook_installed", False):
+            return
+        self.root.bind("<Configure>", self._on_root_configure, add="+")
+        self._root_layout_configure_hook_installed = True
+
+    def _uninstall_root_layout_configure_hook(self):
+        self._root_layout_configure_hook_installed = False
+
+    def _dynamic_resize_enabled(self):
+        return not getattr(self, "_disable_dynamic_resize", DISABLE_DYNAMIC_RESIZE)
+
+    def _fixed_layout_mode(self):
+        """True when window move/resize must not reflow widgets (scrollbars only)."""
+        return not self._dynamic_resize_enabled()
+
+    def _is_window_maximized(self):
+        try:
+            return str(self.root.state()) == "zoomed"
+        except Exception:
+            return False
+
+    def _use_fixed_content_layout(self):
+        """Windowed + scroll viewport: content size stays fixed; only scrollbars move."""
+        canvas = getattr(self, "_content_canvas", None)
+        return bool(canvas and self._widget_is_alive(canvas) and not self._is_window_maximized())
+
+    def _stats_bottom_band_min_height(self):
+        """Minimum height for the Stats bottom band (Features/Skills columns)."""
+        scale = float(getattr(self, "_ui_scale", 1.0) or 1.0)
+        return int(STATS_SKILLS_SCROLL_HEIGHT * scale)
+
+    def _stats_class_health_band_height(self):
+        """Fixed class/health row height when maximized (matches blank-sheet footprint)."""
+        scale = float(getattr(self, "_ui_scale", 1.0) or 1.0)
+        return int(STATS_CLASS_HEALTH_BAND_MAX_HEIGHT * scale)
+
+    def _stats_bottom_row_minsize(self):
+        """Grid minsize for stats_frame row 2 — viewport-aware when maximized."""
+        if self._is_window_maximized():
+            return self._stats_bottom_band_min_height()
+        return self._stats_bottom_half_min_height()
+
+    def _apply_stats_viewport_balance(self):
+        """Reserve viewport space for the bottom band; cap class/health when maximized."""
+        frame = getattr(self, "stats_frame", None)
+        class_row = getattr(self, "class_health_row", None)
+        if not frame or not class_row:
+            return
+        try:
+            if not self._widget_is_alive(frame) or not self._widget_is_alive(class_row):
+                return
+        except Exception:
+            return
+
+        if not self._is_window_maximized():
+            try:
+                class_row.grid_propagate(True)
+            except Exception:
+                pass
+            try:
+                frame.grid_rowconfigure(2, weight=1, minsize=self._stats_bottom_row_minsize())
+            except Exception:
+                pass
+            return
+
+        cap_h = self._stats_class_health_band_height()
+        try:
+            class_row.grid_propagate(False)
+            class_row.configure(height=cap_h)
+            class_row.grid_rowconfigure(0, weight=1)
+            for panel_attr in (
+                "_class_health_cls",
+                "_class_health_health",
+                "_class_health_resist",
+                "_class_health_defenses",
+            ):
+                panel = getattr(self, panel_attr, None)
+                if panel and self._widget_is_alive(panel):
+                    panel.grid_configure(sticky="nsew")
+        except Exception:
+            pass
+        try:
+            frame.grid_rowconfigure(2, weight=1, minsize=self._stats_bottom_row_minsize())
+        except Exception:
+            pass
+
+    def _stats_bottom_half_min_height(self):
+        """Minimum height for the Stats four-column area (short row + skills band)."""
+        scale = float(getattr(self, "_ui_scale", 1.0) or 1.0)
+        short_h = getattr(self, "_fixed_stats_short_row_height", None)
+        if short_h is None:
+            short_h = self._measure_stats_short_row_height()
+        return int(short_h) + self._stats_bottom_band_min_height() + int(24 * scale)
+
+    def _apply_stats_frame_grid_minsize(self):
+        """Keep the bottom half from shrinking when class/health headers grow on load."""
+        self._apply_stats_viewport_balance()
+
+    def _stats_content_design_dimensions(self):
+        """Canonical frozen layout size for the Stats page (independent of cached freeze)."""
+        scale = float(getattr(self, "_ui_scale", 1.0) or 1.0)
+        if self._is_portrait_monitor_layout():
+            sw = int(self.root.winfo_screenwidth() or PORTRAIT_UI_REFERENCE_WIDTH)
+            sh = int(self.root.winfo_screenheight() or PORTRAIT_UI_REFERENCE_HEIGHT)
+            return max(480, int(sw * 0.94)), max(640, int(sh * 0.9))
+        widths = self._stats_landscape_panel_widths()
+        abilities_w = getattr(self, "_fixed_abilities_min_width", None)
+        if abilities_w is None:
+            abilities_w = max(int(STATS_ABILITIES_PANEL_MIN_WIDTH * scale), 420)
+        total_w = int(abilities_w) + widths["defense"] + widths["features"] + widths["skills"] + 96
+        short_h = getattr(self, "_fixed_stats_short_row_height", None) or int(480 * scale)
+        skills_h = int(STATS_SKILLS_SCROLL_HEIGHT * scale)
+        if self._dynamic_resize_enabled():
+            cached_skills_h = getattr(self, "_fixed_skills_scroll_height", None)
+            if cached_skills_h is not None:
+                skills_h = int(cached_skills_h)
+        total_h = int(short_h) + int(skills_h) + int(420 * scale)
+        return (
+            max(int(LAYOUT_MIN_WIDTH * scale), total_w),
+            max(int(LAYOUT_MIN_HEIGHT * scale), total_h),
+        )
+
+    def _content_layout_dimensions(self):
+        """Frozen pixel size of the scrollable page content."""
+        design_w, design_h = self._stats_content_design_dimensions()
+        frozen = getattr(self, "_frozen_content_size", None)
+        if frozen:
+            # Width may grow with content; height always follows the live layout constant.
+            return max(int(frozen[0]), design_w), design_h
+        return design_w, design_h
+
+    def _freeze_content_scroll_size(self, *, force=False):
+        """Capture content width once; height always comes from the layout constant."""
+        design_w, design_h = self._stats_content_design_dimensions()
+        frozen = getattr(self, "_frozen_content_size", None)
+        if frozen and not force:
+            if int(frozen[1]) == int(design_h):
+                return
+        try:
+            self.content.update_idletasks()
+            req_w = int(self.content.winfo_reqwidth())
+        except Exception:
+            req_w = 0
+        prev_w = int(frozen[0]) if frozen else 0
+        self._frozen_content_size = (max(req_w, design_w, prev_w), design_h)
+
+    def _finalize_stats_bottom_layout(self):
+        """Apply the static bottom-band height and refresh scroll/viewport geometry."""
+        self._stats_layout_applied_key = None
+        self._skills_scroll_last_height = None
+        if self._is_window_maximized():
+            self._fixed_abilities_min_width = None
+        self._apply_content_viewport_mode(force=True)
+        try:
+            self.root.update_idletasks()
+        except Exception:
+            pass
+        self._apply_stats_page_layout(force=True)
+        self._apply_stats_viewport_balance()
+        self._refresh_skills_scroll_geometry()
+        if not self._is_window_maximized():
+            self._freeze_content_scroll_size(force=True)
+        self._apply_content_viewport_mode(force=True)
+
+    def _build_content_viewport(self):
+        """Scrollable host for page content when the window is not maximized."""
+        self._content_viewport = ctk.CTkFrame(self.root)
+        self._content_viewport.pack(side="right", fill="both", expand=True, padx=10, pady=10)
+
+        self._content_canvas = tk.Canvas(
+            self._content_viewport,
+            highlightthickness=0,
+            bd=0,
+            bg=CONTENT_SCROLL_CANVAS_BG,
+        )
+        self._content_v_scroll = ctk.CTkScrollbar(
+            self._content_viewport,
+            orientation="vertical",
+            command=self._content_canvas.yview,
+        )
+        self._content_h_scroll = ctk.CTkScrollbar(
+            self._content_viewport,
+            orientation="horizontal",
+            command=self._content_canvas.xview,
+        )
+        self._content_canvas.configure(
+            yscrollcommand=self._content_v_scroll.set,
+            xscrollcommand=self._content_h_scroll.set,
+        )
+        pad = CONTENT_VIEWPORT_PAD
+        self._content_canvas.grid(
+            row=0, column=0, sticky="nsew",
+            padx=(pad, 0), pady=(pad, 0),
+        )
+        self._content_v_scroll.grid(
+            row=0, column=1, sticky="ns",
+            padx=(0, pad), pady=(pad, 0),
+        )
+        self._content_h_scroll.grid(
+            row=1, column=0, sticky="ew",
+            padx=(pad, 0), pady=(0, pad),
+        )
+        self._content_viewport.grid_rowconfigure(0, weight=1)
+        self._content_viewport.grid_columnconfigure(0, weight=1)
+
+        self.content = ctk.CTkFrame(self._content_canvas)
+        self._content_canvas_window = self._content_canvas.create_window(
+            (0, 0), window=self.content, anchor="nw",
+        )
+        self.content.bind("<Configure>", self._on_content_inner_configure, add="+")
+        self._bind_content_viewport_mousewheel()
+        self._content_viewport_mode = None
+        self._content_scroll_sync_timer = None
+
+    def _on_content_inner_configure(self, _event=None):
+        if self._fixed_layout_mode():
+            return
+        if self._layout_updates_paused():
+            return
+        self._schedule_content_scroll_sync()
+
+    def _schedule_content_scroll_sync(self):
+        if not getattr(self, "_content_canvas", None):
+            return
+        timer = getattr(self, "_content_scroll_sync_timer", None)
+        if timer is not None:
+            try:
+                self.root.after_cancel(timer)
+            except Exception:
+                pass
+        self._content_scroll_sync_timer = self.root.after(
+            CONFIGURE_HANDLER_DEBOUNCE_MS, self._sync_content_scroll_region,
+        )
+
+    def _sync_content_scroll_region(self):
+        self._content_scroll_sync_timer = None
+        if self._layout_updates_paused():
+            return
+        with self._resize_configure_guard() as may_run:
+            if not may_run:
+                return
+            canvas = getattr(self, "_content_canvas", None)
+            if canvas is None or not self._widget_is_alive(canvas):
+                return
+            try:
+                bbox = canvas.bbox("all")
+                if bbox:
+                    canvas.configure(scrollregion=bbox)
+            except Exception:
+                pass
+
+    def _update_content_scrollbar_visibility(self):
+        if self._layout_updates_paused():
+            self._pending_scrollbar_visibility_refresh = True
+            return
+        v_scroll = getattr(self, "_content_v_scroll", None)
+        h_scroll = getattr(self, "_content_h_scroll", None)
+        if not v_scroll or not h_scroll:
+            return
+        pad = CONTENT_VIEWPORT_PAD
+        canvas = getattr(self, "_content_canvas", None)
+        need_v = need_h = False
+        if canvas and self._widget_is_alive(canvas):
+            try:
+                self._safe_update_idletasks(canvas)
+                bbox = canvas.bbox("all")
+                if bbox:
+                    content_h = int(bbox[3] - bbox[1])
+                    content_w = int(bbox[2] - bbox[0])
+                    viewport_h = int(canvas.winfo_height())
+                    viewport_w = int(canvas.winfo_width())
+                    need_v = content_h > viewport_h + 2
+                    need_h = content_w > viewport_w + 2
+            except Exception:
+                pass
+        if need_v:
+            v_scroll.grid(row=0, column=1, sticky="ns", padx=(0, pad), pady=(pad, 0))
+        else:
+            v_scroll.grid_remove()
+        if need_h:
+            h_scroll.grid(row=1, column=0, sticky="ew", padx=(pad, 0), pady=(0, pad))
+        else:
+            h_scroll.grid_remove()
+
+    def _bind_content_viewport_mousewheel(self):
+        canvas = getattr(self, "_content_canvas", None)
+        if canvas is None:
+            return
+
+        def _wheel(event):
+            try:
+                if getattr(event, "state", 0) & 0x1:
+                    if getattr(event, "num", None) == 4:
+                        canvas.xview_scroll(-3, "units")
+                    elif getattr(event, "num", None) == 5:
+                        canvas.xview_scroll(3, "units")
+                    elif getattr(event, "delta", 0):
+                        canvas.xview_scroll(int(-1 * (event.delta / 120)), "units")
+                elif getattr(event, "num", None) == 4:
+                    canvas.yview_scroll(-3, "units")
+                elif getattr(event, "num", None) == 5:
+                    canvas.yview_scroll(3, "units")
+                elif getattr(event, "delta", 0):
+                    canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+            except tk.TclError:
+                pass
+
+        for widget in (
+            getattr(self, "_content_viewport", None),
+            canvas,
+            getattr(self, "content", None),
+        ):
+            if widget is None:
+                continue
+            try:
+                widget.bind("<MouseWheel>", _wheel, add="+")
+                widget.bind("<Button-4>", _wheel, add="+")
+                widget.bind("<Button-5>", _wheel, add="+")
+            except tk.TclError:
+                pass
+
+    def _apply_content_viewport_mode(self, *, force=False):
+        if not force and self._layout_updates_paused():
+            self._pending_scrollbar_visibility_refresh = True
+            return
+        canvas = getattr(self, "_content_canvas", None)
+        if canvas is None or not self._widget_is_alive(canvas):
+            return
+        maximized = self._is_window_maximized()
+        mode = "maximized" if maximized else "windowed"
+        if not force and mode == getattr(self, "_content_viewport_mode", None):
+            self._schedule_content_scroll_sync()
+            return
+        self._content_viewport_mode = mode
+
+        layout_w, layout_h = self._content_layout_dimensions()
+        try:
+            self._safe_update_idletasks(canvas)
+            viewport_w = max(1, int(canvas.winfo_width() or layout_w))
+            viewport_h = max(1, int(canvas.winfo_height() or layout_h))
+            # Maximized: fit content to the viewport so all four columns (incl. skills scrollbar) stay visible.
+            # Windowed: use the designed document size and scroll.
+            if maximized:
+                view_w = viewport_w
+                view_h = viewport_h
+            else:
+                view_w = max(layout_w, viewport_w)
+                view_h = layout_h
+            canvas.itemconfig(
+                self._content_canvas_window,
+                width=view_w,
+                height=view_h,
+            )
+        except Exception:
+            pass
+
+        self._update_content_scrollbar_visibility()
+        self._schedule_content_scroll_sync()
+
+    def _finalize_content_viewport_after_build(self):
+        self._finalize_stats_bottom_layout()
+
+    def _lightweight_viewport_refresh(self):
+        """Scrollbar/scroll-region sync only — never reflow stats or page columns."""
+        if self._layout_updates_paused():
+            self._pending_scrollbar_visibility_refresh = True
+            return
+        canvas = getattr(self, "_content_canvas", None)
+        if not canvas or not self._widget_is_alive(canvas):
+            return
+        try:
+            self._safe_update_idletasks(canvas)
+            self._update_content_scrollbar_visibility()
+            bbox = canvas.bbox("all")
+            if bbox:
+                canvas.configure(scrollregion=bbox)
+        except tk.TclError:
+            pass
+
+    def _flush_deferred_viewport_work(self):
+        """Run scrollbar/viewport sync deferred during sizemove."""
+        if getattr(self, "_pending_scrollbar_visibility_refresh", False):
+            self._pending_scrollbar_visibility_refresh = False
+            try:
+                self._update_content_scrollbar_visibility()
+            except Exception:
+                pass
+        self._lightweight_viewport_refresh()
+
+    def _arm_sizemove_end_timer(self, delay_ms=None):
+        """Debounce sizemove end — fires once Configure events settle."""
+        if delay_ms is None:
+            if self._fixed_layout_mode():
+                delay_ms = FIXED_LAYOUT_RESIZE_END_DEBOUNCE_MS
+            else:
+                delay_ms = WINDOW_SIZEMOVE_END_DEBOUNCE_MS
+        now_ms = time.monotonic() * 1000.0
+        last_arm = float(getattr(self, "_sizemove_arm_last_ms", 0.0) or 0.0)
+        timer = getattr(self, "_window_sizemove_end_timer", None)
+        if timer is not None and (now_ms - last_arm) < SIZEMOVE_TIMER_REARM_COOLDOWN_MS:
+            self._sizemove_timer_skipped_rearms = int(
+                getattr(self, "_sizemove_timer_skipped_rearms", 0) or 0,
+            ) + 1
+            return
+        if timer is not None:
+            try:
+                self.root.after_cancel(timer)
+            except Exception:
+                pass
+        self._sizemove_arm_last_ms = now_ms
+        self._window_sizemove_end_timer = self.root.after(
+            int(delay_ms), self._end_configure_sizemove,
+        )
+
+    def _end_configure_sizemove(self):
+        self._window_sizemove_end_timer = None
+        self._sizemove_start_size = None
+        self._window_sizemove_active = False
+        self._finish_sizemove_visual_restore()
+        self._on_window_sizemove_end()
+
+    def _ensure_move_suspend_shell(self):
+        """Pre-built placeholder shown while Windows drags the title bar."""
+        shell = getattr(self, "_move_suspend_shell", None)
+        if shell and self._widget_is_alive(shell):
+            return shell
+        shell = tk.Frame(self.root, bg="#1a1a1a", highlightthickness=0, bd=0)
+        label = tk.Label(
+            shell,
+            text="Character Sheet\nRelease mouse to restore",
+            bg="#1a1a1a",
+            fg="#777777",
+            font=("Segoe UI", 13),
+            justify="center",
+        )
+        label.place(relx=0.5, rely=0.5, anchor="center")
+        self._move_suspend_shell = shell
+        self._move_shell_label = label
+        return shell
+
+    def _main_content_host(self):
+        """Packed right-hand host (viewport wrapper), not the inner page frame."""
+        return getattr(self, "_content_viewport", None) or getattr(self, "content", None)
+
+    def _suspend_ui_for_window_move(self):
+        """Replace the heavy UI with one Tk frame while the OS moves the window."""
+        if not self._perf_suspend_ui_enabled():
+            return
+        if getattr(self, "_move_ui_suspended", False) or getattr(self, "_drag_lite_active", False):
+            return
+        sidebar = getattr(self, "sidebar", None)
+        content_host = self._main_content_host()
+        if not sidebar or not content_host:
+            return
+        if not self._widget_is_alive(sidebar) or not self._widget_is_alive(content_host):
+            return
+        self._move_ui_suspended = True
+        for widget in (sidebar, content_host):
+            try:
+                widget.pack_forget()
+            except Exception:
+                pass
+        try:
+            shell = self._ensure_move_suspend_shell()
+            title = str(self.data.get("name", "") or "Character Sheet").strip()
+            label = getattr(self, "_move_shell_label", None)
+            if label and self._widget_is_alive(label):
+                label.configure(text=f"{title}\nRelease mouse to restore")
+            shell.pack(fill="both", expand=True)
+        except Exception:
+            self._move_ui_suspended = False
+            for side, widget, opts in (
+                ("left", sidebar, {"fill": "y"}),
+                ("right", content_host, {"fill": "both", "expand": True, "padx": 10, "pady": 10}),
+            ):
+                if self._widget_is_alive(widget):
+                    try:
+                        widget.pack(side=side, **opts)
+                    except Exception:
+                        pass
+
+    def _is_title_bar_move_only(self, size, *, pos_changed, size_changed):
+        """True only for a plain title-bar drag — not maximize, restore, or edge resize."""
+        if not pos_changed or size_changed:
+            return False
+        try:
+            if str(self.root.state()) == "zoomed":
+                return False
+        except Exception:
+            pass
+        start_size = getattr(self, "_sizemove_start_size", None)
+        if start_size is not None and size != start_size:
+            return False
+        return True
+
+    def _begin_move_only_suspend(self):
+        """Hide the heavy CTk UI during title-bar moves (not resizes)."""
+        if getattr(self, "_move_ui_suspended", False):
+            return
+        if not getattr(self, "_win_redraw_suppressed", False):
+            set_window_redraw(self.root, enabled=False)
+            self._win_redraw_suppressed = True
+        self._suspend_ui_for_window_move()
+
+    def _end_configure_drag_suspend(self):
+        self._window_interaction_end_timer = None
+        if not getattr(self, "_move_ui_suspended", False):
+            return
+        self._window_sizemove_active = False
+        self._resume_ui_after_window_move()
+        self._on_window_sizemove_end()
+
+    def _resume_ui_after_window_move(self):
+        timer = getattr(self, "_window_interaction_end_timer", None)
+        if timer is not None:
+            try:
+                self.root.after_cancel(timer)
+            except Exception:
+                pass
+            self._window_interaction_end_timer = None
+        if not getattr(self, "_move_ui_suspended", False):
+            if getattr(self, "_win_redraw_suppressed", False):
+                set_window_redraw(self.root, enabled=True)
+                self._win_redraw_suppressed = False
+            return
+        self._move_ui_suspended = False
+        shell = getattr(self, "_move_suspend_shell", None)
+        if shell and self._widget_is_alive(shell):
+            try:
+                shell.pack_forget()
+            except Exception:
+                pass
+        content_host = self._main_content_host()
+        for side, widget, opts in (
+            ("left", getattr(self, "sidebar", None), {"fill": "y"}),
+            ("right", content_host, {"fill": "both", "expand": True, "padx": 10, "pady": 10}),
+        ):
+            if widget and self._widget_is_alive(widget):
+                try:
+                    widget.pack(side=side, **opts)
+                except Exception:
+                    pass
+
+        def _finish_restore():
+            try:
+                if getattr(self, "_win_redraw_suppressed", False):
+                    set_window_redraw(self.root, enabled=True)
+                    self._win_redraw_suppressed = False
+                self._show_page_frame(getattr(self, "_current_page", "Stats") or "Stats")
+            except Exception:
+                pass
+
+        try:
+            self.root.after_idle(_finish_restore)
+        except Exception:
+            _finish_restore()
+
+    def _safe_resume_ui_after_window_move(self):
+        """Restore UI after sizemove; defer once on failure (maximize/restore edge cases)."""
+        try:
+            self._resume_ui_after_window_move()
+        except Exception as exc:
+            print(f"Deferred UI restore after window move: {exc}")
+            try:
+                self.root.after(50, self._resume_ui_after_window_move)
+            except Exception:
+                pass
+
+    def _finish_sizemove_visual_restore(self):
+        """Exit drag-lite or suspend shells after Configure events settle."""
+        try:
+            reset_window_alpha(self.root, alpha=1.0)
+            if getattr(self, "_drag_lite_active", False):
+                self._exit_drag_lite_mode()
+            elif getattr(self, "_move_ui_suspended", False):
+                self._safe_resume_ui_after_window_move()
+            self._restore_heavy_scroll_frames()
+        except Exception as exc:
+            print(f"Deferred sizemove visual restore: {exc}")
+            try:
+                self.root.after(50, self._finish_sizemove_visual_restore)
+            except Exception:
+                pass
+
+    def _activate_sizemove_pause(self, *, move_only: bool) -> None:
+        """Mark sizemove active and hide heavy UI for the current interaction type."""
+        if self._perf_stash_heavy_scrolls_enabled():
+            self._stash_heavy_scroll_frames()
+        self._window_sizemove_active = True
+        if self._dynamic_resize_enabled():
+            self._pending_window_state_refresh = True
+        if move_only:
+            if self._perf_drag_lite_enabled() and not getattr(self, "_drag_lite_active", False):
+                self._enter_drag_lite_mode()
+            elif self._perf_suspend_ui_enabled() and not getattr(self, "_move_ui_suspended", False):
+                self._begin_move_only_suspend()
+        elif self._perf_suspend_ui_enabled():
+            if not getattr(self, "_move_ui_suspended", False) and not getattr(self, "_drag_lite_active", False):
+                self._begin_move_only_suspend()
+
+    def _install_window_interaction_hooks(self):
+        """Detect title-bar drag vs resize/maximize and pause heavy layout work only while dragging."""
+        self.root.bind("<Configure>", self._on_root_window_interaction, add="+")
+        self.root.bind("<B1-Motion>", self._on_root_window_motion, add="+")
+
+    def _resize_profile_tick(self, key: str) -> None:
+        counts = getattr(self, "_resize_profile_counts", None)
+        if counts is not None:
+            counts[key] += 1
+
+    def _safe_update_idletasks(self, widget=None):
+        """Skip update_idletasks during sizemove — profile showed this as a top hotspot."""
+        if self._layout_updates_paused():
+            return
+        target = widget or getattr(self, "root", None)
+        if target is None:
+            return
+        try:
+            target.update_idletasks()
+        except Exception:
+            pass
+
+    def _configure_handler_may_run(self) -> bool:
+        """True when a child Configure handler may run (not paused, lock acquired)."""
+        if self._layout_updates_paused():
+            return False
+        return self._resize_layout_lock.acquire(
+            timeout=RESIZE_LAYOUT_LOCK_TIMEOUT_SEC,
+        )
+
+    def _configure_handler_done(self) -> None:
+        try:
+            self._resize_layout_lock.release()
+        except RuntimeError:
+            pass
+
+    @contextmanager
+    def _resize_configure_guard(self):
+        acquired = self._configure_handler_may_run()
+        try:
+            yield acquired
+        finally:
+            if acquired:
+                self._configure_handler_done()
+
+    def _stash_heavy_scroll_frames(self) -> None:
+        """pack_forget/grid_remove the heaviest scroll hosts during sizemove."""
+        if getattr(self, "_heavy_scrolls_stashed", False):
+            return
+        stashed = []
+        for attr in HEAVY_SCROLL_FRAME_ATTRS:
+            widget = getattr(self, attr, None)
+            if not widget or not self._widget_is_alive(widget):
+                continue
+            try:
+                if not widget.winfo_ismapped():
+                    continue
+                info = {"attr": attr, "widget": widget, "manager": widget.winfo_manager()}
+                mgr = info["manager"]
+                if mgr == "pack":
+                    info["pack_info"] = widget.pack_info()
+                    widget.pack_forget()
+                elif mgr == "grid":
+                    info["grid_info"] = widget.grid_info()
+                    widget.grid_remove()
+                elif mgr == "place":
+                    info["place_info"] = widget.place_info()
+                    widget.place_forget()
+                else:
+                    continue
+                stashed.append(info)
+            except Exception:
+                pass
+        self._stashed_heavy_scrolls = stashed
+        self._heavy_scrolls_stashed = bool(stashed)
+
+    def _restore_heavy_scroll_frames(self) -> None:
+        if not getattr(self, "_heavy_scrolls_stashed", False):
+            return
+        for info in list(getattr(self, "_stashed_heavy_scrolls", []) or []):
+            widget = info.get("widget")
+            if not widget or not self._widget_is_alive(widget):
+                continue
+            try:
+                mgr = info.get("manager")
+                if mgr == "pack" and "pack_info" in info:
+                    widget.pack(**info["pack_info"])
+                elif mgr == "grid" and "grid_info" in info:
+                    widget.grid(**info["grid_info"])
+                elif mgr == "place" and "place_info" in info:
+                    widget.place(**info["place_info"])
+            except Exception:
+                pass
+        self._stashed_heavy_scrolls = []
+        self._heavy_scrolls_stashed = False
+
+    def _create_debounced_crop_resize_controller(self, popup, callback, *, debounce_ms=None):
+        """Debounce PIL preview rescale — never on canvas_host <Configure> per pixel."""
+        if debounce_ms is None:
+            debounce_ms = CONFIGURE_HANDLER_DEBOUNCE_MS
+        state = {
+            "popup": popup,
+            "timer": None,
+            "deferred": False,
+            "callback": callback,
+            "debounce_ms": int(debounce_ms),
+        }
+
+        def _run():
+            state["timer"] = None
+            if self._layout_updates_paused():
+                state["deferred"] = True
+                return
+            state["deferred"] = False
+            try:
+                callback()
+            except Exception:
+                pass
+
+        def _schedule(event=None):
+            if event is not None and event.widget is not popup:
+                return
+            if self._layout_updates_paused():
+                state["deferred"] = True
+                return
+            timer = state.get("timer")
+            if timer is not None:
+                try:
+                    popup.after_cancel(timer)
+                except Exception:
+                    pass
+            state["timer"] = popup.after(state["debounce_ms"], _run)
+
+        state["run"] = _run
+        state["schedule"] = _schedule
+        self._crop_popup_resize_states.append(state)
+
+        def _on_popup_destroy(_event=None):
+            timer = state.get("timer")
+            if timer is not None:
+                try:
+                    popup.after_cancel(timer)
+                except Exception:
+                    pass
+            try:
+                self._crop_popup_resize_states.remove(state)
+            except ValueError:
+                pass
+
+        try:
+            popup.bind("<Destroy>", _on_popup_destroy, add="+")
+        except Exception:
+            pass
+        return state
+
+    def _flush_deferred_crop_preview_resizes(self):
+        """Run crop preview rescales deferred during main-window sizemove."""
+        for state in list(getattr(self, "_crop_popup_resize_states", []) or []):
+            if not state.get("deferred"):
+                continue
+            popup = state.get("popup")
+            if popup and self._widget_is_alive(popup):
+                schedule = state.get("schedule")
+                if callable(schedule):
+                    schedule()
+
+    def _on_root_window_interaction(self, event=None):
+        self._resize_profile_tick("root_configure")
+        if event is None or event.widget is not self.root:
+            return
+        if getattr(self, "_suppress_window_interaction", False):
+            return
+
+        try:
+            wm_state = str(self.root.state())
+        except Exception:
+            wm_state = "normal"
+        prev_wm = getattr(self, "_last_root_wm_state", None)
+        self._last_root_wm_state = wm_state
+        if prev_wm == "zoomed" and wm_state == "normal":
+            if getattr(self, "_restore_transition_active", False):
+                return
+            self._restore_transition_active = True
+            self._suppress_window_interaction = True
+            self._window_sizemove_active = True
+            self._pending_window_state_refresh = True
+            timer = getattr(self, "_window_sizemove_end_timer", None)
+            if timer is not None:
+                try:
+                    self.root.after_cancel(timer)
+                except Exception:
+                    pass
+            self._window_sizemove_end_timer = None
+
+            def _finish_restore_transition():
+                self._restore_transition_active = False
+                self._window_sizemove_active = False
+                self._finish_window_maximize_toggle()
+
+            self.root.after(500, _finish_restore_transition)
+            return
+
+        size = (int(event.width), int(event.height))
+        pos = (int(event.x), int(event.y))
+        prev_size = getattr(self, "_last_root_size", None)
+        prev_pos = getattr(self, "_last_root_pos", None)
+        self._last_root_size = size
+        self._last_root_pos = pos
+
+        if prev_size is None:
+            return
+
+        size_changed = size != prev_size
+        pos_changed = prev_pos is not None and pos != prev_pos
+
+        if size_changed or pos_changed:
+            if not getattr(self, "_restore_transition_active", False):
+                self._activate_sizemove_pause(move_only=pos_changed and not size_changed)
+                self._arm_sizemove_end_timer()
+            return
+
+    def _on_root_window_motion(self, event=None):
+        """Keep pause latched during in-client drags (edge cases / future custom chrome)."""
+        self._resize_profile_tick("root_b1_motion")
+        if event is not None and event.widget is not self.root:
+            return
+        if getattr(self, "_suppress_window_interaction", False):
+            return
+        self._window_sizemove_active = True
+
+    def _cancel_window_interaction(self):
+        if not getattr(self, "_window_sizemove_active", False):
+            timer = getattr(self, "_window_interaction_end_timer", None)
+            if timer is not None:
+                try:
+                    self.root.after_cancel(timer)
+                except Exception:
+                    pass
+            self._window_interaction_end_timer = None
+            self._finish_sizemove_visual_restore()
+            return
+        self._window_sizemove_active = False
+        timer = getattr(self, "_window_interaction_end_timer", None)
+        if timer is not None:
+            try:
+                self.root.after_cancel(timer)
+            except Exception:
+                pass
+        self._window_interaction_end_timer = None
+        self._finish_sizemove_visual_restore()
+
+    def _begin_window_interaction(self):
+        self._window_sizemove_active = True
+        self._enter_drag_lite_mode()
+        timer = getattr(self, "_window_interaction_end_timer", None)
+        if timer is not None:
+            try:
+                self.root.after_cancel(timer)
+            except Exception:
+                pass
+        self._window_interaction_end_timer = self.root.after(80, self._end_window_interaction)
+
+    def _end_window_interaction(self):
+        self._window_interaction_end_timer = None
+        self._window_sizemove_active = False
+        self._finish_sizemove_visual_restore()
+        self._on_window_sizemove_end()
+
+    def _save_drag_window_geometry(self):
+        if getattr(self, "_drag_saved_geometry", None):
+            return
+        try:
+            self._drag_saved_geometry = self.root.geometry()
+            self._drag_saved_state = self.root.state()
+        except Exception:
+            self._drag_saved_geometry = None
+            self._drag_saved_state = "normal"
+
+    def _shrink_window_for_drag(self):
+        """Resize to a small shell so Windows only moves a tiny framebuffer."""
+        try:
+            if str(self.root.state()) == "zoomed":
+                self.root.state("normal")
+                self.root.update_idletasks()
+            x = int(self.root.winfo_x())
+            y = int(self.root.winfo_y())
+            self.root.geometry(
+                f"{DRAG_SHELL_WIDTH}x{DRAG_SHELL_HEIGHT}+{x}+{y}"
+            )
+            self.root.update_idletasks()
+        except Exception:
+            pass
+
+    def _restore_drag_saved_geometry(self):
+        geom = getattr(self, "_drag_saved_geometry", None)
+        if not geom:
+            return
+        state = getattr(self, "_drag_saved_state", "normal") or "normal"
+        self._drag_saved_geometry = None
+        self._drag_saved_state = None
+        try:
+            self.root.geometry(geom)
+            self.root.update_idletasks()
+            if str(state) == "zoomed":
+                self.root.state("zoomed")
+        except Exception:
+            pass
+
+    def _enter_drag_lite_mode(self):
+        """Hide the CTk UI, shrink the window, and show a plain placeholder for smooth drags."""
+        if not self._perf_drag_lite_enabled() or getattr(self, "_drag_lite_active", False):
+            return
+        sidebar = getattr(self, "sidebar", None)
+        content_host = getattr(self, "_content_viewport", None) or getattr(self, "content", None)
+        if not sidebar or not content_host:
+            return
+        if not self._widget_is_alive(sidebar) or not self._widget_is_alive(content_host):
+            return
+
+        self._save_drag_window_geometry()
+
+        self._drag_lite_hidden_windows = []
+        for popup in (
+            getattr(self, "_hamburger_popup", None),
+        ):
+            if popup and self._widget_is_alive(popup):
+                try:
+                    if popup.winfo_viewable():
+                        popup.withdraw()
+                        self._drag_lite_hidden_windows.append(popup)
+                except Exception:
+                    pass
+
+        try:
+            sidebar.pack_forget()
+            content_host.pack_forget()
+        except Exception:
+            return
+
+        self._shrink_window_for_drag()
+
+        try:
+            shell = tk.Frame(self.root, bg="#1a1a1a", highlightthickness=0, bd=0)
+            shell.pack(fill="both", expand=True)
+            title = str(self.data.get("name", "") or "Character Sheet").strip()
+            tk.Label(
+                shell,
+                text=f"{title}\nDrag this window — release to restore",
+                bg="#1a1a1a",
+                fg="#888888",
+                font=("Segoe UI", 13),
+                justify="center",
+            ).place(relx=0.5, rely=0.5, anchor="center")
+            self._drag_lite_shell = shell
+            self._drag_lite_active = True
+            self.root.update_idletasks()
+        except Exception:
+            self._drag_lite_shell = None
+            self._drag_lite_active = False
+            self._restore_drag_saved_geometry()
+            try:
+                sidebar.pack(side="left", fill="y")
+                content_host.pack(side="right", fill="both", expand=True, padx=10, pady=10)
+            except Exception:
+                pass
+            for popup in self._drag_lite_hidden_windows:
+                if popup and self._widget_is_alive(popup):
+                    try:
+                        popup.deiconify()
+                    except Exception:
+                        pass
+            self._drag_lite_hidden_windows = []
+
+    def _exit_drag_lite_mode(self):
+        was_active = getattr(self, "_drag_lite_active", False)
+        shell = getattr(self, "_drag_lite_shell", None)
+        if shell and self._widget_is_alive(shell):
+            try:
+                shell.pack_forget()
+                shell.destroy()
+            except Exception:
+                pass
+        self._drag_lite_shell = None
+        self._drag_lite_active = False
+        self._restore_drag_saved_geometry()
+
+        if not was_active:
+            return
+
+        sidebar = getattr(self, "sidebar", None)
+        content_host = getattr(self, "_content_viewport", None) or getattr(self, "content", None)
+        if sidebar and self._widget_is_alive(sidebar):
+            try:
+                sidebar.pack(side="left", fill="y")
+            except Exception:
+                pass
+        if content_host and self._widget_is_alive(content_host):
+            try:
+                content_host.pack(side="right", fill="both", expand=True, padx=10, pady=10)
+            except Exception:
+                pass
+
+        for popup in getattr(self, "_drag_lite_hidden_windows", []):
+            if popup and self._widget_is_alive(popup):
+                try:
+                    popup.deiconify()
+                except Exception:
+                    pass
+        self._drag_lite_hidden_windows = []
+        try:
+            self.root.update_idletasks()
+        except Exception:
+            pass
+
+    def _schedule_window_state_refresh(self, delay_ms=None):
+        if not self._dynamic_resize_enabled():
+            return
+        if self._layout_updates_paused():
+            self._pending_window_state_refresh = True
+            return
+        if delay_ms is None:
+            delay_ms = WINDOW_STATE_REFRESH_DEBOUNCE_MS
+        timer = getattr(self, "_window_state_refresh_timer", None)
+        if timer is not None:
+            try:
+                self.root.after_cancel(timer)
+            except Exception:
+                pass
+        self._window_state_refresh_timer = self.root.after(
+            int(delay_ms), self._on_window_state_changed,
+        )
+
+    def _flush_pending_window_state_refresh(self):
+        if not getattr(self, "_pending_window_state_refresh", False):
+            return
+        self._pending_window_state_refresh = False
+        if not self._dynamic_resize_enabled():
+            return
+        self._stats_layout_applied_key = None
+        self._schedule_window_state_refresh(delay_ms=80)
+
+    def _on_window_state_changed(self):
+        """Re-sync layout after maximize, restore, or border resize."""
+        self._window_state_refresh_timer = None
+        if self._fixed_layout_mode():
+            self._lightweight_viewport_refresh()
+            return
+        if self._layout_updates_paused():
+            self._pending_window_state_refresh = True
+            return
+        try:
+            if int(self.root.winfo_width()) <= 1 or int(self.root.winfo_height()) <= 1:
+                self._pending_window_state_refresh = True
+                self._schedule_window_state_refresh(delay_ms=200)
+                return
+        except Exception:
+            pass
+        try:
+            if self._is_page_active("Stats"):
+                self.root.after_idle(self._apply_stats_page_layout)
+        except Exception:
+            pass
+
+    def _on_window_sizemove_end(self):
+        """One-shot cleanup after the user finishes dragging or resizing the window."""
+        self._window_sizemove_active = False
+        self._pending_window_state_refresh = False
+        if self._fixed_layout_mode():
+            self._flush_deferred_viewport_work()
+            self._flush_deferred_crop_preview_resizes()
+            return
+        self._stats_layout_applied_key = None
+        try:
+            if self._is_page_active("Stats") and hasattr(self, "skills_scroll"):
+                target_h = self._skills_scroll_target_height()
+                virtual = getattr(self, "_skills_virtual_list", None)
+                scroll = self.skills_scroll
+                if scroll and scroll.winfo_exists():
+                    if self._virtual_skills_list_enabled() and virtual is scroll:
+                        virtual.set_viewport_height(target_h)
+                    else:
+                        scroll.configure(height=target_h)
+        except (tk.TclError, AttributeError):
+            pass
+        self._flush_pending_window_state_refresh()
+        if self._layout_resize_timer is not None:
+            try:
+                self.root.after_cancel(self._layout_resize_timer)
+            except tk.TclError:
+                pass
+        self._layout_resize_timer = self.root.after(80, self._apply_responsive_layout)
+
+    def _apply_default_restored_geometry(self):
+        """First restore from startup-maximized: use a centered size, not full screen."""
+        try:
+            sw = int(self.root.winfo_screenwidth() or 1920)
+            sh = int(self.root.winfo_screenheight() or 1080)
+            w = max(int(LAYOUT_MIN_WIDTH * self._ui_scale), min(1600, int(sw * 0.82)))
+            h = max(int(LAYOUT_MIN_HEIGHT * self._ui_scale), min(1000, int(sh * 0.82)))
+            x = max(0, (sw - w) // 2)
+            y = max(0, (sh - h) // 2)
+            self.root.geometry(f"{w}x{h}+{x}+{y}")
+        except Exception:
+            pass
 
     def _toggle_window_maximize(self, event=None):
         """Escape toggles between maximized and restored window size."""
-        if self.root.state() == "zoomed":
-            self.root.state("normal")
-        else:
-            self.root.state("zoomed")
+        self._suppress_window_interaction = True
+        self._cancel_window_interaction()
+        restoring = False
+        try:
+            if self.root.state() == "zoomed":
+                restoring = True
+                self._restore_transition_active = True
+                self._pending_window_state_refresh = True
+                self.root.state("normal")
+                saved = getattr(self, "_saved_normal_geometry", None)
+                if saved:
+                    self.root.after_idle(lambda g=saved: self.root.geometry(g))
+                elif getattr(self, "_started_maximized", False) and not getattr(
+                    self, "_applied_default_restored_geometry", False
+                ):
+                    self._applied_default_restored_geometry = True
+                    self.root.after_idle(self._apply_default_restored_geometry)
+            else:
+                try:
+                    self._saved_normal_geometry = self.root.geometry()
+                except Exception:
+                    pass
+                self.root.state("zoomed")
+        finally:
+            delay = 500 if restoring else 350
+
+            def _finish():
+                if restoring:
+                    self._restore_transition_active = False
+                self._finish_window_maximize_toggle()
+
+            self.root.after(delay, _finish)
+
+    def _finish_window_maximize_toggle(self):
+        self._suppress_window_interaction = False
+        self._window_sizemove_active = False
+        self._stats_layout_applied_key = None
+        self._maximize_layout_refreshed = False
+
+        def _apply_maximize_layout():
+            self._apply_content_viewport_mode(force=True)
+            if self._is_page_active("Stats"):
+                self._apply_stats_viewport_balance()
+            if self._dynamic_resize_enabled():
+                self._schedule_window_state_refresh(delay_ms=120)
+
+        self.root.after_idle(_apply_maximize_layout)
 
     def create_gui(self):
         """Build the main GUI layout with sidebar navigation"""
@@ -3385,8 +5376,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             sidebar, highlightthickness=0, bd=0, bg="#1f1f1f"
         )
         self.sidebar_bg_canvas.place(x=0, y=0, relwidth=1, relheight=1)
-        # Bind resize to refresh bg image scaling
-        sidebar.bind("<Configure>", lambda e: self.root.after_idle(self._refresh_sidebar_background))
+        # Sidebar bg is refreshed on load and when the user picks an image (not on every resize).
 
         # Hamburger menu button at the top of the sidebar (small, like bottom toolbar buttons)
         self.hamburger_btn = ctk.CTkButton(
@@ -3568,25 +5558,33 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         )
         self.cloud_sync_status_label.pack(side="bottom", fill="x", padx=10, pady=(0, 6))
 
-        # Main content area
-        self.content = ctk.CTkFrame(self.root)
-        self.content.pack(side="right", fill="both", expand=True, padx=10, pady=10)
+        # Main content area — horizontal/vertical scroll when window is not maximized.
+        self._build_content_viewport()
 
-        # Build all pages
+        # Build pages (Stats only at startup when LAZY_PAGE_BUILD is enabled).
         self.build_stats_page()
-        self.build_inventory_page()
-        self.build_combat_page()
-        self.build_spells_page()
-        self.build_buffs_page()
-        self.build_feats_page()
-        self.build_description_page()
+        if LAZY_PAGE_BUILD:
+            self._lazy_pages_built = {"Stats"}
+            self._mark_stats_layout_built()
+        else:
+            self.build_inventory_page()
+            self.build_combat_page()
+            self.build_spells_page()
+            self.build_buffs_page()
+            self.build_feats_page()
+            self.build_description_page()
+            self._mark_all_content_pages_built()
 
-        self._mount_all_content_pages_placed()
-        self._mark_all_content_pages_built()
+        if not SINGLE_ACTIVE_PAGE_MOUNT:
+            self._mount_all_content_pages_placed()
         self.switch_page("Stats")
+        if self._is_portrait_monitor_layout():
+            self.root.after_idle(self._apply_portrait_monitor_layout)
+        self.root.after_idle(self._finalize_content_viewport_after_build)
         self._refresh_sidebar_background()
         self._refresh_sb_portrait()
         self._bind_sidebar_chat_shortcuts()
+        self._ensure_move_suspend_shell()
         print("✅ GUI created successfully with all pages")
 
     @staticmethod
@@ -3605,6 +5603,17 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
     def _drain_ui_callback_queue(self):
         if self._closing:
+            self._ui_queue_draining = False
+            return
+        if self._layout_updates_paused():
+            root = getattr(self, "root", None)
+            if root is not None:
+                try:
+                    if root.winfo_exists():
+                        self.root.after(50, self._drain_ui_callback_queue)
+                        return
+                except (RuntimeError, tk.TclError):
+                    pass
             self._ui_queue_draining = False
             return
         root = getattr(self, "root", None)
@@ -5387,59 +7396,153 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
     def _skill_display_name(self, skill_key):
         return self._abbreviate_skill_name(self._skill_full_display_name(skill_key))
 
-    def _configure_skills_row_grid(self, row):
-        for col, width in enumerate(SKILLS_COLUMN_WIDTHS):
-            if col == 0:
-                row.grid_columnconfigure(col, minsize=width, weight=1)
-            else:
-                row.grid_columnconfigure(col, minsize=width, weight=0)
+    def _skills_column_table_width(self, widths=None):
+        """Pixel width of the skills grid (columns + cell padding)."""
+        widths = widths or self._skills_active_column_widths()
+        return sum(widths) + len(widths) * SKILLS_CELL_PADX * 2
+
+    def _skills_active_column_widths(self):
+        """Column widths for the Stats Skills panel (name 250px; others split the rest of 500px)."""
+        if self._is_portrait_monitor_layout():
+            return SKILLS_COLUMN_WIDTHS
+        scale = float(getattr(self, "_ui_scale", 1.0) or 1.0)
+        try:
+            panel_w = self._stats_landscape_panel_widths()["skills"] - 16
+        except Exception:
+            panel_w = int(STATS_SKILLS_PANEL_WIDTH * scale) - 16
+        grid_pad = len(SKILLS_COLUMN_WIDTHS) * SKILLS_CELL_PADX * 2
+        scrollbar = SKILLS_SCROLLBAR_PAD
+        usable = max(280, panel_w - grid_pad - scrollbar)
+        name_w = max(120, int(STATS_SKILLS_NAME_COLUMN_WIDTH * scale))
+        name_w = min(name_w, max(160, usable - 120))
+        remaining = max(84, usable - name_w)
+        other_count = len(SKILLS_COLUMN_WIDTHS) - 1
+        base = remaining // other_count
+        extra = remaining % other_count
+        other_widths = tuple(
+            base + (1 if idx < extra else 0) for idx in range(other_count)
+        )
+        return (name_w,) + other_widths
+
+    def _configure_skills_row_grid(self, row, widths=None):
+        widths = widths or self._skills_active_column_widths()
+        for col, width in enumerate(widths):
+            row.grid_columnconfigure(col, minsize=width, weight=0)
 
     def _content_inner_width(self):
+        if self._use_fixed_content_layout():
+            w, _ = self._content_layout_dimensions()
+            return max(400, int(w) - CONTENT_PAD_X)
         try:
             return max(400, self.content.winfo_width() - CONTENT_PAD_X)
         except Exception:
             return 800
 
     def _skills_table_target_width(self):
-        if self._skills_popout_is_open():
-            for widget in (
-                getattr(self, "_skills_popout_body", None),
-                getattr(self, "_skills_popout_popup", None),
-                getattr(self, "_skills_content_host", None),
-            ):
-                if widget and self._widget_is_alive(widget):
-                    try:
-                        frame_w = widget.winfo_width()
-                        if frame_w > 80:
-                            return max(SKILLS_MIN_TABLE_WIDTH, frame_w - 24)
-                    except Exception:
-                        pass
-        if hasattr(self, "skills_frame") and self.skills_frame.winfo_exists():
+        """Width of skill rows/header — always matches column layout, never the parent frame."""
+        return self._skills_column_table_width()
+
+    def _skills_scroll_reserved_chrome_height(self):
+        """Vertical space above the skills list viewport (title, legend, header, padding)."""
+        reserved = SKILLS_HEADER_HEIGHT + 12
+        title_row = getattr(self, "skills_title_row", None)
+        if title_row and self._widget_is_alive(title_row):
             try:
-                frame_w = self.skills_frame.winfo_width()
-                if frame_w > 80:
-                    return max(SKILLS_MIN_TABLE_WIDTH, frame_w - 16)
+                reserved += int(title_row.winfo_height())
             except Exception:
                 pass
-        return max(SKILLS_MIN_TABLE_WIDTH, self._stats_main_column_width() - 16)
+        legend = getattr(self, "skills_legend_label", None)
+        if legend and self._widget_is_alive(legend):
+            try:
+                reserved += int(legend.winfo_height()) + 6
+            except Exception:
+                pass
+        return reserved
+
+    def _skills_scroll_height_from_features_alignment(self):
+        """Cap skills viewport using Features panel height (same grid band, reliable bottom)."""
+        features_panel = getattr(self, "_stats_features_panel", None)
+        if not features_panel or not self._widget_is_alive(features_panel):
+            return None
+        try:
+            panel_h = int(features_panel.winfo_height())
+            if panel_h < 100:
+                return None
+            return max(120, panel_h - self._skills_scroll_reserved_chrome_height())
+        except Exception:
+            return None
 
     def _skills_scroll_target_height(self):
-        if self._skills_popout_is_open():
-            popup = getattr(self, "_skills_popout_popup", None)
-            if popup and self._widget_is_alive(popup):
-                try:
-                    return max(300, popup.winfo_height() - 160)
-                except Exception:
-                    pass
+        """Viewport height = skills panel minus title, legend, and column header."""
+        scale = float(getattr(self, "_ui_scale", 1.0) or 1.0)
+        fallback = int(STATS_SKILLS_SCROLL_HEIGHT * scale)
+        reserved = self._skills_scroll_reserved_chrome_height()
+        skills_panel = (
+            getattr(self, "_stats_skills_panel", None)
+            or getattr(self, "skills_frame", None)
+        )
+        if skills_panel and self._widget_is_alive(skills_panel):
+            try:
+                panel_h = int(skills_panel.winfo_height())
+                if panel_h > reserved + 100:
+                    result = max(120, panel_h - reserved)
+                    aligned = self._skills_scroll_height_from_features_alignment()
+                    if aligned is not None:
+                        result = min(result, aligned)
+                    if not self._dynamic_resize_enabled():
+                        self._fixed_skills_scroll_height = result
+                    return result
+            except Exception:
+                pass
+        content_host = getattr(self, "_skills_content_host", None)
+        if content_host and self._widget_is_alive(content_host):
+            try:
+                host_h = int(content_host.winfo_height())
+                host_reserved = SKILLS_HEADER_HEIGHT + 10
+                legend = getattr(self, "skills_legend_label", None)
+                if legend and self._widget_is_alive(legend):
+                    host_reserved += int(legend.winfo_height()) + 6
+                if host_h > host_reserved + 100:
+                    result = max(120, host_h - host_reserved)
+                    aligned = self._skills_scroll_height_from_features_alignment()
+                    if aligned is not None:
+                        result = min(result, aligned)
+                    if not self._dynamic_resize_enabled():
+                        self._fixed_skills_scroll_height = result
+                    return result
+            except Exception:
+                pass
+        aligned = self._skills_scroll_height_from_features_alignment()
+        if aligned is not None:
+            if not self._dynamic_resize_enabled():
+                self._fixed_skills_scroll_height = aligned
+            return aligned
+        cached = getattr(self, "_fixed_skills_scroll_height", None)
+        if cached is not None and not self._dynamic_resize_enabled():
+            return int(cached)
         try:
             root_h = self.root.winfo_height()
-            # Reserve space for title bar, top fields, class/health, and chrome.
-            available = root_h - 340
-            return max(220, min(720, available))
+            if self._is_portrait_monitor_layout():
+                reserved_root = int(
+                    (PORTRAIT_ABILITIES_BAND_HEIGHT + PORTRAIT_DEFENSE_BAND_HEIGHT + 520) * scale,
+                )
+                return max(int(PORTRAIT_SKILLS_MIN_HEIGHT * scale), root_h - reserved_root)
+            available = (root_h // 2) - 40
+            result = max(220, min(fallback, available))
+            self._fixed_skills_scroll_height = result
+            return result
         except Exception:
-            return 480
+            self._fixed_skills_scroll_height = fallback
+            return fallback
 
     def _on_root_configure(self, event=None):
+        if not getattr(self, "_root_layout_configure_hook_installed", False):
+            if getattr(self, "_disable_dynamic_resize", DISABLE_DYNAMIC_RESIZE):
+                return
+        if self._layout_updates_paused():
+            return
+        if getattr(self, "_disable_dynamic_resize", False):
+            return
         if event is not None and event.widget is not self.root:
             return
         if getattr(self, "_rebuilding_ui", False):
@@ -5452,6 +7555,8 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
     def _apply_responsive_layout(self):
         self._layout_resize_timer = None
+        if not self._dynamic_resize_enabled():
+            return
         try:
             if self._is_page_active("Stats"):
                 self._apply_stats_page_layout()
@@ -5461,50 +7566,301 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             pass
 
     def _stats_main_column_width(self):
-        """Planned width for each Stats main_row column (Abilities / Defense / Skills)."""
-        content_w = self._content_inner_width()
-        usable = max(480, content_w - 48)
-        return max(150, usable // 3)
+        """Fallback min width for Stats main_row columns during initial build."""
+        if self._is_portrait_monitor_layout():
+            content_w = self._content_inner_width()
+            return max(150, (max(480, content_w - 48)) // 3)
+        scale = float(getattr(self, "_ui_scale", 1.0) or 1.0)
+        usable = self._stats_main_row_usable_width()
+        fixed = self._stats_landscape_fixed_columns_width()
+        ceiling = max(self._stats_abilities_content_width(), int(STATS_ABILITIES_PANEL_MIN_WIDTH * scale))
+        return min(ceiling, max(self._stats_abilities_content_width(), usable - fixed))
+
+    def _stats_column_weights(self):
+        """Legacy weight tuple kept for layout cache keys (portrait only)."""
+        if self._is_portrait_monitor_layout():
+            return (1, 1, 1)
+        widths = self._stats_landscape_panel_widths()
+        return (
+            1,
+            widths["defense"],
+            widths["features"],
+            widths["skills"],
+        )
+
+    def _get_class_feature_tracker_key(self, cls_name, feat_name):
+        return f"class_feature|{cls_name}|{feat_name}"
+
+    def _stats_pin_id_for_class_feature(self, cls_name, feat_name):
+        return f"class|{cls_name}|{feat_name}"
+
+    def _stats_pin_id_for_custom_feature(self, feat_index):
+        return f"custom|{int(feat_index)}"
+
+    def _parse_stats_pin_id(self, pin_id):
+        parts = str(pin_id or "").split("|", 2)
+        if len(parts) < 2:
+            return None
+        kind = parts[0]
+        if kind == "class" and len(parts) == 3:
+            return {"kind": "class", "cls_name": parts[1], "feat_name": parts[2]}
+        if kind == "custom":
+            try:
+                return {"kind": "custom", "feat_index": int(parts[1])}
+            except (TypeError, ValueError):
+                return None
+        return None
+
+    def _is_stats_feature_pinned(self, pin_id):
+        return pin_id in (self.data.get("stats_pinned_features") or [])
+
+    def _toggle_stats_feature_pin(self, pin_id):
+        pins = self.data.setdefault("stats_pinned_features", [])
+        if pin_id in pins:
+            pins.remove(pin_id)
+        else:
+            pins.append(pin_id)
+        self._mark_cloud_sync_dirty()
+        self._rebuild_stats_features_widget()
+        self._apply_stats_page_layout(force=True)
+
+    def _bind_stats_feature_pin(self, widget, pin_id):
+        bound = getattr(self, "_stats_feature_pin_bound", None)
+        if bound is None:
+            self._stats_feature_pin_bound = set()
+
+        def on_click(event):
+            if not (event.state & 0x1):
+                return
+            self._toggle_stats_feature_pin(pin_id)
+            return "break"
+
+        widget_id = id(widget)
+        if widget_id not in self._stats_feature_pin_bound:
+            widget.bind("<Button-1>", on_click, add="+")
+            self._stats_feature_pin_bound.add(widget_id)
+
+        if hasattr(self, "_bind_hover_tooltip"):
+            pinned = self._is_stats_feature_pinned(pin_id)
+            hint = (
+                "Shift+click to unpin from Stats Features."
+                if pinned
+                else "Shift+click to pin to Stats Features panel."
+            )
+            self._bind_hover_tooltip(widget, hint, wraplength=280)
+
+    def _resolve_pinned_class_feature(self, cls_name, feat_name):
+        features = self._get_unlocked_class_features(cls_name)
+        for key, feat in features.items():
+            if feat.get("name") == feat_name or key == feat_name:
+                return feat, self._get_class_level(cls_name)
+        return None, 0
+
+    def _register_linked_switch(self, registry_name, key, switch):
+        registry = getattr(self, registry_name, None)
+        if registry is None:
+            registry = {}
+            setattr(self, registry_name, registry)
+        widgets = registry.get(key)
+        if widgets is None:
+            registry[key] = [switch]
+        elif isinstance(widgets, list):
+            if switch not in widgets:
+                widgets.append(switch)
+        else:
+            registry[key] = [widgets, switch] if widgets is not switch else [switch]
+
+    def _iter_linked_switches(self, registry_name, key):
+        registry = getattr(self, registry_name, {})
+        widgets = registry.get(key)
+        if widgets is None:
+            return
+        if isinstance(widgets, list):
+            for widget in widgets:
+                if widget is not None:
+                    yield widget
+        elif widgets is not None:
+            yield widgets
+
+    def _sync_linked_switches(self, registry_name, key, active, source=None):
+        for switch in self._iter_linked_switches(registry_name, key):
+            if switch is source:
+                continue
+            try:
+                if active:
+                    switch.select()
+                else:
+                    switch.deselect()
+            except Exception:
+                pass
+
+    def _register_fiendish_resilience_var(self, var):
+        if not hasattr(self, "fiendish_resilience_vars"):
+            self.fiendish_resilience_vars = []
+        if var not in self.fiendish_resilience_vars:
+            self.fiendish_resilience_vars.append(var)
+
+    def _rebuild_stats_features_widget(self):
+        scroll = getattr(self, "_stats_features_scroll", None)
+        if not scroll or not self._widget_is_alive(scroll):
+            return
+        for child in scroll.winfo_children():
+            child.destroy()
+
+        pins = list(self.data.get("stats_pinned_features") or [])
+        wrap = max(220, int(STATS_FEATURES_PANEL_WIDTH * float(getattr(self, "_ui_scale", 1.0) or 1.0)) - 28)
+        if not pins:
+            ctk.CTkLabel(
+                scroll,
+                text="Shift+click a feature on Feats & Features to pin it here.",
+                font=ctk.CTkFont(size=11),
+                text_color="#888888",
+                wraplength=wrap,
+                justify="left",
+            ).pack(anchor="w", padx=8, pady=8)
+            return
+
+        for pin_id in pins:
+            parsed = self._parse_stats_pin_id(pin_id)
+            if not parsed:
+                continue
+            if parsed["kind"] == "class":
+                self._build_stats_pinned_class_feature_card(
+                    scroll, parsed["cls_name"], parsed["feat_name"], pin_id,
+                )
+            elif parsed["kind"] == "custom":
+                idx = parsed["feat_index"]
+                customs = self.data.get("custom_features", [])
+                if 0 <= idx < len(customs):
+                    self._build_stats_pinned_custom_feature_card(
+                        scroll, customs[idx], idx, pin_id,
+                    )
+
+    def _build_stats_pinned_class_feature_card(self, parent, cls_name, feat_name, pin_id):
+        feat, class_level = self._resolve_pinned_class_feature(cls_name, feat_name)
+        if not feat:
+            return
+        frame = ctk.CTkFrame(parent, fg_color="#2F2F2F")
+        frame.pack(fill="x", pady=4, padx=4)
+
+        title_row = ctk.CTkFrame(frame, fg_color="transparent")
+        title_row.pack(fill="x", padx=8, pady=(6, 2))
+        ctk.CTkLabel(
+            title_row, text=feat_name, font=ctk.CTkFont(size=12, weight="bold"),
+        ).pack(side="left", anchor="w")
+        self._bind_stats_feature_pin(title_row, pin_id)
+
+        if self._should_show_daily_tracker(feat):
+            self._build_daily_use_tracker(
+                frame, cls_name, feat_name, feat, class_level, compact=True,
+            )
+        if feat.get("rage_toggle"):
+            self._build_rage_active_toggle(frame, cls_name, feat_name, compact=True)
+        if feat.get("fast_healing_toggle") and cls_name == "Warlock":
+            self._build_fiendish_resilience_toggle(frame, feat, compact=True)
+        if feat.get("wild_shape_toggle"):
+            self._build_wild_shape_active_toggle(frame, cls_name, feat_name, compact=True)
+
+        max_charges = int(feat.get("max_charges") or 0)
+        override_key = self._class_feature_description_override_key(cls_name, feat_name)
+        custom_desc = self._get_feature_description_override(override_key)
+        if custom_desc:
+            override_abilities = self._get_custom_magic_item_abilities(
+                feat_name, {"description": custom_desc},
+            )
+            max_charges = max(
+                max_charges,
+                int(override_abilities.get("max_charges") or 0),
+            )
+            uses_per_day = int(override_abilities.get("uses_per_day") or 0)
+            if uses_per_day > 0:
+                tracker_key = self._get_class_feature_tracker_key(cls_name, feat_name)
+                self._build_magic_item_daily_tracker(frame, tracker_key, uses_per_day)
+        if max_charges > 0:
+            tracker_key = self._get_class_feature_tracker_key(cls_name, feat_name)
+            self._build_magic_item_charge_tracker(
+                frame, tracker_key, max_charges, compact=True,
+            )
+
+        self._build_class_feature_healing_pool_if_applicable(
+            frame, cls_name, feat_name, compact=True,
+        )
+
+    def _build_stats_pinned_custom_feature_card(self, parent, feat, feat_index, pin_id):
+        frame = ctk.CTkFrame(parent, fg_color="#2F2F2F")
+        frame.pack(fill="x", pady=4, padx=4)
+
+        title_row = ctk.CTkFrame(frame, fg_color="transparent")
+        title_row.pack(fill="x", padx=8, pady=(6, 2))
+        ctk.CTkLabel(
+            title_row,
+            text=feat.get("name", "Custom Feature"),
+            font=ctk.CTkFont(size=12, weight="bold"),
+        ).pack(side="left", anchor="w")
+        self._bind_stats_feature_pin(title_row, pin_id)
+
+        uses = int(feat.get("uses_per_day") or feat.get("per_day", 0) or 0)
+        if uses > 0:
+            key = self._get_custom_feature_daily_key(feat)
+            self._build_simple_daily_tracker(frame, key, uses, feat.get("name", ""), compact=True)
+
+        max_charges = int(feat.get("max_charges", 0) or 0)
+        if max_charges > 0:
+            key = self._get_custom_feature_daily_key(feat)
+            self._build_magic_item_charge_tracker(frame, key, max_charges, compact=True)
+
+        template = self._get_special_feature_template(feat)
+        if template and template.get("type") == "form_toggle":
+            self._build_special_feature_form_toggle(
+                frame, feat, template, feat_index, compact=True,
+            )
 
     def _apply_stats_column_layout(self):
-        main_row = getattr(self, "main_row", None)
-        if not main_row:
+        if self._is_portrait_monitor_layout():
+            self._apply_portrait_monitor_layout()
             return
-        try:
-            if not main_row.winfo_exists():
-                return
-        except Exception:
-            return
-        col_w = self._stats_main_column_width()
-        for idx in range(3):
-            main_row.columnconfigure(idx, weight=1, minsize=col_w)
+        self._apply_landscape_stats_layout()
 
     def _apply_stats_page_layout(self, *, force=False):
-        """Apply Stats top-bar and three-column layout synchronously."""
+        """Apply Stats top-bar and bottom-half four-column layout synchronously."""
         if not force and getattr(self, "_rebuilding_ui", False):
             return
+        if self._layout_updates_paused() and not force:
+            self._pending_window_state_refresh = True
+            return
+        if not force:
+            try:
+                if self._dynamic_resize_enabled():
+                    layout_key = (
+                        self._layout_profile(),
+                        int(self.root.winfo_width()),
+                        int(self.root.winfo_height()),
+                        int(self._content_inner_width()),
+                        tuple(self._stats_column_weights()),
+                    )
+                else:
+                    layout_key = (
+                        self._layout_profile(),
+                        "fixed-layout",
+                        tuple(self._stats_column_weights()),
+                    )
+                if layout_key == getattr(self, "_stats_layout_applied_key", None):
+                    return
+            except Exception:
+                layout_key = None
+        else:
+            layout_key = None
         try:
             self.root.update_idletasks()
         except Exception:
             pass
         try:
             self._apply_stats_top_layout()
-            if not self._skills_popout_is_open():
-                self._apply_stats_column_layout()
-                if hasattr(self, "skills_scroll"):
-                    try:
-                        if self.skills_scroll.winfo_exists():
-                            target_h = self._skills_scroll_target_height()
-                            self.skills_scroll.configure(height=target_h)
-                    except tk.TclError:
-                        pass
-                if hasattr(self, "_skills_canvas"):
-                    try:
-                        if self._skills_canvas.winfo_exists():
-                            self._sync_skills_canvas_width()
-                    except tk.TclError:
-                        pass
+            self._apply_stats_column_layout()
+            self._refresh_skills_scroll_geometry()
             self._mark_stats_layout_built()
+            if layout_key is not None:
+                self._stats_layout_applied_key = layout_key
         except Exception:
             pass
 
@@ -5572,6 +7928,10 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 pass
 
     def _schedule_stats_top_layout(self, _event=None):
+        if self._layout_updates_paused():
+            return
+        if getattr(self, "_disable_dynamic_resize", False):
+            return
         if getattr(self, "_rebuilding_ui", False):
             return
         if getattr(self, "_stats_top_layout_timer", None) is not None:
@@ -5579,9 +7939,21 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 self.root.after_cancel(self._stats_top_layout_timer)
             except Exception:
                 pass
-        self._stats_top_layout_timer = self.root.after(80, self._apply_stats_top_layout)
+        self._stats_top_layout_timer = self.root.after(
+            CONFIGURE_HANDLER_DEBOUNCE_MS, self._apply_stats_top_layout,
+        )
 
     def _apply_stats_top_layout(self):
+        if self._layout_updates_paused():
+            return
+        if getattr(self, "_disable_dynamic_resize", False):
+            return
+        with self._resize_configure_guard() as may_run:
+            if not may_run:
+                return
+            self._apply_stats_top_layout_inner()
+
+    def _apply_stats_top_layout_inner(self):
         top = getattr(self, "stats_top_frame", None)
         widgets = getattr(self, "stats_top_field_widgets", None)
         if not top or not widgets:
@@ -5593,7 +7965,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             return
         self._stats_top_layout_timer = None
         try:
-            top.update_idletasks()
+            self._safe_update_idletasks(top)
             total_w = top.winfo_width()
             if total_w < 320:
                 total_w = self._content_inner_width()
@@ -5617,21 +7989,13 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             pass
 
     def _sync_skills_canvas_width(self):
-        canvas = getattr(self, "_skills_canvas", None)
-        inner = getattr(self, "_skills_canvas_inner", None)
-        window_id = getattr(self, "_skills_canvas_window_id", None)
-        if not canvas or not inner or window_id is None:
-            return
-        try:
-            target_w = self._skills_table_target_width()
-            canvas.itemconfig(window_id, width=target_w)
-            inner.configure(width=target_w)
-            canvas.configure(scrollregion=(0, 0, target_w, inner.winfo_reqheight()))
-            sync = getattr(self, "_sync_skills_h_scrollbar", None)
-            if callable(sync):
-                sync()
-        except Exception:
-            pass
+        """Legacy hook — horizontal skills canvas removed; refresh list width only."""
+        virtual = getattr(self, "_skills_virtual_list", None)
+        if virtual and self._widget_is_alive(virtual):
+            try:
+                virtual.set_content_width(self._skills_column_table_width())
+            except Exception:
+                pass
 
     def _grid_skills_cell(self, widget, col):
         anchor = "center" if col in SKILLS_NUMERIC_COLUMNS else "w"
@@ -5642,12 +8006,12 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         elif isinstance(widget, ctk.CTkEntry) and col in SKILLS_NUMERIC_COLUMNS:
             widget.configure(justify="center")
 
+    def _is_skill_specialty_row(self, skill_key):
+        _, index = self._parse_skill_row_key(skill_key)
+        return index is not None
+
     def _skill_name_column_text(self, skill_key):
         full_name = self._skill_full_display_name(skill_key)
-        base, index = self._parse_skill_row_key(skill_key)
-        if index is not None:
-            class_marker = full_name.endswith("*")
-            return self._abbreviate_skill_name(f"{base}*" if class_marker else base)
         return self._abbreviate_skill_name(full_name)
 
     def _update_skill_name_label(self, skill_key, name_lbl):
@@ -5684,6 +8048,10 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
     def _apply_skills_sort_order(self):
         if not hasattr(self, "skills_scroll") or not getattr(self, "skill_vars", None):
             return
+        virtual = getattr(self, "_skills_virtual_list", None)
+        if self._virtual_skills_list_enabled() and virtual and self._widget_is_alive(virtual):
+            virtual.set_items(self._ordered_skill_specs(), preserve_scroll=True)
+            return
         if self._skills_sort_by_rank_enabled():
             ordered_keys = sorted(self.skill_vars.keys(), key=self._skill_sort_key)
         else:
@@ -5705,13 +8073,20 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         self._apply_skills_row_striping()
 
     def _apply_skills_row_striping(self):
-        scroll = getattr(self, "skills_scroll", None)
-        if not scroll or not self._widget_is_alive(scroll):
-            return
-        try:
-            rows = list(scroll.winfo_children())
-        except Exception:
-            return
+        virtual = getattr(self, "_skills_virtual_list", None)
+        if self._virtual_skills_list_enabled() and virtual and self._widget_is_alive(virtual):
+            try:
+                rows = virtual.winfo_children_list()
+            except Exception:
+                return
+        else:
+            scroll = getattr(self, "skills_scroll", None)
+            if not scroll or not self._widget_is_alive(scroll):
+                return
+            try:
+                rows = list(scroll.winfo_children())
+            except Exception:
+                return
         for row_idx, row in enumerate(rows):
             try:
                 row.configure(
@@ -5720,35 +8095,6 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             except Exception:
                 pass
 
-    def _skills_popout_is_open(self):
-        popup = getattr(self, "_skills_popout_popup", None)
-        return popup is not None and self._widget_is_alive(popup)
-
-    def _bind_skills_title_shift_popout(self, widget):
-        if widget is None or getattr(widget, "_skills_title_popout_bound", False):
-            return
-        try:
-            widget.configure(cursor="hand2")
-        except Exception:
-            pass
-
-        def on_click(event):
-            if event.state & 0x0001:
-                if self._skills_popout_is_open():
-                    self._close_skills_popout()
-                else:
-                    self._open_skills_popout()
-                return "break"
-
-        widget.bind("<Button-1>", on_click, add="+")
-        widget._skills_title_popout_bound = True
-        if hasattr(self, "_bind_hover_tooltip"):
-            self._bind_hover_tooltip(
-                widget,
-                "Shift+click to open skills in a larger pop-out window.",
-                wraplength=280,
-            )
-
     def _purge_skills_widget_registry(self):
         registry = getattr(self, "widget_registry", None)
         if not isinstance(registry, dict):
@@ -5756,6 +8102,197 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         for key in list(registry.keys()):
             if str(key).startswith("skill_"):
                 registry.pop(key, None)
+
+    def _skill_key_from_row_spec(self, spec):
+        row_kind, row_index, _ability_key, _display_base = spec
+        if row_index is None:
+            return row_kind
+        return self._skill_specialty_key(row_kind, row_index)
+
+    def _ordered_skill_specs(self):
+        specs = list(self._skill_rows_for_ui())
+        if not getattr(self, "skill_vars", None):
+            return specs
+        if self._skills_sort_by_rank_enabled():
+            keys = sorted(self.skill_vars.keys(), key=self._skill_sort_key)
+            key_to_spec = {self._skill_key_from_row_spec(s): s for s in specs}
+            ordered = [key_to_spec[k] for k in keys if k in key_to_spec]
+            for spec in specs:
+                if spec not in ordered:
+                    ordered.append(spec)
+            return ordered
+        order = []
+        seen = set()
+        for key in getattr(self, "_skills_default_order", []):
+            for spec in specs:
+                sk = self._skill_key_from_row_spec(spec)
+                if sk == key and spec not in seen:
+                    order.append(spec)
+                    seen.add(spec)
+        for spec in specs:
+            if spec not in seen:
+                order.append(spec)
+        return order
+
+    def _clear_virtual_skill_ui_refs(self, skill_key):
+        """Drop recycled row widgets from a skill that scrolled off-screen."""
+        info = getattr(self, "skill_vars", {}).get(skill_key)
+        if not info:
+            return
+        for attr in ("row", "name_lbl", "rank_lbl", "mod_lbl", "total_lbl"):
+            info[attr] = None
+
+    def _ensure_skill_var_entry(self, skill_key, spec):
+        if skill_key in self.skill_vars:
+            return self.skill_vars[skill_key]
+        _row_kind, row_index, ability_key, display_base = spec
+        saved_rank = self._format_skill_rank_display(
+            skill_key, self._get_skill_rank_value(skill_key),
+        )
+        rank_var = ctk.StringVar(value=saved_rank)
+        misc_var = ctk.StringVar(value=str(self.data.get(f"skill_{skill_key}_misc", "0") or "0"))
+        syn_var = ctk.StringVar(value=str(self.data.get(f"skill_{skill_key}_syn", "0") or "0"))
+        self.register_widget(f"skill_{skill_key}_rank", rank_var)
+        misc_var.trace_add("write", self._trace_refresh)
+        syn_var.trace_add("write", self._trace_refresh)
+        self.register_widget(f"skill_{skill_key}_misc", misc_var)
+        self.register_widget(f"skill_{skill_key}_syn", syn_var)
+        info = {
+            "row": None,
+            "name_lbl": None,
+            "rank": rank_var,
+            "rank_lbl": None,
+            "mod_lbl": None,
+            "misc": misc_var,
+            "syn": syn_var,
+            "total_lbl": None,
+            "ability_key": ability_key,
+        }
+        self.skill_vars[skill_key] = info
+        if skill_key not in self._skills_default_order:
+            self._skills_default_order.append(skill_key)
+        if row_index is not None:
+            cfg = SKILL_SPECIALTY_CONFIG[display_base]
+            default_type = self.data["skill_specialties"].get(
+                skill_key, cfg["defaults"][min(row_index, len(cfg["defaults"]) - 1)],
+            )
+            self.data["skill_specialties"].setdefault(skill_key, default_type)
+        return info
+
+    def _create_virtual_skill_slot(self, parent, _slot_index, _spec):
+        row = parent
+        col_w = self._skills_active_column_widths()
+        self._configure_skills_row_grid(row, col_w)
+        name_lbl = ctk.CTkLabel(row, text="", width=col_w[0], anchor="w")
+        self._grid_skills_cell(name_lbl, 0)
+        total_lbl = ctk.CTkLabel(row, text="+0", width=col_w[1])
+        self._grid_skills_cell(total_lbl, 1)
+        abil_lbl = ctk.CTkLabel(
+            row, text="", width=col_w[2], anchor="center",
+        )
+        self._grid_skills_cell(abil_lbl, 2)
+        rank_lbl = ctk.CTkLabel(
+            row, text="", width=col_w[3], anchor="center",
+        )
+        self._grid_skills_cell(rank_lbl, 3)
+        mod_lbl = ctk.CTkLabel(row, text="+0", width=col_w[4])
+        self._grid_skills_cell(mod_lbl, 4)
+        misc_entry = ctk.CTkEntry(
+            row, width=col_w[5], justify="center",
+        )
+        self._grid_skills_cell(misc_entry, 5)
+        syn_entry = ctk.CTkEntry(
+            row, width=col_w[6], justify="center",
+        )
+        self._grid_skills_cell(syn_entry, 6)
+        return {
+            "row": row,
+            "name_lbl": name_lbl,
+            "total_lbl": total_lbl,
+            "abil_lbl": abil_lbl,
+            "rank_lbl": rank_lbl,
+            "mod_lbl": mod_lbl,
+            "misc_entry": misc_entry,
+            "syn_entry": syn_entry,
+            "_bound_skill_key": None,
+        }
+
+    def _bind_virtual_skill_slot(self, slot, item_index, spec):
+        if spec is None:
+            return
+        skill_key = self._skill_key_from_row_spec(spec)
+        prev_key = slot.get("_bound_skill_key")
+        if prev_key == skill_key:
+            try:
+                slot["row"].configure(
+                    fg_color=THEME_SKILLS_ROW_ALT if item_index % 2 else "transparent",
+                )
+            except Exception:
+                pass
+            return
+
+        row_kind, row_index, ability_key, display_base = spec
+        info = self._ensure_skill_var_entry(skill_key, spec)
+        if prev_key and prev_key != skill_key:
+            self._clear_virtual_skill_ui_refs(prev_key)
+        slot["_bound_skill_key"] = skill_key
+        row = slot["row"]
+        info["row"] = row
+        info["name_lbl"] = slot["name_lbl"]
+        info["rank_lbl"] = slot["rank_lbl"]
+        info["mod_lbl"] = slot["mod_lbl"]
+        info["total_lbl"] = slot["total_lbl"]
+        self._update_skill_name_label(skill_key, slot["name_lbl"])
+        slot["abil_lbl"].configure(text=ability_key)
+        slot["rank_lbl"].configure(textvariable=info["rank"])
+        slot["misc_entry"].configure(textvariable=info["misc"])
+        slot["syn_entry"].configure(textvariable=info["syn"])
+        col_w = self._skills_active_column_widths()
+        slot["name_lbl"].configure(width=col_w[0])
+        slot["total_lbl"].configure(width=col_w[1])
+        slot["abil_lbl"].configure(width=col_w[2])
+        slot["rank_lbl"].configure(width=col_w[3])
+        slot["mod_lbl"].configure(width=col_w[4])
+        slot["misc_entry"].configure(width=col_w[5])
+        slot["syn_entry"].configure(width=col_w[6])
+        try:
+            row.configure(
+                fg_color=THEME_SKILLS_ROW_ALT if item_index % 2 else "transparent",
+            )
+        except Exception:
+            pass
+        slot["name_lbl"]._skill_name_click_bound = False
+        slot["total_lbl"]._skill_roll_click_bound = False
+        self._bind_skill_name_click(slot["name_lbl"], skill_key)
+        self._bind_skill_roll_click(slot["total_lbl"], skill_key)
+        self.recalc_skill(skill_key)
+
+    def _build_skills_virtual_list(self, skills_table):
+        row_height = 34
+        list_h = self._skills_scroll_target_height()
+        self._skills_scroll_host = ctk.CTkFrame(skills_table, fg_color="transparent")
+        self._skills_scroll_host.grid(row=1, column=0, sticky="nsew", pady=(2, 0))
+        self._skills_virtual_list = VirtualList(
+            self._skills_scroll_host,
+            row_height=row_height,
+            visible_rows=SKILLS_VIRTUAL_VISIBLE_ROWS,
+            canvas_bg=THEME_DARK_BG,
+            height=list_h,
+        )
+        self._skills_virtual_list.pack(fill="both", expand=True)
+        self.skills_scroll = self._skills_virtual_list
+        self._ensure_skill_specialties_data()
+        self._migrate_legacy_specialty_skills()
+        self._rebuild_class_skills_cache()
+        specs = self._skill_rows_for_ui()
+        for spec in specs:
+            self._ensure_skill_var_entry(self._skill_key_from_row_spec(spec), spec)
+        self._skills_virtual_list.configure_list(
+            self._ordered_skill_specs(),
+            row_factory=self._create_virtual_skill_slot,
+            row_binder=self._bind_virtual_skill_slot,
+            width=self._skills_column_table_width(),
+        )
 
     def _destroy_skills_content_host(self):
         """Destroy the skills table host and clear widget references."""
@@ -5772,56 +8309,117 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 pass
         self._skills_content_host = None
         self.skills_legend_label = None
+        self._skills_table_host = None
+        self._skills_scroll_host = None
+        self._skills_scroll_last_height = None
+        self._skills_table_header = None
+        self._skills_header_labels = []
+        self._skills_virtual_list = None
         self.skills_scroll = None
         self.skill_vars = {}
-        self.skill_specialty_combos = {}
         self._skills_default_order = []
-        for attr in (
-            "_skills_canvas",
-            "_skills_canvas_inner",
-            "_skills_canvas_window_id",
-            "_skills_hscroll_outer",
-            "_skills_h_scroll",
-            "_sync_skills_h_scrollbar",
-        ):
-            setattr(self, attr, None)
 
     def _build_skills_content_host(self, parent):
         """Build legend, header, and skill rows into the given parent frame."""
         self.skills_legend_label = ctk.CTkLabel(
             parent,
             text=(
-                "* class skill: 1 pt/rank, max = total HD (class + racial) + 3  |  "
-                "cross-class (no *): 2 pts/rank, max = (total HD + 3)/2 , ranks contribute 0.5× to Total + Abil + Misc + Syn"
+                "* class skill. Max Rank = HD +3" 
             ),
             font=ctk.CTkFont(size=11),
             text_color="#888888",
         )
         self.skills_legend_label.pack(anchor="w", padx=4, pady=(0, 4))
 
-        skills_table = self._create_skills_horizontal_scroll(parent)
+        skills_table = self._create_skills_table_host(parent)
+        self._skills_table_host = skills_table
+        skills_table.grid_rowconfigure(1, weight=1)
+        skills_table.grid_columnconfigure(0, weight=1)
 
-        skill_header = ctk.CTkFrame(skills_table, fg_color="transparent")
-        skill_header.pack(fill="x", pady=5)
-        self._configure_skills_row_grid(skill_header)
-        cols = ["Skill", "Type", "Total", "Abil", "Rank", "Mod", "Misc", "Syn"]
-        for col, (text, width) in enumerate(zip(cols, SKILLS_COLUMN_WIDTHS)):
+        table_w = self._skills_column_table_width()
+        header_container = ctk.CTkFrame(
+            skills_table,
+            fg_color="transparent",
+            width=table_w + SKILLS_SCROLLBAR_PAD,
+            height=SKILLS_HEADER_HEIGHT,
+        )
+        header_container.grid(row=0, column=0, sticky="nw", pady=(0, 2))
+        try:
+            header_container.grid_propagate(False)
+        except Exception:
+            pass
+        skill_header = ctk.CTkFrame(
+            header_container,
+            fg_color="transparent",
+            width=table_w,
+            height=SKILLS_HEADER_HEIGHT,
+        )
+        skill_header.pack(side="left", anchor="nw")
+        try:
+            skill_header.pack_propagate(False)
+        except Exception:
+            pass
+        ctk.CTkFrame(
+            header_container,
+            width=SKILLS_SCROLLBAR_PAD,
+            height=SKILLS_HEADER_HEIGHT,
+            fg_color="transparent",
+        ).pack(side="right", fill="y")
+        self._skills_table_header = skill_header
+        skill_col_w = self._skills_active_column_widths()
+        self._configure_skills_row_grid(skill_header, skill_col_w)
+        cols = ["Skill", "Total", "Abil", "Rank", "Mod", "Misc", "Syn"]
+        self._skills_header_labels = []
+        header_font = ctk.CTkFont(size=10)
+        for col, (text, width) in enumerate(zip(cols, skill_col_w)):
             header_lbl = ctk.CTkLabel(
-                skill_header, text=text, width=width if col else 0,
+                skill_header,
+                text=text,
+                width=width,
+                height=SKILLS_HEADER_HEIGHT,
+                font=header_font,
                 anchor="center" if col in SKILLS_NUMERIC_COLUMNS else "w",
             )
             self._grid_skills_cell(header_lbl, col)
+            self._skills_header_labels.append(header_lbl)
 
         self.skill_vars = {}
-        self.skill_specialty_combos = {}
-        self.skills_scroll = ctk.CTkScrollableFrame(
-            skills_table, height=self._skills_scroll_target_height(),
-        )
-        self.skills_scroll.pack(fill="both", expand=True)
         self._skills_default_order = []
-        self._ensure_skill_specialties_data()
-        self._migrate_legacy_specialty_skills()
-        self._rebuild_class_skills_cache()
+        if self._virtual_skills_list_enabled():
+            self._build_skills_virtual_list(skills_table)
+        else:
+            list_h = self._skills_scroll_target_height()
+            self._skills_scroll_host = ctk.CTkFrame(skills_table, fg_color="transparent")
+            self._skills_scroll_host.grid(
+                row=1, column=0, sticky="nsew", pady=(2, 0), padx=(0, 0),
+            )
+            self._skills_scroll_host.grid_rowconfigure(0, weight=1)
+            self._skills_scroll_host.grid_columnconfigure(0, weight=1)
+            self.skills_scroll = ctk.CTkScrollableFrame(
+                self._skills_scroll_host,
+                height=list_h,
+                fg_color="transparent",
+                scrollbar_button_color="#555555",
+                scrollbar_button_hover_color="#777777",
+            )
+            self.skills_scroll.grid(row=0, column=0, sticky="nsew", padx=(0, 4))
+            self._ensure_skill_specialties_data()
+            self._migrate_legacy_specialty_skills()
+            self._rebuild_class_skills_cache()
+        if self._virtual_skills_list_enabled():
+            self._apply_skills_lock_state()
+            self._refresh_skill_class_labels()
+            if not hasattr(self, "_skill_rank_previous"):
+                self._skill_rank_previous = {}
+            for skill_key in list(self.skill_vars.keys()):
+                self._skill_rank_previous[skill_key] = self._get_skill_rank_value(skill_key)
+            self._refresh_skill_tooltips()
+            self._update_skill_points_label()
+            self._skills_scroll_last_height = None
+            self.root.after_idle(self._refresh_skills_scroll_geometry)
+            return
+        self._skills_scroll_last_height = None
+        self.root.after_idle(self._refresh_skills_scroll_geometry)
         for row_idx, (row_kind, row_index, ability_key, display_base) in enumerate(
             self._skill_rows_for_ui(),
         ):
@@ -5830,75 +8428,58 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 fg_color=THEME_SKILLS_ROW_ALT if row_idx % 2 else "transparent",
             )
             row.pack(fill="x", pady=2)
-            self._configure_skills_row_grid(row)
+            self._configure_skills_row_grid(row, skill_col_w)
 
             if row_index is None:
                 skill_key = row_kind
-                name_lbl = ctk.CTkLabel(row, text="", anchor="w")
-                self._update_skill_name_label(skill_key, name_lbl)
-                self._grid_skills_cell(name_lbl, 0)
-                type_placeholder = ctk.CTkLabel(
-                    row, text="", width=SKILLS_COLUMN_WIDTHS[1], anchor="w",
-                )
-                self._grid_skills_cell(type_placeholder, 1)
             else:
                 skill_key = self._skill_specialty_key(row_kind, row_index)
-                cfg = SKILL_SPECIALTY_CONFIG[display_base]
-                name_lbl = ctk.CTkLabel(row, text="", anchor="w")
-                self._update_skill_name_label(skill_key, name_lbl)
-                self._grid_skills_cell(name_lbl, 0)
-                default_type = self.data["skill_specialties"].get(
-                    skill_key, cfg["defaults"][min(row_index, len(cfg["defaults"]) - 1)],
-                )
-                type_combo = ctk.CTkComboBox(
-                    row, values=list(cfg["options"]), width=SKILLS_COLUMN_WIDTHS[1],
-                    command=lambda _value, key=skill_key: self._on_skill_specialty_changed(key),
-                )
-                type_combo.set(default_type)
-                self._grid_skills_cell(type_combo, 1)
-                self.skill_specialty_combos[skill_key] = type_combo
+            name_lbl = ctk.CTkLabel(
+                row, text="", width=skill_col_w[0], anchor="w",
+            )
+            self._update_skill_name_label(skill_key, name_lbl)
+            self._grid_skills_cell(name_lbl, 0)
 
-            total_lbl = ctk.CTkLabel(row, text="+0", width=SKILLS_COLUMN_WIDTHS[2])
-            self._grid_skills_cell(total_lbl, 2)
+            total_lbl = ctk.CTkLabel(row, text="+0", width=skill_col_w[1])
+            self._grid_skills_cell(total_lbl, 1)
 
             abil_lbl = ctk.CTkLabel(
-                row, text=ability_key, width=SKILLS_COLUMN_WIDTHS[3], anchor="center",
+                row, text=ability_key, width=skill_col_w[2], anchor="center",
             )
-            self._grid_skills_cell(abil_lbl, 3)
+            self._grid_skills_cell(abil_lbl, 2)
 
             saved_rank = self._format_skill_rank_display(
                 skill_key, self._get_skill_rank_value(skill_key),
             )
             rank_var = ctk.StringVar(value=saved_rank)
             rank_lbl = ctk.CTkLabel(
-                row, textvariable=rank_var, width=SKILLS_COLUMN_WIDTHS[4], anchor="center",
+                row, textvariable=rank_var, width=skill_col_w[3], anchor="center",
             )
-            self._grid_skills_cell(rank_lbl, 4)
+            self._grid_skills_cell(rank_lbl, 3)
             self.register_widget(f"skill_{skill_key}_rank", rank_var)
 
-            mod_lbl = ctk.CTkLabel(row, text="+0", width=SKILLS_COLUMN_WIDTHS[5])
-            self._grid_skills_cell(mod_lbl, 5)
+            mod_lbl = ctk.CTkLabel(row, text="+0", width=skill_col_w[4])
+            self._grid_skills_cell(mod_lbl, 4)
 
             misc_var = ctk.StringVar(value="0")
             misc_entry = ctk.CTkEntry(
-                row, textvariable=misc_var, width=SKILLS_COLUMN_WIDTHS[6], justify="center",
+                row, textvariable=misc_var, width=skill_col_w[5], justify="center",
             )
-            self._grid_skills_cell(misc_entry, 6)
-            misc_var.trace("w", self._trace_refresh)
+            self._grid_skills_cell(misc_entry, 5)
+            misc_var.trace_add("write", self._trace_refresh)
             self.register_widget(f"skill_{skill_key}_misc", misc_var)
 
             syn_var = ctk.StringVar(value="0")
             syn_entry = ctk.CTkEntry(
-                row, textvariable=syn_var, width=SKILLS_COLUMN_WIDTHS[7], justify="center",
+                row, textvariable=syn_var, width=skill_col_w[6], justify="center",
             )
-            self._grid_skills_cell(syn_entry, 7)
-            syn_var.trace("w", self._trace_refresh)
+            self._grid_skills_cell(syn_entry, 6)
+            syn_var.trace_add("write", self._trace_refresh)
             self.register_widget(f"skill_{skill_key}_syn", syn_var)
 
             self.skill_vars[skill_key] = {
                 "row": row,
                 "name_lbl": name_lbl,
-                "type_combo": self.skill_specialty_combos.get(skill_key),
                 "rank": rank_var,
                 "rank_lbl": rank_lbl,
                 "mod_lbl": mod_lbl,
@@ -5921,175 +8502,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             self.recalc_skill(skill_key)
         self._refresh_skill_tooltips()
         self._update_skill_points_label()
-
-    def _skills_popout_relocate_title_controls(self, target_row, *, to_popout):
-        """Move lock/sort controls between the stats title row and the pop-out header."""
-        title_row = getattr(self, "skills_title_row", None)
-        lock_btn = getattr(self, "skills_lock_btn", None)
-        sort_switch = getattr(self, "skills_sort_by_rank_switch", None)
-        if not title_row or not self._widget_is_alive(title_row):
-            return
-        if not target_row or not self._widget_is_alive(target_row):
-            return
-        for widget, side, padx in (
-            (lock_btn, "left", (8, 0)),
-            (sort_switch, "left", (12, 0)),
-        ):
-            if not widget or not self._widget_is_alive(widget):
-                continue
-            try:
-                widget.pack_forget()
-                widget.pack(in_=target_row if to_popout else title_row, side=side, padx=padx)
-            except Exception:
-                pass
-
-    def _schedule_skills_popout_layout(self, _event=None):
-        timer = getattr(self, "_skills_popout_layout_timer", None)
-        if timer is not None:
-            try:
-                self.root.after_cancel(timer)
-            except Exception:
-                pass
-        self._skills_popout_layout_timer = self.root.after(60, self._sync_skills_popout_layout)
-
-    def _sync_skills_popout_layout(self):
-        self._skills_popout_layout_timer = None
-        if not self._skills_popout_is_open():
-            return
-        if not hasattr(self, "skills_scroll") or not self._widget_is_alive(self.skills_scroll):
-            return
-        try:
-            self.skills_scroll.configure(height=self._skills_scroll_target_height())
-        except Exception:
-            pass
-        self._sync_skills_canvas_width()
-
-    def _open_skills_popout(self):
-        if self._skills_popout_is_open():
-            try:
-                self._skills_popout_popup.lift()
-                self._skills_popout_popup.focus_force()
-            except Exception:
-                pass
-            return
-        host = getattr(self, "_skills_content_host", None)
-        if not host or not self._widget_is_alive(host):
-            return
-        if not hasattr(self, "skills_scroll") or not self._widget_is_alive(self.skills_scroll):
-            return
-        if not hasattr(self, "skills_frame") or not self._widget_is_alive(self.skills_frame):
-            return
-
-        popup = ctk.CTkToplevel(self.root)
-        popup.title("Skills")
-        self._skills_popout_popup = popup
-        pop_w = max(SKILLS_MIN_TABLE_WIDTH + 48, min(1100, self._content_inner_width() - 40))
-        pop_h = max(560, min(920, self.root.winfo_height() - 60))
-        self._center_popup_on_root(popup, pop_w, pop_h)
-
-        body = ctk.CTkFrame(popup, fg_color="transparent")
-        body.pack(fill="both", expand=True, padx=12, pady=12)
-        self._skills_popout_body = body
-
-        title_row = ctk.CTkFrame(body, fg_color="transparent")
-        title_row.pack(fill="x", pady=(0, 6))
-        ctk.CTkLabel(
-            title_row, text="Skills",
-            font=ctk.CTkFont(size=18, weight="bold"),
-        ).pack(side="left")
-        self._skills_popout_pts_mirror = None
-        self._skills_popout_relocate_title_controls(title_row, to_popout=True)
-
-        try:
-            self._sync_all_character_data()
-        except Exception:
-            pass
-        self._destroy_skills_content_host()
-        self._skills_content_host = ctk.CTkFrame(body, fg_color="transparent")
-        self._skills_content_host.pack(fill="both", expand=True)
-        self._build_skills_content_host(self._skills_content_host)
-
-        spacer_h = max(260, self._skills_scroll_target_height() + 48)
-        try:
-            host_h = host.winfo_reqheight()
-            if host_h > 0:
-                spacer_h = max(spacer_h, host_h)
-        except Exception:
-            pass
-        spacer = ctk.CTkFrame(self.skills_frame, fg_color="transparent", height=spacer_h)
-        spacer.pack(fill="x", padx=4, pady=4)
-        try:
-            spacer.pack_propagate(False)
-        except Exception:
-            pass
-        ctk.CTkLabel(
-            spacer,
-            text=(
-                "Skills are open in a pop-out window.\n"
-                "Close that window or Shift+click Skills to return here."
-            ),
-            font=ctk.CTkFont(size=13),
-            text_color="#888888",
-            justify="center",
-        ).pack(expand=True)
-        self._skills_popout_spacer = spacer
-
-        popup.protocol("WM_DELETE_WINDOW", self._close_skills_popout)
-        popup.transient(self.root)
-        popup.bind("<Configure>", self._schedule_skills_popout_layout, add="+")
-        popup.focus_force()
-        self.root.after_idle(self._sync_skills_popout_layout)
-
-    def _close_skills_popout(self, *_args):
-        popup = getattr(self, "_skills_popout_popup", None)
-        stats_frame = getattr(self, "skills_frame", None)
-        title_row = getattr(self, "skills_title_row", None)
-
-        try:
-            self._sync_all_character_data()
-        except Exception:
-            pass
-        self._destroy_skills_content_host()
-
-        if stats_frame and self._widget_is_alive(stats_frame):
-            spacer = getattr(self, "_skills_popout_spacer", None)
-            if spacer and self._widget_is_alive(spacer):
-                try:
-                    spacer.pack_forget()
-                    spacer.destroy()
-                except Exception:
-                    pass
-
-            self._skills_popout_relocate_title_controls(title_row, to_popout=False)
-
-            self._skills_content_host = ctk.CTkFrame(stats_frame, fg_color="transparent")
-            self._skills_content_host.pack(fill="both", expand=True)
-            self._build_skills_content_host(self._skills_content_host)
-
-            if hasattr(self, "skills_scroll") and self._widget_is_alive(self.skills_scroll):
-                try:
-                    self.skills_scroll.configure(height=self._skills_scroll_target_height())
-                except Exception:
-                    pass
-            self._sync_skills_canvas_width()
-
-        timer = getattr(self, "_skills_popout_layout_timer", None)
-        if timer is not None:
-            try:
-                self.root.after_cancel(timer)
-            except Exception:
-                pass
-        self._skills_popout_layout_timer = None
-
-        if popup and self._widget_is_alive(popup):
-            try:
-                popup.destroy()
-            except Exception:
-                pass
-        self._skills_popout_popup = None
-        self._skills_popout_body = None
-        self._skills_popout_pts_mirror = None
-        self._skills_popout_spacer = None
+        self._materialize_all_skills_on_load()
 
     def _on_skills_sort_by_rank_toggle(self):
         self.data["skills_sort_by_rank"] = self._skills_sort_by_rank_enabled()
@@ -6148,70 +8561,19 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         if not hasattr(self, "skill_vars"):
             return
         for skill_key, info in self.skill_vars.items():
-            if "name_lbl" in info:
-                self._update_skill_name_label(skill_key, info["name_lbl"])
+            name_lbl = info.get("name_lbl")
+            if name_lbl is not None:
+                self._update_skill_name_label(skill_key, name_lbl)
 
-    def _create_skills_horizontal_scroll(self, parent):
-        """Wrap the skills table; stretches on wide screens, scrolls on narrow ones."""
-        outer = ctk.CTkFrame(parent, fg_color="transparent")
+    def _create_skills_table_host(self, parent):
+        """Host for the skills column header and vertically scrollable list."""
+        host = ctk.CTkFrame(parent, fg_color="transparent")
         legend = getattr(self, "skills_legend_label", None)
         if legend and self._widget_is_alive(legend) and legend.master == parent:
-            outer.pack(fill="both", expand=True, after=legend)
+            host.pack(fill="both", expand=True, after=legend)
         else:
-            outer.pack(fill="both", expand=True)
-
-        canvas = tk.Canvas(
-            outer, highlightthickness=0, bd=0, bg=THEME_DARK_BG,
-        )
-        h_scroll = ctk.CTkScrollbar(
-            outer, orientation="horizontal", command=canvas.xview,
-        )
-        h_scroll.pack(side="bottom", fill="x", padx=2, pady=(0, 2))
-        canvas.pack(side="top", fill="both", expand=True)
-        canvas.configure(xscrollcommand=h_scroll.set)
-
-        initial_w = self._skills_table_target_width()
-        inner = ctk.CTkFrame(canvas, fg_color="transparent", width=initial_w)
-        window_id = canvas.create_window((0, 0), window=inner, anchor="nw", width=initial_w)
-        self._skills_canvas = canvas
-        self._skills_canvas_inner = inner
-        self._skills_canvas_window_id = window_id
-        self._skills_hscroll_outer = outer
-        self._skills_h_scroll = h_scroll
-
-        def _update_skills_scroll_region(_event=None):
-            target_w = self._skills_table_target_width()
-            canvas.configure(scrollregion=(0, 0, target_w, inner.winfo_reqheight()))
-
-        def _sync_skills_h_scrollbar():
-            target_w = self._skills_table_target_width()
-            needs_scroll = canvas.winfo_width() < target_w - 4
-            if needs_scroll:
-                if not h_scroll.winfo_ismapped():
-                    h_scroll.pack(side="bottom", fill="x", padx=2, pady=(0, 2))
-            else:
-                h_scroll.pack_forget()
-                canvas.xview_moveto(0)
-
-        self._sync_skills_h_scrollbar = _sync_skills_h_scrollbar
-
-        def _on_skills_canvas_configure(event):
-            canvas.itemconfig(window_id, height=event.height)
-            self._sync_skills_canvas_width()
-            _update_skills_scroll_region()
-            _sync_skills_h_scrollbar()
-
-        def _on_shift_mousewheel(event):
-            if event.delta:
-                canvas.xview_scroll(int(-1 * (event.delta / 120)), "units")
-            return "break"
-
-        inner.bind("<Configure>", _update_skills_scroll_region)
-        canvas.bind("<Configure>", _on_skills_canvas_configure)
-        for widget in (canvas, inner, outer):
-            widget.bind("<Shift-MouseWheel>", _on_shift_mousewheel)
-
-        return inner
+            host.pack(fill="both", expand=True)
+        return host
 
     def _rebuild_feat_cache(self, *, sync_widgets=True):
         if (
@@ -6522,6 +8884,8 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         return specific + int(bonuses.get("skill_bonus_all", 0) or 0)
 
     def _style_skill_total_label(self, label, text, magical_bonus, *, auto_fail=False):
+        if label is None:
+            return
         if auto_fail:
             label.configure(
                 text=text,
@@ -6601,6 +8965,66 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         except Exception as exc:
             print(f"Skill detail popup failed for {skill_key!r}: {exc}")
 
+    def _open_skill_specialty_picker(self, skill_key):
+        base, row_index = self._parse_skill_row_key(skill_key)
+        if not base or base not in SKILL_SPECIALTY_CONFIG:
+            return
+        cfg = SKILL_SPECIALTY_CONFIG[base]
+        default = cfg["defaults"][min(row_index or 0, len(cfg["defaults"]) - 1)]
+        current = self.data.setdefault("skill_specialties", {}).get(skill_key, default)
+
+        popup = ctk.CTkToplevel(self.root)
+        popup.title(f"Choose {base} Type")
+        pop_w, pop_h = 360, min(520, 120 + len(cfg["options"]) * 36)
+        self._center_popup_on_root(popup, pop_w, pop_h)
+        popup.configure(fg_color="#1a1a1a")
+        popup.transient(self.root)
+        popup.grab_set()
+
+        body = ctk.CTkFrame(popup, fg_color="transparent")
+        body.pack(fill="both", expand=True, padx=16, pady=16)
+
+        def _close():
+            try:
+                popup.grab_release()
+                popup.destroy()
+            except tk.TclError:
+                pass
+
+        header = ctk.CTkFrame(body, fg_color="transparent")
+        header.pack(fill="x", pady=(0, 8))
+        ctk.CTkLabel(
+            header,
+            text=f"Select {base} specialty",
+            font=ctk.CTkFont(size=15, weight="bold"),
+            text_color=getattr(self, "primary_button_color", "#c77626"),
+        ).pack(side="left")
+        ctk.CTkButton(
+            header, text="Cancel", width=90, fg_color="#444444", command=_close,
+        ).pack(side="right")
+
+        scroll = ctk.CTkScrollableFrame(body, fg_color="transparent")
+        scroll.pack(fill="both", expand=True)
+        accent = getattr(self, "primary_button_color", "#c77626")
+        hover = getattr(self, "primary_hover_color", "#a56b32")
+
+        def _pick(option):
+            self._on_skill_specialty_changed(skill_key, option)
+            self._cloud_sync_dirty = True
+            self._schedule_priority_cloud_push(delay_ms=500)
+            _close()
+
+        for option in cfg["options"]:
+            is_current = option == current
+            ctk.CTkButton(
+                scroll,
+                text=option,
+                anchor="w",
+                fg_color=accent if is_current else "#333333",
+                hover_color=hover,
+                command=lambda opt=option: _pick(opt),
+            ).pack(fill="x", pady=2)
+
     def _bind_skill_roll_click(self, widget, skill_key):
         """Click: TaleSpire clipboard copy or local dice roller (per character setting)."""
         if widget is None or getattr(widget, "_skill_roll_click_bound", False):
@@ -6612,7 +9036,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         widget._skill_roll_click_bound = True
 
     def _bind_skill_name_click(self, widget, skill_key):
-        """Click: roll. Shift+click: skill detail popup."""
+        """Click: roll. Shift+click: specialty picker or skill detail popup."""
         if widget is None:
             return
         if getattr(widget, "_skill_name_click_bound", False):
@@ -6624,7 +9048,10 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
         def on_click(event):
             if event.state & 0x0001:
-                self._open_skill_detail_popup(skill_key)
+                if self._is_skill_specialty_row(skill_key):
+                    self._open_skill_specialty_picker(skill_key)
+                else:
+                    self._open_skill_detail_popup(skill_key)
                 return "break"
             try:
                 roll = self._build_talespire_skill_roll(skill_key)
@@ -6642,11 +9069,17 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         widget._skill_name_click_bound = True
         if hasattr(self, "_bind_hover_tooltip"):
             current = self._display_name_for_skill_tooltip(skill_key)
-            self._bind_hover_tooltip(
-                widget,
-                f"{current}\nClick to roll. Shift+click for SRD details and breakdown.",
-                wraplength=300,
-            )
+            if self._is_skill_specialty_row(skill_key):
+                tip = (
+                    f"{current}\nClick to roll. "
+                    "Shift+click to choose specialty."
+                )
+            else:
+                tip = (
+                    f"{current}\nClick to roll. "
+                    "Shift+click for SRD details and breakdown."
+                )
+            self._bind_hover_tooltip(widget, tip, wraplength=300)
 
     def _display_name_for_skill_tooltip(self, skill_key):
         if hasattr(self, "_resolved_skill_label"):
@@ -7265,9 +9698,13 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         known = [n for n in self._get_known_invocations() if n != name]
         self._set_known_invocations(known)
 
-    def _toggle_fiendish_resilience(self, active):
+    def _toggle_fiendish_resilience(self, active, source_var=None):
         state = self.data.setdefault("class_feature_state", {})
         state["Warlock_Fiendish_Resilience_active"] = bool(active)
+        if hasattr(self, "fiendish_resilience_vars"):
+            for var in self.fiendish_resilience_vars:
+                if var is not source_var:
+                    var.set(bool(active))
         self._mark_cloud_sync_dirty()
         self.refresh_health_display()
 
@@ -7439,20 +9876,27 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             combo.bind("<FocusOut>", lambda _e, fn=_save_choice: fn())
             combo_vars.append(combo)
 
-    def _build_fiendish_resilience_toggle(self, parent, feat):
+    def _build_fiendish_resilience_toggle(self, parent, feat, *, compact=False):
         amount = int(feat.get("fast_healing_amount") or 0)
         if amount <= 0 and HAS_WARLOCK_SUPPORT:
             amount = _warlock_support.get_fiendish_resilience_fast_healing(self._get_warlock_level())
         row = ctk.CTkFrame(parent, fg_color="transparent")
-        row.pack(fill="x", padx=15, pady=(4, 8))
+        row.pack(fill="x", padx=8 if compact else 15, pady=(2, 4) if compact else (4, 8))
         active = bool((self.data.get("class_feature_state") or {}).get("Warlock_Fiendish_Resilience_active"))
         var = tk.BooleanVar(value=active)
+        label = (
+            f"Resilience (+{amount} FH)"
+            if compact
+            else f"Fiendish Resilience active (fast healing {amount})"
+        )
         ctk.CTkCheckBox(
             row,
-            text=f"Fiendish Resilience active (fast healing {amount})",
+            text=label,
             variable=var,
-            command=lambda v=var: self._toggle_fiendish_resilience(v.get()),
+            font=ctk.CTkFont(size=11 if compact else 13),
+            command=lambda v=var: self._toggle_fiendish_resilience(v.get(), source_var=v),
         ).pack(anchor="w")
+        self._register_fiendish_resilience_var(var)
 
     def _get_restricted_alignments(self):
         restricted = set()
@@ -8749,7 +11193,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 for var in slot_list:
                     var.set(False)
 
-    def _build_daily_use_tracker(self, parent, cls_name, feat_name, feat, class_level):
+    def _build_daily_use_tracker(self, parent, cls_name, feat_name, feat, class_level, *, compact=False):
         use_count = self._compute_daily_use_count(cls_name, class_level, feat)
         if use_count <= 0:
             return
@@ -8761,36 +11205,39 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         if key not in self.daily_use_vars:
             self.daily_use_vars[key] = [[] for _ in range(use_count)]
 
+        outer_padx = 8 if compact else 15
+        outer_pady = (0, 4) if compact else (0, 10)
         tracker_frame = ctk.CTkFrame(parent, fg_color="#1F1F1F")
-        tracker_frame.pack(fill="x", padx=15, pady=(0, 10))
+        tracker_frame.pack(fill="x", padx=outer_padx, pady=outer_pady)
 
         header = ctk.CTkFrame(tracker_frame, fg_color="transparent")
-        header.pack(fill="x", padx=10, pady=(8, 4))
+        header.pack(fill="x", padx=8 if compact else 10, pady=(4, 2) if compact else (8, 4))
         ctk.CTkLabel(
             header,
             text=f"{use_count}/day",
-            font=ctk.CTkFont(size=12, weight="bold"),
+            font=ctk.CTkFont(size=11 if compact else 12, weight="bold"),
             text_color="#c77626",
         ).pack(side="left")
         ctk.CTkButton(
             header,
             text="Reset",
-            width=56,
-            height=22,
+            width=48 if compact else 56,
+            height=20 if compact else 22,
             fg_color="#666666",
             command=lambda k=key, c=use_count: self._reset_daily_uses(k, c),
         ).pack(side="right")
 
         checks = ctk.CTkFrame(tracker_frame, fg_color="transparent")
-        checks.pack(fill="x", padx=10, pady=(0, 8))
+        checks.pack(fill="x", padx=8 if compact else 10, pady=(0, 4) if compact else (0, 8))
+        cb_size = 16 if compact else 18
         for index in range(use_count):
             var = BooleanVar(value=bool(saved_states[index]))
             cb = ctk.CTkCheckBox(
                 checks,
                 text="",
-                width=22,
-                checkbox_width=18,
-                checkbox_height=18,
+                width=20 if compact else 22,
+                checkbox_width=cb_size,
+                checkbox_height=cb_size,
                 variable=var,
                 command=lambda k=key, i=index, v=var: self._toggle_daily_use(k, i, v),
             )
@@ -8803,7 +11250,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         nm = str(feat.get("name", "feature")).replace(" ", "_")[:25]
         return f"custom_{cat}_{nm}"
 
-    def _build_simple_daily_tracker(self, parent, key, use_count, feat_name=""):
+    def _build_simple_daily_tracker(self, parent, key, use_count, feat_name="", *, compact=False):
         """Simple per-day checkbox tracker for custom features (reuses the daily_feature_uses system)."""
         if use_count <= 0:
             return
@@ -8814,27 +11261,28 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             self.daily_use_vars[key] = [[] for _ in range(use_count)]
 
         tracker_frame = ctk.CTkFrame(parent, fg_color="#1F1F1F")
-        tracker_frame.pack(fill="x", padx=10, pady=4)
+        tracker_frame.pack(fill="x", padx=8 if compact else 10, pady=4)
 
         header = ctk.CTkFrame(tracker_frame, fg_color="transparent")
         header.pack(fill="x", padx=6, pady=2)
         label = feat_name or "Uses"
         ctk.CTkLabel(
             header, text=f"{use_count}/day — {label}",
-            font=ctk.CTkFont(size=11, weight="bold"), text_color="#c77626"
+            font=ctk.CTkFont(size=10 if compact else 11, weight="bold"), text_color="#c77626"
         ).pack(side="left")
         ctk.CTkButton(
-            header, text="Reset", width=50, height=20, fg_color="#666666",
+            header, text="Reset", width=48 if compact else 50, height=20, fg_color="#666666",
             command=lambda k=key, c=use_count: self._reset_daily_uses(k, c),
         ).pack(side="right")
 
         checks = ctk.CTkFrame(tracker_frame, fg_color="transparent")
         checks.pack(fill="x", padx=6, pady=2)
+        cb_size = 14 if compact else 16
         for index in range(use_count):
             val = bool(saved_states[index]) if index < len(saved_states) else False
             var = ctk.BooleanVar(value=val)
             cb = ctk.CTkCheckBox(
-                checks, text="", width=18, checkbox_width=16, checkbox_height=16,
+                checks, text="", width=18, checkbox_width=cb_size, checkbox_height=cb_size,
                 variable=var,
                 command=lambda k=key, i=index, v=var: self._toggle_daily_use(k, i, v),
             )
@@ -9053,10 +11501,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 self.data.get("daily_feature_uses", {}).pop(key, None)
                 if hasattr(self, "daily_use_vars"):
                     self.daily_use_vars.pop(key, None)
-                # clean charges too
-                self.data.get("magic_item_charges", {}).pop(key, None)
-                if hasattr(self, "magic_item_charge_combos"):
-                    self.magic_item_charge_combos.pop(key, None)
+                self._pop_magic_item_charge_tracking(key)
                 customs.pop(edit_index)
                 self._mark_cloud_sync_dirty()
             popup.destroy()
@@ -9089,10 +11534,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             self.data.get("daily_feature_uses", {}).pop(key, None)
             if hasattr(self, "daily_use_vars"):
                 self.daily_use_vars.pop(key, None)
-            # clean any charge tracking (reuses the magic_item_charges storage for custom features too)
-            self.data.get("magic_item_charges", {}).pop(key, None)
-            if hasattr(self, "magic_item_charge_combos"):
-                self.magic_item_charge_combos.pop(key, None)
+            self._pop_magic_item_charge_tracking(key)
             self._mark_cloud_sync_dirty()
             self._sync_spell_like_prepared_spells()
             if category == "magic_item":
@@ -9115,6 +11557,13 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             title_row, text=feat.get("name", "Custom Feature"),
             font=ctk.CTkFont(size=13, weight="bold")
         ).pack(side="left")
+        pin_id = self._stats_pin_id_for_custom_feature(feat_index)
+        if self._is_stats_feature_pinned(pin_id):
+            ctk.CTkLabel(
+                title_row, text="📌", font=ctk.CTkFont(size=12),
+            ).pack(side="left", padx=(6, 0))
+        self._bind_stats_feature_pin(title_row, pin_id)
+        self._bind_stats_feature_pin(frame, pin_id)
         if read_only or feat.get("campaign_homebrew"):
             ctk.CTkLabel(
                 title_row, text="Campaign", font=ctk.CTkFont(size=10),
@@ -9441,7 +11890,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             "config": config,
         }
 
-    def _build_special_feature_form_toggle(self, parent, feat, template, feat_index):
+    def _build_special_feature_form_toggle(self, parent, feat, template, feat_index, *, compact=False):
         forms = template.get("toggle_forms") or ["human"]
         labels = template.get("toggle_labels") or [f.title() for f in forms]
         if len(labels) != len(forms):
@@ -9453,56 +11902,67 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             current_idx = 0
 
         toggle_frame = ctk.CTkFrame(parent, fg_color="#1F1F1F")
-        toggle_frame.pack(fill="x", padx=10, pady=(4, 8))
+        toggle_frame.pack(fill="x", padx=8 if compact else 10, pady=(2, 4) if compact else (4, 8))
 
         ctk.CTkLabel(
             toggle_frame,
             text="Form:",
-            font=ctk.CTkFont(size=11, weight="bold"),
+            font=ctk.CTkFont(size=10 if compact else 11, weight="bold"),
             text_color=getattr(self, "primary_button_color", THEME_ORANGE),
-        ).pack(anchor="w", padx=10, pady=(8, 4))
+        ).pack(anchor="w", padx=8 if compact else 10, pady=(4, 2) if compact else (8, 4))
 
         seg = ctk.CTkSegmentedButton(
             toggle_frame,
             values=labels,
+            height=24 if compact else 28,
+            font=ctk.CTkFont(size=10 if compact else 12),
             command=lambda val, idx=feat_index, fs=forms, ls=labels: self._on_special_feature_form_changed(idx, val, fs, ls),
         )
-        seg.pack(anchor="w", padx=10, pady=(0, 4))
+        seg.pack(anchor="w", padx=8 if compact else 10, pady=(0, 2) if compact else (0, 4))
         if 0 <= current_idx < len(labels):
             seg.set(labels[current_idx])
 
         form_cfg = self._get_special_feature_form_config(feat)
+        wrap = max(180, int(STATS_FEATURES_PANEL_WIDTH * float(getattr(self, "_ui_scale", 1.0) or 1.0)) - 40)
         summary_lbl = ctk.CTkLabel(
             toggle_frame,
             text=form_cfg.get("summary", ""),
-            wraplength=500,
+            wraplength=wrap if compact else 500,
             justify="left",
-            font=ctk.CTkFont(size=11),
+            font=ctk.CTkFont(size=10 if compact else 11),
             text_color="#aaaaaa",
         )
-        summary_lbl.pack(anchor="w", padx=10, pady=(0, 8))
+        if not compact or form_cfg.get("summary"):
+            summary_lbl.pack(anchor="w", padx=8 if compact else 10, pady=(0, 4) if compact else (0, 8))
         if not hasattr(self, "special_feature_form_widgets"):
             self.special_feature_form_widgets = {}
-        self.special_feature_form_widgets[feat_index] = {"summary_label": summary_lbl}
+        widgets = self.special_feature_form_widgets.setdefault(feat_index, {})
+        widgets.setdefault("summary_labels", []).append(summary_lbl)
+        widgets.setdefault("segmented_buttons", []).append(seg)
 
     def _update_special_feature_form_summary(self, feat_index):
         """Update the active-form summary line without rebuilding Feats & Features."""
         widgets = getattr(self, "special_feature_form_widgets", {}).get(feat_index)
         if not widgets:
             return
-        summary_lbl = widgets.get("summary_label")
-        if not summary_lbl:
-            return
-        try:
-            if not summary_lbl.winfo_exists():
-                return
-        except Exception:
-            return
+        summary_labels = list(widgets.get("summary_labels") or [])
+        legacy = widgets.get("summary_label")
+        if legacy and legacy not in summary_labels:
+            summary_labels.append(legacy)
         customs = self.data.get("custom_features", [])
         if not (0 <= feat_index < len(customs)):
             return
         form_cfg = self._get_special_feature_form_config(customs[feat_index])
-        summary_lbl.configure(text=form_cfg.get("summary", ""))
+        summary_text = form_cfg.get("summary", "")
+        for summary_lbl in summary_labels:
+            if not summary_lbl:
+                continue
+            try:
+                if not summary_lbl.winfo_exists():
+                    continue
+            except Exception:
+                continue
+            summary_lbl.configure(text=summary_text)
 
     def _on_special_feature_form_changed(self, feat_index, label_value, form_keys, form_labels):
         customs = self.data.get("custom_features", [])
@@ -9516,6 +11976,13 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             form_state = "human"
         feat["form_state"] = form_state
         self._mark_cloud_sync_dirty()
+        widgets = getattr(self, "special_feature_form_widgets", {}).get(feat_index, {})
+        for seg in widgets.get("segmented_buttons", []):
+            try:
+                if seg.winfo_exists():
+                    seg.set(label_value)
+            except Exception:
+                pass
         self._update_special_feature_form_summary(feat_index)
         self._schedule_scoped_refresh(abilities=True, combat=True, skills=True)
         if hasattr(self, "combat_frame") and self._is_page_active("Combat"):
@@ -9526,46 +11993,62 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             return
         state = self.data.setdefault("class_feature_state", {})
         for key, switch in self.rage_switch_widgets.items():
-            state[key] = bool(switch.get())
+            widgets = switch if isinstance(switch, list) else [switch]
+            for widget in widgets:
+                if widget is not None:
+                    state[key] = bool(widget.get())
+                    break
 
-    def _build_rage_active_toggle(self, parent, cls_name, feat_name):
+    def _build_rage_active_toggle(self, parent, cls_name, feat_name, *, compact=False):
         key = self._get_rage_state_key(cls_name, feat_name)
         saved = bool(self.data.setdefault("class_feature_state", {}).get(key, False))
-        if not hasattr(self, "rage_switch_widgets"):
-            self.rage_switch_widgets = {}
-        self.rage_switch_widgets[key] = None
 
-        toggle_frame = ctk.CTkFrame(parent, fg_color="#1F1F1F")
-        toggle_frame.pack(fill="x", padx=15, pady=(0, 10))
+        if compact:
+            row = ctk.CTkFrame(parent, fg_color="transparent")
+            row.pack(fill="x", padx=8, pady=(2, 4))
+            switch = ctk.CTkSwitch(
+                row,
+                text="Rage",
+                font=ctk.CTkFont(size=11, weight="bold"),
+                command=lambda k=key, s=None: self._on_rage_active_toggled(k, s),
+            )
+            switch.pack(side="left")
+        else:
+            toggle_frame = ctk.CTkFrame(parent, fg_color="#1F1F1F")
+            toggle_frame.pack(fill="x", padx=15, pady=(0, 10))
 
-        row = ctk.CTkFrame(toggle_frame, fg_color="transparent")
-        row.pack(fill="x", padx=10, pady=8)
-        ctk.CTkLabel(
-            row,
-            text="Rage status:",
-            font=ctk.CTkFont(size=12, weight="bold"),
-            text_color="#c77626",
-        ).pack(side="left", padx=(0, 8))
+            row = ctk.CTkFrame(toggle_frame, fg_color="transparent")
+            row.pack(fill="x", padx=10, pady=8)
+            ctk.CTkLabel(
+                row,
+                text="Rage status:",
+                font=ctk.CTkFont(size=12, weight="bold"),
+                text_color="#c77626",
+            ).pack(side="left", padx=(0, 8))
 
-        switch = ctk.CTkSwitch(
-            row,
-            text="Active",
-            command=lambda k=key: self._on_rage_active_toggled(k),
-        )
-        switch.pack(side="left")
+            switch = ctk.CTkSwitch(
+                row,
+                text="Active",
+                command=lambda k=key, s=None: self._on_rage_active_toggled(k, s),
+            )
+            switch.pack(side="left")
+
         if saved:
             switch.select()
         else:
             switch.deselect()
-        self.rage_switch_widgets[key] = switch
+        switch.configure(command=lambda k=key, s=switch: self._on_rage_active_toggled(k, s))
+        self._register_linked_switch("rage_switch_widgets", key, switch)
 
-    def _on_rage_active_toggled(self, key):
-        if not hasattr(self, "rage_switch_widgets") or key not in self.rage_switch_widgets:
+    def _on_rage_active_toggled(self, key, source_switch=None):
+        switches = list(self._iter_linked_switches("rage_switch_widgets", key))
+        if not switches:
             return
-        switch = self.rage_switch_widgets[key]
+        switch = source_switch if source_switch in switches else switches[0]
         active = bool(switch.get())
         was_active = bool(self.data.get("class_feature_state", {}).get(key, False))
         self.data.setdefault("class_feature_state", {})[key] = active
+        self._sync_linked_switches("rage_switch_widgets", key, active, source=source_switch)
 
         if was_active and not active:
             self._rage_end_hp_snapshot = self._get_current_hp_value()
@@ -9604,8 +12087,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         if self.data.get("class_feature_state", {}).get(key):
             self._rage_end_hp_snapshot = self._get_current_hp_value()
         self.data.setdefault("class_feature_state", {})[key] = False
-        if hasattr(self, "rage_switch_widgets") and key in self.rage_switch_widgets:
-            self.rage_switch_widgets[key].deselect()
+        self._sync_linked_switches("rage_switch_widgets", key, False)
 
     def load_wild_shapes_db(self):
         try:
@@ -10132,9 +12614,9 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             full_atk_lbl.configure(text=f"Full: {full}")
             fam["attack"] = full
             stats["attack"] = full
-        atk_name_var.trace("w", _update_full_attack)
-        atk_bonus_var.trace("w", _update_full_attack)
-        dmg_var.trace("w", _update_full_attack)
+        atk_name_var.trace_add("write", _update_full_attack)
+        atk_bonus_var.trace_add("write", _update_full_attack)
+        dmg_var.trace_add("write", _update_full_attack)
         _update_full_attack()
 
         # Special Abilities (level-based auto + user extra)
@@ -10570,9 +13052,9 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             full_atk_lbl.configure(text=f"Full: {full}")
             comp["attack"] = full
             stats["attack"] = full
-        atk_name_var.trace("w", _update_full_attack)
-        atk_bonus_var.trace("w", _update_full_attack)
-        dmg_var.trace("w", _update_full_attack)
+        atk_name_var.trace_add("write", _update_full_attack)
+        atk_bonus_var.trace_add("write", _update_full_attack)
+        dmg_var.trace_add("write", _update_full_attack)
         _update_full_attack()
 
         # Special Abilities (level-based auto + user extra)
@@ -11178,38 +13660,53 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             return
         state = self.data.setdefault("class_feature_state", {})
         for key, switch in self.wild_shape_switch_widgets.items():
-            state[key] = bool(switch.get())
+            widgets = switch if isinstance(switch, list) else [switch]
+            for widget in widgets:
+                if widget is not None:
+                    state[key] = bool(widget.get())
+                    break
 
-    def _build_wild_shape_active_toggle(self, parent, cls_name, feat_name):
+    def _build_wild_shape_active_toggle(self, parent, cls_name, feat_name, *, compact=False):
         key = self._get_wild_shape_state_key(cls_name, feat_name)
         saved = bool(self.data.setdefault("class_feature_state", {}).get(key, False))
-        if not hasattr(self, "wild_shape_switch_widgets"):
-            self.wild_shape_switch_widgets = {}
-        self.wild_shape_switch_widgets[key] = None
 
-        toggle_frame = ctk.CTkFrame(parent, fg_color="#1F1F1F")
-        toggle_frame.pack(fill="x", padx=15, pady=(0, 10))
+        if compact:
+            row = ctk.CTkFrame(parent, fg_color="transparent")
+            row.pack(fill="x", padx=8, pady=(2, 4))
+            switch = ctk.CTkSwitch(
+                row,
+                text="Wild Shape",
+                font=ctk.CTkFont(size=11, weight="bold"),
+                text_color=THEME_WILD_SHAPE,
+                command=lambda k=key, s=None: self._on_wild_shape_active_toggled(k, s),
+            )
+            switch.pack(side="left")
+        else:
+            toggle_frame = ctk.CTkFrame(parent, fg_color="#1F1F1F")
+            toggle_frame.pack(fill="x", padx=15, pady=(0, 10))
 
-        row = ctk.CTkFrame(toggle_frame, fg_color="transparent")
-        row.pack(fill="x", padx=10, pady=8)
-        ctk.CTkLabel(
-            row,
-            text="Wild Shape status:",
-            font=ctk.CTkFont(size=12, weight="bold"),
-            text_color=THEME_WILD_SHAPE,
-        ).pack(side="left", padx=(0, 8))
+            row = ctk.CTkFrame(toggle_frame, fg_color="transparent")
+            row.pack(fill="x", padx=10, pady=8)
+            ctk.CTkLabel(
+                row,
+                text="Wild Shape status:",
+                font=ctk.CTkFont(size=12, weight="bold"),
+                text_color=THEME_WILD_SHAPE,
+            ).pack(side="left", padx=(0, 8))
 
-        switch = ctk.CTkSwitch(
-            row,
-            text="Active",
-            command=lambda k=key: self._on_wild_shape_active_toggled(k),
-        )
-        switch.pack(side="left")
+            switch = ctk.CTkSwitch(
+                row,
+                text="Active",
+                command=lambda k=key, s=None: self._on_wild_shape_active_toggled(k, s),
+            )
+            switch.pack(side="left")
+
         if saved:
             switch.select()
         else:
             switch.deselect()
-        self.wild_shape_switch_widgets[key] = switch
+        switch.configure(command=lambda k=key, s=switch: self._on_wild_shape_active_toggled(k, s))
+        self._register_linked_switch("wild_shape_switch_widgets", key, switch)
 
     def _build_wild_shape_form_selector(self, parent):
         saved_name = self.data.get("wild_shape_form", "")
@@ -11337,11 +13834,14 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         self.invalidate_caches()
         self.refresh_all()
 
-    def _on_wild_shape_active_toggled(self, key):
-        if not hasattr(self, "wild_shape_switch_widgets") or key not in self.wild_shape_switch_widgets:
+    def _on_wild_shape_active_toggled(self, key, source_switch=None):
+        switches = list(self._iter_linked_switches("wild_shape_switch_widgets", key))
+        if not switches:
             return
-        active = bool(self.wild_shape_switch_widgets[key].get())
+        switch = source_switch if source_switch in switches else switches[0]
+        active = bool(switch.get())
         self.data.setdefault("class_feature_state", {})[key] = active
+        self._sync_linked_switches("wild_shape_switch_widgets", key, active, source=source_switch)
         self._refresh_wild_shape_qualities_widget()
         self._refresh_rage_ability_styling()
         self.invalidate_caches()
@@ -11350,8 +13850,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
     def _deactivate_wild_shape_for_rest(self):
         key = self._get_wild_shape_state_key()
         self.data.setdefault("class_feature_state", {})[key] = False
-        if hasattr(self, "wild_shape_switch_widgets") and key in self.wild_shape_switch_widgets:
-            self.wild_shape_switch_widgets[key].deselect()
+        self._sync_linked_switches("wild_shape_switch_widgets", key, False)
         self._refresh_wild_shape_qualities_widget()
         self._refresh_rage_ability_styling()
 
@@ -11501,16 +14000,28 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
     def _has_cleric_domains_selected(self):
         return any(name for name in self._get_selected_domains() if name)
 
+    def _get_stored_ability_base(self, ability_name):
+        try:
+            return int(self.data["abilities"][ability_name].get("base", 10) or 10)
+        except (TypeError, ValueError, KeyError):
+            return 10
+
+    def _get_displayed_ability_base(self, ability_name):
+        """Base column on Stats: creation base plus ability score improvements."""
+        return (
+            self._get_stored_ability_base(ability_name)
+            + self._get_ability_score_improvement_bonus(ability_name)
+        )
+
     def _get_live_ability_score(self, ability_name):
         """Compute ability total from live UI fields and active bonuses."""
-        base = self.data["abilities"][ability_name]["base"]
+        base = self._get_stored_ability_base(ability_name)
         racial = self.data["abilities"][ability_name].get("racial", 0)
         misc = self.data["abilities"][ability_name].get("misc", 0)
         enh = 0
 
         if hasattr(self, "ability_vars") and ability_name in self.ability_vars:
             try:
-                base = int(self.ability_vars[ability_name]["base"].get() or 10)
                 racial = int(self.ability_vars[ability_name]["racial_lbl"].cget("text") or 0)
             except (ValueError, TypeError):
                 pass
@@ -15997,6 +18508,91 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 for var in sublist:
                     var.set(False)
 
+    def _read_magic_item_current_charges(self, key, max_charges):
+        """Prefer the live StringVar so +/- stays in sync with what is on screen."""
+        charge_var = getattr(self, "magic_item_charge_vars", {}).get(key)
+        if charge_var is not None:
+            try:
+                return int(charge_var.get())
+            except (TypeError, ValueError, tk.TclError):
+                pass
+        raw = self.data.get("magic_item_charges", {}).get(key, max_charges)
+        if raw is None:
+            return int(max_charges)
+        try:
+            return int(raw)
+        except (TypeError, ValueError):
+            return int(max_charges)
+
+    def _get_magic_item_charge_var(self, item_key, max_charges):
+        """Shared StringVar so every charge combo for the same key stays in sync."""
+        if not hasattr(self, "magic_item_charge_vars"):
+            self.magic_item_charge_vars = {}
+        if not hasattr(self, "magic_item_charge_max"):
+            self.magic_item_charge_max = {}
+        self.magic_item_charge_max[item_key] = int(max_charges)
+        raw = self.data.setdefault("magic_item_charges", {}).get(item_key, max_charges)
+        if raw is None:
+            saved = int(max_charges)
+        else:
+            try:
+                saved = int(raw)
+            except (TypeError, ValueError):
+                saved = int(max_charges)
+        saved = max(0, min(int(max_charges), saved))
+        self.data["magic_item_charges"][item_key] = saved
+        if item_key not in self.magic_item_charge_vars:
+            self.magic_item_charge_vars[item_key] = tk.StringVar(value=str(saved))
+        else:
+            self.magic_item_charge_vars[item_key].set(str(saved))
+        return self.magic_item_charge_vars[item_key]
+
+    def _pop_magic_item_charge_tracking(self, key):
+        self.data.get("magic_item_charges", {}).pop(key, None)
+        if hasattr(self, "magic_item_charge_combos"):
+            self.magic_item_charge_combos.pop(key, None)
+        if hasattr(self, "magic_item_charge_vars"):
+            self.magic_item_charge_vars.pop(key, None)
+        if hasattr(self, "magic_item_charge_max"):
+            self.magic_item_charge_max.pop(key, None)
+
+    def _iter_magic_item_charge_combos(self, key):
+        registry = getattr(self, "magic_item_charge_combos", {})
+        widgets = registry.get(key)
+        if widgets is None:
+            return
+        if not isinstance(widgets, list):
+            widgets = [widgets]
+        alive = []
+        for combo in widgets:
+            if combo is None:
+                continue
+            try:
+                if combo.winfo_exists():
+                    alive.append(combo)
+            except Exception:
+                pass
+        if alive:
+            registry[key] = alive
+        else:
+            registry.pop(key, None)
+        for combo in alive:
+            yield combo
+
+    def _register_magic_item_charge_combo(self, key, combo):
+        if not hasattr(self, "magic_item_charge_combos"):
+            self.magic_item_charge_combos = {}
+        alive = []
+        for existing in self._iter_magic_item_charge_combos(key):
+            try:
+                if existing.winfo_exists():
+                    alive.append(existing)
+            except Exception:
+                pass
+        if combo not in alive:
+            alive.append(combo)
+        self.magic_item_charge_combos[key] = alive
+
     def _set_magic_item_charges(self, key, value, max_charges):
         try:
             charges = int(value)
@@ -16004,11 +18600,23 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             charges = max_charges
         charges = max(0, min(max_charges, charges))
         self.data.setdefault("magic_item_charges", {})[key] = charges
-        if hasattr(self, "magic_item_charge_combos") and key in self.magic_item_charge_combos:
-            self.magic_item_charge_combos[key].set(str(charges))
+        if hasattr(self, "magic_item_charge_max"):
+            self.magic_item_charge_max[key] = int(max_charges)
+        charge_var = getattr(self, "magic_item_charge_vars", {}).get(key)
+        if charge_var is not None:
+            try:
+                charge_var.set(str(charges))
+            except Exception:
+                pass
+        for combo in self._iter_magic_item_charge_combos(key):
+            try:
+                combo.set(str(charges))
+            except Exception:
+                pass
+        self._mark_cloud_sync_dirty()
 
     def _change_magic_item_charges(self, key, delta, max_charges):
-        current = int(self.data.get("magic_item_charges", {}).get(key, max_charges) or 0)
+        current = self._read_magic_item_current_charges(key, max_charges)
         self._set_magic_item_charges(key, current + delta, max_charges)
 
     def _sync_magic_item_trackers_to_data(self):
@@ -16022,15 +18630,27 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                     else:
                         synced.append(False)
                 self.data.setdefault("magic_item_daily_uses", {})[key] = synced
-        if hasattr(self, "magic_item_charge_combos"):
-            for key, combo in self.magic_item_charge_combos.items():
-                item = next(
-                    (entry for entry in self._get_all_magic_item_features() if entry["key"] == key),
-                    None,
+        charge_keys = set(getattr(self, "magic_item_charge_combos", {}).keys())
+        charge_keys.update(getattr(self, "magic_item_charge_vars", {}).keys())
+        for key in charge_keys:
+            charge_var = getattr(self, "magic_item_charge_vars", {}).get(key)
+            raw_value = charge_var.get() if charge_var is not None else None
+            if raw_value is None:
+                combos = list(self._iter_magic_item_charge_combos(key))
+                if not combos:
+                    continue
+                raw_value = combos[0].get()
+            item = next(
+                (entry for entry in self._get_all_magic_item_features() if entry["key"] == key),
+                None,
+            )
+            max_charges = item["abilities"].get("max_charges", 0) if item else 0
+            if not max_charges:
+                max_charges = int(
+                    getattr(self, "magic_item_charge_max", {}).get(key, 0) or 0,
                 )
-                max_charges = item["abilities"].get("max_charges", 0) if item else 0
-                if max_charges:
-                    self._set_magic_item_charges(key, combo.get(), max_charges)
+            if max_charges:
+                self._set_magic_item_charges(key, raw_value, max_charges)
 
     def _build_magic_item_daily_tracker(self, parent, item_key, use_count):
         if use_count <= 0:
@@ -16083,46 +18703,60 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             cb.pack(side="left", padx=2, pady=2)
             self.magic_item_daily_vars[item_key][index].append(var)
 
-    def _build_magic_item_charge_tracker(self, parent, item_key, max_charges):
+    def _build_magic_item_charge_tracker(self, parent, item_key, max_charges, *, compact=False):
         if max_charges <= 0:
             return
 
-        if not hasattr(self, "magic_item_charge_combos"):
-            self.magic_item_charge_combos = {}
-
-        saved_charges = int(
-            self.data.setdefault("magic_item_charges", {}).get(item_key, max_charges) or max_charges,
-        )
-        saved_charges = max(0, min(max_charges, saved_charges))
-        self.data["magic_item_charges"][item_key] = saved_charges
+        charge_var = self._get_magic_item_charge_var(item_key, max_charges)
 
         tracker_frame = ctk.CTkFrame(parent, fg_color="#1F1F1F")
-        tracker_frame.pack(fill="x", padx=15, pady=(0, 10))
+        tracker_frame.pack(
+            fill="x",
+            padx=8 if compact else 15,
+            pady=(0, 4) if compact else (0, 10),
+        )
 
         row = ctk.CTkFrame(tracker_frame, fg_color="transparent")
-        row.pack(fill="x", padx=10, pady=8)
+        row.pack(fill="x", padx=8 if compact else 10, pady=4 if compact else 8)
         ctk.CTkLabel(
-            row, text="Charges:", font=ctk.CTkFont(size=12, weight="bold"), text_color=THEME_ORANGE,
+            row,
+            text="Charges:",
+            font=ctk.CTkFont(size=11 if compact else 12, weight="bold"),
+            text_color=THEME_ORANGE,
         ).pack(side="left", padx=(0, 8))
 
+        btn_w = 26 if compact else 30
+        btn_h = 24 if compact else 28
         ctk.CTkButton(
-            row, text="−", width=30, height=28, fg_color=THEME_ORANGE,
+            row, text="−", width=btn_w, height=btn_h, fg_color=THEME_ORANGE,
             command=lambda k=item_key, m=max_charges: self._change_magic_item_charges(k, -1, m),
         ).pack(side="left", padx=(0, 4))
 
-        charge_values = [str(value) for value in range(max_charges + 1)]
-        combo = ctk.CTkComboBox(
-            row,
-            values=charge_values,
-            width=80,
-            command=lambda val, k=item_key, m=max_charges: self._set_magic_item_charges(k, val, m),
-        )
-        combo.set(str(saved_charges))
-        combo.pack(side="left", padx=4)
-        self.magic_item_charge_combos[item_key] = combo
+        if compact:
+            ctk.CTkLabel(
+                row,
+                textvariable=charge_var,
+                width=36,
+                height=24,
+                font=ctk.CTkFont(size=12, weight="bold"),
+                fg_color="#343638",
+                corner_radius=6,
+            ).pack(side="left", padx=4)
+        else:
+            charge_values = [str(value) for value in range(max_charges + 1)]
+            combo = ctk.CTkComboBox(
+                row,
+                values=charge_values,
+                width=80,
+                height=28,
+                variable=charge_var,
+                command=lambda val, k=item_key, m=max_charges: self._set_magic_item_charges(k, val, m),
+            )
+            combo.pack(side="left", padx=4)
+            self._register_magic_item_charge_combo(item_key, combo)
 
         ctk.CTkButton(
-            row, text="+", width=30, height=28, fg_color=THEME_ORANGE,
+            row, text="+", width=btn_w, height=btn_h, fg_color=THEME_ORANGE,
             command=lambda k=item_key, m=max_charges: self._change_magic_item_charges(k, 1, m),
         ).pack(side="left", padx=(4, 0))
 
@@ -16513,9 +19147,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             item for item in custom_items if item.get("id") != custom_id
         ]
         self.data.get("magic_item_daily_uses", {}).pop(item_key, None)
-        self.data.get("magic_item_charges", {}).pop(item_key, None)
-        if hasattr(self, "magic_item_charge_combos"):
-            self.magic_item_charge_combos.pop(item_key, None)
+        self._pop_magic_item_charge_tracking(item_key)
         self._mark_cloud_sync_dirty()
         self._sync_magic_item_prepared_spells()
         self.refresh_feats_scope("magical_items")
@@ -20697,6 +23329,106 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         except Exception:
             pass
 
+    def _page_builder_map(self):
+        return {
+            "Stats": "build_stats_page",
+            "Inventory": "build_inventory_page",
+            "Combat": "build_combat_page",
+            "Spells": "build_spells_page",
+            "Buffs": "build_buffs_page",
+            "Feats & Features": "build_feats_page",
+            "Description": "build_description_page",
+        }
+
+    def _restore_widget_registry_values(self):
+        """Push saved self.data values into registered widgets (after a page build)."""
+        for data_key, widget in list(getattr(self, "widget_registry", {}).items()):
+            if self._is_legacy_coin_widget_key(data_key):
+                continue
+            value = self._get_widget_saved_value(data_key)
+            if value is None:
+                continue
+            try:
+                if isinstance(widget, ctk.StringVar):
+                    widget.set(str(value))
+                elif hasattr(widget, "set"):
+                    widget.set(str(value))
+            except Exception as e:
+                print(f"   → Could not restore {data_key}: {e}")
+
+    def _prime_lazy_page_after_build(self, page):
+        """First-time data sync after a lazily built tab."""
+        if page == "Inventory":
+            self._apply_coins_to_ui()
+            self.refresh_inventory(sync_first=False)
+            self._mark_inventory_page_built()
+            try:
+                self._init_loot_sync()
+            except Exception:
+                pass
+        elif page == "Combat":
+            self.refresh_combat_page()
+            self._mark_combat_page_built()
+        elif page == "Spells":
+            # build_spells_page() already calls refresh_spells_page() at the end.
+            self._mark_spells_page_built()
+            if hasattr(self, "spells_per_day_frame"):
+                self._mark_spells_per_day_built()
+        elif page == "Buffs":
+            if hasattr(self, "_rebuild_buffs_list"):
+                try:
+                    self._rebuild_buffs_list()
+                except Exception:
+                    pass
+            if hasattr(self, "_rebuild_buffs_reference"):
+                try:
+                    self._rebuild_buffs_reference()
+                except Exception:
+                    pass
+            self._mark_buffs_page_built()
+        elif page == "Feats & Features":
+            self._push_feats_data_to_widgets()
+            self.refresh_feats_page()
+            self._mark_feats_page_built()
+        elif page == "Description":
+            try:
+                self._sync_description_to_data()
+            except tk.TclError:
+                pass
+            self._refresh_enemies_allies_tab()
+            self._refresh_character_journey_tab()
+            self._mark_description_page_built()
+            self._ensure_portrait_panel_sized()
+        elif page == "Stats":
+            self._apply_stats_page_layout(force=True)
+            self._mark_stats_layout_built()
+
+    def _ensure_page_built(self, page):
+        """Build a content tab on first visit when LAZY_PAGE_BUILD is enabled."""
+        if not LAZY_PAGE_BUILD:
+            return
+        built = getattr(self, "_lazy_pages_built", None)
+        if built is None:
+            self._lazy_pages_built = set()
+            built = self._lazy_pages_built
+        if page in built:
+            return
+        builder_name = self._page_builder_map().get(page)
+        if not builder_name:
+            return
+        builder = getattr(self, builder_name, None)
+        if not callable(builder):
+            return
+        was_switching = getattr(self, "_switching_page", False)
+        self._switching_page = True
+        try:
+            builder()
+            built.add(page)
+            self._restore_widget_registry_values()
+            self._prime_lazy_page_after_build(page)
+        finally:
+            self._switching_page = was_switching
+
     def _mark_all_content_pages_built(self):
         """Seed content cache keys after a full build so first tab visits do not rebuild."""
         try:
@@ -20739,9 +23471,8 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             except tk.TclError:
                 pass
 
-    def _show_page_frame(self, page):
-        """Raise the active page; never unmap siblings (avoids entry redraw / refill flicker)."""
-        frame_map = {
+    def _page_frame_map(self):
+        return {
             "Stats": "stats_frame",
             "Inventory": "inv_frame",
             "Combat": "combat_frame",
@@ -20750,8 +23481,31 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             "Feats & Features": "feats_frame",
             "Description": "description_frame",
         }
-        self._mount_all_content_pages_placed()
+
+    def _show_page_frame(self, page):
+        """Show only the active page when SINGLE_ACTIVE_PAGE_MOUNT is enabled."""
+        frame_map = self._page_frame_map()
         target_attr = frame_map.get(page)
+        if SINGLE_ACTIVE_PAGE_MOUNT:
+            for attr in self._content_page_frame_names():
+                frame = getattr(self, attr, None)
+                if frame is None:
+                    continue
+                try:
+                    if not frame.winfo_exists():
+                        continue
+                except tk.TclError:
+                    continue
+                if attr == target_attr:
+                    if not frame.winfo_ismapped():
+                        frame.place(relx=0, rely=0, relwidth=1, relheight=1)
+                    frame.lift()
+                    if attr == "stats_frame":
+                        self._schedule_stats_skills_viewport_refresh()
+                elif frame.winfo_ismapped():
+                    frame.place_forget()
+            return
+        self._mount_all_content_pages_placed()
         frame = getattr(self, target_attr, None) if target_attr else None
         if frame is not None:
             try:
@@ -20774,6 +23528,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         self._switching_page = True
         prev_page = getattr(self, "_current_page", None)
         self._current_page = page
+        self._ensure_page_built(page)
         self._show_page_frame(page)
         if getattr(self, "_rebuilding_ui", False):
             self.root.after_idle(self._clear_switching_page_flag)
@@ -20796,6 +23551,10 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 self.root.after_idle(self._refresh_stats_derived_display)
             if self._stats_layout_needs_refresh():
                 self.root.after_idle(self._apply_responsive_layout)
+            elif self._is_portrait_monitor_layout():
+                self.root.after_idle(self._apply_portrait_monitor_layout)
+            else:
+                self._schedule_stats_skills_viewport_refresh()
         elif page == "Inventory":
             if self._inventory_page_is_stale():
                 self.rebuild_inventory_list()
@@ -20923,14 +23682,8 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
     def _apply_abilities_lock_state(self):
         if not hasattr(self, "abilities_locked"):
             return
-        locked = self.abilities_locked
-        state = "disabled" if locked else "normal"
-        if hasattr(self, "ability_vars"):
-            for info in self.ability_vars.values():
-                if "base_entry" in info:
-                    info["base_entry"].configure(state=state)
         if hasattr(self, "abilities_lock_btn"):
-            self._configure_lock_button(self.abilities_lock_btn, locked)
+            self._configure_lock_button(self.abilities_lock_btn, self.abilities_locked)
 
     def _apply_skills_lock_state(self):
         if not hasattr(self, "skills_locked"):
@@ -20953,9 +23706,13 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
     def build_stats_page(self):
         self.stats_frame = ctk.CTkFrame(self.content)
         self.stats_frame.pack_propagate(True)
+        self.stats_frame.grid_columnconfigure(0, weight=1)
+        self.stats_frame.grid_rowconfigure(0, weight=0)
+        self.stats_frame.grid_rowconfigure(1, weight=0)
+        self.stats_frame.grid_rowconfigure(2, weight=1, minsize=self._stats_bottom_row_minsize())
         self.stats_top_frame = ctk.CTkFrame(self.stats_frame)
         top = self.stats_top_frame
-        top.pack(fill="x", pady=8, padx=15)
+        top.grid(row=0, column=0, sticky="ew", pady=8, padx=15)
 
         # ===================== TOP BAR (single responsive row) =====================
         ctk.CTkLabel(top, text="Name:").grid(row=0, column=0, padx=(8, 4), pady=6, sticky="w")
@@ -21030,14 +23787,16 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
         # ===================== CLASSES + HEALTH SIDE-BY-SIDE =====================
         class_health_row = ctk.CTkFrame(self.stats_frame)
-        class_health_row.pack(fill="x", pady=10, padx=15)
+        class_health_row.grid(row=1, column=0, sticky="ew", pady=10, padx=15)
+        self.class_health_row = class_health_row
         class_health_row.columnconfigure(0, weight=0, minsize=300)
         class_health_row.columnconfigure(1, weight=1)
-        class_health_row.columnconfigure(2, weight=0, minsize=190)
+        class_health_row.columnconfigure(2, weight=0, minsize=210)
         class_health_row.columnconfigure(3, weight=0, minsize=260)
 
         cls_frame = ctk.CTkFrame(class_health_row)
         cls_frame.grid(row=0, column=0, sticky="nsew", padx=(0, 10))
+        self._class_health_cls = cls_frame
 
         cls_title_row = ctk.CTkFrame(cls_frame, fg_color="transparent")
         cls_title_row.pack(fill="x", pady=(0, 8))
@@ -21092,6 +23851,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         # --- Health panel ---
         health_frame = ctk.CTkFrame(class_health_row)
         health_frame.grid(row=0, column=1, sticky="nsew")
+        self._class_health_health = health_frame
 
         ctk.CTkLabel(health_frame, text="Health", font=ctk.CTkFont(size=18, weight="bold")).pack(anchor="w", padx=8)
 
@@ -21282,11 +24042,13 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         # --- Elemental resistances summary ---
         resist_summary_frame = ctk.CTkFrame(class_health_row)
         resist_summary_frame.grid(row=0, column=2, sticky="nsew", padx=(10, 0))
+        self._class_health_resist = resist_summary_frame
         self._build_elemental_resistance_panel(resist_summary_frame)
 
         # --- Defenses ---
         defenses_frame = ctk.CTkFrame(class_health_row)
         defenses_frame.grid(row=0, column=3, sticky="nsew", padx=(10, 0))
+        self._class_health_defenses = defenses_frame
 
         ctk.CTkLabel(defenses_frame, text="Defenses", font=ctk.CTkFont(size=18, weight="bold")).pack(anchor="w", padx=8, pady=5)
 
@@ -21314,19 +24076,30 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
         self.refresh_defenses()
 
-        # ===================== MAIN ROW – narrow Abilities, wider Skills =====================
-        main_row = ctk.CTkFrame(self.stats_frame)
-        main_row.pack(fill="both", expand=True, padx=15, pady=10)
+        # ===================== BOTTOM HALF – four columns to window bottom ==============
+        stats_bottom_half = ctk.CTkFrame(self.stats_frame, fg_color="transparent")
+        stats_bottom_half.grid(row=2, column=0, sticky="nsew", padx=15, pady=(0, 10))
+        stats_bottom_half.grid_rowconfigure(0, weight=1)
+        stats_bottom_half.grid_columnconfigure(0, weight=1)
+        self._stats_bottom_half = stats_bottom_half
+
+        main_row = ctk.CTkFrame(stats_bottom_half, fg_color="transparent")
+        main_row.grid(row=0, column=0, sticky="nsew", pady=(10, 0))
 
         self.main_row = main_row
-        initial_col_w = self._stats_main_column_width()
-        for col_idx in range(3):
-            main_row.columnconfigure(col_idx, weight=1, minsize=initial_col_w)
-        main_row.rowconfigure(0, weight=1)
+        panel_widths = self._stats_landscape_panel_widths()
+        initial_abilities_w = self._stats_main_column_width()
+        main_row.columnconfigure(0, weight=1, minsize=initial_abilities_w)
+        main_row.columnconfigure(1, weight=0, minsize=panel_widths["defense"])
+        main_row.columnconfigure(2, weight=0, minsize=panel_widths["features"])
+        main_row.columnconfigure(3, weight=0, minsize=panel_widths["skills"])
+        main_row.rowconfigure(0, weight=0)
+        main_row.rowconfigure(1, weight=1)
 
         # ===================== ABILITY SCORES (Column 0) =====================
         left_main = ctk.CTkFrame(main_row)
-        left_main.grid(row=0, column=0, sticky="nsew", padx=8)
+        left_main.grid(row=0, column=0, sticky="new", padx=8)
+        self._stats_abilities_panel = left_main
 
         ability_title_row = ctk.CTkFrame(left_main, fg_color="transparent")
         ability_title_row.pack(fill="x", pady=8)
@@ -21343,16 +24116,17 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             command=self._toggle_abilities_lock,
         )
         self.abilities_lock_btn.pack(side="left", padx=(8, 0))
-
-        self.ability_raging_banner = ctk.CTkFrame(left_main, fg_color="transparent")
         self.ability_raging_label = ctk.CTkLabel(
-            self.ability_raging_banner,
+            ability_title_row,
             text="",
-            font=ctk.CTkFont(size=22, weight="bold"),
+            width=72,
+            wraplength=72,
+            font=ctk.CTkFont(size=13, weight="bold"),
             text_color=THEME_RAGE_RED,
-            anchor="center",
+            anchor="e",
+            justify="right",
         )
-        self.ability_raging_label.pack(fill="x", pady=(2, 0))
+        self.ability_raging_label.pack(side="right", padx=(8, 0))
 
         self.ability_section = ctk.CTkFrame(left_main, fg_color="transparent")
         self.ability_section.pack(fill="x", pady=5)
@@ -21424,13 +24198,13 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             name_lbl.grid(row=row_idx, column=0, padx=2, pady=2, sticky="w")
             self.ability_name_lbls[ab] = name_lbl
 
-            base_var = ctk.StringVar(value=str(self.data["abilities"][ab]["base"]))
-            base_entry = ctk.CTkEntry(
-                ability_table, textvariable=base_var, width=ABILITY_COLUMN_WIDTHS[1],
+            base_lbl = ctk.CTkLabel(
+                ability_table,
+                text=str(self._get_displayed_ability_base(ab)),
+                width=ABILITY_COLUMN_WIDTHS[1],
+                anchor="center",
             )
-            base_entry.grid(row=row_idx, column=1, padx=2, pady=2)
-            base_var.trace("w", self._trace_refresh)
-            self.register_widget(f"ability_{ab}_base", base_var)
+            base_lbl.grid(row=row_idx, column=1, padx=2, pady=2)
 
             racial_lbl = ctk.CTkLabel(ability_table, text="0", width=ABILITY_COLUMN_WIDTHS[2])
             racial_lbl.grid(row=row_idx, column=2, padx=2, pady=2)
@@ -21456,8 +24230,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             )
 
             self.ability_vars[ab] = {
-                "base": base_var,
-                "base_entry": base_entry,
+                "base_lbl": base_lbl,
                 "racial_lbl": racial_lbl,
                 "enh_lbl": enh_lbl,
                 "misc_lbl": misc_lbl,
@@ -21597,6 +24370,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             left_main, fg_color="#2F2F2F", corner_radius=8,
             height=STATS_MOVEMENT_PANEL_HEIGHT,
         )
+        self.stats_movement_frame = stats_movement_frame
         stats_movement_frame.pack(fill="x", pady=(8, 0), padx=2)
         stats_movement_frame.pack_propagate(False)
         self._build_movement_panel(
@@ -21610,7 +24384,8 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
         # ===================== DEFENSE (Column 1) =====================
         combat = ctk.CTkFrame(main_row)
-        combat.grid(row=0, column=1, sticky="nsew", padx=8)
+        combat.grid(row=0, column=1, sticky="new", padx=8)
+        self._stats_defense_panel = combat
 
         ctk.CTkLabel(combat, text="Defense", font=ctk.CTkFont(size=18, weight="bold")).pack(pady=8)
 
@@ -21699,10 +24474,25 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 lambda st=save_type: self._build_talespire_save_roll(st),
             )
 
-        # ===================== SKILLS (Column 2) =====================
+        # ===================== FEATURES (pinned, landscape column 2) =====================
+        features_panel = ctk.CTkFrame(main_row)
+        self._stats_features_panel = features_panel
+        features_title_row = ctk.CTkFrame(features_panel, fg_color="transparent")
+        features_title_row.pack(fill="x", pady=8, padx=4)
+        ctk.CTkLabel(
+            features_title_row,
+            text="Features",
+            font=ctk.CTkFont(size=18, weight="bold"),
+        ).pack(side="left")
+        self._stats_features_scroll = ctk.CTkScrollableFrame(features_panel, fg_color="transparent")
+        self._stats_features_scroll.pack(fill="both", expand=True, padx=4, pady=(0, 4))
+        self._rebuild_stats_features_widget()
+
+        # ===================== SKILLS (Column 3) =====================
         skills_frame = ctk.CTkFrame(main_row)
-        skills_frame.grid(row=0, column=2, sticky="nsew", padx=8)
+        skills_frame.grid(row=0, column=3, sticky="new", padx=(8, 4))
         self.skills_frame = skills_frame
+        self._stats_skills_panel = skills_frame
 
         skills_title_row = ctk.CTkFrame(skills_frame, fg_color="transparent")
         skills_title_row.pack(fill="x", pady=5, padx=4)
@@ -21712,7 +24502,6 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             font=ctk.CTkFont(size=18, weight="bold"),
         )
         self.skill_points_label.pack(side="left")
-        self._bind_skills_title_shift_popout(self.skill_points_label)
         self.skills_locked = self._get_skills_lock_state()
         self.skills_lock_btn = ctk.CTkButton(
             skills_title_row,
@@ -21735,10 +24524,12 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             self.skills_sort_by_rank_switch.deselect()
         
         self._skills_content_host = ctk.CTkFrame(skills_frame, fg_color="transparent")
-        self._skills_content_host.pack(fill="both", expand=True)
+        self._skills_content_host.pack(
+            fill="both", expand=True, padx=(4, SKILLS_SCROLLBAR_PAD),
+        )
         self._build_skills_content_host(self._skills_content_host)
 
-        self._apply_stats_page_layout(force=True)
+        self._finalize_stats_bottom_layout()
         self._schedule_refresh_movement_display()
         self._refresh_rage_ability_styling()
 
@@ -21929,9 +24720,13 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         finally:
             self._suppress_coin_ui_sync = False
 
-    def _add_coins_to_character(self, payout):
-        """Add coin amounts to character data (current coin tab) and refresh."""
-        loc = getattr(self, "current_coin_tab", "person")
+    def _add_coins_to_character(self, payout, loc=None):
+        """Add coin amounts to character data and refresh."""
+        if loc is None:
+            loc = getattr(self, "current_coin_tab", "person")
+        loc = str(loc or "person").strip().lower()
+        if loc not in ("person", "container", "banked"):
+            loc = "person"
         loc_coins = self.data.setdefault("coins", {}).setdefault(loc, {"PP": 0, "GP": 0, "EP": 0, "SP": 0, "CP": 0})
         for coin in ("PP", "GP", "EP", "SP", "CP"):
             loc_coins[coin] = (
@@ -23401,7 +26196,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             )
             status_combo.grid(row=0, column=0, padx=2, sticky="w")
             self.register_widget(f"weapon_{i}_status", status_var)
-            status_var.trace("w", self._trace_inventory)
+            status_var.trace_add("write", self._trace_inventory)
             
             name_var = ctk.StringVar(value=self.data["weapons"][i]["name"])
             wcombo = InventoryGearAutocompleteCombo(
@@ -23415,7 +26210,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             )
             wcombo.grid(row=0, column=1, padx=2, sticky="ew")
             self.register_widget(f"weapon_{i}_name", name_var)
-            name_var.trace("w", self._trace_inventory)
+            name_var.trace_add("write", self._trace_inventory)
             self.weapon_combos.append(wcombo)
 
             weapon_material = self._normalize_special_material(self.data["weapons"][i].get("material"))
@@ -23429,7 +26224,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             )
             material_combo.grid(row=0, column=2, padx=2, sticky="w")
             self.register_widget(f"weapon_{i}_material", material_var)
-            material_var.trace("w", self._trace_inventory)
+            material_var.trace_add("write", self._trace_inventory)
             
             numeric_slot_vars = {}
             for col_offset, key in enumerate(["enh", "feat_atk", "feat_dmg"], start=3):
@@ -23437,7 +26232,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 ctk.CTkEntry(
                     row, textvariable=var, width=WEAPON_INVENTORY_COLUMNS[col_offset][1],
                 ).grid(row=0, column=col_offset, padx=2, sticky="w")
-                var.trace("w", self._trace_inventory)
+                var.trace_add("write", self._trace_inventory)
                 self.register_widget(f"weapon_{i}_{key}", var)
                 numeric_slot_vars[key] = var
             
@@ -23445,7 +26240,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             ctk.CTkEntry(
                 row, textvariable=range_var, width=WEAPON_INVENTORY_COLUMNS[6][1],
             ).grid(row=0, column=6, padx=2, sticky="w")
-            range_var.trace("w", self._trace_inventory)
+            range_var.trace_add("write", self._trace_inventory)
             self.register_widget(f"weapon_{i}_range", range_var)
             numeric_slot_vars["range"] = range_var
 
@@ -23495,7 +26290,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         )
         armor_status_combo.grid(row=0, column=0, padx=2, sticky="w")
         self.register_widget("armor_status", status_var)
-        status_var.trace("w", self._trace_inventory)
+        status_var.trace_add("write", self._trace_inventory)
 
         name_var = ctk.StringVar(value=self.data["armor"]["name"])
         self.armor_name_combo = InventoryGearAutocompleteCombo(
@@ -23508,7 +26303,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         )
         self.armor_name_combo.grid(row=0, column=1, padx=2, sticky="ew")
         self.register_widget("armor_name", name_var)
-        name_var.trace("w", self._trace_inventory)
+        name_var.trace_add("write", self._trace_inventory)
 
         armor_material = self._normalize_special_material(self.data["armor"].get("material"))
         armor_material_var = ctk.StringVar(value=armor_material)
@@ -23521,7 +26316,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         )
         self.armor_material_combo.grid(row=0, column=2, padx=2, sticky="w")
         self.register_widget("armor_material", armor_material_var)
-        armor_material_var.trace("w", self._trace_inventory)
+        armor_material_var.trace_add("write", self._trace_inventory)
 
         self.armor_vars = {
             "status": status_var,
@@ -23538,14 +26333,14 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 row, textvariable=var, width=ARMOR_INVENTORY_COLUMNS[col_offset][1],
             ).grid(row=0, column=col_offset, padx=2, sticky="w")
             self.register_widget(f"armor_{key}", var)
-            var.trace("w", self._trace_inventory)
+            var.trace_add("write", self._trace_inventory)
             self.armor_vars[key] = var
         acp_var = ctk.StringVar(value=str(default_acp))
         ctk.CTkEntry(
             row, textvariable=acp_var, width=ARMOR_INVENTORY_COLUMNS[6][1],
         ).grid(row=0, column=6, padx=2, sticky="w")
         self.register_widget("armor_check_penalty", acp_var)
-        acp_var.trace("w", self._trace_inventory)
+        acp_var.trace_add("write", self._trace_inventory)
         self.armor_vars["armor_check_penalty"] = acp_var
         self.data["armor"]["armor_check_penalty"] = int(default_acp or 0)
         self._apply_armor_material_stats(update_ui=True)
@@ -23577,7 +26372,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         )
         shield_status_combo.grid(row=0, column=0, padx=2, sticky="w")
         self.register_widget("shield_status", status_var)
-        status_var.trace("w", self._trace_inventory)
+        status_var.trace_add("write", self._trace_inventory)
 
         name_var = ctk.StringVar(value=self.data["shield"]["name"])
         self.shield_name_combo = InventoryGearAutocompleteCombo(
@@ -23590,7 +26385,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         )
         self.shield_name_combo.grid(row=0, column=1, padx=2, sticky="ew")
         self.register_widget("shield_name", name_var)
-        name_var.trace("w", self._trace_inventory)
+        name_var.trace_add("write", self._trace_inventory)
 
         shield_material = self._normalize_special_material(self.data["shield"].get("material"))
         shield_material_var = ctk.StringVar(value=shield_material)
@@ -23603,7 +26398,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         )
         self.shield_material_combo.grid(row=0, column=2, padx=2, sticky="w")
         self.register_widget("shield_material", shield_material_var)
-        shield_material_var.trace("w", self._trace_inventory)
+        shield_material_var.trace_add("write", self._trace_inventory)
 
         self.shield_vars = {
             "status": status_var,
@@ -23620,14 +26415,14 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 row, textvariable=var, width=SHIELD_INVENTORY_COLUMNS[col_offset][1],
             ).grid(row=0, column=col_offset, padx=2, sticky="w")
             self.register_widget(f"shield_{key}", var)
-            var.trace("w", self._trace_inventory)
+            var.trace_add("write", self._trace_inventory)
             self.shield_vars[key] = var
         acp_var = ctk.StringVar(value=str(default_acp))
         ctk.CTkEntry(
             row, textvariable=acp_var, width=SHIELD_INVENTORY_COLUMNS[5][1],
         ).grid(row=0, column=5, padx=2, sticky="w")
         self.register_widget("shield_check_penalty", acp_var)
-        acp_var.trace("w", self._trace_inventory)
+        acp_var.trace_add("write", self._trace_inventory)
         self.shield_vars["armor_check_penalty"] = acp_var
         self.data["shield"]["armor_check_penalty"] = int(default_acp or 0)
         self._apply_shield_material_stats(update_ui=True)
@@ -23926,6 +26721,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             font=ctk.CTkFont(size=14, weight="bold"),
         )
         self.loot_btn.pack(side="right")
+        self._update_loot_button()
         self._bind_inventory_page_tooltips()
         
     def _bind_inventory_page_tooltips(self):
@@ -24131,7 +26927,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             name_var = ctk.StringVar(value=str(item.get("name", "")))
             name_entry = ctk.CTkEntry(row, textvariable=name_var, width=220)
             name_entry.pack(side="left", padx=4)
-            name_var.trace("w", self._trace_inventory_list)
+            name_var.trace_add("write", self._trace_inventory_list)
 
             self._bind_inventory_tooltip(
                 drag_handle, "Drag to reorder items in this tab.",
@@ -24160,13 +26956,13 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             wt_var = ctk.StringVar(value=str(item.get("weight", 0)))
             wt_entry = ctk.CTkEntry(row, textvariable=wt_var, width=85)
             wt_entry.pack(side="left", padx=4)
-            wt_var.trace("w", self._trace_inventory_list)
+            wt_var.trace_add("write", self._trace_inventory_list)
 
             # Value
             val_var = ctk.StringVar(value=str(item.get("value", 0)))
             val_entry = ctk.CTkEntry(row, textvariable=val_var, width=85)
             val_entry.pack(side="left", padx=4)
-            val_var.trace("w", self._trace_inventory_list)
+            val_var.trace_add("write", self._trace_inventory_list)
 
             # Action button (Move / Trade) + Remove
             move_btn = ctk.CTkButton(
@@ -27803,7 +30599,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         
     def recalc_ability(self, ab, bonuses=None):
         try:
-            base = int(self.ability_vars[ab]["base"].get() or 10)
+            base = self._get_stored_ability_base(ab)
             current_race = self._get_current_race()
             race_data = self.races.get(current_race, {})
             racial = race_data.get(ABILITY_SHORT[ab], 0)
@@ -27819,12 +30615,13 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
             self.data["abilities"][ab]["total"] = total
             self.data["abilities"][ab]["racial"] = racial
+            self.ability_vars[ab]["base_lbl"].configure(text=str(base + asi))
             self.ability_vars[ab]["racial_lbl"].configure(text=str(racial))
             if inherent:
                 self.ability_vars[ab]["enh_lbl"].configure(text=f"{enh}+{inherent}")
             else:
                 self.ability_vars[ab]["enh_lbl"].configure(text=str(enh))
-            self.ability_vars[ab]["misc_lbl"].configure(text=str(misc + asi + age_mod))
+            self.ability_vars[ab]["misc_lbl"].configure(text=str(misc + age_mod))
 
             # Apply ability damage to displayed total (but never buff)
             dmg = self.data.get("ability_damage", {}).get(ab, 0) or 0
@@ -27948,38 +30745,34 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             state_text = ""
             accent = THEME_ORANGE
 
-        if state_text:
-            self.ability_raging_label.configure(
-                text=state_text.upper() if raging and not wild else state_text,
-                text_color=accent,
-                font=ctk.CTkFont(size=22, weight="bold"),
-            )
-            if hasattr(self, "ability_raging_banner"):
-                if not self.ability_raging_banner.winfo_ismapped():
-                    self.ability_raging_banner.pack(
-                        fill="x",
-                        pady=(0, 4),
-                        before=self.ability_section,
-                    )
-        else:
-            if hasattr(self, "ability_raging_banner"):
-                self.ability_raging_banner.pack_forget()
+        self.ability_raging_label.configure(
+            text=state_text.upper() if raging and not wild else state_text,
+            text_color=accent if state_text else THEME_RAGE_RED,
+            font=ctk.CTkFont(size=13, weight="bold"),
+        )
         self.ability_totals_border.configure(border_color=accent)
         if hasattr(self, "ability_total_mod_headers"):
             for header_lbl in self.ability_total_mod_headers:
                 header_lbl.configure(text_color=accent)
     
-    def _on_skill_specialty_changed(self, skill_key):
-        if skill_key in self.skill_specialty_combos:
-            self.data.setdefault("skill_specialties", {})[skill_key] = (
-                self.skill_specialty_combos[skill_key].get()
-            )
+    def _on_skill_specialty_changed(self, skill_key, specialty=None):
+        if specialty is not None:
+            self.data.setdefault("skill_specialties", {})[skill_key] = specialty
+        info = self.skill_vars.get(skill_key) if hasattr(self, "skill_vars") else None
+        if info:
+            name_lbl = info.get("name_lbl")
+            if name_lbl is not None:
+                self._update_skill_name_label(skill_key, name_lbl)
         self._refresh_skill_class_labels()
         self.refresh_all()
 
     def recalc_skill(self, skill):
         try:
             info = self.skill_vars[skill]
+            mod_lbl = info.get("mod_lbl")
+            total_lbl = info.get("total_lbl")
+            if mod_lbl is None or total_lbl is None:
+                return
             rank = self._parse_and_cap_skill_rank(skill, info["rank"])
             misc = int(info["misc"].get() or 0)
             syn = 0
@@ -28015,31 +30808,31 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 + size_skill_bonus + racial_skill_bonus + syn + weather_penalty
             )
             if ab_key == "—":
-                info["mod_lbl"].configure(text="—")
+                mod_lbl.configure(text="—")
             else:
                 sign = "+" if mod >= 0 else ""
-                info["mod_lbl"].configure(text=f"{sign}{mod}")
+                mod_lbl.configure(text=f"{sign}{mod}")
             if self._skill_uses_no_rolls(skill):
                 if rank <= 0:
                     self._style_skill_total_label(
-                        info["total_lbl"], "Trained Only", 0,
+                        total_lbl, "Trained Only", 0,
                     )
                 else:
                     self._style_skill_total_label(
-                        info["total_lbl"], str(int(rank)), 0,
+                        total_lbl, str(int(rank)), 0,
                     )
             elif self._is_trained_only_skill(skill) and rank <= 0:
                 self._style_skill_total_label(
-                    info["total_lbl"], "Trained Only", 0,
+                    total_lbl, "Trained Only", 0,
                 )
             elif self._skill_auto_fails_from_afflictions(skill):
                 self._style_skill_total_label(
-                    info["total_lbl"], "Auto Fail", item_skill_bonus, auto_fail=True,
+                    total_lbl, "Auto Fail", item_skill_bonus, auto_fail=True,
                 )
             else:
                 total_sign = "+" if total >= 0 else ""
                 self._style_skill_total_label(
-                    info["total_lbl"],
+                    total_lbl,
                     f"{total_sign}{total}",
                     item_skill_bonus,
                 )
@@ -29732,24 +32525,28 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         right_column.columnconfigure(0, weight=1)
         right_column.rowconfigure(0, weight=1)
         right_column.rowconfigure(1, weight=0)
+        self.prepared_spells_expanded = False
 
-        # Prepared area (expands to fill above the bottom widget)
-        prepared_area = ctk.CTkFrame(right_column)
+        # Prepared area (grid mirrors Spells Known column for reliable scroll sizing)
+        self.prepared_area = ctk.CTkFrame(right_column)
+        prepared_area = self.prepared_area
         prepared_area.grid(row=0, column=0, sticky="nsew")
+        prepared_area.columnconfigure(0, weight=1)
+        prepared_area.rowconfigure(2, weight=0)
 
         self.prepared_section_label = ctk.CTkLabel(
             prepared_area, text="📋 Prepared Spells for Today",
             font=ctk.CTkFont(size=18, weight="bold"),
             text_color=THEME_TEAL,
         )
-        self.prepared_section_label.pack(anchor="w", padx=10, pady=(0, 5))
+        self.prepared_section_label.grid(row=0, column=0, sticky="w", padx=10, pady=(0, 5))
 
         # Collapse/Expand all controls for the prepared spell levels (above the scroll)
-        prepared_controls = ctk.CTkFrame(prepared_area, fg_color="transparent")
-        prepared_controls.pack(fill="x", padx=10, pady=(0, 5))
+        self.prepared_controls = ctk.CTkFrame(prepared_area, fg_color="transparent")
+        self.prepared_controls.grid(row=1, column=0, sticky="ew", padx=10, pady=(0, 5))
 
         ctk.CTkButton(
-            prepared_controls, text="Collapse All", width=90, height=22,
+            self.prepared_controls, text="Collapse All", width=90, height=22,
             fg_color=getattr(self, 'primary_button_color', THEME_ORANGE),
             hover_color=getattr(self, 'primary_hover_color', '#a56b32'),
             font=ctk.CTkFont(size=11),
@@ -29757,19 +32554,45 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         ).pack(side="left", padx=(0, 4))
 
         ctk.CTkButton(
-            prepared_controls, text="Expand All", width=90, height=22,
+            self.prepared_controls, text="Expand All", width=90, height=22,
             fg_color=getattr(self, 'primary_button_color', THEME_ORANGE),
             hover_color=getattr(self, 'primary_hover_color', '#a56b32'),
             font=ctk.CTkFont(size=11),
             command=self._expand_all_prepared_levels
         ).pack(side="left")
 
-        self.prepared_scroll = ctk.CTkScrollableFrame(prepared_area)
-        self.prepared_scroll.pack(fill="both", expand=True, padx=5, pady=(0, 0))
+        self.prepared_scroll_host = ctk.CTkFrame(
+            prepared_area,
+            fg_color="transparent",
+            height=PREPARED_SPELLS_COLLAPSED_HEIGHT,
+        )
+        self.prepared_scroll_host.grid(row=2, column=0, sticky="ew", padx=5, pady=(0, 0))
+        try:
+            self.prepared_scroll_host.grid_propagate(False)
+        except Exception:
+            pass
+
+        self.prepared_scroll = ctk.CTkScrollableFrame(
+            self.prepared_scroll_host,
+            fg_color="transparent",
+        )
+        self.prepared_scroll.pack(fill="both", expand=True)
+
+        self.prepared_spells_expand_btn = ctk.CTkButton(
+            prepared_area,
+            text="▼  Expand Prepared Spells",
+            height=30,
+            fg_color=getattr(self, 'secondary_button_color', THEME_TEAL),
+            hover_color=getattr(self, 'secondary_hover_color', THEME_TEAL_HOVER),
+            font=ctk.CTkFont(size=13, weight="bold"),
+            command=self._toggle_prepared_spells_expand,
+        )
+        self.prepared_spells_expand_btn.grid(row=3, column=0, sticky="ew", padx=5, pady=(4, 5))
 
         # Consumable spell item widget (scrolls/wands/oils/potions) at the very bottom of the right column
-        cons_frame = ctk.CTkFrame(right_column)
-        cons_frame.grid(row=1, column=0, sticky="ew", padx=5, pady=5)
+        self.cons_frame = ctk.CTkFrame(right_column)
+        self.cons_frame.grid(row=1, column=0, sticky="ew", padx=5, pady=5)
+        cons_frame = self.cons_frame
 
         ctk.CTkLabel(cons_frame, text="Add Spell Item to Prepared:", font=ctk.CTkFont(size=12, weight="bold")).pack(side="left", padx=5)
 
@@ -29797,19 +32620,28 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             command=self.add_consumable_spell_item, width=110
         ).pack(side="left", padx=5)
 
+        self._prepared_bottom_widgets = (self.cons_frame,)
+        self.root.after_idle(
+            lambda rc=right_column: rc.bind(
+                "<Configure>", self._on_prepared_spells_column_configure,
+            ),
+        )
+
         self.refresh_spells_page()
-        print("✅ Spells page rebuilt (expand prepared button removed; prepared extended above bottom consumable widget)")
+        print("✅ Spells page rebuilt")
 
     def _resize_known_spells_scroll(self):
+        if self._layout_updates_paused():
+            return
         if not getattr(self, "known_spells_expanded", False):
             return
         if not hasattr(self, "left_column"):
             return
 
-        self.left_column.update_idletasks()
+        self._safe_update_idletasks(self.left_column)
         total_h = self.left_column.winfo_height()
         if total_h <= 1:
-            self.after(50, self._resize_known_spells_scroll)
+            self.root.after(50, self._resize_known_spells_scroll)
             return
 
         used_h = sum(
@@ -29820,15 +32652,112 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 self.known_spells_expand_btn,
             )
         ) + 70
-        self.known_spells_scroll.configure(height=max(KNOWN_SPELLS_COLLAPSED_HEIGHT, total_h - used_h))
+        scroll = getattr(self, "known_spells_scroll", None)
+        if scroll and self._widget_is_alive(scroll):
+            scroll.configure(height=max(KNOWN_SPELLS_COLLAPSED_HEIGHT, total_h - used_h))
 
-    # _resize_prepared_spells_scroll removed (expand button for prepared spells removed)
+    def _schedule_known_spells_scroll_resize(self, _event=None):
+        if self._layout_updates_paused():
+            return
+        if not getattr(self, "known_spells_expanded", False):
+            return
+        timer = getattr(self, "_known_spells_resize_timer", None)
+        if timer is not None:
+            try:
+                self.root.after_cancel(timer)
+            except Exception:
+                pass
+        self._known_spells_resize_timer = self.root.after(
+            CONFIGURE_HANDLER_DEBOUNCE_MS, self._run_known_spells_scroll_resize,
+        )
 
-    def _on_known_spells_column_configure(self, _event=None):
-        if getattr(self, "known_spells_expanded", False):
+    def _run_known_spells_scroll_resize(self):
+        self._known_spells_resize_timer = None
+        with self._resize_configure_guard() as may_run:
+            if not may_run:
+                return
             self._resize_known_spells_scroll()
 
-    # _on_prepared_spells_column_configure removed (no more expand for prepared)
+    def _resize_prepared_spells_scroll(self):
+        if self._layout_updates_paused():
+            return
+        if not getattr(self, "prepared_spells_expanded", False):
+            return
+        column = getattr(self, "prepared_area", None) or getattr(self, "right_column", None)
+        host = getattr(self, "prepared_scroll_host", None)
+        if column is None or not host or not self._widget_is_alive(host):
+            return
+
+        self._safe_update_idletasks(column)
+        total_h = column.winfo_height()
+        if total_h <= 1:
+            self.root.after(50, self._resize_prepared_spells_scroll)
+            return
+
+        used_h = sum(
+            widget.winfo_height()
+            for widget in (
+                self.prepared_section_label,
+                self.prepared_controls,
+                self.prepared_spells_expand_btn,
+            )
+        ) + 20
+        host.configure(height=max(PREPARED_SPELLS_COLLAPSED_HEIGHT, total_h - used_h))
+
+    def _apply_prepared_spells_scroll_height(self):
+        """Keep prepared scroll host at collapsed height unless the section is expanded."""
+        host = getattr(self, "prepared_scroll_host", None)
+        area = getattr(self, "prepared_area", None)
+        if not host or not self._widget_is_alive(host):
+            return
+        if getattr(self, "prepared_spells_expanded", False):
+            if area and self._widget_is_alive(area):
+                area.rowconfigure(2, weight=1)
+            host.grid_configure(sticky="nsew")
+            self._resize_prepared_spells_scroll()
+        else:
+            if area and self._widget_is_alive(area):
+                area.rowconfigure(2, weight=0)
+            host.grid_configure(sticky="ew")
+            host.configure(height=PREPARED_SPELLS_COLLAPSED_HEIGHT)
+
+    def _schedule_prepared_spells_scroll_resize(self, _event=None):
+        if self._layout_updates_paused():
+            return
+        if not getattr(self, "prepared_spells_expanded", False):
+            return
+        timer = getattr(self, "_prepared_spells_resize_timer", None)
+        if timer is not None:
+            try:
+                self.root.after_cancel(timer)
+            except Exception:
+                pass
+        self._prepared_spells_resize_timer = self.root.after(
+            CONFIGURE_HANDLER_DEBOUNCE_MS, self._run_prepared_spells_scroll_resize,
+        )
+
+    def _run_prepared_spells_scroll_resize(self):
+        self._prepared_spells_resize_timer = None
+        with self._resize_configure_guard() as may_run:
+            if not may_run:
+                return
+            self._resize_prepared_spells_scroll()
+
+    def _on_known_spells_column_configure(self, _event=None):
+        with self._resize_configure_guard() as may_run:
+            if not may_run:
+                return
+            self._schedule_known_spells_scroll_resize()
+
+    def _on_prepared_spells_column_configure(self, _event=None):
+        if getattr(self, "_rebuilding_ui", False):
+            return
+        if not getattr(self, "prepared_spells_expanded", False):
+            return
+        with self._resize_configure_guard() as may_run:
+            if not may_run:
+                return
+            self._schedule_prepared_spells_scroll_resize()
 
     def _toggle_known_spells_expand(self):
         self.known_spells_expanded = not getattr(self, "known_spells_expanded", False)
@@ -29843,7 +32772,18 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             self.known_spells_scroll.configure(height=KNOWN_SPELLS_COLLAPSED_HEIGHT)
             self.known_spells_expand_btn.configure(text="▼  Expand Spells Known")
 
-    # _toggle_prepared_spells_expand removed (expand button for prepared spells removed)
+    def _toggle_prepared_spells_expand(self):
+        self.prepared_spells_expanded = not getattr(self, "prepared_spells_expanded", False)
+        if self.prepared_spells_expanded:
+            for widget in self._prepared_bottom_widgets:
+                widget.grid_remove()
+            self.prepared_spells_expand_btn.configure(text="▲  Collapse Prepared Spells")
+            self._apply_prepared_spells_scroll_height()
+        else:
+            for widget in self._prepared_bottom_widgets:
+                widget.grid()
+            self.prepared_spells_expand_btn.configure(text="▼  Expand Prepared Spells")
+            self._apply_prepared_spells_scroll_height()
 
     def _toggle_prepared_level(self, level):
         """Toggle collapse/expand for a specific prepared spell level category (0th, 1st, etc.).
@@ -31451,6 +34391,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
         if refresh_prepared:
             self._refresh_prepared_spells_panel()
+            self.root.after_idle(self._apply_prepared_spells_scroll_height)
 
         # ===================== MATERIAL COMPONENTS =====================
         self._refresh_material_list()
@@ -31492,7 +34433,8 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             self.invalidate_caches(**invalidate_kwargs)
         if self.refresh_timer is not None:
             self.root.after_cancel(self.refresh_timer)
-        self.refresh_timer = self.root.after(100, lambda: self._perform_refresh(force=False))
+        delay = 280 if self._layout_updates_paused() else 100
+        self.refresh_timer = self.root.after(delay, lambda: self._perform_refresh(force=False))
 
     def refresh_all(self, *args):
         """Debounced refresh — batches rapid widget changes into one update pass."""
@@ -31501,7 +34443,8 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         if self.refresh_timer is not None:
             self.root.after_cancel(self.refresh_timer)
         self._mark_all_dirty()
-        self.refresh_timer = self.root.after(100, lambda: self._perform_refresh(force=True))
+        delay = 280 if self._layout_updates_paused() else 100
+        self.refresh_timer = self.root.after(delay, lambda: self._perform_refresh(force=True))
 
     def _refresh_if_dirty(self):
         """Lightweight sheet refresh on tab switch — scoped to what actually changed."""
@@ -31514,6 +34457,12 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
     def _perform_refresh(self, force=False):
         """Refresh derived stats — full pass when force=True, scoped when only _dirty is set."""
         self.refresh_timer = None
+        if self._layout_updates_paused():
+            delay = 350 if force else 220
+            self.refresh_timer = self.root.after(
+                delay, lambda f=force: self._perform_refresh(force=f),
+            )
+            return
         if not force and getattr(self, "_switching_page", False):
             self.refresh_timer = self.root.after(200, lambda: self._perform_refresh(force=False))
             return
@@ -31612,9 +34561,12 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 and self._combat_summaries_need_refresh()
             ):
                 self._refresh_combat_attack_summaries()
-            self._mark_cloud_sync_dirty()
-            if scopes & getattr(self, "_priority_cloud_sync_scopes", frozenset()):
-                self._schedule_priority_cloud_push()
+            if getattr(self, "_suppress_cloud_dirty_on_next_refresh", False):
+                self._suppress_cloud_dirty_on_next_refresh = False
+            else:
+                self._mark_cloud_sync_dirty()
+                if scopes & getattr(self, "_priority_cloud_sync_scopes", frozenset()):
+                    self._schedule_priority_cloud_push()
         except Exception as e:
             print(f"Refresh error: {e}")
         finally:
@@ -31658,11 +34610,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         return None
 
     def _sync_skill_specialties_to_data(self):
-        if not hasattr(self, "skill_specialty_combos"):
-            return
-        specialties = self.data.setdefault("skill_specialties", {})
-        for skill_key, combo in self.skill_specialty_combos.items():
-            specialties[skill_key] = combo.get()
+        self.data.setdefault("skill_specialties", {})
 
     def _sync_feats_widgets_to_data(self):
         """Persist feat tab selections before page refresh or navigation."""
@@ -32077,7 +35025,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
     def _ensure_hamburger_menu_global_binds(self):
         if getattr(self, "_hamburger_menu_binds_installed", False):
             return
-        root = getattr(self.root, "tk", self.root)
+        root = _tk_bind_all_target(self.root)
         root.bind_all("<ButtonRelease-1>", self._on_hamburger_menu_global_button_release, add="+")
         root.bind_all("<Escape>", self._on_hamburger_menu_global_escape, add="+")
         self._hamburger_menu_binds_installed = True
@@ -32428,7 +35376,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
         popup = ctk.CTkToplevel(self.root)
         popup.title("Menu")
-        popup.geometry("230x600")
+        popup.geometry("230x680")
         popup.resizable(False, False)
         popup.attributes("-topmost", True)
 
@@ -32439,7 +35387,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             y = self.hamburger_btn.winfo_rooty() + self.hamburger_btn.winfo_height() + 4
             popup.geometry(f"+{x}+{y}")
         except Exception:
-            self._center_popup_on_root(popup, 230, 600)
+            self._center_popup_on_root(popup, 230, 680)
 
         # Player name display
         player_name = "Not set"
@@ -32609,6 +35557,100 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                  "Restart after changing. Escape still toggles maximize.",
             font=ctk.CTkFont(size=9),
             text_color="#888888",
+            wraplength=210,
+            justify="left",
+        ).pack(anchor="w", padx=10, pady=(0, 4))
+
+        ctk.CTkFrame(popup, height=1, fg_color="#444444").pack(fill="x", padx=10, pady=6)
+        ctk.CTkLabel(popup, text="Layout Profile", font=ctk.CTkFont(size=11)).pack(anchor="w", padx=10, pady=(0, 2))
+        layout_labels = {
+            LAYOUT_PROFILE_LANDSCAPE: "Landscape (default)",
+            LAYOUT_PROFILE_PORTRAIT: "Portrait monitor (1080×1920)",
+        }
+        profile_key = self._layout_profile()
+        self.hamburger_layout_var = ctk.StringVar(value=layout_labels.get(profile_key, layout_labels[LAYOUT_PROFILE_LANDSCAPE]))
+
+        def _on_layout_profile_changed(choice):
+            label = str(choice or "")
+            profile = LAYOUT_PROFILE_PORTRAIT if "Portrait" in label else LAYOUT_PROFILE_LANDSCAPE
+            if profile == self._layout_profile():
+                return
+            self._session_layout_profile = profile
+            if profile == LAYOUT_PROFILE_PORTRAIT:
+                if not self._load_saved_window_state().get("geometry"):
+                    self._apply_portrait_monitor_window()
+                self._apply_portrait_monitor_layout()
+            else:
+                self._apply_landscape_stats_layout()
+            self._apply_stats_page_layout(force=True)
+            messagebox.showinfo(
+                "Layout Profile",
+                "Layout changed for this session only (not saved to settings).\n\n"
+                "Window size/position is still remembered when you close the app.",
+                parent=popup,
+            )
+
+        ctk.CTkOptionMenu(
+            popup,
+            values=list(layout_labels.values()),
+            variable=self.hamburger_layout_var,
+            command=_on_layout_profile_changed,
+            width=210,
+        ).pack(padx=10, pady=(0, 2))
+        ctk.CTkLabel(
+            popup,
+            text=f"Active: {self._current_layout_profile_label()}\n"
+                 "Session only — not saved. Use launch_portrait_monitor.bat for portrait.",
+            font=ctk.CTkFont(size=9),
+            text_color="#888888",
+            wraplength=210,
+            justify="left",
+        ).pack(anchor="w", padx=10, pady=(0, 4))
+
+        # Resize performance (advanced — persisted in ui_settings.json)
+        ctk.CTkFrame(popup, height=1, fg_color="#333333").pack(fill="x", padx=10, pady=(6, 4))
+        ctk.CTkLabel(
+            popup,
+            text="Performance Mode",
+            font=ctk.CTkFont(size=9),
+            text_color="#666666",
+        ).pack(anchor="w", padx=10, pady=(0, 2))
+        perf_labels = list(PERFORMANCE_MODE_LABELS.values())
+        current_perf = self._performance_mode_label()
+        self.hamburger_perf_var = ctk.StringVar(value=current_perf)
+
+        def _on_performance_mode_changed(choice):
+            label = str(choice or perf_labels[0])
+            mode = (
+                PERFORMANCE_MODE_ULTRA_SMOOTH
+                if "Ultra" in label
+                else PERFORMANCE_MODE_FULL_FEATURE
+            )
+            self._apply_performance_mode(mode, persist=True)
+            messagebox.showinfo(
+                "Performance Mode",
+                f"Switched to {label}.\n\n"
+                "Ultra-Smooth: debounced resize, UI shell during drag.\n"
+                "Full-Feature: live layout reflow while resizing.",
+                parent=popup,
+            )
+
+        ctk.CTkOptionMenu(
+            popup,
+            values=perf_labels,
+            variable=self.hamburger_perf_var,
+            command=_on_performance_mode_changed,
+            width=210,
+            height=24,
+            font=ctk.CTkFont(size=11),
+            fg_color="#2a2a2a",
+            button_color="#3a3a3a",
+        ).pack(padx=10, pady=(0, 2))
+        ctk.CTkLabel(
+            popup,
+            text=f"Active: {current_perf}\nInstant switch — no restart.",
+            font=ctk.CTkFont(size=9),
+            text_color="#666666",
             wraplength=210,
             justify="left",
         ).pack(anchor="w", padx=10, pady=(0, 4))
@@ -33232,6 +36274,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             if merged_aff.get("Staggered") and not old_afflictions.get("Staggered"):
                 self._drop_wielded_weapons()
             self._affliction_penalties_cache = None
+            self._suppress_cloud_dirty_on_next_refresh = True
             self._schedule_scoped_refresh(
                 abilities=True,
                 skills=True,
@@ -33300,6 +36343,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
             if not afflictions_applied:
                 self._affliction_penalties_cache = None
+                self._suppress_cloud_dirty_on_next_refresh = True
                 self._schedule_scoped_refresh(
                     abilities=True,
                     skills=True,
@@ -33386,6 +36430,9 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             or not (self.cloud_sync and self.cloud_sync.is_configured())
         ):
             return
+        if self._layout_updates_paused():
+            self._schedule_dm_status_poll_tick(delay_ms=600)
+            return
         self._pull_dm_status_from_cloud(silent=True)
         self._schedule_dm_status_poll_tick()
 
@@ -33405,6 +36452,10 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 return False
             if not isinstance(remote.get("data"), dict):
                 return False
+            if HAS_CLOUD_SYNC:
+                remote_sig = self.cloud_sync.dm_status_signature(remote["data"])
+                if remote_sig == getattr(self.cloud_sync, "_last_dm_status_signature", None):
+                    return False
             if HAS_CLOUD_SYNC:
                 status = CloudSyncManager.normalize_dm_status(remote["data"])
             else:
@@ -33746,6 +36797,12 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                     self._afflictions_poll_block_until = time.monotonic() + 3.0
             if self.cloud_sync:
                 self.cloud_sync.note_dm_status(self.data)
+                try:
+                    revision = self.cloud_sync.fetch_character_revision()
+                    if revision:
+                        self.cloud_sync.note_remote_character(revision)
+                except Exception:
+                    pass
             self._update_cloud_sync_status_label("Synced")
             return True
         except Exception as exc:
@@ -33821,7 +36878,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 client.set_live_mode(active)
         self._apply_sync_focus_state(focused=self._app_has_focus())
 
-    def _schedule_cloud_save_on_blur(self, delay_ms=500):
+    def _schedule_cloud_save_on_blur(self, delay_ms=900):
         if self._cloud_blur_save_timer:
             try:
                 self.root.after_cancel(self._cloud_blur_save_timer)
@@ -34120,7 +37177,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
         threading.Thread(target=worker, daemon=True).start()
 
-    def _begin_blur_cloud_save(self):
+    def _begin_blur_cloud_save(self, *, silent=True):
         if self._cloud_save_in_progress:
             return
         try:
@@ -34140,8 +37197,11 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 pass
 
         self._cloud_save_in_progress = True
-        self._show_cloud_save_progress(title="Saving Character", message="Uploading to cloud...")
-        self._update_cloud_save_progress(0.35, "Uploading to cloud...")
+        if silent:
+            self._update_cloud_sync_status_label("Saving to cloud...")
+        else:
+            self._show_cloud_save_progress(title="Saving Character", message="Uploading to cloud...")
+            self._update_cloud_save_progress(0.35, "Uploading to cloud...")
 
         def worker():
             error = None
@@ -34163,12 +37223,24 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                     self._cloud_last_pushed_at = datetime.now(timezone.utc)
                     self._cloud_sync_status = "Synced"
                     self._update_cloud_sync_status_label("Synced")
-                    self._update_cloud_save_progress(1.0, "Cloud save complete")
-                    self.root.after(900, self._hide_cloud_save_progress)
+                    if self.cloud_sync:
+                        try:
+                            self.cloud_sync.note_dm_status(self.data)
+                            revision = self.cloud_sync.fetch_character_revision()
+                            if revision:
+                                self.cloud_sync.note_remote_character(revision)
+                        except Exception:
+                            pass
+                    if silent:
+                        self._update_cloud_sync_status_label("Synced")
+                    else:
+                        self._update_cloud_save_progress(1.0, "Cloud save complete")
+                        self.root.after(900, self._hide_cloud_save_progress)
                 else:
                     self._update_cloud_sync_status_label(error or "Cloud save failed", is_error=True)
-                    self._update_cloud_save_progress(0.0, error or "Cloud save failed")
-                    self.root.after(2200, self._hide_cloud_save_progress)
+                    if not silent:
+                        self._update_cloud_save_progress(0.0, error or "Cloud save failed")
+                        self.root.after(2200, self._hide_cloud_save_progress)
 
             self._schedule_on_main(finish)
 
@@ -34397,7 +37469,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 new_cfg["saved_campaign_ids"] = [campaign_id] if campaign_id else []
             self.cloud_sync.save_config(new_cfg)
             self._init_cloud_sync()
-            self._init_loot_sync()
+            self._init_loot_sync(restart=True)
             self._init_homebrew_sync()
             self._init_roll_log_sync()
             self._init_campaign_chat_sync()
@@ -34678,6 +37750,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
     def _show_startup_character_chooser(self):
         """Startup popup: list server characters with tabs. No more auto-load of 'latest'."""
+        self._ensure_startup_maximized()
         # Ensure cloud manager exists (but don't start polling yet, and avoid blocking test_connection
         # during startup so the chooser appears immediately).
         if HAS_CLOUD_SYNC:
@@ -34959,6 +38032,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             self._init_trade_sync()
         except Exception:
             pass
+        self._ensure_startup_maximized()
 
     def _save_character_to_path(self, file_path, *, notify_cloud_error=True):
         self._sync_all_character_data()
@@ -35113,6 +38187,12 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         self._combat_summaries_built_for_key = None
         self._domain_preview_built_for_key = None
         self._stats_layout_built_for_key = None
+        self._stats_layout_applied_key = None
+        self._frozen_content_size = None
+        self._fixed_skills_scroll_height = None
+        self._fixed_stats_short_row_height = None
+        self._skills_scroll_last_height = None
+        self._lazy_pages_built = set()
         self._dirty = set()
 
     def _clear_destroyed_page_widget_refs(self):
@@ -35123,14 +38203,18 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         self.special_ability_combos = {}
         self.asi_combos = {}
         self.extra_ring_combos = []
-        self.skill_specialty_combos = {}
         self.domain_combos = []
         self.affliction_vars = {}
         self.daily_use_vars = {}
         self.magic_item_daily_vars = {}
         self.magic_item_charge_combos = {}
+        self.magic_item_charge_vars = {}
+        self.magic_item_charge_max = {}
         self.rage_switch_widgets = {}
+        self.wild_shape_switch_widgets = {}
+        self.fiendish_resilience_vars = []
         self.special_feature_form_widgets = {}
+        self._stats_feature_pin_bound = set()
         self.movement_mode_widgets = {}
         self.stats_movement_mode_widgets = {}
         for attr in (
@@ -35146,7 +38230,6 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
     def _destroy_content_pages(self):
         """Remove old page frames so rebuilds do not stack duplicate widgets."""
         self._ui_generation = int(getattr(self, "_ui_generation", 0) or 0) + 1
-        self._close_skills_popout()
         self._cancel_pending_ui_work()
         try:
             if self._widget_is_alive(getattr(self, "feats_frame", None)):
@@ -35207,7 +38290,6 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             if show_progress:
                 self._update_load_progress(0.28, "Building Stats page...")
             self.build_stats_page()
-            self._apply_stats_page_layout(force=True)
 
             self._migrate_prepared_spells()
             self._migrate_known_spells()
@@ -35218,69 +38300,71 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             self._sync_spell_like_prepared_spells()
             self._sync_warlock_invocation_prepared_spells()
 
-            if show_progress:
-                self._update_load_progress(0.42, "Building Inventory page...")
-            self.build_inventory_page()
+            if LAZY_PAGE_BUILD:
+                if show_progress:
+                    self._update_load_progress(0.72, "Preparing other tabs...")
+                self._lazy_pages_built = {"Stats"}
+                self._restore_widget_registry_values()
+                self._rebuild_feat_cache()
+                self.refresh_health_display()
+                self._mark_stats_layout_built()
+                current_page = getattr(self, "_current_page", "Stats") or "Stats"
+                if current_page != "Stats":
+                    self._ensure_page_built(current_page)
+            else:
+                if show_progress:
+                    self._update_load_progress(0.42, "Building Inventory page...")
+                self.build_inventory_page()
 
-            if show_progress:
-                self._update_load_progress(0.54, "Building Combat page...")
-            self.build_combat_page()
+                if show_progress:
+                    self._update_load_progress(0.54, "Building Combat page...")
+                self.build_combat_page()
 
-            if show_progress:
-                self._update_load_progress(0.66, "Building Spells page...")
-            self.build_spells_page()
+                if show_progress:
+                    self._update_load_progress(0.66, "Building Spells page...")
+                self.build_spells_page()
 
-            if show_progress:
-                self._update_load_progress(0.72, "Building Buffs page...")
-            self.build_buffs_page()
+                if show_progress:
+                    self._update_load_progress(0.72, "Building Buffs page...")
+                self.build_buffs_page()
 
-            if show_progress:
-                self._update_load_progress(0.78, "Building Feats & Features page...")
-            self.build_feats_page()
+                if show_progress:
+                    self._update_load_progress(0.78, "Building Feats & Features page...")
+                self.build_feats_page()
 
-            if show_progress:
-                self._update_load_progress(0.84, "Building Description page...")
-            self.build_description_page()
+                if show_progress:
+                    self._update_load_progress(0.84, "Building Description page...")
+                self.build_description_page()
 
-            if show_progress:
-                self._update_load_progress(0.86, "Restoring saved values...")
-            for data_key, widget in list(self.widget_registry.items()):
-                if self._is_legacy_coin_widget_key(data_key):
-                    continue
-                value = self._get_widget_saved_value(data_key)
-                if value is None:
-                    continue
-                try:
-                    if isinstance(widget, ctk.StringVar):
-                        widget.set(str(value))
-                    elif hasattr(widget, "set"):
-                        widget.set(str(value))
-                except Exception as e:
-                    print(f"   → Could not restore {data_key}: {e}")
+                if show_progress:
+                    self._update_load_progress(0.86, "Restoring saved values...")
+                self._restore_widget_registry_values()
 
-            self._push_feats_data_to_widgets()
-            self._apply_coins_to_ui()
+                self._push_feats_data_to_widgets()
+                self._apply_coins_to_ui()
+
+                if show_progress:
+                    self._update_load_progress(0.94, "Refreshing character sheet...")
+                self.refresh_inventory(sync_first=False)
+                self.refresh_spells_page()
+                if self._feats_page_is_stale():
+                    self.refresh_feats_page()
+                elif hasattr(self, "tabview"):
+                    try:
+                        self.refresh_feats_scope("magical_items")
+                    except Exception:
+                        pass
+                self._rebuild_feat_cache()
+                self.refresh_combat_page()
+                self._mark_combat_page_built()
+                self.refresh_health_display()
+                if not SINGLE_ACTIVE_PAGE_MOUNT:
+                    self._mount_all_content_pages_placed()
+                self._mark_all_content_pages_built()
+                current_page = getattr(self, "_current_page", "Stats") or "Stats"
 
             if show_progress:
                 self._update_load_progress(0.94, "Refreshing character sheet...")
-            self.refresh_inventory(sync_first=False)
-            self.refresh_spells_page()
-            if self._feats_page_is_stale():
-                self.refresh_feats_page()
-            elif hasattr(self, "tabview"):
-                try:
-                    self.refresh_feats_scope("magical_items")
-                except Exception:
-                    pass
-            self._rebuild_feat_cache()
-            self.refresh_combat_page()
-            self._mark_combat_page_built()
-            self.refresh_health_display()
-            self._mount_all_content_pages_placed()
-            self._mark_all_content_pages_built()
-            current_page = getattr(self, "_current_page", "Stats") or "Stats"
-            if current_page == "Stats":
-                self._apply_stats_page_layout(force=True)
             self._show_page_frame(current_page)
             if current_page == "Combat":
                 self.root.after_idle(self._apply_responsive_layout)
@@ -35327,7 +38411,16 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                         pass
                 finally:
                     self._rebuilding_ui = False
-                self._apply_stats_page_layout(force=True)
+                self._ensure_startup_maximized()
+                try:
+                    self.root.update_idletasks()
+                except Exception:
+                    pass
+                self._frozen_content_size = None
+                self._finalize_stats_bottom_layout()
+                self._materialize_all_skills_on_load()
+                self.root.after(400, self._finalize_stats_bottom_layout)
+                self.root.after(450, self._materialize_all_skills_on_load)
                 self.refresh_health_display()
                 self.refresh_xp_display()
                 self.refresh_level_up_button()
@@ -35390,6 +38483,10 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                     except Exception:
                         pass
                 self._start_dm_status_polling()
+            try:
+                self._init_loot_sync()
+            except Exception:
+                pass
             return True
 
         except json.JSONDecodeError as e:
@@ -36217,6 +39314,8 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         self.daily_use_vars = {}
         self.magic_item_daily_vars = {}
         self.magic_item_charge_combos = {}
+        self.magic_item_charge_vars = {}
+        self.magic_item_charge_max = {}
         self.asi_combos = {}
         self.affliction_vars = {}
         self.neg_levels_var = None
@@ -36224,7 +39323,10 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         self.abil_dmg_val = None
         self.abil_dmg_display = None
         self.rage_switch_widgets = {}
+        self.wild_shape_switch_widgets = {}
+        self.fiendish_resilience_vars = []
         self.special_feature_form_widgets = {}
+        self._stats_feature_pin_bound = set()
         self.extra_ring_combos = []
         self.feat_spec_frames = {}
         self.feat_spec_combos = {}
@@ -37093,6 +40195,13 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             ctk.CTkLabel(
                 title_row, text=name, font=ctk.CTkFont(size=14, weight="bold"),
             ).pack(side="left", anchor="w")
+            pin_id = self._stats_pin_id_for_class_feature(cls_name, name)
+            if self._is_stats_feature_pinned(pin_id):
+                ctk.CTkLabel(
+                    title_row, text="📌", font=ctk.CTkFont(size=12),
+                ).pack(side="left", padx=(6, 0))
+            self._bind_stats_feature_pin(title_row, pin_id)
+            self._bind_stats_feature_pin(frame, pin_id)
             override_key = self._class_feature_description_override_key(cls_name, name)
             self._build_feature_description_edit_button(
                 title_row, override_key, name, desc,
@@ -37156,7 +40265,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                     self._build_magic_item_daily_tracker(frame, tracker_key, uses_per_day)
                 max_charges = int(override_abilities.get("max_charges") or 0)
                 if max_charges > 0:
-                    tracker_key = f"class_feature|{cls_name}|{name}"
+                    tracker_key = self._get_class_feature_tracker_key(cls_name, name)
                     self._build_magic_item_charge_tracker(frame, tracker_key, max_charges)
 
             ctk.CTkLabel(frame, text="", height=4).pack(anchor="w")
@@ -37286,17 +40395,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             if name == "Flurry of Blows" and cls_name == "Monk":
                 self._build_monk_flurry_ui(frame, cls_name, level)
 
-            if name == "Wholeness of Body" and cls_name == "Monk":
-                monk_lvl = self._get_class_level("Monk")
-                wis_mod = max(0, self._effective_ability_mod("Wisdom"))
-                max_h = monk_lvl * wis_mod
-                self._build_healing_pool_ui(frame, "Monk", "wholeness", max_h)
-
-            if name == "Lay on Hands" and cls_name == "Paladin":
-                pal_lvl = self._get_class_level("Paladin")
-                cha_mod = max(0, self._effective_ability_mod("Charisma"))
-                max_h = pal_lvl * cha_mod
-                self._build_healing_pool_ui(frame, "Paladin", "lay_on_hands", max_h)
+            self._build_class_feature_healing_pool_if_applicable(frame, cls_name, name)
 
         # Render any custom features for this class (no header; + button is at top right)
         customs = [f for f in self.data.get("custom_features", []) if f.get("category") == cls_name]
@@ -37349,31 +40448,85 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             except Exception:
                 pass
 
-    def _build_healing_pool_ui(self, parent, cls_name, pool_name, max_val):
+    def _get_class_healing_pool_max(self, cls_name, pool_name):
+        if pool_name == "wholeness" and cls_name == "Monk":
+            return self._get_class_level("Monk") * max(0, self._effective_ability_mod("Wisdom"))
+        if pool_name == "lay_on_hands" and cls_name == "Paladin":
+            return self._get_class_level("Paladin") * max(0, self._effective_ability_mod("Charisma"))
+        return 0
+
+    def _build_class_feature_healing_pool_if_applicable(self, parent, cls_name, feat_name, *, compact=False):
+        pools = {
+            ("Monk", "Wholeness of Body"): ("Monk", "wholeness"),
+            ("Paladin", "Lay on Hands"): ("Paladin", "lay_on_hands"),
+        }
+        pool = pools.get((cls_name, feat_name))
+        if not pool:
+            return
+        pool_cls, pool_name = pool
+        max_h = self._get_class_healing_pool_max(pool_cls, pool_name)
+        self._build_healing_pool_ui(parent, pool_cls, pool_name, max_h, compact=compact)
+
+    def _healing_pool_state_key(self, cls_name, pool_name):
+        return f"{cls_name.lower()}_{pool_name}_remaining"
+
+    def _get_healing_pool_var(self, cls_name, pool_name, max_val):
+        """Shared IntVar so Feats page and pinned Stats trackers stay in sync."""
+        rem_key = self._healing_pool_state_key(cls_name, pool_name)
         state = self.data.setdefault("class_feature_state", {})
-        rem_key = f"{cls_name.lower()}_{pool_name}_remaining"
         remaining = int(state.get(rem_key, max_val))
         if remaining > max_val or remaining < 0:
             remaining = max(0, min(max_val, remaining))
             state[rem_key] = remaining
+        if not hasattr(self, "healing_pool_vars"):
+            self.healing_pool_vars = {}
+        if not hasattr(self, "healing_pool_max"):
+            self.healing_pool_max = {}
+        self.healing_pool_max[rem_key] = int(max_val)
+        if rem_key not in self.healing_pool_vars:
+            self.healing_pool_vars[rem_key] = ctk.IntVar(value=remaining)
+        else:
+            self.healing_pool_vars[rem_key].set(remaining)
+        return self.healing_pool_vars[rem_key], rem_key
+
+    def _build_healing_pool_ui(self, parent, cls_name, pool_name, max_val, *, compact=False):
+        rem_var, rem_key = self._get_healing_pool_var(cls_name, pool_name, max_val)
+        state = self.data.setdefault("class_feature_state", {})
 
         row = ctk.CTkFrame(parent, fg_color="transparent")
-        row.pack(fill="x", padx=15, pady=4)
+        row.pack(fill="x", padx=8 if compact else 15, pady=4)
 
-        ctk.CTkLabel(row, text=f"{pool_name.replace('_', ' ').title()} remaining:", width=170).pack(side="left")
-        rem_var = ctk.IntVar(value=remaining)
-        rem_lbl = ctk.CTkLabel(row, textvariable=rem_var, width=50, font=ctk.CTkFont(weight="bold", size=13))
+        label_width = 130 if compact else 170
+        ctk.CTkLabel(
+            row,
+            text=f"{pool_name.replace('_', ' ').title()} remaining:",
+            width=label_width,
+            font=ctk.CTkFont(size=11 if compact else 13),
+        ).pack(side="left")
+        rem_lbl = ctk.CTkLabel(
+            row,
+            textvariable=rem_var,
+            width=40 if compact else 50,
+            font=ctk.CTkFont(weight="bold", size=12 if compact else 13),
+        )
         rem_lbl.pack(side="left")
-        ctk.CTkLabel(row, text=f" / {max_val}").pack(side="left", padx=2)
+        ctk.CTkLabel(
+            row,
+            text=f" / {max_val}",
+            font=ctk.CTkFont(size=11 if compact else 13),
+        ).pack(side="left", padx=2)
 
         def adjust(delta):
-            new_val = max(0, min(max_val, rem_var.get() + delta))
+            pool_max = int(getattr(self, "healing_pool_max", {}).get(rem_key, max_val))
+            new_val = max(0, min(pool_max, rem_var.get() + delta))
             rem_var.set(new_val)
             state[rem_key] = new_val
             self._mark_cloud_sync_dirty()
 
-        ctk.CTkButton(row, text="-", width=24, height=22, command=lambda: adjust(-1)).pack(side="left", padx=1)
-        ctk.CTkButton(row, text="+", width=24, height=22, command=lambda: adjust(+1)).pack(side="left", padx=1)
+        btn_w = 22 if compact else 24
+        btn_h = 20 if compact else 22
+        ctk.CTkButton(row, text="-", width=btn_w, height=btn_h, command=lambda: adjust(-1)).pack(side="left", padx=1)
+        ctk.CTkButton(row, text="+", width=btn_w, height=btn_h, command=lambda: adjust(+1)).pack(side="left", padx=1)
 
     def _sync_domains_from_combos(self):
         domains = list(self.data.setdefault("domains", ["", ""]))
@@ -39156,6 +42309,8 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
         self._apply_hp_condition_effects()
         self._refresh_affliction_status_label()
+        if self._is_page_active("Stats") and self._is_window_maximized():
+            self.root.after_idle(self._apply_stats_viewport_balance)
 
     def _parse_hit_die_sides(self, hit_die):
         text = str(hit_die or "").strip().lower()
@@ -39743,14 +42898,16 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             parent, text="Resistances",
             font=ctk.CTkFont(size=18, weight="bold"),
             anchor="center",
-        ).pack(fill="x", padx=8, pady=(8, 6))
+        ).pack(fill="x", padx=8, pady=(8, 4))
 
         grid = ctk.CTkFrame(parent, fg_color="transparent")
-        grid.pack(fill="both", expand=True, padx=4, pady=(0, 8))
+        grid.pack(fill="x", padx=4, pady=(0, 8))
+        icon_size = ELEMENTAL_RESISTANCE_ICON_SIZE
+        row_min = icon_size + 18
         for col_idx in range(2):
             grid.columnconfigure(col_idx, weight=1, uniform="element_resist")
         for row_idx in range(3):
-            grid.rowconfigure(row_idx, weight=1)
+            grid.rowconfigure(row_idx, weight=0, minsize=row_min)
 
         self.elemental_resistance_widgets = {}
         self._elemental_resistance_tooltips = {}
@@ -39765,27 +42922,26 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 column=col_idx,
                 columnspan=colspan,
                 padx=2,
-                pady=4,
-                sticky="nsew",
+                pady=2,
+                sticky="n",
             )
 
             icon_slot = ctk.CTkFrame(
                 cell,
                 fg_color="transparent",
-                width=ELEMENTAL_RESISTANCE_ICON_SIZE,
-                height=ELEMENTAL_RESISTANCE_ICON_SIZE,
+                width=icon_size,
+                height=icon_size,
             )
-            icon_slot.pack(anchor="center")
+            icon_slot.pack(anchor="center", pady=(2, 0))
             icon_slot.pack_propagate(False)
+            icon_slot.grid_propagate(False)
 
             icon_lbl = ctk.CTkLabel(
                 icon_slot,
                 text=icon,
-                font=ctk.CTkFont(size=22),
+                font=ctk.CTkFont(size=20),
                 text_color=THEME_GREY,
                 cursor="hand2",
-                width=ELEMENTAL_RESISTANCE_ICON_SIZE,
-                height=ELEMENTAL_RESISTANCE_ICON_SIZE,
                 anchor="center",
             )
             icon_lbl.place(relx=0.5, rely=0.5, anchor="center")
@@ -39793,12 +42949,12 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             value_lbl = ctk.CTkLabel(
                 cell,
                 text="",
-                font=ctk.CTkFont(size=13, weight="bold"),
+                font=ctk.CTkFont(size=12, weight="bold"),
                 text_color=THEME_ORANGE,
                 cursor="hand2",
                 anchor="center",
             )
-            value_lbl.pack(anchor="center", pady=(1, 0))
+            value_lbl.pack(anchor="center", pady=(2, 0))
 
             self.elemental_resistance_widgets[element_key] = {
                 "cell": cell,
@@ -39954,6 +43110,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
     def add_defense(self):
         """Add manual defense from Stats page"""
+        self._defenses_render_cache = None
         dtype = self.def_type_combo.get().strip()
         value = self.def_value_entry.get().strip()
         desc = self.def_desc_entry.get().strip()
@@ -39975,6 +43132,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
     def remove_defense(self, idx):
         """Remove a defense entry"""
+        self._defenses_render_cache = None
         defenses = self.data.setdefault("defenses", [])
         if 0 <= idx < len(defenses):
             del defenses[idx]
@@ -40044,10 +43202,25 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         """Rebuild the scrolling defenses list"""
         if not hasattr(self, 'defenses_scroll'):
             return
+        class_entries = self._get_class_defense_entries()
+        manual_entries = list(self.data.get("defenses", []))
+        render_key = (
+            tuple(
+                (d.get("type"), str(d.get("value")), str(d.get("desc", "")))
+                for d in class_entries
+            ),
+            tuple(
+                (d.get("type"), str(d.get("value")), str(d.get("desc", "")))
+                for d in manual_entries
+            ),
+        )
+        if render_key == getattr(self, "_defenses_render_cache", None):
+            return
+        self._defenses_render_cache = render_key
         for widget in self.defenses_scroll.winfo_children():
             widget.destroy()
 
-        for d in self._get_class_defense_entries():
+        for d in class_entries:
             row = ctk.CTkFrame(self.defenses_scroll)
             row.pack(fill="x", pady=2, padx=5)
             txt = self._format_defense_entry_label(d)
@@ -40062,7 +43235,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             if is_dr:
                 lbl.bind("<Button-1>", lambda _e, entry=d: self._apply_dr_to_hp_delta(entry))
         
-        for idx, d in enumerate(self.data.get("defenses", [])):
+        for idx, d in enumerate(manual_entries):
             row = ctk.CTkFrame(self.defenses_scroll)
             row.pack(fill="x", pady=2, padx=5)
             
@@ -43378,18 +46551,21 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             content_widget.pack(anchor="w", padx=12, pady=10)
 
         def _sync_wraplength(event=None):
-            if render_markdown:
-                try:
-                    chars = max(24, int((frame.winfo_width() - 56) / 8))
-                    content_widget.configure(state="normal", width=chars)
-                    content_widget.configure(state="disabled")
-                except Exception:
-                    pass
-            else:
-                try:
-                    content_widget.configure(wraplength=max(180, frame.winfo_width() - 48))
-                except Exception:
-                    pass
+            with self._resize_configure_guard() as may_run:
+                if not may_run:
+                    return
+                if render_markdown:
+                    try:
+                        chars = max(24, int((frame.winfo_width() - 56) / 8))
+                        content_widget.configure(state="normal", width=chars)
+                        content_widget.configure(state="disabled")
+                    except Exception:
+                        pass
+                else:
+                    try:
+                        content_widget.configure(wraplength=max(180, frame.winfo_width() - 48))
+                    except Exception:
+                        pass
 
         def _toggle(_event=None):
             expanded["open"] = not expanded["open"]
@@ -43540,12 +46716,15 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         )
 
         def _sync_wraplength(event=None):
-            try:
-                chars = max(24, int((frame.winfo_width() - 56) / 8))
-                content_widget.configure(state="normal", width=chars)
-                content_widget.configure(state="disabled")
-            except Exception:
-                pass
+            with self._resize_configure_guard() as may_run:
+                if not may_run:
+                    return
+                try:
+                    chars = max(24, int((frame.winfo_width() - 56) / 8))
+                    content_widget.configure(state="normal", width=chars)
+                    content_widget.configure(state="disabled")
+                except Exception:
+                    pass
 
         frame.bind("<Configure>", _sync_wraplength)
         frame.after_idle(_sync_wraplength)
@@ -44399,6 +47578,10 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
     def _schedule_portrait_height_sync(self, event=None):
         """Debounced configure handler to avoid recursive expand storms when window is not maximized."""
+        if self._layout_updates_paused():
+            return
+        if getattr(self, "_disable_dynamic_resize", False):
+            return
         if not self._is_page_active("Description"):
             return
         if getattr(self, "_portrait_sync_after", None):
@@ -44406,7 +47589,9 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 self.root.after_cancel(self._portrait_sync_after)
             except Exception:
                 pass
-        self._portrait_sync_after = self.root.after(80, self._do_sync_portrait_panel_height)
+        self._portrait_sync_after = self.root.after(
+            CONFIGURE_HANDLER_DEBOUNCE_MS, self._do_sync_portrait_panel_height,
+        )
 
     def _ensure_portrait_panel_sized(self):
         """Size/render the portrait after the Description page is visible and laid out."""
@@ -44461,30 +47646,33 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             return
         if getattr(self, "_in_portrait_sync", False):
             return
-        self._in_portrait_sync = True
-        try:
-            measured = self._measure_portrait_target_dims()
-            if measured is None:
-                self._schedule_portrait_height_retry()
+        with self._resize_configure_guard() as may_run:
+            if not may_run:
                 return
-            portrait_w, target_h = measured
-            new_dims = (portrait_w, target_h)
-            if new_dims == getattr(self, "_portrait_last_sync_dims", None):
-                return
-            self._portrait_height_retry_count = 0
-            self._portrait_render_width = portrait_w
-            self._portrait_render_height = target_h
-            self._portrait_last_sync_dims = new_dims
-            self.portrait_panel.configure(width=portrait_w + 28, height=target_h + 58)
-            self.portrait_image_frame.configure(width=portrait_w, height=target_h)
-            self.portrait_image_label.configure(width=portrait_w, height=target_h)
-            if new_dims != getattr(self, "_portrait_last_image_dims", None):
-                self._portrait_last_image_dims = new_dims
-                self._refresh_portrait_display()
-        except Exception:
-            pass
-        finally:
-            self._in_portrait_sync = False
+            self._in_portrait_sync = True
+            try:
+                measured = self._measure_portrait_target_dims()
+                if measured is None:
+                    self._schedule_portrait_height_retry()
+                    return
+                portrait_w, target_h = measured
+                new_dims = (portrait_w, target_h)
+                if new_dims == getattr(self, "_portrait_last_sync_dims", None):
+                    return
+                self._portrait_height_retry_count = 0
+                self._portrait_render_width = portrait_w
+                self._portrait_render_height = target_h
+                self._portrait_last_sync_dims = new_dims
+                self.portrait_panel.configure(width=portrait_w + 28, height=target_h + 58)
+                self.portrait_image_frame.configure(width=portrait_w, height=target_h)
+                self.portrait_image_label.configure(width=portrait_w, height=target_h)
+                if new_dims != getattr(self, "_portrait_last_image_dims", None):
+                    self._portrait_last_image_dims = new_dims
+                    self._refresh_portrait_display()
+            except Exception:
+                pass
+            finally:
+                self._in_portrait_sync = False
 
     def _get_age_category(self):
         if hasattr(self, "description_age_var"):
@@ -44930,10 +48118,13 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         canvas.bind("<B1-Motion>", _on_drag)
         canvas.bind("<ButtonRelease-1>", _on_release)
 
-        def _on_resize(event=None):
+        def _apply_crop_preview_resize():
             nonlocal preview_w, preview_h, scale, preview_photo
-            host_w = max(120, event.width - 24) if event and event.width > 40 else preview_w
-            host_h = max(120, event.height - 24) if event and event.height > 40 else preview_h
+            try:
+                host_w = max(120, int(canvas_host.winfo_width()) - 24)
+                host_h = max(120, int(canvas_host.winfo_height()) - 24)
+            except Exception:
+                return
             scale = min(host_w / src_w, host_h / src_h)
             preview_w = max(1, int(src_w * scale))
             preview_h = max(1, int(src_h * scale))
@@ -44946,7 +48137,10 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             canvas.tag_lower("base_image")
             _redraw_crop_overlay()
 
-        canvas_host.bind("<Configure>", _on_resize)
+        crop_resize = self._create_debounced_crop_resize_controller(
+            popup, _apply_crop_preview_resize,
+        )
+        popup.bind("<Configure>", crop_resize["schedule"], add="+")
         _redraw_crop_overlay()
 
         btn_row = ctk.CTkFrame(popup, fg_color="transparent")
@@ -45098,11 +48292,29 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         canvas.bind("<B1-Motion>", _on_drag)
         canvas.bind("<ButtonRelease-1>", _on_release)
 
-        def _on_resize(event):
-            # simple re-scale on host resize (basic support)
-            pass
+        def _apply_sidebar_crop_preview_resize():
+            nonlocal preview_w, preview_h, scale, preview_photo
+            try:
+                host_w = max(120, int(canvas_host.winfo_width()) - 24)
+                host_h = max(120, int(canvas_host.winfo_height()) - 24)
+            except Exception:
+                return
+            scale = min(host_w / src_w, host_h / src_h)
+            preview_w = max(1, int(src_w * scale))
+            preview_h = max(1, int(src_h * scale))
+            canvas.configure(width=preview_w, height=preview_h)
+            preview_image = pil_image.resize((preview_w, preview_h), Image.Resampling.LANCZOS)
+            preview_photo = ImageTk.PhotoImage(preview_image)
+            canvas.image = preview_photo
+            canvas.delete("base_image")
+            canvas.create_image(0, 0, anchor="nw", image=preview_photo, tags=("base_image",))
+            canvas.tag_lower("base_image")
+            _redraw_crop_overlay()
 
-        canvas_host.bind("<Configure>", _on_resize)
+        crop_resize = self._create_debounced_crop_resize_controller(
+            popup, _apply_sidebar_crop_preview_resize,
+        )
+        popup.bind("<Configure>", crop_resize["schedule"], add="+")
         _redraw_crop_overlay()
 
         btn_row = ctk.CTkFrame(popup, fg_color="transparent")
@@ -46742,9 +49954,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                     self.data.get("daily_feature_uses", {}).pop(key, None)
                     if hasattr(self, "daily_use_vars"):
                         self.daily_use_vars.pop(key, None)
-                    self.data.get("magic_item_charges", {}).pop(key, None)
-                    if hasattr(self, "magic_item_charge_combos"):
-                        self.magic_item_charge_combos.pop(key, None)
+                    self._pop_magic_item_charge_tracking(key)
                     changed = True
                     continue
             kept.append(feat)
@@ -46837,30 +50047,50 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
     def _on_remote_homebrew_update(self, remote):
         self._schedule_on_main(self._apply_campaign_homebrew, remote)
 
-    def _init_loot_sync(self):
-        if not HAS_LOOT_SYNC or not self.loot_btn:
+    def _loot_sync_polling_active(self):
+        client = getattr(self, "loot_sync", None)
+        thread = getattr(client, "_thread", None) if client else None
+        return bool(thread and thread.is_alive())
+
+    def _init_loot_sync(self, *, restart=False):
+        if not HAS_LOOT_SYNC:
+            return
+        if (
+            not restart
+            and self._loot_sync_polling_active()
+            and self.loot_sync
+            and self.loot_sync.is_loot_configured()
+        ):
+            self._update_loot_button()
             return
         if self.loot_sync:
-            self.loot_sync.stop_polling()
+            try:
+                self.loot_sync.stop_polling()
+            except Exception:
+                pass
         self.loot_sync = LootSyncClient(
             SYNC_CONFIG_FILE,
             on_remote_update=self._on_remote_loot_update,
         )
         self.loot_sync.load_config()
-        if self.loot_sync.is_configured():
+        if self.loot_sync.is_loot_configured():
             def _initial_loot_fetch():
                 try:
                     state = self.loot_sync.fetch_loot_state()
                     if state:
-                        self._schedule_on_main(lambda s=state: (
-                            self.loot_sync.note_remote_state(s),
+                        def _apply_initial(s=state):
+                            self.loot_sync.note_remote_state(s)
                             self._apply_loot_state(s)
-                        ))
+                        self._schedule_on_main(_apply_initial)
+                    else:
+                        self._schedule_on_main(self._update_loot_button)
                     self.loot_sync.start_polling()
                 except Exception as exc:
                     print(f"Loot sync init: {exc}")
+                    self._schedule_on_main(self._update_loot_button)
             threading.Thread(target=_initial_loot_fetch, daemon=True).start()
         else:
+            self._loot_ready = False
             self._update_loot_button()
 
     def _on_remote_loot_update(self, remote):
@@ -46915,16 +50145,21 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 icon = player_safe_icon(item)
             else:
                 icon = "•"
-            display = player_visible_name(item) if player_visible_name else item.get("name", "Item")
+            if player_loot_display_lines:
+                display, desc = player_loot_display_lines(item)
+            else:
+                display = player_visible_name(item) if player_visible_name else item.get("name", "Item")
+                if player_visible_flavor:
+                    desc = player_visible_flavor(item)
+                else:
+                    desc = (item.get("flavor") or "").strip()
+                if desc == display:
+                    desc = ""
             ctk.CTkLabel(
                 row, text=f"{icon}  {display}", anchor="w",
                 font=ctk.CTkFont(weight="bold"),
             ).pack(fill="x", padx=8, pady=(8, 2))
-            if player_visible_flavor:
-                desc = player_visible_flavor(item)
-            else:
-                desc = (item.get("flavor") or "").strip()
-            if desc and desc != display:
+            if desc:
                 ctk.CTkLabel(
                     row, text=desc, anchor="w", wraplength=500,
                     text_color="#cccccc", justify="left",
@@ -46956,8 +50191,11 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         if not HAS_LOOT_SYNC:
             messagebox.showinfo("Loot", "loot_sync.py is missing from the app folder.")
             return
-        if not self.loot_sync or not self.loot_sync.is_configured():
-            messagebox.showinfo("Loot", "Enable cloud sync with the same campaign first.")
+        if not self.loot_sync or not self.loot_sync.is_loot_configured():
+            messagebox.showinfo(
+                "Loot",
+                "Configure cloud sync with your Supabase URL, anon key, and campaign first.",
+            )
             return
         try:
             state = self.loot_sync.fetch_loot_state()
@@ -46995,17 +50233,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         }
         already_claimed = bool(char_id and char_id in claimed_ids)
         party_count = max(1, int((self._loot_state or {}).get("party_member_count", 1) or 1))
-        if pushed_coin_pool:
-            share_pool = pushed_coin_pool(self._loot_state or {})
-        else:
-            share_pool = (self._loot_state or {}).get("shared_coins") or {}
-        if calculate_coin_share:
-            my_coins = calculate_coin_share(share_pool, party_count)
-        else:
-            my_coins = {
-                c: math.ceil(int(share_pool.get(c, 0) or 0) / party_count)
-                for c in ("PP", "GP", "EP", "SP", "CP")
-            }
+        my_coins = self._get_loot_coin_share()
         has_share = any(int(my_coins.get(c, 0) or 0) for c in ("PP", "GP", "EP", "SP", "CP"))
         has_coins = has_share and not already_claimed
 
@@ -47038,31 +50266,148 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
         ctk.CTkButton(popup, text="Close", command=_on_popup_close).pack(pady=10)
 
+    def _get_loot_coin_share(self):
+        """Compute this character's coin share from the current loot state."""
+        party_count = max(1, int((self._loot_state or {}).get("party_member_count", 1) or 1))
+        if pushed_coin_pool:
+            share_pool = pushed_coin_pool(self._loot_state or {})
+        else:
+            share_pool = (self._loot_state or {}).get("shared_coins") or {}
+        if calculate_coin_share:
+            return calculate_coin_share(share_pool, party_count)
+        return {
+            c: math.ceil(int(share_pool.get(c, 0) or 0) / party_count)
+            for c in ("PP", "GP", "EP", "SP", "CP")
+        }
+
     def _claim_loot_coins(self, popup):
-        char_id = self._get_loot_character_id()
-        if not char_id:
-            messagebox.showerror("Loot", "Character ID is not configured in cloud sync.", parent=popup)
+        share = self._get_loot_coin_share()
+        if not any(int(share.get(c, 0) or 0) for c in ("PP", "GP", "EP", "SP", "CP")):
+            messagebox.showinfo("Loot", "No coins available to claim.", parent=popup)
             return
-        try:
-            payout = self.loot_sync.claim_character_coins(char_id)
-        except Exception as exc:
-            messagebox.showerror("Loot", str(exc), parent=popup)
-            return
-        self._add_coins_to_character(payout)
-        try:
-            state = self.loot_sync.fetch_loot_state()
-            if state:
-                self._apply_loot_state(state)
-        except Exception:
-            pass
-        parts = [
-            f"{coin} {int(payout.get(coin, 0) or 0)}"
+        self._open_loot_coin_destination_popup(popup, share)
+
+    def _open_loot_coin_destination_popup(self, parent_popup, share_payout):
+        """Let the player choose Person, Container, or Banked before claiming loot coins."""
+        loc_labels = {"person": "Person", "container": "Container", "banked": "Banked"}
+        share_text = ", ".join(
+            f"{coin} {int(share_payout.get(coin, 0) or 0)}"
             for coin in ("PP", "GP", "EP", "SP", "CP")
-            if int(payout.get(coin, 0) or 0)
-        ]
-        detail = ", ".join(parts) if parts else "coins"
-        messagebox.showinfo("Loot", f"Added to inventory: {detail}.", parent=popup)
-        popup.destroy()
+            if int(share_payout.get(coin, 0) or 0)
+        ) or "No coins"
+
+        picker = ctk.CTkToplevel(self.root)
+        picker.title("Take Coins")
+        picker.geometry("400x260")
+        picker.transient(parent_popup)
+        picker.grab_set()
+        picker.configure(fg_color=THEME_DARK_BG)
+
+        primary = getattr(self, "primary_button_color", "#c77626")
+        hover = getattr(self, "primary_hover_color", "#a56b32")
+
+        ctk.CTkLabel(
+            picker,
+            text="Claim coin share",
+            font=ctk.CTkFont(size=18, weight="bold"),
+            text_color=primary,
+        ).pack(pady=(14, 6))
+        ctk.CTkLabel(
+            picker,
+            text=f"Your share: {share_text}",
+            font=ctk.CTkFont(size=13),
+            text_color="#cccccc",
+            wraplength=340,
+            justify="left",
+        ).pack(anchor="w", padx=22, pady=(0, 10))
+
+        form = ctk.CTkFrame(picker, fg_color="transparent")
+        form.pack(fill="x", padx=22, pady=4)
+        ctk.CTkLabel(
+            form, text="Add to:", font=ctk.CTkFont(size=12, weight="bold"),
+        ).grid(row=0, column=0, sticky="w", pady=8)
+        default_loc = getattr(self, "current_coin_tab", "person")
+        if default_loc not in loc_labels:
+            default_loc = "person"
+        dest_var = tk.StringVar(value=loc_labels[default_loc])
+        dest_key_by_label = {label: key for key, label in loc_labels.items()}
+        ctk.CTkComboBox(
+            form,
+            values=["Person", "Container", "Banked"],
+            variable=dest_var,
+            width=160,
+            state="readonly",
+        ).grid(row=0, column=1, sticky="w", padx=(10, 0), pady=8)
+
+        claim_applied = {"done": False}
+
+        def apply_claim():
+            if claim_applied["done"]:
+                return
+            dest_loc = dest_key_by_label.get(dest_var.get(), "person")
+            if dest_loc == "container":
+                total_coins = sum(
+                    int(share_payout.get(coin, 0) or 0)
+                    for coin in ("PP", "GP", "EP", "SP", "CP")
+                )
+                extra_weight = total_coins / 50.0
+                ok, reason = self._container_can_store(extra_weight)
+                if not ok:
+                    self._show_container_storage_limit_popup(
+                        reason=reason,
+                        extra_detail=(
+                            f"Coins add {self._format_encumbrance_weight(extra_weight)} lb."
+                        ),
+                    )
+                    return
+
+            char_id = self._get_loot_character_id()
+            if not char_id:
+                messagebox.showerror(
+                    "Loot", "Character ID is not configured in cloud sync.", parent=picker,
+                )
+                return
+            try:
+                payout = self.loot_sync.claim_character_coins(char_id)
+            except Exception as exc:
+                messagebox.showerror("Loot", str(exc), parent=picker)
+                return
+
+            claim_applied["done"] = True
+            self._add_coins_to_character(payout, loc=dest_loc)
+            if dest_loc == "container":
+                self.refresh_container_storage_display()
+            try:
+                state = self.loot_sync.fetch_loot_state()
+                if state:
+                    self._apply_loot_state(state)
+            except Exception:
+                pass
+            parts = [
+                f"{coin} {int(payout.get(coin, 0) or 0)}"
+                for coin in ("PP", "GP", "EP", "SP", "CP")
+                if int(payout.get(coin, 0) or 0)
+            ]
+            detail = ", ".join(parts) if parts else "coins"
+            dest_label = loc_labels.get(dest_loc, dest_loc.title())
+            picker.destroy()
+            parent_popup.destroy()
+            messagebox.showinfo("Loot", f"Added {detail} to {dest_label} coins.")
+            self.open_loot_popup()
+
+        btn_row = ctk.CTkFrame(picker, fg_color="transparent")
+        btn_row.pack(pady=18)
+        ctk.CTkButton(
+            btn_row,
+            text="Take Coins",
+            fg_color=primary,
+            hover_color=hover,
+            command=apply_claim,
+        ).pack(side="left", padx=6)
+        ctk.CTkButton(
+            btn_row, text="Cancel", fg_color="#555555", command=picker.destroy,
+        ).pack(side="left", padx=6)
+        picker.bind("<Return>", lambda _event: apply_claim())
 
     def _claim_loot_item(self, item, popup):
         char_id = self._get_loot_character_id()
@@ -47090,6 +50435,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
     def on_closing(self):
         """Auto-save locally and push to cloud before shutting down."""
         self._closing = True
+        self._save_window_state_on_exit()
         self._stop_dm_status_poll_tick()
         self._cancel_priority_cloud_push()
         if self._cloud_blur_save_timer:
@@ -47172,4 +50518,5 @@ def _show_splash_screen():
 if __name__ == "__main__":
     _show_splash_screen()
     app = CharacterSheet()
+    app._ensure_startup_maximized()
     app.root.mainloop()

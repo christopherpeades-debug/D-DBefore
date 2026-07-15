@@ -61,7 +61,7 @@ a = Analysis(
         'campaign_chat_sync', 'campaign_chat_window',
         'image_share_sync', 'follower_statblock_sync', 'follower_statblock_ui',
         'statblock_viewer', 'monster_statblock_icon', 'reference_tooltips',
-        'dark_dialog', 'warlock_support', 'proficiency_support', 'languages',
+        'dark_dialog', 'app_window', 'virtual_scroll', 'warlock_support', 'proficiency_support', 'languages',
         'augment_gems_ui', 'ui_health_icons',
     ] + ctk_hiddenimports,
     hookspath=[],

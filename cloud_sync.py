@@ -330,7 +330,10 @@ class CloudSyncManager:
             prefer="resolution=merge-duplicates,return=representation",
         )
         if isinstance(result, list) and result:
-            self._last_seen_remote_at = _parse_iso(result[0].get("updated_at"))
+            updated_at = result[0].get("updated_at")
+            self._last_seen_remote_at = _parse_iso(updated_at)
+            if updated_at:
+                self._last_dm_remote_updated_at = updated_at
         self._set_status("Cloud save complete")
         return True
 
@@ -521,7 +524,10 @@ class CloudSyncManager:
         """Record the latest cloud copy so polling does not immediately re-apply it."""
         if not remote:
             return
-        remote_at = _parse_iso(remote.get("updated_at"))
+        updated_at = remote.get("updated_at")
+        if updated_at:
+            self._last_dm_remote_updated_at = updated_at
+        remote_at = _parse_iso(updated_at)
         if remote_at:
             self._last_seen_remote_at = remote_at
 
