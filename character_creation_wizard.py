@@ -275,8 +275,24 @@ class CharacterCreationWizard:
         self.popup.geometry(f"{WIZARD_WIDTH}x{WIZARD_HEIGHT}")
         self.popup.configure(fg_color=THEME_DARK_BG)
         self.popup.transient(self.root)
-        self.popup.grab_set()
+        # Do not steal grab/focus from the in-app updater popup if it is open.
+        update_popup = getattr(self.sheet, "_update_popup", None)
+        update_open = False
+        try:
+            update_open = bool(update_popup is not None and update_popup.winfo_exists())
+        except Exception:
+            update_open = False
+        if not update_open:
+            try:
+                self.popup.grab_set()
+            except Exception:
+                pass
         self._center_popup()
+        if update_open and hasattr(self.sheet, "_lift_app_update_popup"):
+            try:
+                self.sheet._lift_app_update_popup()
+            except Exception:
+                pass
 
         primary = self._primary_color()
 

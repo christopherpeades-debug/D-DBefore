@@ -175,11 +175,12 @@ class AppUpdateManager:
             raise RuntimeError("Latest GitHub release did not include a version tag.")
         current_version = self.get_current_version()
         asset = self._pick_installer_asset(payload.get("assets"))
+        tag_name = str(payload.get("tag_name") or "").strip()
         return {
             "current_version": current_version,
             "latest_version": latest_version,
             "update_available": version_is_newer(latest_version, current_version),
-            "release_name": str(payload.get("name") or tag_name).strip(),
+            "release_name": str(payload.get("name") or tag_name or latest_version).strip(),
             "release_notes": str(payload.get("body") or "").strip(),
             "html_url": str(payload.get("html_url") or "").strip(),
             "asset_name": str(asset.get("name") or "").strip() if asset else "",

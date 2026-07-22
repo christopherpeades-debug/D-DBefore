@@ -813,6 +813,12 @@ ABILITY_FROM_SHORT = {v: k for k, v in {
 }.items()}
 # Map the short codes used in all_skills (e.g. "Int") to full ability names for mod lookups
 ABILITY_SHORT_TO_FULL = {v: k for k, v in ABILITY_FROM_SHORT.items()}
+MAGIC_ITEM_SLOT_LABELS = (
+    "Head", "Face", "Neck", "Shoulders",
+    "Body", "Torso", "Arms", "Wrists",
+    "Ring 1", "Ring 2", "Waist", "Feet",
+    "Misc 1", "Misc 2", "Misc 3", "Misc 4",
+)
 MAGIC_ITEM_SLOT_MAP = {
     "Head": "Head", "Face": "Face", "Neck": "Neck", "Shoulders": "Shoulders",
     "Body": "Body", "Torso": "Torso", "Arms": "Arms", "Wrists": "Wrists",
@@ -1265,9 +1271,17 @@ FIXED_LAYOUT_RESIZE_END_DEBOUNCE_MS = 200
 SINGLE_ACTIVE_PAGE_MOUNT = True
 # Hide heavy CTk chrome during move/resize; restore is debounced + try/except safe.
 SUSPEND_UI_DURING_WINDOW_MOVE = True
-# Full skills table at load — all rows built up front (no scroll-time row recycling).
-USE_VIRTUAL_SKILLS_LIST = False
-SKILLS_VIRTUAL_VISIBLE_ROWS = 22
+# Virtual skills list: recycled row pool + scrollbar so all ~50 skill rows are reachable.
+# (Non-virtual CTkScrollableFrame often clips around mid-list / Open Lock when nested
+# in the Stats grid and the outer content canvas steals mousewheel.)
+USE_VIRTUAL_SKILLS_LIST = True
+# Seed size only; actual pool tracks viewport height (tk fixed-height rows).
+SKILLS_VIRTUAL_VISIBLE_ROWS = 18
+SKILLS_VIRTUAL_ROW_HEIGHT = 28
+SKILLS_TK_FG = "#ffffff"
+SKILLS_TK_ENTRY_BG = "#2a2a2a"
+SKILLS_TK_ENTRY_FG = "#ffffff"
+SKILLS_TK_SELECT_BG = "#3d5a80"
 # Shrink root to a tiny shell during title-bar drags (smooth framebuffer moves).
 DRAG_LITE_MODE = True
 # Build only Stats at startup / load; other tabs build on first visit.
@@ -1305,9 +1319,12 @@ PERFORMANCE_MODE_LABELS = {
 STATS_ABILITIES_PANEL_MIN_WIDTH = 420
 STATS_DEFENSE_PANEL_WIDTH = 375
 STATS_FEATURES_PANEL_WIDTH = 375
-STATS_SKILLS_PANEL_WIDTH = 500
+# Skills column design size at 100% UI scale (fullscreen reference: 560×589).
+STATS_SKILLS_PANEL_WIDTH = 560
+STATS_SKILLS_PANEL_HEIGHT = 589
 STATS_SKILLS_NAME_COLUMN_WIDTH = 250
-STATS_SKILLS_SCROLL_HEIGHT = 560
+# Fallback list viewport height if chrome measurement is unavailable.
+STATS_SKILLS_SCROLL_HEIGHT = 500
 # Cap class/health band when maximized so loaded sheets do not steal bottom-band viewport.
 STATS_CLASS_HEALTH_BAND_MAX_HEIGHT = 300
 DRAG_SHELL_WIDTH = 400
@@ -2696,6 +2713,24 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 str(pin).strip() for pin in pins if str(pin).strip()
             ]
 
+        # Daily feature checkboxes (Rage uses, etc.) — coerce types so load never drops them.
+        raw_daily = self.data.get("daily_feature_uses")
+        if not isinstance(raw_daily, dict):
+            self.data["daily_feature_uses"] = {}
+        else:
+            cleaned_daily = {}
+            for dkey, states in raw_daily.items():
+                k = str(dkey or "").strip()
+                if not k:
+                    continue
+                if isinstance(states, list):
+                    cleaned_daily[k] = [bool(v) for v in states]
+                elif states is None:
+                    cleaned_daily[k] = []
+                else:
+                    cleaned_daily[k] = [bool(states)]
+            self.data["daily_feature_uses"] = cleaned_daily
+
         cc = self.data.get("carrying_container", "no")
         if cc is True:
             self.data["carrying_container"] = "yes"
@@ -2806,6 +2841,10 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 ordered_ab[ab_name] = merged
             else:
                 ordered_ab[ab_name] = copy.deepcopy(default_ab[ab_name])
+        # Migrate legacy flat ability_*_base keys (old register_widget UI) into nested
+        # abilities[name].base. Current UI only reads nested base; many cloud/local sheets
+        # still have real bases only in the flat keys while nested base stayed at default 10.
+        self._migrate_legacy_ability_base_keys(ordered_ab)
         self.data["abilities"] = ordered_ab
 
         coins = self.data.get("coins")
@@ -3291,7 +3330,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 pass
 
     def _stats_landscape_panel_widths(self):
-        """Fixed landscape widths for Defense / Features / Skills (Abilities takes the rest)."""
+        """Fixed landscape widths for Defense / Skills (Features pin column removed)."""
         scale = float(getattr(self, "_ui_scale", 1.0) or 1.0)
         return {
             "defense": max(220, int(STATS_DEFENSE_PANEL_WIDTH * scale)),
@@ -3420,7 +3459,11 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             main_row.columnconfigure(0, weight=0, minsize=abilities_min)
             skills_weight = 1
         main_row.columnconfigure(1, weight=0, minsize=defense_w)
-        main_row.columnconfigure(2, weight=0, minsize=features_w)
+        pins = self.data.get("stats_pinned_features") or []
+        show_features = bool(pins) and features and self._widget_is_alive(features)
+        main_row.columnconfigure(
+            2, weight=0, minsize=(features_w if show_features else 0),
+        )
         main_row.columnconfigure(3, weight=skills_weight, minsize=skills_w + SKILLS_SCROLLBAR_PAD)
 
         bottom_half = getattr(self, "_stats_bottom_half", None)
@@ -3446,9 +3489,20 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             pass
         abilities.grid(row=0, column=0, sticky="nw", padx=8)
         defense.grid(row=0, column=1, sticky="new", padx=8)
-        if features and self._widget_is_alive(features):
+        if show_features:
             features.grid(row=0, column=2, rowspan=2, sticky="nsew", padx=8)
-        skills.grid(row=0, column=3, rowspan=2, sticky="nsew", padx=(8, 4))
+            try:
+                features.grid_propagate(False)
+            except Exception:
+                pass
+        # Fixed design size (560×589 @ 100%) — top-right, do not stretch with the band.
+        skills.grid(row=0, column=3, rowspan=2, sticky="ne", padx=(8, 4))
+        try:
+            design_w, design_h = self._skills_design_panel_size()
+            skills.configure(width=design_w, height=design_h)
+            skills.grid_propagate(False)
+        except Exception:
+            pass
 
         class_row = getattr(self, "class_health_row", None)
         if class_row and self._widget_is_alive(class_row):
@@ -3489,28 +3543,93 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         self._skills_scroll_geom_timer = None
         self._refresh_skills_scroll_geometry()
 
+    def _skills_design_panel_size(self):
+        """Design size of the whole Skills widget at current UI scale (560×589 @ 100%)."""
+        scale = float(getattr(self, "_ui_scale", 1.0) or 1.0)
+        return (
+            max(320, int(STATS_SKILLS_PANEL_WIDTH * scale)),
+            max(280, int(STATS_SKILLS_PANEL_HEIGHT * scale)),
+        )
+
     def _refresh_skills_scroll_geometry(self, *, force=False):
-        """Resize the skills list viewport so it scrolls vertically within the Stats column."""
+        """Pin Skills widget to design size; list scrolls inside to Use Rope.
+
+        Fullscreen @ 100%: whole widget ≈ 560×589. Never stretch taller than that
+        design height (window free space may only shrink it further).
+        """
         if not hasattr(self, "skills_scroll"):
             return
         scroll = self.skills_scroll
         if not scroll or not self._widget_is_alive(scroll):
             return
-        target_h = self._skills_scroll_target_height()
-        if not force and target_h == getattr(self, "_skills_scroll_last_height", None):
+        skills_panel = (
+            getattr(self, "_stats_skills_panel", None)
+            or getattr(self, "skills_frame", None)
+        )
+        design_w, design_h = self._skills_design_panel_size()
+        window_cap = self._skills_available_height_to_window_bottom()
+        reserved = self._skills_scroll_reserved_chrome_height()
+        vl = getattr(self, "_skills_virtual_list", None)
+        row_h = max(20, int(getattr(vl, "row_height", SKILLS_VIRTUAL_ROW_HEIGHT) or SKILLS_VIRTUAL_ROW_HEIGHT))
+
+        # Panel height = design height, never taller; shrink only if window is shorter.
+        panel_h = int(design_h)
+        if window_cap is not None and window_cap > 120:
+            panel_h = min(panel_h, int(window_cap))
+        panel_h = max(200, panel_h)
+
+        # List viewport = panel minus title / legend / column header.
+        target_h = max(row_h * 6, panel_h - reserved)
+        target_h = max(160, min(int(target_h), panel_h - 40))
+        # Snap down to whole rows (do not grow past panel).
+        target_h = max(row_h * 6, (int(target_h) // row_h) * row_h)
+        if target_h + reserved > panel_h:
+            target_h = max(row_h * 6, ((panel_h - reserved) // row_h) * row_h)
+
+        size_key = (panel_h, target_h, design_w)
+        if not force and size_key == getattr(self, "_skills_scroll_last_size_key", None):
             return
+        self._skills_scroll_last_size_key = size_key
         self._skills_scroll_last_height = target_h
         virtual = getattr(self, "_skills_virtual_list", None)
         try:
+            if skills_panel and self._widget_is_alive(skills_panel):
+                try:
+                    skills_panel.configure(width=design_w, height=panel_h)
+                    skills_panel.grid_propagate(False)
+                    skills_panel.pack_propagate(False)
+                except Exception:
+                    pass
+            content_host = getattr(self, "_skills_content_host", None)
+            if content_host and self._widget_is_alive(content_host):
+                try:
+                    content_host.pack_propagate(False)
+                except Exception:
+                    pass
+            scroll_host = getattr(self, "_skills_scroll_host", None)
+            if scroll_host and self._widget_is_alive(scroll_host):
+                try:
+                    scroll_host.configure(height=target_h)
+                    scroll_host.grid_propagate(False)
+                    scroll_host.pack_propagate(False)
+                except Exception:
+                    pass
             if virtual is not None and scroll is virtual:
                 set_height = getattr(virtual, "set_viewport_height", None)
                 if callable(set_height):
                     set_height(target_h)
                 else:
                     virtual.configure(height=target_h)
+                try:
+                    sync = getattr(virtual, "_apply_scrollregion", None) or getattr(
+                        virtual, "_sync_scrollregion", None,
+                    )
+                    if callable(sync):
+                        sync()
+                except Exception:
+                    pass
             else:
                 scroll.configure(height=target_h)
-                scroll_host = getattr(self, "_skills_scroll_host", None)
                 if scroll_host and self._widget_is_alive(scroll_host):
                     scroll_host.update_idletasks()
         except Exception:
@@ -3522,6 +3641,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         """Re-sync skills scroll height, header, and scrollbar after load or tab return."""
         if force:
             self._skills_scroll_last_height = None
+            self._skills_scroll_last_size_key = None
         try:
             self._apply_stats_viewport_balance()
         except Exception:
@@ -3564,7 +3684,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             except Exception:
                 pass
         self._skills_scroll_last_height = None
-
+        self._skills_scroll_last_size_key = None
         def _run_pass():
             self._refresh_stats_skills_viewport(force=True)
 
@@ -3992,10 +4112,11 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             ("Listen", "Wis"),
             ("Move Silently", "Dex"), ("Open Lock", "Dex"), ("Perform", "Cha"),
             ("Profession", "Wis"), ("Ride", "Dex"), ("Search", "Int"), ("Spellcraft", "Int"),
-            ("Sense Motive", "Wis"), ("Sleight of Hand", "Dex"), ("Spot", "Wis"),
+            ("Sense Motive", "Wis"), ("Sleight of Hand", "Dex"),
+            ("Speak Language", "—"),
+            ("Spot", "Wis"),
             ("Survival", "Wis"), ("Swim", "Str"), ("Tumble", "Dex"),
             ("Use Magic Device", "Cha"), ("Use Rope", "Dex"),
-            ("Speak Language", "—"),
         ]
 
         # === LOAD DATABASES (moved back to correct place) ===
@@ -4233,8 +4354,8 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
     def _stats_bottom_band_min_height(self):
         """Minimum height for the Stats bottom band (Features/Skills columns)."""
-        scale = float(getattr(self, "_ui_scale", 1.0) or 1.0)
-        return int(STATS_SKILLS_SCROLL_HEIGHT * scale)
+        _w, design_h = self._skills_design_panel_size()
+        return int(design_h)
 
     def _stats_class_health_band_height(self):
         """Fixed class/health row height when maximized (matches blank-sheet footprint)."""
@@ -4316,11 +4437,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             abilities_w = max(int(STATS_ABILITIES_PANEL_MIN_WIDTH * scale), 420)
         total_w = int(abilities_w) + widths["defense"] + widths["features"] + widths["skills"] + 96
         short_h = getattr(self, "_fixed_stats_short_row_height", None) or int(480 * scale)
-        skills_h = int(STATS_SKILLS_SCROLL_HEIGHT * scale)
-        if self._dynamic_resize_enabled():
-            cached_skills_h = getattr(self, "_fixed_skills_scroll_height", None)
-            if cached_skills_h is not None:
-                skills_h = int(cached_skills_h)
+        _sw, skills_h = self._skills_design_panel_size()
         total_h = int(short_h) + int(skills_h) + int(420 * scale)
         return (
             max(int(LAYOUT_MIN_WIDTH * scale), total_w),
@@ -4355,6 +4472,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         """Apply the static bottom-band height and refresh scroll/viewport geometry."""
         self._stats_layout_applied_key = None
         self._skills_scroll_last_height = None
+        self._skills_scroll_last_size_key = None
         if self._is_window_maximized():
             self._fixed_abilities_min_width = None
         self._apply_content_viewport_mode(force=True)
@@ -4489,12 +4607,40 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         else:
             h_scroll.grid_remove()
 
+    def _pointer_over_skills_list(self):
+        """True when the mouse is over the Stats skills scroller (don't scroll page)."""
+        vl = getattr(self, "_skills_virtual_list", None) or getattr(self, "skills_scroll", None)
+        if not vl or not self._widget_is_alive(vl):
+            return False
+        try:
+            px, py = self.root.winfo_pointerxy()
+            widget = self.root.winfo_containing(px, py)
+            while widget is not None:
+                if widget is vl:
+                    return True
+                try:
+                    if getattr(vl, "_canvas", None) is not None and widget is vl._canvas:
+                        return True
+                except Exception:
+                    pass
+                try:
+                    widget = widget.master
+                except Exception:
+                    break
+        except Exception:
+            return False
+        return False
+
     def _bind_content_viewport_mousewheel(self):
         canvas = getattr(self, "_content_canvas", None)
         if canvas is None:
             return
 
         def _wheel(event):
+            # Skills list owns the wheel when the pointer is over it — otherwise the
+            # page canvas steals scroll and the skill list appears truncated mid-list.
+            if self._pointer_over_skills_list():
+                return "break"
             try:
                 if getattr(event, "state", 0) & 0x1:
                     if getattr(event, "num", None) == 4:
@@ -6276,6 +6422,8 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
     def _bind_talespire_click(self, widget, roll_builder):
         if widget is None or roll_builder is None:
             return
+        # Always refresh builder so recycled virtual rows pick up the new skill.
+        widget._talespire_roll_builder = roll_builder
         if getattr(widget, "_talespire_click_bound", False):
             return
         try:
@@ -6285,7 +6433,8 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
         def on_click(_event):
             try:
-                roll = roll_builder()
+                builder = getattr(widget, "_talespire_roll_builder", None)
+                roll = builder() if callable(builder) else None
                 if not roll:
                     return
                 self._execute_clickable_roll(
@@ -6298,7 +6447,6 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
         widget.bind("<Button-1>", on_click, add="+")
         widget._talespire_click_bound = True
-        widget._talespire_roll_builder = roll_builder
 
     def _get_roll_log_identity(self):
         player_name = ""
@@ -7472,68 +7620,82 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         except Exception:
             return None
 
-    def _skills_scroll_target_height(self):
-        """Viewport height = skills panel minus title, legend, and column header."""
-        scale = float(getattr(self, "_ui_scale", 1.0) or 1.0)
-        fallback = int(STATS_SKILLS_SCROLL_HEIGHT * scale)
-        reserved = self._skills_scroll_reserved_chrome_height()
+    def _visible_content_bottom_rooty(self):
+        """Y of the bottom edge of the *visible* stats host (never past the window).
+
+        Prefer the packed content viewport / root client area — not a tall
+        scrollable document height — so skills never extend off-screen.
+        """
+        bottoms = []
+        try:
+            bottoms.append(int(self.root.winfo_rooty()) + int(self.root.winfo_height()))
+        except Exception:
+            pass
+        for attr in ("_content_viewport", "_content_canvas"):
+            widget = getattr(self, attr, None)
+            if not widget or not self._widget_is_alive(widget):
+                continue
+            try:
+                # winfo_height is the on-screen allocation (viewport), not scrollregion.
+                bottoms.append(int(widget.winfo_rooty()) + int(widget.winfo_height()))
+            except Exception:
+                pass
+        if not bottoms:
+            return None
+        return min(bottoms)
+
+    def _skills_available_height_to_window_bottom(self):
+        """Pixels from the top of the skills panel down to the visible window bottom.
+
+        Caps the skills widget so its bottom edge meets the window/viewport bottom
+        (rows scroll inside; they must not continue outside the window).
+        """
         skills_panel = (
             getattr(self, "_stats_skills_panel", None)
             or getattr(self, "skills_frame", None)
         )
-        if skills_panel and self._widget_is_alive(skills_panel):
-            try:
-                panel_h = int(skills_panel.winfo_height())
-                if panel_h > reserved + 100:
-                    result = max(120, panel_h - reserved)
-                    aligned = self._skills_scroll_height_from_features_alignment()
-                    if aligned is not None:
-                        result = min(result, aligned)
-                    if not self._dynamic_resize_enabled():
-                        self._fixed_skills_scroll_height = result
-                    return result
-            except Exception:
-                pass
-        content_host = getattr(self, "_skills_content_host", None)
-        if content_host and self._widget_is_alive(content_host):
-            try:
-                host_h = int(content_host.winfo_height())
-                host_reserved = SKILLS_HEADER_HEIGHT + 10
-                legend = getattr(self, "skills_legend_label", None)
-                if legend and self._widget_is_alive(legend):
-                    host_reserved += int(legend.winfo_height()) + 6
-                if host_h > host_reserved + 100:
-                    result = max(120, host_h - host_reserved)
-                    aligned = self._skills_scroll_height_from_features_alignment()
-                    if aligned is not None:
-                        result = min(result, aligned)
-                    if not self._dynamic_resize_enabled():
-                        self._fixed_skills_scroll_height = result
-                    return result
-            except Exception:
-                pass
-        aligned = self._skills_scroll_height_from_features_alignment()
-        if aligned is not None:
-            if not self._dynamic_resize_enabled():
-                self._fixed_skills_scroll_height = aligned
-            return aligned
-        cached = getattr(self, "_fixed_skills_scroll_height", None)
-        if cached is not None and not self._dynamic_resize_enabled():
-            return int(cached)
+        if not skills_panel or not self._widget_is_alive(skills_panel):
+            return None
         try:
-            root_h = self.root.winfo_height()
-            if self._is_portrait_monitor_layout():
-                reserved_root = int(
-                    (PORTRAIT_ABILITIES_BAND_HEIGHT + PORTRAIT_DEFENSE_BAND_HEIGHT + 520) * scale,
-                )
-                return max(int(PORTRAIT_SKILLS_MIN_HEIGHT * scale), root_h - reserved_root)
-            available = (root_h // 2) - 40
-            result = max(220, min(fallback, available))
-            self._fixed_skills_scroll_height = result
-            return result
+            top = int(skills_panel.winfo_rooty())
+            bottom = self._visible_content_bottom_rooty()
+            if bottom is None:
+                return None
+            # Align with Features/main_row band only when that band ends above the
+            # window edge (do not allow a tall main_row to push skills off-screen).
+            main_row = getattr(self, "main_row", None)
+            if main_row and self._widget_is_alive(main_row):
+                try:
+                    main_bottom = int(main_row.winfo_rooty()) + int(main_row.winfo_height())
+                    if top + 80 < main_bottom <= bottom + 2:
+                        bottom = min(bottom, main_bottom)
+                except Exception:
+                    pass
+            # Bottom padding inside the window edge.
+            pad = 10
+            avail = int(bottom) - top - pad
+            if avail < 120:
+                return None
+            return avail
         except Exception:
-            self._fixed_skills_scroll_height = fallback
-            return fallback
+            return None
+
+    def _skills_scroll_target_height(self):
+        """List viewport height inside the fixed Skills panel (design panel − chrome)."""
+        scale = float(getattr(self, "_ui_scale", 1.0) or 1.0)
+        reserved = self._skills_scroll_reserved_chrome_height()
+        _design_w, design_h = self._skills_design_panel_size()
+        window_cap = self._skills_available_height_to_window_bottom()
+        panel_h = int(design_h)
+        if window_cap is not None and window_cap > 120:
+            panel_h = min(panel_h, int(window_cap))
+        panel_h = max(200, panel_h)
+        result = max(160, panel_h - reserved)
+        # Never invent a list taller than the design panel allows.
+        result = min(result, max(160, int(design_h) - reserved))
+        if not self._dynamic_resize_enabled():
+            self._fixed_skills_scroll_height = result
+        return result
 
     def _on_root_configure(self, event=None):
         if not getattr(self, "_root_layout_configure_hook_installed", False):
@@ -7612,78 +7774,271 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         return None
 
     def _is_stats_feature_pinned(self, pin_id):
-        return pin_id in (self.data.get("stats_pinned_features") or [])
+        return str(pin_id or "") in (self.data.get("stats_pinned_features") or [])
 
     def _toggle_stats_feature_pin(self, pin_id):
-        pins = self.data.setdefault("stats_pinned_features", [])
+        """Pin/unpin a feature to the Stats Features panel. Does not touch daily-use data."""
+        pin_id = str(pin_id or "").strip()
+        if not pin_id:
+            return
+        pins = list(self.data.get("stats_pinned_features") or [])
         if pin_id in pins:
             pins.remove(pin_id)
         else:
             pins.append(pin_id)
+        self.data["stats_pinned_features"] = pins
+        # Save pins + current daily uses together (daily uses unchanged by pin).
+        self._flush_daily_and_pins_to_disk(reason=f"pin-toggle {pin_id}")
         self._mark_cloud_sync_dirty()
         self._rebuild_stats_features_widget()
-        self._apply_stats_page_layout(force=True)
+        try:
+            self._apply_stats_page_layout(force=True)
+        except Exception:
+            pass
 
     def _bind_stats_feature_pin(self, widget, pin_id):
+        """Shift+click toggles pin. Do not bind plain Button-1 on checkboxes."""
+        if widget is None or not pin_id:
+            return
         bound = getattr(self, "_stats_feature_pin_bound", None)
         if bound is None:
             self._stats_feature_pin_bound = set()
 
-        def on_click(event):
-            if not (event.state & 0x1):
-                return
-            self._toggle_stats_feature_pin(pin_id)
+        def on_shift(_event=None, pid=pin_id):
+            self._toggle_stats_feature_pin(pid)
             return "break"
 
-        widget_id = id(widget)
-        if widget_id not in self._stats_feature_pin_bound:
-            widget.bind("<Button-1>", on_click, add="+")
-            self._stats_feature_pin_bound.add(widget_id)
+        def _bind_tree(w):
+            if w is None:
+                return
+            try:
+                wid = id(w)
+            except Exception:
+                return
+            if wid not in self._stats_feature_pin_bound:
+                try:
+                    name = type(w).__name__
+                    # Never attach pin shift-bind to checkboxes (they handle their own clicks).
+                    if "CheckBox" not in name and "Switch" not in name:
+                        w.bind("<Shift-Button-1>", on_shift, add="+")
+                    self._stats_feature_pin_bound.add(wid)
+                except Exception:
+                    pass
+            try:
+                for child in w.winfo_children():
+                    _bind_tree(child)
+            except Exception:
+                pass
 
-        if hasattr(self, "_bind_hover_tooltip"):
-            pinned = self._is_stats_feature_pinned(pin_id)
-            hint = (
-                "Shift+click to unpin from Stats Features."
-                if pinned
-                else "Shift+click to pin to Stats Features panel."
+        _bind_tree(widget)
+
+    def _rebuild_stats_features_widget(self):
+        """Build Stats pin cards. Uses shared daily-use BooleanVars — never resets saved uses."""
+        scroll = getattr(self, "_stats_features_scroll", None)
+        if not scroll or not self._widget_is_alive(scroll):
+            return
+        for child in list(scroll.winfo_children()):
+            try:
+                child.destroy()
+            except Exception:
+                pass
+        pins = [
+            str(p).strip()
+            for p in (self.data.get("stats_pinned_features") or [])
+            if str(p).strip()
+        ]
+        self.data["stats_pinned_features"] = pins
+        wrap = max(200, int(STATS_FEATURES_PANEL_WIDTH * float(getattr(self, "_ui_scale", 1.0) or 1.0)) - 28)
+        if not pins:
+            ctk.CTkLabel(
+                scroll,
+                text="Shift+click a feature on Feats & Features to pin it here.",
+                font=ctk.CTkFont(size=11),
+                text_color="#888888",
+                wraplength=wrap,
+                justify="left",
+            ).pack(anchor="w", padx=8, pady=8)
+            return
+        # Build with commands suppressed so CTk create-events cannot write False to disk.
+        prev = bool(getattr(self, "_suppress_daily_use_commands", False))
+        self._suppress_daily_use_commands = True
+        try:
+            for pin_id in pins:
+                parsed = self._parse_stats_pin_id(pin_id)
+                if not parsed:
+                    continue
+                if parsed["kind"] == "class":
+                    self._build_stats_pinned_class_feature_card(
+                        scroll, parsed["cls_name"], parsed["feat_name"], pin_id,
+                    )
+                elif parsed["kind"] == "custom":
+                    idx = parsed["feat_index"]
+                    customs = self.data.get("custom_features", [])
+                    if 0 <= idx < len(customs):
+                        self._build_stats_pinned_custom_feature_card(
+                            scroll, customs[idx], idx, pin_id,
+                        )
+        finally:
+            self._suppress_daily_use_commands = prev
+
+    def _build_stats_pinned_class_feature_card(self, parent, cls_name, feat_name, pin_id):
+        feat, class_level = self._resolve_pinned_class_feature(cls_name, feat_name)
+        class_level = self._effective_class_level_for_feature(cls_name, class_level)
+        frame = ctk.CTkFrame(parent, fg_color="#2F2F2F")
+        frame.pack(fill="x", pady=4, padx=4)
+        title_row = ctk.CTkFrame(frame, fg_color="transparent")
+        title_row.pack(fill="x", padx=8, pady=(6, 2))
+        ctk.CTkLabel(
+            title_row,
+            text=feat_name if feat else f"{feat_name} (?)",
+            font=ctk.CTkFont(size=12, weight="bold"),
+        ).pack(side="left", anchor="w")
+        self._bind_stats_feature_pin(title_row, pin_id)
+        if not feat:
+            return
+        if self._should_show_daily_tracker(feat) or (feat or {}).get("use_tracker"):
+            self._build_daily_use_tracker(
+                frame, cls_name, feat_name, feat, class_level, compact=True,
             )
-            self._bind_hover_tooltip(widget, hint, wraplength=280)
+        if feat.get("rage_toggle"):
+            self._build_rage_active_toggle(frame, cls_name, feat_name, compact=True)
+
+    def _build_stats_pinned_custom_feature_card(self, parent, feat, feat_index, pin_id):
+        frame = ctk.CTkFrame(parent, fg_color="#2F2F2F")
+        frame.pack(fill="x", pady=4, padx=4)
+        title_row = ctk.CTkFrame(frame, fg_color="transparent")
+        title_row.pack(fill="x", padx=8, pady=(6, 2))
+        ctk.CTkLabel(
+            title_row,
+            text=feat.get("name", "Custom Feature"),
+            font=ctk.CTkFont(size=12, weight="bold"),
+        ).pack(side="left", anchor="w")
+        self._bind_stats_feature_pin(title_row, pin_id)
+        uses = int(feat.get("uses_per_day") or feat.get("per_day", 0) or 0)
+        if uses > 0:
+            key = self._get_custom_feature_daily_key(feat)
+            self._build_simple_daily_tracker(
+                frame, key, uses, feat.get("name", ""), compact=True,
+            )
+
+    def _rebuild_stats_features_widget_body(self):
+        self._rebuild_stats_features_widget()
+
+    def _reapply_pins_and_daily_uses_after_load(self):
+        """After load: rebuild pin panel from saved pins; push daily uses onto vars."""
+        try:
+            self._rebuild_stats_features_widget()
+        except Exception as exc:
+            print(f"Pin rebuild after load failed: {exc}")
+        try:
+            self._reapply_daily_uses_from_data_to_vars()
+        except Exception:
+            pass
+        try:
+            self._apply_stats_page_layout(force=True)
+        except Exception:
+            pass
+        print(
+            f"LOAD daily/pins: "
+            f"Rage={(self.data.get('daily_feature_uses') or {}).get('Barbarian_Rage')!r} "
+            f"pins={self.data.get('stats_pinned_features')!r}"
+        )
 
     def _resolve_pinned_class_feature(self, cls_name, feat_name):
+        """Resolve a pinned class feature; fall back to classes_db if unlock scan misses."""
+        class_level = self._get_class_level(cls_name)
+        want = str(feat_name or "").strip()
+        want_l = want.lower()
         features = self._get_unlocked_class_features(cls_name)
-        for key, feat in features.items():
-            if feat.get("name") == feat_name or key == feat_name:
-                return feat, self._get_class_level(cls_name)
+        for key, feat in (features or {}).items():
+            if not isinstance(feat, dict):
+                continue
+            if feat.get("name") == want or key == want:
+                return feat, class_level
+            if str(feat.get("name") or "").strip().lower() == want_l:
+                return feat, class_level
+            if str(key or "").strip().lower() == want_l:
+                return feat, class_level
+        # Fallback: scan full class feature table (covers name/key drift after load).
+        try:
+            features_dict = (self.classes_db.get(cls_name) or {}).get("features") or {}
+            best = None
+            best_lv = -1
+            for level_str, flist in features_dict.items():
+                try:
+                    lv = int(level_str)
+                except (TypeError, ValueError):
+                    continue
+                if class_level > 0 and lv > class_level:
+                    continue
+                for feat in flist or []:
+                    if not isinstance(feat, dict):
+                        continue
+                    name = str(feat.get("name") or "").strip()
+                    if name == want or name.lower() == want_l:
+                        if lv >= best_lv:
+                            best = feat
+                            best_lv = lv
+            if best is not None:
+                return best, class_level if class_level > 0 else max(1, best_lv)
+        except Exception:
+            pass
         return None, 0
 
     def _register_linked_switch(self, registry_name, key, switch):
+        """Register a switch under key. Keeps Feats + Stats pin switches linked."""
         registry = getattr(self, registry_name, None)
         if registry is None:
             registry = {}
             setattr(self, registry_name, registry)
         widgets = registry.get(key)
-        if widgets is None:
-            registry[key] = [switch]
-        elif isinstance(widgets, list):
-            if switch not in widgets:
-                widgets.append(switch)
-        else:
-            registry[key] = [widgets, switch] if widgets is not switch else [switch]
+        live = []
+        if isinstance(widgets, list):
+            for w in widgets:
+                if w is None or w is switch:
+                    continue
+                try:
+                    if self._widget_is_alive(w):
+                        live.append(w)
+                except Exception:
+                    continue
+        elif widgets is not None and widgets is not switch:
+            try:
+                if self._widget_is_alive(widgets):
+                    live.append(widgets)
+            except Exception:
+                pass
+        if switch is not None:
+            live.append(switch)
+        registry[key] = live
 
     def _iter_linked_switches(self, registry_name, key):
-        registry = getattr(self, registry_name, {})
+        registry = getattr(self, registry_name, {}) or {}
         widgets = registry.get(key)
         if widgets is None:
             return
+        live = []
         if isinstance(widgets, list):
-            for widget in widgets:
-                if widget is not None:
+            candidates = widgets
+        else:
+            candidates = [widgets]
+        for widget in candidates:
+            if widget is None:
+                continue
+            try:
+                if self._widget_is_alive(widget):
+                    live.append(widget)
                     yield widget
-        elif widgets is not None:
-            yield widgets
+            except Exception:
+                continue
+        # Prune dead widgets so pin/feats stay linked.
+        if live:
+            registry[key] = live
+        elif key in registry:
+            registry.pop(key, None)
 
     def _sync_linked_switches(self, registry_name, key, active, source=None):
-        for switch in self._iter_linked_switches(registry_name, key):
+        for switch in list(self._iter_linked_switches(registry_name, key)):
             if switch is source:
                 continue
             try:
@@ -7699,121 +8054,6 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             self.fiendish_resilience_vars = []
         if var not in self.fiendish_resilience_vars:
             self.fiendish_resilience_vars.append(var)
-
-    def _rebuild_stats_features_widget(self):
-        scroll = getattr(self, "_stats_features_scroll", None)
-        if not scroll or not self._widget_is_alive(scroll):
-            return
-        for child in scroll.winfo_children():
-            child.destroy()
-
-        pins = list(self.data.get("stats_pinned_features") or [])
-        wrap = max(220, int(STATS_FEATURES_PANEL_WIDTH * float(getattr(self, "_ui_scale", 1.0) or 1.0)) - 28)
-        if not pins:
-            ctk.CTkLabel(
-                scroll,
-                text="Shift+click a feature on Feats & Features to pin it here.",
-                font=ctk.CTkFont(size=11),
-                text_color="#888888",
-                wraplength=wrap,
-                justify="left",
-            ).pack(anchor="w", padx=8, pady=8)
-            return
-
-        for pin_id in pins:
-            parsed = self._parse_stats_pin_id(pin_id)
-            if not parsed:
-                continue
-            if parsed["kind"] == "class":
-                self._build_stats_pinned_class_feature_card(
-                    scroll, parsed["cls_name"], parsed["feat_name"], pin_id,
-                )
-            elif parsed["kind"] == "custom":
-                idx = parsed["feat_index"]
-                customs = self.data.get("custom_features", [])
-                if 0 <= idx < len(customs):
-                    self._build_stats_pinned_custom_feature_card(
-                        scroll, customs[idx], idx, pin_id,
-                    )
-
-    def _build_stats_pinned_class_feature_card(self, parent, cls_name, feat_name, pin_id):
-        feat, class_level = self._resolve_pinned_class_feature(cls_name, feat_name)
-        if not feat:
-            return
-        frame = ctk.CTkFrame(parent, fg_color="#2F2F2F")
-        frame.pack(fill="x", pady=4, padx=4)
-
-        title_row = ctk.CTkFrame(frame, fg_color="transparent")
-        title_row.pack(fill="x", padx=8, pady=(6, 2))
-        ctk.CTkLabel(
-            title_row, text=feat_name, font=ctk.CTkFont(size=12, weight="bold"),
-        ).pack(side="left", anchor="w")
-        self._bind_stats_feature_pin(title_row, pin_id)
-
-        if self._should_show_daily_tracker(feat):
-            self._build_daily_use_tracker(
-                frame, cls_name, feat_name, feat, class_level, compact=True,
-            )
-        if feat.get("rage_toggle"):
-            self._build_rage_active_toggle(frame, cls_name, feat_name, compact=True)
-        if feat.get("fast_healing_toggle") and cls_name == "Warlock":
-            self._build_fiendish_resilience_toggle(frame, feat, compact=True)
-        if feat.get("wild_shape_toggle"):
-            self._build_wild_shape_active_toggle(frame, cls_name, feat_name, compact=True)
-
-        max_charges = int(feat.get("max_charges") or 0)
-        override_key = self._class_feature_description_override_key(cls_name, feat_name)
-        custom_desc = self._get_feature_description_override(override_key)
-        if custom_desc:
-            override_abilities = self._get_custom_magic_item_abilities(
-                feat_name, {"description": custom_desc},
-            )
-            max_charges = max(
-                max_charges,
-                int(override_abilities.get("max_charges") or 0),
-            )
-            uses_per_day = int(override_abilities.get("uses_per_day") or 0)
-            if uses_per_day > 0:
-                tracker_key = self._get_class_feature_tracker_key(cls_name, feat_name)
-                self._build_magic_item_daily_tracker(frame, tracker_key, uses_per_day)
-        if max_charges > 0:
-            tracker_key = self._get_class_feature_tracker_key(cls_name, feat_name)
-            self._build_magic_item_charge_tracker(
-                frame, tracker_key, max_charges, compact=True,
-            )
-
-        self._build_class_feature_healing_pool_if_applicable(
-            frame, cls_name, feat_name, compact=True,
-        )
-
-    def _build_stats_pinned_custom_feature_card(self, parent, feat, feat_index, pin_id):
-        frame = ctk.CTkFrame(parent, fg_color="#2F2F2F")
-        frame.pack(fill="x", pady=4, padx=4)
-
-        title_row = ctk.CTkFrame(frame, fg_color="transparent")
-        title_row.pack(fill="x", padx=8, pady=(6, 2))
-        ctk.CTkLabel(
-            title_row,
-            text=feat.get("name", "Custom Feature"),
-            font=ctk.CTkFont(size=12, weight="bold"),
-        ).pack(side="left", anchor="w")
-        self._bind_stats_feature_pin(title_row, pin_id)
-
-        uses = int(feat.get("uses_per_day") or feat.get("per_day", 0) or 0)
-        if uses > 0:
-            key = self._get_custom_feature_daily_key(feat)
-            self._build_simple_daily_tracker(frame, key, uses, feat.get("name", ""), compact=True)
-
-        max_charges = int(feat.get("max_charges", 0) or 0)
-        if max_charges > 0:
-            key = self._get_custom_feature_daily_key(feat)
-            self._build_magic_item_charge_tracker(frame, key, max_charges, compact=True)
-
-        template = self._get_special_feature_template(feat)
-        if template and template.get("type") == "form_toggle":
-            self._build_special_feature_form_toggle(
-                frame, feat, template, feat_index, compact=True,
-            )
 
     def _apply_stats_column_layout(self):
         if self._is_portrait_monitor_layout():
@@ -7999,12 +8239,79 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
     def _grid_skills_cell(self, widget, col):
         anchor = "center" if col in SKILLS_NUMERIC_COLUMNS else "w"
-        sticky = "ew"
+        sticky = "nsew" if isinstance(widget, (tk.Label, tk.Entry, tk.Frame)) else "ew"
         widget.grid(row=0, column=col, padx=SKILLS_CELL_PADX, sticky=sticky)
         if isinstance(widget, ctk.CTkLabel):
             widget.configure(anchor=anchor)
         elif isinstance(widget, ctk.CTkEntry) and col in SKILLS_NUMERIC_COLUMNS:
             widget.configure(justify="center")
+        elif isinstance(widget, tk.Label):
+            widget.configure(anchor=anchor)
+        elif isinstance(widget, tk.Entry) and col in SKILLS_NUMERIC_COLUMNS:
+            widget.configure(justify="center")
+
+    def _skills_tk_row_bg(self, item_index):
+        return THEME_SKILLS_ROW_ALT if item_index % 2 else THEME_DARK_BG
+
+    def _set_skill_row_stripe(self, row, item_index):
+        """Stripe a skill row (CTk fg_color or tk bg)."""
+        if row is None:
+            return
+        try:
+            if isinstance(row, (tk.Frame, tk.Label, tk.Entry)):
+                bg = self._skills_tk_row_bg(item_index)
+                row.configure(bg=bg)
+                for child in row.winfo_children():
+                    try:
+                        if isinstance(child, tk.Label):
+                            child.configure(bg=bg)
+                        elif isinstance(child, tk.Entry):
+                            # Entries keep a slightly raised field bg.
+                            child.configure(bg=SKILLS_TK_ENTRY_BG)
+                    except tk.TclError:
+                        pass
+            else:
+                row.configure(
+                    fg_color=THEME_SKILLS_ROW_ALT if item_index % 2 else "transparent",
+                )
+        except Exception:
+            pass
+
+    def _make_tk_skill_label(self, parent, *, width_px, anchor="w", text=""):
+        chars = max(2, int(width_px // 8))
+        return tk.Label(
+            parent,
+            text=text,
+            width=chars,
+            anchor=anchor,
+            bg=THEME_DARK_BG,
+            fg=SKILLS_TK_FG,
+            font=("Segoe UI", 10),
+            bd=0,
+            highlightthickness=0,
+            cursor="arrow",
+        )
+
+    def _make_tk_skill_entry(self, parent, *, width_px, textvariable=None):
+        chars = max(2, int(width_px // 8))
+        entry = tk.Entry(
+            parent,
+            width=chars,
+            textvariable=textvariable,
+            justify="center",
+            bg=SKILLS_TK_ENTRY_BG,
+            fg=SKILLS_TK_ENTRY_FG,
+            insertbackground=SKILLS_TK_ENTRY_FG,
+            selectbackground=SKILLS_TK_SELECT_BG,
+            selectforeground="#ffffff",
+            relief="flat",
+            bd=1,
+            highlightthickness=1,
+            highlightbackground="#3a3a3a",
+            highlightcolor="#666666",
+            font=("Segoe UI", 10),
+        )
+        return entry
 
     def _is_skill_specialty_row(self, skill_key):
         _, index = self._parse_skill_row_key(skill_key)
@@ -8088,12 +8395,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             except Exception:
                 return
         for row_idx, row in enumerate(rows):
-            try:
-                row.configure(
-                    fg_color=THEME_SKILLS_ROW_ALT if row_idx % 2 else "transparent",
-                )
-            except Exception:
-                pass
+            self._set_skill_row_stripe(row, row_idx)
 
     def _purge_skills_widget_registry(self):
         registry = getattr(self, "widget_registry", None)
@@ -8180,30 +8482,27 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         return info
 
     def _create_virtual_skill_slot(self, parent, _slot_index, _spec):
+        """Build one recycled skill row using lightweight tk widgets (not CTk)."""
         row = parent
         col_w = self._skills_active_column_widths()
         self._configure_skills_row_grid(row, col_w)
-        name_lbl = ctk.CTkLabel(row, text="", width=col_w[0], anchor="w")
+        try:
+            row.grid_rowconfigure(0, weight=1)
+        except Exception:
+            pass
+        name_lbl = self._make_tk_skill_label(row, width_px=col_w[0], anchor="w")
         self._grid_skills_cell(name_lbl, 0)
-        total_lbl = ctk.CTkLabel(row, text="+0", width=col_w[1])
+        total_lbl = self._make_tk_skill_label(row, width_px=col_w[1], anchor="center", text="+0")
         self._grid_skills_cell(total_lbl, 1)
-        abil_lbl = ctk.CTkLabel(
-            row, text="", width=col_w[2], anchor="center",
-        )
+        abil_lbl = self._make_tk_skill_label(row, width_px=col_w[2], anchor="center")
         self._grid_skills_cell(abil_lbl, 2)
-        rank_lbl = ctk.CTkLabel(
-            row, text="", width=col_w[3], anchor="center",
-        )
+        rank_lbl = self._make_tk_skill_label(row, width_px=col_w[3], anchor="center")
         self._grid_skills_cell(rank_lbl, 3)
-        mod_lbl = ctk.CTkLabel(row, text="+0", width=col_w[4])
+        mod_lbl = self._make_tk_skill_label(row, width_px=col_w[4], anchor="center", text="+0")
         self._grid_skills_cell(mod_lbl, 4)
-        misc_entry = ctk.CTkEntry(
-            row, width=col_w[5], justify="center",
-        )
+        misc_entry = self._make_tk_skill_entry(row, width_px=col_w[5])
         self._grid_skills_cell(misc_entry, 5)
-        syn_entry = ctk.CTkEntry(
-            row, width=col_w[6], justify="center",
-        )
+        syn_entry = self._make_tk_skill_entry(row, width_px=col_w[6])
         self._grid_skills_cell(syn_entry, 6)
         return {
             "row": row,
@@ -8223,15 +8522,10 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         skill_key = self._skill_key_from_row_spec(spec)
         prev_key = slot.get("_bound_skill_key")
         if prev_key == skill_key:
-            try:
-                slot["row"].configure(
-                    fg_color=THEME_SKILLS_ROW_ALT if item_index % 2 else "transparent",
-                )
-            except Exception:
-                pass
+            self._set_skill_row_stripe(slot["row"], item_index)
             return
 
-        row_kind, row_index, ability_key, display_base = spec
+        _row_kind, _row_index, ability_key, _display_base = spec
         info = self._ensure_skill_var_entry(skill_key, spec)
         if prev_key and prev_key != skill_key:
             self._clear_virtual_skill_ui_refs(prev_key)
@@ -8244,34 +8538,41 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         info["total_lbl"] = slot["total_lbl"]
         self._update_skill_name_label(skill_key, slot["name_lbl"])
         slot["abil_lbl"].configure(text=ability_key)
-        slot["rank_lbl"].configure(textvariable=info["rank"])
-        slot["misc_entry"].configure(textvariable=info["misc"])
-        slot["syn_entry"].configure(textvariable=info["syn"])
-        col_w = self._skills_active_column_widths()
-        slot["name_lbl"].configure(width=col_w[0])
-        slot["total_lbl"].configure(width=col_w[1])
-        slot["abil_lbl"].configure(width=col_w[2])
-        slot["rank_lbl"].configure(width=col_w[3])
-        slot["mod_lbl"].configure(width=col_w[4])
-        slot["misc_entry"].configure(width=col_w[5])
-        slot["syn_entry"].configure(width=col_w[6])
+        # tk.Label supports textvariable; re-point entries each recycle.
         try:
-            row.configure(
-                fg_color=THEME_SKILLS_ROW_ALT if item_index % 2 else "transparent",
-            )
-        except Exception:
+            slot["rank_lbl"].configure(textvariable=info["rank"])
+        except tk.TclError:
+            slot["rank_lbl"].configure(text=str(info["rank"].get() if info.get("rank") else ""))
+        try:
+            slot["misc_entry"].configure(textvariable=info["misc"])
+        except tk.TclError:
             pass
-        slot["name_lbl"]._skill_name_click_bound = False
-        slot["total_lbl"]._skill_roll_click_bound = False
+        try:
+            slot["syn_entry"].configure(textvariable=info["syn"])
+        except tk.TclError:
+            pass
+        self._set_skill_row_stripe(row, item_index)
+        # Handlers install once; skill key / roll builder refresh each recycle.
         self._bind_skill_name_click(slot["name_lbl"], skill_key)
         self._bind_skill_roll_click(slot["total_lbl"], skill_key)
         self.recalc_skill(skill_key)
 
     def _build_skills_virtual_list(self, skills_table):
-        row_height = 34
+        row_height = int(SKILLS_VIRTUAL_ROW_HEIGHT)
         list_h = self._skills_scroll_target_height()
-        self._skills_scroll_host = ctk.CTkFrame(skills_table, fg_color="transparent")
+        # Cap height so the list stays inside the stats band (never taller than ~window).
+        list_h = max(160, min(int(list_h), 900))
+        # Snap height to whole row strides so rows fill edge-to-edge with no gap.
+        list_h = max(row_height * 6, (list_h // row_height) * row_height)
+        self._skills_scroll_host = ctk.CTkFrame(
+            skills_table, fg_color="transparent", height=list_h,
+        )
         self._skills_scroll_host.grid(row=1, column=0, sticky="nsew", pady=(2, 0))
+        try:
+            self._skills_scroll_host.grid_propagate(False)
+            self._skills_scroll_host.pack_propagate(False)
+        except Exception:
+            pass
         self._skills_virtual_list = VirtualList(
             self._skills_scroll_host,
             row_height=row_height,
@@ -8279,7 +8580,8 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             canvas_bg=THEME_DARK_BG,
             height=list_h,
         )
-        self._skills_virtual_list.pack(fill="both", expand=True)
+        # Fill host; fixed row_height + place() keeps scroll math honest.
+        self._skills_virtual_list.pack(side="top", fill="both", expand=True)
         self.skills_scroll = self._skills_virtual_list
         self._ensure_skill_specialties_data()
         self._migrate_legacy_specialty_skills()
@@ -8287,12 +8589,89 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         specs = self._skill_rows_for_ui()
         for spec in specs:
             self._ensure_skill_var_entry(self._skill_key_from_row_spec(spec), spec)
+        ordered = self._ordered_skill_specs()
+        # Guarantee full PHB-style list: every row from Appraise through Use Rope.
+        expected_n = len(specs)
+        if len(ordered) < expected_n:
+            print(
+                f"WARNING: ordered skills {len(ordered)} < full list {expected_n}; "
+                "appending missing rows."
+            )
+            seen = {id(s) for s in ordered}
+            for s in specs:
+                if id(s) not in seen:
+                    ordered.append(s)
         self._skills_virtual_list.configure_list(
-            self._ordered_skill_specs(),
+            ordered,
             row_factory=self._create_virtual_skill_slot,
             row_binder=self._bind_virtual_skill_slot,
             width=self._skills_column_table_width(),
         )
+        try:
+            self._skills_virtual_list.set_viewport_height(list_h)
+        except Exception:
+            pass
+        try:
+            keys = [self._skill_key_from_row_spec(s) for s in ordered]
+            first_key = keys[0] if keys else None
+            last_key = keys[-1] if keys else None
+            print(
+                f"Skills list: {len(keys)} rows (expected {expected_n}), "
+                f"first={first_key!r}, last={last_key!r}"
+            )
+            if keys and keys[0] != "Appraise":
+                print(f"NOTE: first skill is {keys[0]!r} (sort-by-rank may be on)")
+            if keys and keys[-1] != "Use Rope" and not self._skills_sort_by_rank_enabled():
+                print(f"WARNING: last skill is {keys[-1]!r}, expected 'Use Rope'")
+            # Must build a canvas window per skill row.
+            slots = getattr(self._skills_virtual_list, "_row_slots", [])
+            if len(slots) != len(keys):
+                print(
+                    f"ERROR: built {len(slots)} row widgets for {len(keys)} skills"
+                )
+        except Exception as exc:
+            print(f"Skills list build log error: {exc}")
+
+        def _skills_geometry_ready():
+            try:
+                self._refresh_skills_scroll_geometry(force=True)
+            except Exception:
+                pass
+            vl = getattr(self, "_skills_virtual_list", None)
+            if not vl or not self._widget_is_alive(vl):
+                return
+            try:
+                apply_sr = getattr(vl, "_apply_scrollregion", None) or getattr(
+                    vl, "_sync_scrollregion", None,
+                )
+                if callable(apply_sr):
+                    apply_sr()
+                dbg = getattr(vl, "debug_scroll_state", None)
+                if callable(dbg):
+                    state = dbg()
+                    print(f"Skills scroll debug: {state}")
+                    items = int(state.get("items") or 0)
+                    slots_n = int(state.get("slots") or state.get("windows") or 0)
+                    content_h = int(state.get("content_h") or 0)
+                    row_h = int(state.get("row_height") or SKILLS_VIRTUAL_ROW_HEIGHT)
+                    need_h = items * row_h
+                    if items > 0 and slots_n < items:
+                        print(
+                            f"ERROR: only {slots_n}/{items} skill rows were created"
+                        )
+                    if content_h < need_h - 5:
+                        print(
+                            f"ERROR: content_h {content_h} < need {need_h}; "
+                            "re-applying scrollregion"
+                        )
+                        if callable(apply_sr):
+                            apply_sr()
+            except Exception as exc:
+                print(f"Skills geometry ready error: {exc}")
+
+        self.root.after_idle(_skills_geometry_ready)
+        self.root.after(150, _skills_geometry_ready)
+        self.root.after(400, _skills_geometry_ready)
 
     def _destroy_skills_content_host(self):
         """Destroy the skills table host and clear widget references."""
@@ -8312,6 +8691,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         self._skills_table_host = None
         self._skills_scroll_host = None
         self._skills_scroll_last_height = None
+        self._skills_scroll_last_size_key = None
         self._skills_table_header = None
         self._skills_header_labels = []
         self._skills_virtual_list = None
@@ -8403,6 +8783,11 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 scrollbar_button_hover_color="#777777",
             )
             self.skills_scroll.grid(row=0, column=0, sticky="nsew", padx=(0, 4))
+            # Prefer mousewheel on the skills list while hovered (not outer content canvas).
+            try:
+                OverlayDropdownHelper.bind_mousewheel_scroll(self.skills_scroll)
+            except Exception:
+                pass
             self._ensure_skill_specialties_data()
             self._migrate_legacy_specialty_skills()
             self._rebuild_class_skills_cache()
@@ -8416,9 +8801,12 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             self._refresh_skill_tooltips()
             self._update_skill_points_label()
             self._skills_scroll_last_height = None
+            self._skills_scroll_last_size_key = None
             self.root.after_idle(self._refresh_skills_scroll_geometry)
+            self.root.after(120, lambda: self._refresh_skills_scroll_geometry(force=True))
             return
         self._skills_scroll_last_height = None
+        self._skills_scroll_last_size_key = None
         self.root.after_idle(self._refresh_skills_scroll_geometry)
         for row_idx, (row_kind, row_index, ability_key, display_base) in enumerate(
             self._skill_rows_for_ui(),
@@ -8503,6 +8891,35 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         self._refresh_skill_tooltips()
         self._update_skill_points_label()
         self._materialize_all_skills_on_load()
+        # Force canvas scrollregion after all rows pack (fixes clipping past Open Lock).
+        self.root.after_idle(self._force_skills_scrollregion_update)
+        self.root.after(150, self._force_skills_scrollregion_update)
+
+    def _force_skills_scrollregion_update(self):
+        """Ensure the skills list scrollregion includes the last skill (Use Rope)."""
+        virtual = getattr(self, "_skills_virtual_list", None)
+        if self._virtual_skills_list_enabled() and virtual and self._widget_is_alive(virtual):
+            try:
+                self._refresh_skills_scroll_geometry(force=True)
+                sync = getattr(virtual, "_apply_scrollregion", None) or getattr(
+                    virtual, "_sync_scrollregion", None,
+                )
+                if callable(sync):
+                    sync()
+                # Do not rebuild all rows here — only fix height/scrollregion.
+            except Exception:
+                pass
+            return
+        scroll = getattr(self, "skills_scroll", None)
+        if not scroll or not self._widget_is_alive(scroll):
+            return
+        try:
+            canvas = getattr(scroll, "_parent_canvas", None) or getattr(scroll, "_canvas", None)
+            if canvas is not None:
+                scroll.update_idletasks()
+                canvas.configure(scrollregion=canvas.bbox("all"))
+        except Exception:
+            pass
 
     def _on_skills_sort_by_rank_toggle(self):
         self.data["skills_sort_by_rank"] = self._skills_sort_by_rank_enabled()
@@ -8839,21 +9256,38 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         }
 
     def _effective_ability_score(self, ability_name):
+        """Live effective score used for mods, skills, saves — always recompute structure.
+
+        Prefer live base/racial/ASI/items over a possibly stale abilities[name].total,
+        then apply wild shape / special features / rage and Behind DM affliction damage.
+        """
         wild_override = self._get_wild_shape_ability_override(ability_name)
         if wild_override is not None:
-            total = wild_override
+            total = int(wild_override)
         else:
             sf_override = self._get_special_feature_ability_override(ability_name)
             if sf_override is not None:
-                total = sf_override
+                total = int(sf_override)
             else:
-                total = int(self.data["abilities"][ability_name]["total"])
-            total += self._get_special_feature_ability_bonuses().get(ability_name, 0)
-        total += self._get_rage_bonuses()["ability_score"].get(ability_name, 0)
+                try:
+                    total = int(self._compute_structural_ability_total(ability_name)["total"])
+                except Exception:
+                    try:
+                        total = int(self.data["abilities"][ability_name]["total"])
+                    except Exception:
+                        total = 10
+                # Keep stored total in sync when we recompute (helps cloud / Behind)
+                try:
+                    self.data["abilities"][ability_name]["total"] = total
+                except Exception:
+                    pass
+            total += int(self._get_special_feature_ability_bonuses().get(ability_name, 0) or 0)
+        total += int(self._get_rage_bonuses()["ability_score"].get(ability_name, 0) or 0)
         penalties = self.get_affliction_penalties()
         if ability_name in penalties["ability_score_zero"]:
             return 0
-        adjusted = total + penalties["ability_score"].get(ability_name, 0)
+        # Includes ability_damage from D&D Behind (as negative ability_score) + afflictions
+        adjusted = total + int(penalties["ability_score"].get(ability_name, 0) or 0)
         return max(0, adjusted)
 
     def _effective_ability_mod(self, ability_name):
@@ -8885,6 +9319,21 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
     def _style_skill_total_label(self, label, text, magical_bonus, *, auto_fail=False):
         if label is None:
+            return
+        if isinstance(label, tk.Label):
+            if auto_fail:
+                color = THEME_ORANGE
+                weight = "normal"
+            elif magical_bonus > 0:
+                color = THEME_TEAL
+                weight = "bold"
+            else:
+                color = SKILLS_TK_FG
+                weight = "normal"
+            try:
+                label.configure(text=text, fg=color, font=("Segoe UI", 10, weight))
+            except tk.TclError:
+                pass
             return
         if auto_fail:
             label.configure(
@@ -9027,8 +9476,9 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
     def _bind_skill_roll_click(self, widget, skill_key):
         """Click: TaleSpire clipboard copy or local dice roller (per character setting)."""
-        if widget is None or getattr(widget, "_skill_roll_click_bound", False):
+        if widget is None:
             return
+        # Refresh builder every bind (virtual rows recycle widgets across skills).
         self._bind_talespire_click(
             widget,
             lambda sk=skill_key: self._build_talespire_skill_roll(sk),
@@ -9039,34 +9489,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         """Click: roll. Shift+click: specialty picker or skill detail popup."""
         if widget is None:
             return
-        if getattr(widget, "_skill_name_click_bound", False):
-            return
-        try:
-            widget.configure(cursor="hand2")
-        except Exception:
-            pass
-
-        def on_click(event):
-            if event.state & 0x0001:
-                if self._is_skill_specialty_row(skill_key):
-                    self._open_skill_specialty_picker(skill_key)
-                else:
-                    self._open_skill_detail_popup(skill_key)
-                return "break"
-            try:
-                roll = self._build_talespire_skill_roll(skill_key)
-                if not roll:
-                    return "break"
-                self._execute_clickable_roll(
-                    roll,
-                    show_copied_toast=self._is_page_active("Combat"),
-                )
-            except Exception:
-                pass
-            return "break"
-
-        widget.bind("<Button-1>", on_click, add="+")
-        widget._skill_name_click_bound = True
+        widget._skill_name_key = skill_key
         if hasattr(self, "_bind_hover_tooltip"):
             current = self._display_name_for_skill_tooltip(skill_key)
             if self._is_skill_specialty_row(skill_key):
@@ -9080,6 +9503,37 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                     "Shift+click for SRD details and breakdown."
                 )
             self._bind_hover_tooltip(widget, tip, wraplength=300)
+        if getattr(widget, "_skill_name_click_bound", False):
+            return
+        try:
+            widget.configure(cursor="hand2")
+        except Exception:
+            pass
+
+        def on_click(event):
+            sk = getattr(widget, "_skill_name_key", None)
+            if not sk:
+                return "break"
+            if event.state & 0x0001:
+                if self._is_skill_specialty_row(sk):
+                    self._open_skill_specialty_picker(sk)
+                else:
+                    self._open_skill_detail_popup(sk)
+                return "break"
+            try:
+                roll = self._build_talespire_skill_roll(sk)
+                if not roll:
+                    return "break"
+                self._execute_clickable_roll(
+                    roll,
+                    show_copied_toast=self._is_page_active("Combat"),
+                )
+            except Exception:
+                pass
+            return "break"
+
+        widget.bind("<Button-1>", on_click, add="+")
+        widget._skill_name_click_bound = True
 
     def _display_name_for_skill_tooltip(self, skill_key):
         if hasattr(self, "_resolved_skill_label"):
@@ -9440,11 +9894,39 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         self._refresh_legacy_languages_button()
         self._refresh_sense_skill_tooltips()
 
+    def _get_class_level_slots_from_data(self):
+        """Class/level pairs from saved character data (UI-independent)."""
+        classes = list(self.data.get("classes") or [])
+        levels = list(self.data.get("levels") or [])
+        while len(classes) < 3:
+            classes.append("None")
+        while len(levels) < 3:
+            levels.append(0)
+        slots = []
+        for i in range(3):
+            cls_name = str(self.data.get(f"class_{i}", classes[i]) or "None").strip() or "None"
+            try:
+                class_level = int(self.data.get(f"level_{i}", levels[i]) or 0)
+            except (TypeError, ValueError):
+                class_level = 0
+            slots.append((cls_name, class_level))
+        return slots
+
     def _get_class_level(self, cls_name):
+        want = str(cls_name or "").strip()
+        if not want:
+            return 0
+        best = 0
         for cls, lvl in self._get_class_level_slots():
-            if cls == cls_name:
-                return lvl
-        return 0
+            if str(cls or "").strip() == want:
+                best = max(best, int(lvl or 0))
+        # Data fallback: UI slots can briefly read as None/0 while Stats rebuilds,
+        # which would drop Barbarian Fast Movement and other class features.
+        if best <= 0:
+            for cls, lvl in self._get_class_level_slots_from_data():
+                if str(cls or "").strip() == want:
+                    best = max(best, int(lvl or 0))
+        return best
 
     def _class_feature_dedupe_key(self, feat):
         return str((feat or {}).get("feature_key") or (feat or {}).get("name") or "").strip()
@@ -9481,27 +9963,75 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             "indomitable_might": False,
             "tireless_rage": False,
         }
-        if not features:
-            return bonuses
-        if "Fast Movement" in features:
+        barb_level = self._get_class_level("Barbarian")
+        # Match feature names case-insensitively (keys may be feature_key or display name).
+        feature_names = []
+        for key, feat in (features or {}).items():
+            feature_names.append(str(key or ""))
+            if isinstance(feat, dict):
+                feature_names.append(str(feat.get("name") or ""))
+        joined = " | ".join(feature_names).lower()
+
+        if "fast movement" in joined or barb_level >= 1:
+            # SRD barbarian gains Fast Movement at 1st level.
             bonuses["fast_movement"] = True
             bonuses["speed_bonus"] = 10
-        if "Uncanny Dodge" in features:
-            bonuses["uncanny_dodge"] = True
-        if "Improved Uncanny Dodge" in features:
-            bonuses["improved_uncanny_dodge"] = True
-        if "Indomitable Might" in features:
-            bonuses["indomitable_might"] = True
-        if "Tireless Rage" in features:
-            bonuses["tireless_rage"] = True
-        for name in features:
-            trap_match = re.match(r"Trap Sense \+(\d+)", name)
+        for name in feature_names:
+            low = name.lower().strip()
+            if not low:
+                continue
+            if "improved uncanny dodge" in low:
+                bonuses["uncanny_dodge"] = True
+                bonuses["improved_uncanny_dodge"] = True
+            elif low == "uncanny dodge" or (
+                "uncanny dodge" in low and "improved" not in low
+            ):
+                bonuses["uncanny_dodge"] = True
+            if "indomitable might" in low:
+                bonuses["indomitable_might"] = True
+            if "tireless rage" in low:
+                bonuses["tireless_rage"] = True
+            trap_match = re.match(r"Trap Sense \+(\d+)", name, re.I)
             if trap_match:
-                bonuses["trap_sense"] = int(trap_match.group(1))
-            dr_match = re.match(r"Damage Reduction (\d+)/-", name)
+                bonuses["trap_sense"] = max(bonuses["trap_sense"], int(trap_match.group(1)))
+            dr_match = re.match(r"Damage Reduction (\d+)/-", name, re.I)
             if dr_match:
-                bonuses["damage_reduction"] = int(dr_match.group(1))
+                bonuses["damage_reduction"] = max(
+                    bonuses["damage_reduction"], int(dr_match.group(1)),
+                )
+        # Improved Uncanny Dodge always includes basic Uncanny Dodge.
+        if bonuses["improved_uncanny_dodge"]:
+            bonuses["uncanny_dodge"] = True
         return bonuses
+
+    def _barbarian_fast_movement_active(self):
+        """SRD Fast Movement: +10 land speed in no/light/medium armor, not heavy load.
+
+        Order: apply +10 to racial base first, then the medium/heavy armor speed
+        table (e.g. Bugbear 30 + 10 = 40 → medium armor → 30). Medium armor does
+        NOT suppress Fast Movement — only heavy armor or heavy/overloaded load.
+        """
+        barb = self._get_barbarian_class_bonuses()
+        if not barb.get("fast_movement"):
+            # Fallback: any Barbarian level grants Fast Movement at 1st.
+            if self._get_class_level("Barbarian") < 1:
+                return False
+        armor_cat = self._get_armor_category()
+        if armor_cat == "heavy":
+            return False
+        try:
+            load = str(self._get_encumbrance_load_state().get("load") or "light").lower()
+        except Exception:
+            load = "light"
+        if load in ("heavy", "overloaded"):
+            return False
+        return True
+
+    def _barbarian_fast_movement_bonus(self):
+        if not self._barbarian_fast_movement_active():
+            return 0
+        bonus = int(self._get_barbarian_class_bonuses().get("speed_bonus", 0) or 0)
+        return bonus if bonus > 0 else 10
 
     def load_invocations_db(self):
         if not HAS_WARLOCK_SUPPORT:
@@ -11155,55 +11685,426 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         self.data["daily_feature_uses"][key] = uses
         return uses
 
-    def _sync_daily_feature_uses_to_data(self):
-        if not hasattr(self, "daily_use_vars"):
+    def _ensure_daily_use_var_slots(self, key, use_count):
+        """Keep shared Stats-pin + Feats BooleanVar registries without wiping either side."""
+        if not hasattr(self, "daily_use_vars") or self.daily_use_vars is None:
+            self.daily_use_vars = {}
+        slot_lists = self.daily_use_vars.get(key)
+        if not isinstance(slot_lists, list):
+            slot_lists = [[] for _ in range(use_count)]
+            self.daily_use_vars[key] = slot_lists
+        while len(slot_lists) < use_count:
+            slot_lists.append([])
+        if len(slot_lists) > use_count:
+            del slot_lists[use_count:]
+        # Drop dead/destroyed vars so light-save never reads stale false from destroyed widgets.
+        for i, slot_list in enumerate(slot_lists):
+            live = []
+            for var in list(slot_list or []):
+                try:
+                    var.get()
+                    live.append(var)
+                except Exception:
+                    continue
+            slot_lists[i] = live
+        return slot_lists
+
+    def _register_daily_use_var(self, key, index, var, use_count):
+        slot_lists = self._ensure_daily_use_var_slots(key, use_count)
+        while len(slot_lists) <= index:
+            slot_lists.append([])
+        if var not in slot_lists[index]:
+            slot_lists[index].append(var)
+
+    def _with_daily_use_commands_suppressed(self, fn):
+        """Run fn without checkbox command handlers writing/toggling data (build/load safe)."""
+        prev = bool(getattr(self, "_suppress_daily_use_commands", False))
+        self._suppress_daily_use_commands = True
+        try:
+            return fn()
+        finally:
+            self._suppress_daily_use_commands = prev
+
+    def _apply_daily_use_session_edits_to(self, daily):
+        """Identity helper kept for close/full-save call sites (session log no longer needed)."""
+        if not isinstance(daily, dict):
+            return {}
+        cleaned = {}
+        for k, states in daily.items():
+            kk = str(k or "").strip()
+            if not kk:
+                continue
+            if isinstance(states, list):
+                cleaned[kk] = [bool(x) for x in states]
+            else:
+                cleaned[kk] = [bool(states)]
+        return cleaned
+
+    def _mirror_daily_use_vars(self, key, index, checked):
+        """Push a checkbox value to every live var for this slot (Stats pin ↔ Feats page)."""
+        if not hasattr(self, "daily_use_vars") or key not in self.daily_use_vars:
             return
-        for key, slot_lists in self.daily_use_vars.items():
+
+        def _do():
+            slot_lists = self.daily_use_vars[key]
+            while len(slot_lists) <= index:
+                slot_lists.append([])
+            live = []
+            for other_var in list(slot_lists[index]):
+                try:
+                    if bool(other_var.get()) != bool(checked):
+                        other_var.set(bool(checked))
+                    live.append(other_var)
+                except Exception:
+                    continue
+            slot_lists[index] = live
+
+        self._with_daily_use_commands_suppressed(_do)
+
+    def _read_boolean_var_list_slot(self, slot_list, *, prefer_last=True):
+        """Read a daily-use slot that may have multiple BooleanVars (Stats pin + Feats page).
+
+        Prefer the last registered var (newest UI). Never silently invent False when
+        data already holds True and vars are empty/stale.
+        """
+        vals = []
+        live = []
+        for var in list(slot_list or []):
+            try:
+                vals.append(bool(var.get()))
+                live.append(var)
+            except Exception:
+                continue
+        # Mutate in place so dead vars are pruned from the registry.
+        if isinstance(slot_list, list):
+            slot_list[:] = live
+        if not vals:
+            return None
+        return vals[-1] if prefer_last else vals[0]
+
+    def _sync_daily_feature_uses_to_data(self):
+        """Pull live checkbox vars into data.
+
+        Safe rules (Stats pin + Feats share the same key):
+        - If no live vars for a slot, keep existing data (never invent False).
+        - If live vars disagree, keep existing data (stale destroyed widgets).
+        - If all live vars agree, write that value.
+        """
+        if not hasattr(self, "daily_use_vars") or not self.daily_use_vars:
+            return
+        store = self.data.setdefault("daily_feature_uses", {})
+        for key, slot_lists in list(self.daily_use_vars.items()):
+            if not isinstance(slot_lists, list):
+                continue
+            existing = list(store.get(key, []))
+            while len(existing) < len(slot_lists):
+                existing.append(False)
             data_uses = []
-            for slot_list in slot_lists:
-                if slot_list:
-                    data_uses.append(bool(slot_list[0].get()))
+            for i, slot_list in enumerate(slot_lists):
+                vals = []
+                live = []
+                for var in list(slot_list or []):
+                    try:
+                        vals.append(bool(var.get()))
+                        live.append(var)
+                    except Exception:
+                        continue
+                if isinstance(slot_list, list):
+                    slot_list[:] = live
+                if not vals:
+                    data_uses.append(bool(existing[i]) if i < len(existing) else False)
+                    continue
+                if all(v == vals[0] for v in vals):
+                    data_uses.append(bool(vals[0]))
                 else:
-                    data_uses.append(False)
-            self.data.setdefault("daily_feature_uses", {})[key] = data_uses
+                    # Disagreeing mirrors → keep what data already has.
+                    data_uses.append(bool(existing[i]) if i < len(existing) else bool(vals[-1]))
+            store[key] = data_uses
 
-    def _toggle_daily_use(self, key, index, var):
+    def _get_shared_daily_use_var(self, key, index, initial=False):
+        """One BooleanVar per (feature key, slot) shared by Feats page + Stats pin."""
+        store = getattr(self, "_daily_use_shared_bools", None)
+        if store is None:
+            store = {}
+            self._daily_use_shared_bools = store
+        key = str(key)
+        slot = store.setdefault(key, {})
+        var = slot.get(int(index))
+        if var is not None:
+            try:
+                var.get()
+                # On rebuild, force var to match saved data (commands suppressed).
+                if getattr(self, "_suppress_daily_use_commands", False):
+                    if bool(var.get()) != bool(initial):
+                        var.set(bool(initial))
+                return var
+            except Exception:
+                pass
+        var = ctk.BooleanVar(value=bool(initial))
+        slot[int(index)] = var
+        return var
+
+    def _flush_daily_and_pins_to_disk(self, *, reason=""):
+        """Immediately merge daily uses, pins, and rest-ack tokens into the character JSON.
+
+        Reads existing file, patches keys, writes once. Does not run widget sync.
+        """
+        # Never wipe dailies to disk as a side-effect of load/rebuild rest re-application.
+        if reason == "rest-all-daily" and (
+            getattr(self, "_rebuilding_ui", False)
+            or getattr(self, "_startup_loading", False)
+            or getattr(self, "_cloud_sync_applying_remote", False)
+        ):
+            print(f"DAILY-FLUSH skipped ({reason}) during load/rebuild")
+            return False
+        path = self._resolve_quick_save_path() or getattr(self, "last_character_path", None)
+        if not path:
+            name = str((self.data or {}).get("name") or "").strip()
+            safe = re.sub(r'[<>:"/\\|?*]+', "_", name).strip(" .") if name else ""
+            if safe:
+                try:
+                    path = os.path.join(self._characters_dir(), f"{safe}.json")
+                except Exception:
+                    path = None
+        if not path:
+            print(f"DAILY-FLUSH skip (no path) {reason}")
+            return False
+        daily = self.data.get("daily_feature_uses") or {}
+        if not isinstance(daily, dict):
+            daily = {}
+        cleaned = {}
+        for k, states in daily.items():
+            kk = str(k or "").strip()
+            if not kk:
+                continue
+            if isinstance(states, list):
+                cleaned[kk] = [bool(x) for x in states]
+            else:
+                cleaned[kk] = [bool(states)]
+        pins = [
+            str(p).strip()
+            for p in (self.data.get("stats_pinned_features") or [])
+            if str(p).strip()
+        ]
+        self.data["daily_feature_uses"] = copy.deepcopy(cleaned)
+        self.data["stats_pinned_features"] = list(pins)
+        try:
+            disk = {}
+            if os.path.isfile(path):
+                with open(path, "r", encoding="utf-8") as handle:
+                    disk = json.load(handle) or {}
+                if not isinstance(disk, dict):
+                    disk = {}
+            disk["daily_feature_uses"] = copy.deepcopy(cleaned)
+            disk["stats_pinned_features"] = list(pins)
+            # Keep forced-rest ack on disk so the same rest token is not re-applied
+            # on every open (which was wiping checkboxes via rest-all-daily).
+            try:
+                disk["last_applied_forced_rest_token"] = max(
+                    0, int(self.data.get("last_applied_forced_rest_token", 0) or 0),
+                )
+            except (TypeError, ValueError):
+                pass
+            if isinstance(self.data.get("dm_forced_rest"), dict):
+                disk["dm_forced_rest"] = copy.deepcopy(self.data.get("dm_forced_rest"))
+            tmp = path + ".tmp"
+            with open(tmp, "w", encoding="utf-8") as handle:
+                json.dump(disk, handle, indent=2, ensure_ascii=False)
+            os.replace(tmp, path)
+            self.last_character_path = path
+            print(
+                f"DAILY-FLUSH ({reason}) Rage={cleaned.get('Barbarian_Rage')!r} "
+                f"pins={pins!r} rest_ack={disk.get('last_applied_forced_rest_token')!r} "
+                f"→ {os.path.basename(path)}"
+            )
+            return True
+        except Exception as exc:
+            print(f"DAILY-FLUSH failed ({reason}): {exc}")
+            return False
+
+    def _set_daily_use_slot(self, key, index, checked, *, persist=True):
+        """Write one checkbox into self.data, mirror shared vars, optionally flush disk."""
         uses = self.data.setdefault("daily_feature_uses", {})
-        state = list(uses.get(key, []))
-        while len(state) <= index:
+        state = list(uses.get(key, []) or [])
+        while len(state) <= int(index):
             state.append(False)
-        state[index] = bool(var.get())
-        uses[key] = state
+        state[int(index)] = bool(checked)
+        uses[str(key)] = list(state)
+        self.data["daily_feature_uses"] = uses
+        # Keep shared var + any registered mirrors in sync (no recursive command).
+        prev = bool(getattr(self, "_suppress_daily_use_commands", False))
+        self._suppress_daily_use_commands = True
+        try:
+            shared = self._get_shared_daily_use_var(key, index, bool(checked))
+            if bool(shared.get()) != bool(checked):
+                shared.set(bool(checked))
+            self._mirror_daily_use_vars(key, int(index), bool(checked))
+        except Exception:
+            pass
+        finally:
+            self._suppress_daily_use_commands = prev
+        if persist and not getattr(self, "_suppress_daily_use_commands", False):
+            self._flush_daily_and_pins_to_disk(
+                reason=f"daily-use {key}[{index}]={checked}",
+            )
+            self._mark_cloud_sync_dirty()
 
-        # Live sync: update all other registered BooleanVars for this exact (key, index) slot.
-        # This makes checkboxes on Feats page (racial/class features) and Spells prepared "Spell-like Abilities" section share state
-        # bidirectionally *without* page refreshes or rebuilds on either side.
-        if hasattr(self, "daily_use_vars") and key in self.daily_use_vars:
-            slot_lists = self.daily_use_vars[key]
-            if index < len(slot_lists):
-                for other_var in slot_lists[index]:
-                    if other_var is not var:
-                        other_var.set(bool(var.get()))
+    def _normalize_daily_feature_uses_data(self):
+        """Coerce saved daily_feature_uses into {key: [bool, ...]}."""
+        raw = self.data.get("daily_feature_uses")
+        if not isinstance(raw, dict):
+            self.data["daily_feature_uses"] = {}
+            return self.data["daily_feature_uses"]
+        cleaned = {}
+        for key, states in raw.items():
+            k = str(key or "").strip()
+            if not k:
+                continue
+            if isinstance(states, list):
+                cleaned[k] = [bool(v) for v in states]
+            elif states is None:
+                cleaned[k] = []
+            else:
+                cleaned[k] = [bool(states)]
+        self.data["daily_feature_uses"] = cleaned
+        return cleaned
 
-    def _reset_daily_uses(self, key, use_count):
-        self.data.setdefault("daily_feature_uses", {})[key] = [False] * use_count
-        if hasattr(self, "daily_use_vars") and key in self.daily_use_vars:
-            slot_lists = self.daily_use_vars[key]
-            for slot_list in slot_lists:
-                for var in slot_list:
+    def _reapply_daily_uses_from_data_to_vars(self):
+        """Push saved daily_feature_uses onto every live checkbox var (after load/rebuild)."""
+        store = self._normalize_daily_feature_uses_data()
+        if not hasattr(self, "daily_use_vars") or not self.daily_use_vars:
+            return
+        prev = bool(getattr(self, "_suppress_daily_use_commands", False))
+        self._suppress_daily_use_commands = True
+        try:
+            for key, slot_lists in list(self.daily_use_vars.items()):
+                saved = list(store.get(key, []))
+                if not isinstance(slot_lists, list):
+                    continue
+                for i, slot_list in enumerate(slot_lists):
+                    want = bool(saved[i]) if i < len(saved) else False
+                    live = []
+                    for var in list(slot_list or []):
+                        try:
+                            if bool(var.get()) != want:
+                                var.set(want)
+                            live.append(var)
+                        except Exception:
+                            continue
+                    if isinstance(slot_list, list):
+                        slot_list[:] = live
+            # Shared registry too
+            shared = getattr(self, "_daily_use_shared_bools", None) or {}
+            for key, slot_map in list(shared.items()):
+                saved = list(store.get(key, []))
+                for i, var in list((slot_map or {}).items()):
+                    want = bool(saved[i]) if i < len(saved) else False
+                    try:
+                        if bool(var.get()) != want:
+                            var.set(want)
+                    except Exception:
+                        pass
+        finally:
+            self._suppress_daily_use_commands = prev
+
+    def _toggle_daily_use(self, key, index, var, *args):
+        """CTk checkbox command. Must always persist user clicks.
+
+        Root cause of 'never saves': CTk often fires command BEFORE BooleanVar flips.
+        Old code saw checked==prev and returned without writing. Fix: if still equal,
+        treat the click as a toggle of the stored value.
+        """
+        if getattr(self, "_suppress_daily_use_commands", False):
+            return
+        if getattr(self, "_rebuilding_ui", False):
+            return
+        uses = self.data.setdefault("daily_feature_uses", {})
+        state = list(uses.get(key, []) or [])
+        while len(state) <= int(index):
+            state.append(False)
+        prev = bool(state[int(index)])
+        try:
+            checked = bool(var.get())
+        except Exception:
+            checked = not prev
+        # Pre-flip command: var still old value → invert stored state.
+        if checked == prev:
+            checked = not prev
+            try:
+                var.set(checked)
+            except Exception:
+                pass
+        self._set_daily_use_slot(key, int(index), checked, persist=True)
+
+    def _reset_daily_uses(self, key, use_count, *, persist=True):
+        """Clear one feature's daily checkboxes.
+
+        IMPORTANT: CTk can fire button commands during widget creation. Never wipe
+        disk during rebuild/load — that was zeroing all uses every time Harold opened.
+        """
+        if getattr(self, "_rebuilding_ui", False) or getattr(self, "_suppress_daily_use_commands", False):
+            print(f"RESET ignored during rebuild/suppress: {key}")
+            return
+        n = max(0, int(use_count or 0))
+        self.data.setdefault("daily_feature_uses", {})[str(key)] = [False] * n
+        prev = bool(getattr(self, "_suppress_daily_use_commands", False))
+        self._suppress_daily_use_commands = True
+        try:
+            if hasattr(self, "daily_use_vars") and key in self.daily_use_vars:
+                for slot_list in self.daily_use_vars[key]:
+                    for var in list(slot_list or []):
+                        try:
+                            var.set(False)
+                        except Exception:
+                            pass
+            store = getattr(self, "_daily_use_shared_bools", None) or {}
+            for i, var in list((store.get(str(key)) or store.get(key) or {}).items()):
+                try:
                     var.set(False)
+                except Exception:
+                    pass
+        finally:
+            self._suppress_daily_use_commands = prev
+        if persist:
+            self._flush_daily_and_pins_to_disk(reason=f"reset {key}")
+            self._mark_cloud_sync_dirty()
+
+    def _effective_class_level_for_feature(self, cls_name, class_level=None):
+        """Prefer a positive class level from data so trackers never vanish mid-rebuild."""
+        try:
+            ui_lv = int(class_level or 0)
+        except (TypeError, ValueError):
+            ui_lv = 0
+        data_lv = 0
+        try:
+            data_lv = int(self._get_class_level(cls_name) or 0)
+        except Exception:
+            data_lv = 0
+        if data_lv <= 0:
+            try:
+                for c, l in self._get_class_level_slots_from_data():
+                    if str(c or "").strip() == str(cls_name or "").strip():
+                        data_lv = max(data_lv, int(l or 0))
+            except Exception:
+                pass
+        return max(ui_lv, data_lv)
 
     def _build_daily_use_tracker(self, parent, cls_name, feat_name, feat, class_level, *, compact=False):
+        class_level = self._effective_class_level_for_feature(cls_name, class_level)
         use_count = self._compute_daily_use_count(cls_name, class_level, feat)
+        if use_count <= 0:
+            try:
+                tracker = (feat or {}).get("use_tracker") or {}
+                if tracker.get("formula") == "barbarian_rage" and class_level >= 1:
+                    use_count = min(6, 1 + class_level // 4)
+            except Exception:
+                pass
         if use_count <= 0:
             return
 
         key = self._get_daily_tracker_key(cls_name, feat_name)
         saved_states = self._normalize_daily_use_state(key, use_count)
-        if not hasattr(self, "daily_use_vars"):
-            self.daily_use_vars = {}
-        if key not in self.daily_use_vars:
-            self.daily_use_vars[key] = [[] for _ in range(use_count)]
+        self._ensure_daily_use_var_slots(key, use_count)
 
         outer_padx = 8 if compact else 15
         outer_pady = (0, 4) if compact else (0, 10)
@@ -11218,20 +12119,34 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             font=ctk.CTkFont(size=11 if compact else 12, weight="bold"),
             text_color="#c77626",
         ).pack(side="left")
-        ctk.CTkButton(
+        # Create Reset without command first — some CTk builds fire command on create.
+        reset_btn = ctk.CTkButton(
             header,
             text="Reset",
             width=48 if compact else 56,
             height=20 if compact else 22,
             fg_color="#666666",
-            command=lambda k=key, c=use_count: self._reset_daily_uses(k, c),
-        ).pack(side="right")
+        )
+        reset_btn.pack(side="right")
+
+        def _on_reset(k=key, c=use_count):
+            if getattr(self, "_rebuilding_ui", False) or getattr(self, "_suppress_daily_use_commands", False):
+                return
+            self._reset_daily_uses(k, c, persist=True)
+
+        try:
+            reset_btn.configure(command=_on_reset)
+        except Exception:
+            pass
 
         checks = ctk.CTkFrame(tracker_frame, fg_color="transparent")
         checks.pack(fill="x", padx=8 if compact else 10, pady=(0, 4) if compact else (0, 8))
         cb_size = 16 if compact else 18
         for index in range(use_count):
-            var = BooleanVar(value=bool(saved_states[index]))
+            initial = bool(saved_states[index]) if index < len(saved_states) else False
+            # Shared var: Feats page + Stats pin use the exact same BooleanVar.
+            var = self._get_shared_daily_use_var(key, index, initial)
+            # Create checkbox without command, then attach (avoids create-time command fire).
             cb = ctk.CTkCheckBox(
                 checks,
                 text="",
@@ -11239,10 +12154,15 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 checkbox_width=cb_size,
                 checkbox_height=cb_size,
                 variable=var,
-                command=lambda k=key, i=index, v=var: self._toggle_daily_use(k, i, v),
             )
             cb.pack(side="left", padx=2, pady=2)
-            self.daily_use_vars[key][index].append(var)
+            try:
+                cb.configure(
+                    command=lambda k=key, i=index, v=var: self._toggle_daily_use(k, i, v),
+                )
+            except Exception:
+                pass
+            self._register_daily_use_var(key, index, var, use_count)
 
     # --- Custom Features (user-added on Racial / Class / Magical Items tabs) ---
     def _get_custom_feature_daily_key(self, feat):
@@ -11255,10 +12175,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         if use_count <= 0:
             return
         saved_states = self._normalize_daily_use_state(key, use_count)
-        if not hasattr(self, "daily_use_vars"):
-            self.daily_use_vars = {}
-        if key not in self.daily_use_vars:
-            self.daily_use_vars[key] = [[] for _ in range(use_count)]
+        self._ensure_daily_use_var_slots(key, use_count)
 
         tracker_frame = ctk.CTkFrame(parent, fg_color="#1F1F1F")
         tracker_frame.pack(fill="x", padx=8 if compact else 10, pady=4)
@@ -11270,24 +12187,40 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             header, text=f"{use_count}/day — {label}",
             font=ctk.CTkFont(size=10 if compact else 11, weight="bold"), text_color="#c77626"
         ).pack(side="left")
-        ctk.CTkButton(
+        reset_btn = ctk.CTkButton(
             header, text="Reset", width=48 if compact else 50, height=20, fg_color="#666666",
-            command=lambda k=key, c=use_count: self._reset_daily_uses(k, c),
-        ).pack(side="right")
+        )
+        reset_btn.pack(side="right")
+
+        def _on_reset(k=key, c=use_count):
+            if getattr(self, "_rebuilding_ui", False) or getattr(self, "_suppress_daily_use_commands", False):
+                return
+            self._reset_daily_uses(k, c, persist=True)
+
+        try:
+            reset_btn.configure(command=_on_reset)
+        except Exception:
+            pass
 
         checks = ctk.CTkFrame(tracker_frame, fg_color="transparent")
         checks.pack(fill="x", padx=6, pady=2)
         cb_size = 14 if compact else 16
+
         for index in range(use_count):
             val = bool(saved_states[index]) if index < len(saved_states) else False
-            var = ctk.BooleanVar(value=val)
+            var = self._get_shared_daily_use_var(key, index, val)
             cb = ctk.CTkCheckBox(
                 checks, text="", width=18, checkbox_width=cb_size, checkbox_height=cb_size,
                 variable=var,
-                command=lambda k=key, i=index, v=var: self._toggle_daily_use(k, i, v),
             )
             cb.pack(side="left", padx=1, pady=1)
-            self.daily_use_vars[key][index].append(var)
+            try:
+                cb.configure(
+                    command=lambda k=key, i=index, v=var: self._toggle_daily_use(k, i, v),
+                )
+            except Exception:
+                pass
+            self._register_daily_use_var(key, index, var, use_count)
 
     def _open_custom_feature_dialog(self, category, edit_index=None):
         """Popup to add or edit a custom feature (Name, Description, per-day uses)."""
@@ -11563,7 +12496,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 title_row, text="📌", font=ctk.CTkFont(size=12),
             ).pack(side="left", padx=(6, 0))
         self._bind_stats_feature_pin(title_row, pin_id)
-        self._bind_stats_feature_pin(frame, pin_id)
+
         if read_only or feat.get("campaign_homebrew"):
             ctk.CTkLabel(
                 title_row, text="Campaign", font=ctk.CTkFont(size=10),
@@ -11992,12 +12925,13 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         if not hasattr(self, "rage_switch_widgets"):
             return
         state = self.data.setdefault("class_feature_state", {})
-        for key, switch in self.rage_switch_widgets.items():
-            widgets = switch if isinstance(switch, list) else [switch]
-            for widget in widgets:
-                if widget is not None:
+        for key in list((self.rage_switch_widgets or {}).keys()):
+            for widget in self._iter_linked_switches("rage_switch_widgets", key):
+                try:
                     state[key] = bool(widget.get())
                     break
+                except Exception:
+                    continue
 
     def _build_rage_active_toggle(self, parent, cls_name, feat_name, *, compact=False):
         key = self._get_rage_state_key(cls_name, feat_name)
@@ -12006,11 +12940,11 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         if compact:
             row = ctk.CTkFrame(parent, fg_color="transparent")
             row.pack(fill="x", padx=8, pady=(2, 4))
+            # No command at create — attach after select/deselect so create doesn't fire.
             switch = ctk.CTkSwitch(
                 row,
                 text="Rage",
                 font=ctk.CTkFont(size=11, weight="bold"),
-                command=lambda k=key, s=None: self._on_rage_active_toggled(k, s),
             )
             switch.pack(side="left")
         else:
@@ -12026,36 +12960,71 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 text_color="#c77626",
             ).pack(side="left", padx=(0, 8))
 
-            switch = ctk.CTkSwitch(
-                row,
-                text="Active",
-                command=lambda k=key, s=None: self._on_rage_active_toggled(k, s),
-            )
+            switch = ctk.CTkSwitch(row, text="Active")
             switch.pack(side="left")
 
         if saved:
             switch.select()
         else:
             switch.deselect()
-        switch.configure(command=lambda k=key, s=switch: self._on_rage_active_toggled(k, s))
+        # Prefer the widget the user actually clicked (pin or Feats), never a stale peer.
+        switch.configure(
+            command=lambda k=key, s=switch: self._on_rage_active_toggled(k, s),
+        )
         self._register_linked_switch("rage_switch_widgets", key, switch)
 
     def _on_rage_active_toggled(self, key, source_switch=None):
-        switches = list(self._iter_linked_switches("rage_switch_widgets", key))
-        if not switches:
-            return
-        switch = source_switch if source_switch in switches else switches[0]
-        active = bool(switch.get())
+        """Activate/deactivate rage from Feats or Stats pin switch."""
+        # Always trust the switch that fired — pin was broken when Feats rebuild
+        # cleared the registry and the handler read the wrong (or missing) widget.
+        if source_switch is not None:
+            try:
+                active = bool(source_switch.get())
+            except Exception:
+                active = False
+            self._register_linked_switch("rage_switch_widgets", key, source_switch)
+        else:
+            switches = list(self._iter_linked_switches("rage_switch_widgets", key))
+            if not switches:
+                return
+            try:
+                active = bool(switches[0].get())
+            except Exception:
+                return
+
         was_active = bool(self.data.get("class_feature_state", {}).get(key, False))
-        self.data.setdefault("class_feature_state", {})[key] = active
-        self._sync_linked_switches("rage_switch_widgets", key, active, source=source_switch)
+        self.data.setdefault("class_feature_state", {})[key] = bool(active)
+        self._sync_linked_switches(
+            "rage_switch_widgets", key, bool(active), source=source_switch,
+        )
 
         if was_active and not active:
             self._rage_end_hp_snapshot = self._get_current_hp_value()
             self._apply_rage_end_affliction()
 
+        try:
+            # Light save only — do not re-sync daily checkboxes from widgets.
+            self._quick_save_character_file(light=True, resync_daily_uses=False)
+        except Exception:
+            pass
+        self._mark_cloud_sync_dirty()
         self.invalidate_caches()
-        self.refresh_all()
+        # Scoped refresh: full refresh_all() rebuilds Feats and was orphaning pin switches.
+        try:
+            self._schedule_scoped_refresh(
+                abilities=True,
+                skills=True,
+                combat=True,
+                saves=True,
+                defenses=True,
+                health=True,
+                movement=True,
+            )
+        except Exception:
+            try:
+                self.refresh_all()
+            except Exception:
+                pass
 
     def _is_affliction_active(self, key):
         if hasattr(self, "affliction_vars") and key in self.affliction_vars:
@@ -13842,6 +14811,11 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         active = bool(switch.get())
         self.data.setdefault("class_feature_state", {})[key] = active
         self._sync_linked_switches("wild_shape_switch_widgets", key, active, source=source_switch)
+        try:
+            self._quick_save_character_file(light=True)
+        except Exception:
+            pass
+        self._mark_cloud_sync_dirty()
         self._refresh_wild_shape_qualities_widget()
         self._refresh_rage_ability_styling()
         self.invalidate_caches()
@@ -14000,11 +14974,109 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
     def _has_cleric_domains_selected(self):
         return any(name for name in self._get_selected_domains() if name)
 
+    @staticmethod
+    def _parse_ability_base_value(raw, default=10):
+        try:
+            val = int(raw)
+        except (TypeError, ValueError):
+            return default
+        if val < 1 or val > 99:
+            return default
+        return val
+
+    def _migrate_legacy_ability_base_keys(self, abilities_dict):
+        """Copy legacy ability_Strength_base (etc.) into abilities[name].base when nested is still 10.
+
+        Older builds registered editable base widgets as flat keys via register_widget.
+        Saves wrote ability_X_base but often never updated abilities[X].base, so nested
+        stayed at the default 10. Cloud Harold (and others) show all-10 bases for that reason.
+        """
+        if not isinstance(abilities_dict, dict):
+            return False
+        changed = False
+        for ab_name in ABILITY_NAMES:
+            node = abilities_dict.get(ab_name)
+            if not isinstance(node, dict):
+                continue
+            nested_base = self._parse_ability_base_value(node.get("base", 10), 10)
+            flat_key = f"ability_{ab_name}_base"
+            flat_raw = self.data.get(flat_key) if isinstance(self.data, dict) else None
+            if flat_raw in (None, ""):
+                # Keep flat key aligned with nested for any remaining consumers.
+                if isinstance(self.data, dict):
+                    self.data[flat_key] = str(nested_base)
+                continue
+            flat_base = self._parse_ability_base_value(flat_raw, nested_base)
+            if nested_base == 10 and flat_base != 10:
+                node["base"] = flat_base
+                nested_base = flat_base
+                changed = True
+            if isinstance(self.data, dict):
+                self.data[flat_key] = str(nested_base)
+        return changed
+
+    def _ensure_ability_bases_persisted(self):
+        """Make nested abilities[name].base match legacy flat keys before save/cloud push.
+
+        Without this, an open client with nested base still at 10 can auto-sync and
+        overwrite a corrected cloud row within seconds.
+        """
+        if not isinstance(self.data, dict):
+            return False
+        abilities = self.data.get("abilities")
+        if not isinstance(abilities, dict):
+            return False
+        changed = bool(self._migrate_legacy_ability_base_keys(abilities))
+        for ab_name in ABILITY_NAMES:
+            node = abilities.get(ab_name)
+            if not isinstance(node, dict):
+                continue
+            base = self._get_stored_ability_base(ab_name)
+            if self._parse_ability_base_value(node.get("base", 10), 10) != base:
+                node["base"] = base
+                changed = True
+            flat_key = f"ability_{ab_name}_base"
+            if str(self.data.get(flat_key, "")) != str(base):
+                self.data[flat_key] = str(base)
+                changed = True
+        return changed
+
     def _get_stored_ability_base(self, ability_name):
         try:
-            return int(self.data["abilities"][ability_name].get("base", 10) or 10)
+            nested = self.data.get("abilities", {}).get(ability_name, {})
+            nested_base = self._parse_ability_base_value(
+                nested.get("base", 10) if isinstance(nested, dict) else 10,
+                10,
+            )
+            # Fallback: legacy flat key if nested is still default 10
+            if nested_base == 10 and isinstance(self.data, dict):
+                flat_raw = self.data.get(f"ability_{ability_name}_base")
+                if flat_raw not in (None, ""):
+                    flat_base = self._parse_ability_base_value(flat_raw, 10)
+                    if flat_base != 10:
+                        # Persist so a later cloud push does not re-upload base 10.
+                        try:
+                            if isinstance(nested, dict):
+                                nested["base"] = flat_base
+                            self.data[f"ability_{ability_name}_base"] = str(flat_base)
+                        except Exception:
+                            pass
+                        return flat_base
+            return nested_base
         except (TypeError, ValueError, KeyError):
             return 10
+
+    def _set_stored_ability_base(self, ability_name, value):
+        """Write creation base to nested abilities + legacy flat key."""
+        base = self._parse_ability_base_value(value, 10)
+        abilities = self.data.setdefault("abilities", {})
+        node = abilities.get(ability_name)
+        if not isinstance(node, dict):
+            node = {"base": 10, "racial": 0, "enh": 0, "misc": 0, "total": 10}
+            abilities[ability_name] = node
+        node["base"] = base
+        self.data[f"ability_{ability_name}_base"] = str(base)
+        return base
 
     def _get_displayed_ability_base(self, ability_name):
         """Base column on Stats: creation base plus ability score improvements."""
@@ -14012,6 +15084,343 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             self._get_stored_ability_base(ability_name)
             + self._get_ability_score_improvement_bonus(ability_name)
         )
+
+    def _on_ability_base_click(self, event, ability_name):
+        """Shift+click opens the base-score editor; plain click is ignored."""
+        try:
+            state = int(getattr(event, "state", 0) or 0)
+        except (TypeError, ValueError):
+            state = 0
+        # Tk: Shift mask is 0x0001
+        if not (state & 0x0001):
+            return
+        self._open_ability_base_edit_popup(ability_name)
+
+    def _open_ability_base_edit_popup(self, ability_name):
+        """App-styled popup to set the creation base score for one ability."""
+        if ability_name not in ABILITY_NAMES:
+            return
+        primary = getattr(self, "primary_button_color", THEME_ORANGE)
+        hover = getattr(self, "primary_hover_color", "#a56b32")
+        display = ABILITY_DISPLAY_NAMES.get(ability_name, ability_name)
+        current = self._get_stored_ability_base(ability_name)
+        asi = self._get_ability_score_improvement_bonus(ability_name)
+
+        pop = ctk.CTkToplevel(self.root)
+        pop.title(f"Edit {display} Base")
+        pop.configure(fg_color=THEME_DARK_BG)
+        pop.grab_set()
+        pop.transient(self.root)
+
+        frame = ctk.CTkFrame(pop, fg_color=THEME_DARK_BG)
+        frame.pack(fill="both", expand=True, padx=18, pady=16)
+
+        ctk.CTkLabel(
+            frame,
+            text=f"{display} — Creation Base",
+            font=ctk.CTkFont(size=16, weight="bold"),
+            text_color=primary,
+        ).pack(anchor="w", pady=(0, 6))
+
+        ctk.CTkLabel(
+            frame,
+            text=(
+                "This is the score before racial modifiers, ASI, items, "
+                "and DM adjustments from D&D Behind."
+            ),
+            font=ctk.CTkFont(size=11),
+            text_color="#aaaaaa",
+            wraplength=320,
+            justify="left",
+        ).pack(anchor="w", pady=(0, 10))
+
+        row = ctk.CTkFrame(frame, fg_color="transparent")
+        row.pack(fill="x", pady=(0, 8))
+        ctk.CTkLabel(row, text="Base score:", width=90, anchor="w").pack(side="left")
+        entry_var = ctk.StringVar(value=str(current))
+        entry = ctk.CTkEntry(row, textvariable=entry_var, width=80, justify="center")
+        entry.pack(side="left", padx=(6, 0))
+        entry.focus_set()
+        entry.select_range(0, "end")
+
+        info = ctk.CTkLabel(
+            frame,
+            text=(
+                f"Current creation base: {current}\n"
+                f"ASI on this ability: {'+' + str(asi) if asi else '0'}\n"
+                f"Base column shows: {current + asi}  (creation + ASI)"
+            ),
+            font=ctk.CTkFont(size=11),
+            text_color="#cccccc",
+            justify="left",
+        )
+        info.pack(anchor="w", pady=(4, 12))
+
+        err_lbl = ctk.CTkLabel(frame, text="", text_color="#e07070", font=ctk.CTkFont(size=11))
+        err_lbl.pack(anchor="w")
+
+        btn_row = ctk.CTkFrame(frame, fg_color="transparent")
+        btn_row.pack(fill="x", pady=(8, 0))
+
+        def apply_and_close(_event=None):
+            raw = str(entry_var.get() or "").strip()
+            try:
+                val = int(raw)
+            except (TypeError, ValueError):
+                err_lbl.configure(text="Enter a whole number between 1 and 99.")
+                return
+            if val < 1 or val > 99:
+                err_lbl.configure(text="Enter a whole number between 1 and 99.")
+                return
+            self._set_stored_ability_base(ability_name, val)
+            self.invalidate_caches()
+            try:
+                self.recalc_ability(ability_name)
+            except Exception:
+                pass
+            try:
+                self.refresh_all()
+            except Exception:
+                pass
+            self._mark_cloud_sync_dirty()
+            try:
+                self._schedule_priority_cloud_push(delay_ms=400)
+            except Exception:
+                pass
+            pop.destroy()
+
+        def cancel():
+            pop.destroy()
+
+        ctk.CTkButton(
+            btn_row, text="Apply", width=100,
+            fg_color=primary, hover_color=hover, command=apply_and_close,
+        ).pack(side="left", padx=(0, 8))
+        ctk.CTkButton(
+            btn_row, text="Cancel", width=100,
+            fg_color="#555555", hover_color="#666666", command=cancel,
+        ).pack(side="left")
+
+        entry.bind("<Return>", apply_and_close)
+        entry.bind("<Escape>", lambda _e: cancel())
+        self._size_and_center_popup_to_content(pop, min_width=360, min_height=260)
+
+    def _iter_ability_enh_item_sources(self, ability_name):
+        """Yield (item_name, bonus) for worn items granting enhancement to this ability."""
+        items_db = getattr(self, "magic_items_db", None) or {}
+        if not isinstance(items_db, dict) or not items_db:
+            try:
+                self.load_magic_items_db()
+            except Exception:
+                pass
+            items_db = getattr(self, "magic_items_db", None) or {}
+        if not isinstance(items_db, dict):
+            items_db = {}
+        seen = set()
+        names = []
+        for name in self.data.get("magic_items") or []:
+            name = str(name or "").strip()
+            if name:
+                names.append(name)
+        for entry in self.data.get("inventory") or []:
+            if isinstance(entry, dict):
+                name = str(entry.get("name") or "").strip()
+            else:
+                name = str(entry or "").strip()
+            if name:
+                names.append(name)
+
+        def lookup(item_name):
+            for slot_items in items_db.values():
+                if not isinstance(slot_items, dict):
+                    continue
+                info = slot_items.get(item_name)
+                if isinstance(info, dict):
+                    return info
+                lower = item_name.lower()
+                for key, val in slot_items.items():
+                    if str(key).lower() == lower and isinstance(val, dict):
+                        return val
+            return None
+
+        for name in names:
+            key = name.lower()
+            if key in seen:
+                continue
+            seen.add(key)
+            info = lookup(name)
+            effects = (info or {}).get("effects") or {}
+            enh_map = effects.get("ability_enh") if isinstance(effects, dict) else None
+            if isinstance(enh_map, dict) and ability_name in enh_map:
+                bonus = int(enh_map.get(ability_name) or 0)
+                if bonus:
+                    yield name, bonus
+                    continue
+            # Lightweight name fallback for common ability items
+            lower = name.lower()
+            patterns = (
+                ("strength", "Strength"),
+                ("health", "Constitution"),
+                ("wisdom", "Wisdom"),
+                ("charisma", "Charisma"),
+                ("intellect", "Intelligence"),
+                ("dexterity", "Dexterity"),
+            )
+            if ability_name == "Strength" and "ogre power" in lower:
+                yield name, 2
+                continue
+            for token, ab in patterns:
+                if ab != ability_name:
+                    continue
+                if token in lower:
+                    m = re.search(r"\+(\d+)", name)
+                    if m:
+                        yield name, int(m.group(1))
+                    break
+
+    def _ability_score_breakdown_text(self, ability_name):
+        """Itemized total / mod breakdown for hover tooltips (includes Behind DM damage)."""
+        try:
+            return "\n".join(self._ability_score_breakdown_lines(ability_name))
+        except Exception as exc:
+            return f"{ability_name} breakdown unavailable:\n{exc}"
+
+    def _compute_structural_ability_total(self, ability_name, bonuses=None):
+        """Undamaged total from base + racial + ASI + items + misc + age (no DM damage / rage / wild)."""
+        base = self._get_stored_ability_base(ability_name)
+        try:
+            race_name = self._get_current_race()
+        except Exception:
+            race_name = str(self.data.get("race") or "")
+        race_data = self.races.get(race_name, {}) if hasattr(self, "races") else {}
+        racial = int(race_data.get(ABILITY_SHORT.get(ability_name, ""), 0) or 0)
+        if bonuses is None:
+            try:
+                bonuses = self.get_all_bonuses()
+            except Exception:
+                bonuses = {}
+        enh = int((bonuses.get("ability_enh") or {}).get(ability_name, 0) or 0)
+        inherent = int((bonuses.get("ability_inherent") or {}).get(ability_name, 0) or 0)
+        misc = int((self.data.get("abilities") or {}).get(ability_name, {}).get("misc", 0) or 0)
+        try:
+            age_mod = int(self._get_age_ability_mod(ability_name) or 0)
+        except Exception:
+            age_mod = 0
+        asi = self._get_ability_score_improvement_bonus(ability_name)
+        return {
+            "base": base,
+            "racial": racial,
+            "race_name": race_name,
+            "enh": enh,
+            "inherent": inherent,
+            "misc": misc,
+            "age_mod": age_mod,
+            "asi": asi,
+            "total": base + racial + enh + inherent + misc + asi + age_mod,
+            "bonuses": bonuses,
+        }
+
+    def _ability_score_breakdown_lines(self, ability_name):
+        display = ABILITY_DISPLAY_NAMES.get(ability_name, ability_name)
+        parts = self._compute_structural_ability_total(ability_name)
+        structural = int(parts["total"])
+        dmg = int((self.data.get("ability_damage") or {}).get(ability_name, 0) or 0)
+
+        wild_override = None
+        sf_override = None
+        sf_bonus = 0
+        rage_bonus = 0
+        try:
+            wild_override = self._get_wild_shape_ability_override(ability_name)
+        except Exception:
+            pass
+        try:
+            if wild_override is None:
+                sf_override = self._get_special_feature_ability_override(ability_name)
+        except Exception:
+            pass
+        try:
+            if sf_override is None:
+                sf_bonus = int(self._get_special_feature_ability_bonuses().get(ability_name, 0) or 0)
+        except Exception:
+            pass
+        try:
+            rage_bonus = int(self._get_rage_bonuses()["ability_score"].get(ability_name, 0) or 0)
+        except Exception:
+            pass
+
+        other_aff = 0
+        zeroed = False
+        try:
+            penalties = self.get_affliction_penalties()
+            aff_pen = int(penalties.get("ability_score", {}).get(ability_name, 0) or 0)
+            # ability_damage is folded into aff_pen as -dmg; isolate other afflictions
+            other_aff = aff_pen + dmg
+            zeroed = ability_name in (penalties.get("ability_score_zero") or set())
+        except Exception:
+            pass
+
+        lines = [f"{display} — score breakdown", ""]
+        lines.append(f"  Creation base                 {parts['base']}")
+        if parts["asi"]:
+            lines.append(f"  Ability score improvements  {parts['asi']:+d}")
+        if parts["racial"]:
+            race_bit = f" ({parts['race_name']})" if parts["race_name"] else ""
+            lines.append(f"  Racial{race_bit}  {parts['racial']:+d}")
+        if parts["enh"]:
+            lines.append(f"  Enhancement (items/spells)  {parts['enh']:+d}")
+            for item_name, bonus in self._iter_ability_enh_item_sources(ability_name):
+                lines.append(f"    • {item_name}: {bonus:+d}")
+        if parts["inherent"]:
+            lines.append(f"  Inherent                    {parts['inherent']:+d}")
+        if parts["misc"]:
+            lines.append(f"  Misc                        {parts['misc']:+d}")
+        if parts["age_mod"]:
+            lines.append(f"  Age category                {parts['age_mod']:+d}")
+
+        lines.append("  ─────────────────────────────")
+        lines.append(f"  Subtotal (undamaged)        {structural}")
+
+        if dmg:
+            lines.append(f"  Ability damage (Behind DM)  {-dmg:+d}")
+        if other_aff:
+            lines.append(f"  Afflictions (Behind/status) {other_aff:+d}")
+        if zeroed:
+            lines.append("  Affliction: score treated as 0")
+
+        if wild_override is not None:
+            lines.append(f"  Wild shape override         → {int(wild_override)}")
+        elif sf_override is not None:
+            lines.append(f"  Special feature override    → {int(sf_override)}")
+        elif sf_bonus:
+            lines.append(f"  Special feature bonus      {sf_bonus:+d}")
+        if rage_bonus:
+            lines.append(f"  Rage                        {rage_bonus:+d}")
+
+        try:
+            eff_score = int(self._effective_ability_score(ability_name))
+        except Exception:
+            if zeroed:
+                eff_score = 0
+            elif wild_override is not None:
+                eff_score = int(wild_override) + rage_bonus
+            elif sf_override is not None:
+                eff_score = max(0, int(sf_override) - dmg) + rage_bonus
+            else:
+                eff_score = max(0, structural - dmg + other_aff + sf_bonus + rage_bonus)
+
+        eff_mod = (eff_score - 10) // 2
+        undamaged_mod = (structural - 10) // 2
+        sign = "+" if eff_mod >= 0 else ""
+        lines.append("")
+        lines.append(f"  Effective total             {eff_score}")
+        lines.append(f"  Modifier                    {sign}{eff_mod}")
+        if dmg or other_aff or rage_bonus or wild_override is not None or sf_override is not None or sf_bonus:
+            u_sign = "+" if undamaged_mod >= 0 else ""
+            lines.append(f"  (undamaged mod would be {u_sign}{undamaged_mod})")
+        lines.append("")
+        lines.append("Shift+click Base to edit creation score.")
+        return lines
 
     def _get_live_ability_score(self, ability_name):
         """Compute ability total from live UI fields and active bonuses."""
@@ -14909,31 +16318,27 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             self.class_level_labels.append(level_lbl)
 
     def _get_class_level_slots(self):
-        if self._class_ui_ready():
-            slots = []
-            for i in range(3):
-                try:
-                    cls_name = str(self.class_vars[i].get() or "None").strip() or "None"
-                    class_level = int(self.level_vars[i].get() or 0)
-                except (tk.TclError, ValueError, IndexError, AttributeError):
-                    cls_name = "None"
-                    class_level = 0
-                slots.append((cls_name, class_level))
-            return slots
-
-        classes = list(self.data.get("classes") or [])
-        levels = list(self.data.get("levels") or [])
-        while len(classes) < 3:
-            classes.append("None")
-        while len(levels) < 3:
-            levels.append(0)
+        data_slots = self._get_class_level_slots_from_data()
+        if not self._class_ui_ready():
+            return data_slots
         slots = []
         for i in range(3):
-            cls_name = str(self.data.get(f"class_{i}", classes[i]) or "None").strip() or "None"
             try:
-                class_level = int(self.data.get(f"level_{i}", levels[i]) or 0)
-            except (TypeError, ValueError):
+                cls_name = str(self.class_vars[i].get() or "None").strip() or "None"
+                class_level = int(self.level_vars[i].get() or 0)
+            except (tk.TclError, ValueError, IndexError, AttributeError):
+                cls_name = "None"
                 class_level = 0
+            # Prefer data when UI slot is empty (common during Stats rebuild / load).
+            if i < len(data_slots):
+                d_cls, d_lvl = data_slots[i]
+                if cls_name in ("None", "") and d_cls not in ("None", ""):
+                    cls_name = d_cls
+                if class_level <= 0 and int(d_lvl or 0) > 0 and str(d_cls or "").strip() == cls_name:
+                    class_level = int(d_lvl or 0)
+                elif class_level <= 0 and int(d_lvl or 0) > 0 and cls_name in ("None", ""):
+                    cls_name = d_cls
+                    class_level = int(d_lvl or 0)
             slots.append((cls_name, class_level))
         return slots
 
@@ -17745,15 +19150,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
     def _get_equipped_magic_items(self):
         equipped = []
-        if not hasattr(self, "magic_labels_list"):
-            labels = [
-                "Head", "Face", "Neck", "Shoulders",
-                "Body", "Torso", "Arms", "Wrists",
-                "Ring 1", "Ring 2", "Waist", "Feet",
-                "Misc 1", "Misc 2", "Misc 3", "Misc 4",
-            ]
-        else:
-            labels = self.magic_labels_list
+        labels = self._magic_item_slot_labels()
 
         for slot_index, item_name in enumerate(self.data.get("magic_items", [])):
             if not item_name or not str(item_name).strip():
@@ -17762,7 +19159,14 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             json_slot = MAGIC_ITEM_SLOT_MAP.get(label, label)
             _resolved_name, item_info = self._lookup_magic_item_info(json_slot, item_name)
             if not item_info:
-                item_info = {"description": "Equipped magical item."}
+                # Fallback when item is stored under a different JSON slot name.
+                alt_slot = self._find_magic_item_json_slot_for_name(item_name)
+                if alt_slot:
+                    _resolved_name, item_info = self._lookup_magic_item_info(alt_slot, item_name)
+            if not item_info:
+                item_info = self._lookup_magic_item_info_any_slot(item_name) or {
+                    "description": "Equipped magical item.",
+                }
             item_key = self._get_magic_item_tracker_key(slot_index, item_name)
             equipped.append({
                 "slot_index": slot_index,
@@ -18487,7 +19891,11 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         state = list(uses.get(key, []))
         while len(state) <= index:
             state.append(False)
-        state[index] = bool(var.get())
+        try:
+            checked = bool(var.get())
+        except Exception:
+            checked = False
+        state[index] = checked
         uses[key] = state
 
         # Live sync: update all other registered BooleanVars for this exact (key, index) slot.
@@ -18498,7 +19906,16 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             if index < len(slot_lists):
                 for other_var in slot_lists[index]:
                     if other_var is not var:
-                        other_var.set(bool(var.get()))
+                        try:
+                            if bool(other_var.get()) != checked:
+                                other_var.set(checked)
+                        except Exception:
+                            pass
+        try:
+            self._quick_save_character_file(light=True)
+        except Exception:
+            pass
+        self._mark_cloud_sync_dirty()
 
     def _reset_magic_item_daily_uses(self, key, use_count):
         self.data.setdefault("magic_item_daily_uses", {})[key] = [False] * use_count
@@ -18506,7 +19923,14 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             # Nested structure: list of lists (one sublist per use index)
             for sublist in self.magic_item_daily_vars[key]:
                 for var in sublist:
-                    var.set(False)
+                    try:
+                        var.set(False)
+                    except Exception:
+                        pass
+        try:
+            self._quick_save_character_file(light=True)
+        except Exception:
+            pass
 
     def _read_magic_item_current_charges(self, key, max_charges):
         """Prefer the live StringVar so +/- stays in sync with what is on screen."""
@@ -18593,7 +20017,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             alive.append(combo)
         self.magic_item_charge_combos[key] = alive
 
-    def _set_magic_item_charges(self, key, value, max_charges):
+    def _set_magic_item_charges(self, key, value, max_charges, *, persist=True):
         try:
             charges = int(value)
         except (TypeError, ValueError):
@@ -18613,23 +20037,33 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 combo.set(str(charges))
             except Exception:
                 pass
-        self._mark_cloud_sync_dirty()
+        if persist:
+            try:
+                self._quick_save_character_file(light=True)
+            except Exception:
+                pass
+            self._mark_cloud_sync_dirty()
 
     def _change_magic_item_charges(self, key, delta, max_charges):
         current = self._read_magic_item_current_charges(key, max_charges)
         self._set_magic_item_charges(key, current + delta, max_charges)
 
     def _sync_magic_item_trackers_to_data(self):
+        """Pull charge/daily widgets into self.data only — never persist (avoids recursion)."""
         if hasattr(self, "magic_item_daily_vars"):
+            store = self.data.setdefault("magic_item_daily_uses", {})
             for key, slot_lists in self.magic_item_daily_vars.items():
-                # slot_lists is now list-of-lists; take value from first var in each slot (they stay in sync via propagation)
+                existing = list(store.get(key, []))
+                while len(existing) < len(slot_lists):
+                    existing.append(False)
                 synced = []
-                for sub in slot_lists:
-                    if sub:
-                        synced.append(bool(sub[0].get()))
+                for i, sub in enumerate(slot_lists):
+                    read = self._read_boolean_var_list_slot(sub, prefer_last=True)
+                    if read is None:
+                        synced.append(bool(existing[i]) if i < len(existing) else False)
                     else:
-                        synced.append(False)
-                self.data.setdefault("magic_item_daily_uses", {})[key] = synced
+                        synced.append(read)
+                store[key] = synced
         charge_keys = set(getattr(self, "magic_item_charge_combos", {}).keys())
         charge_keys.update(getattr(self, "magic_item_charge_vars", {}).keys())
         for key in charge_keys:
@@ -18640,17 +20074,22 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 if not combos:
                     continue
                 raw_value = combos[0].get()
-            item = next(
-                (entry for entry in self._get_all_magic_item_features() if entry["key"] == key),
-                None,
+            max_charges = int(
+                getattr(self, "magic_item_charge_max", {}).get(key, 0) or 0,
             )
-            max_charges = item["abilities"].get("max_charges", 0) if item else 0
             if not max_charges:
-                max_charges = int(
-                    getattr(self, "magic_item_charge_max", {}).get(key, 0) or 0,
-                )
+                # Prefer cached max; avoid heavy feature scan during quick-save.
+                try:
+                    raw_max = self.data.get("magic_item_charges", {}).get(key)
+                    if raw_max is not None:
+                        max_charges = max(int(raw_max), int(raw_value or 0), 1)
+                except Exception:
+                    max_charges = 0
             if max_charges:
-                self._set_magic_item_charges(key, raw_value, max_charges)
+                # Write data/UI only — no nested quick-save.
+                self._set_magic_item_charges(
+                    key, raw_value, max_charges, persist=False,
+                )
 
     def _build_magic_item_daily_tracker(self, parent, item_key, use_count):
         if use_count <= 0:
@@ -18690,7 +20129,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         checks = ctk.CTkFrame(tracker_frame, fg_color="transparent")
         checks.pack(fill="x", padx=10, pady=(0, 8))
         for index in range(use_count):
-            var = BooleanVar(value=bool(saved_states[index]))
+            var = ctk.BooleanVar(value=bool(saved_states[index]))
             cb = ctk.CTkCheckBox(
                 checks,
                 text="",
@@ -20006,14 +21445,23 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         if not key:
             return {}
         db = (getattr(self, "armor_shields_db", {}) or {}).get("armor", {})
-        if key in db:
-            return db[key]
-        for k, v in db.items():
-            if k.lower() == key.lower():
-                return v
-        mundane = (getattr(self, "mundane_armors_shields_db", {}) or {}).get(key) or {}
-        if mundane.get("kind") == "armor":
-            return mundane
+        candidates = [key]
+        # "+5 Breastplate (Breastplate)" → also try base name in parentheses / after bonus.
+        paren = re.search(r"\(([^)]+)\)\s*$", key)
+        if paren:
+            candidates.append(paren.group(1).strip())
+        bare = re.sub(r"^\+\d+\s*", "", key).strip()
+        if bare and bare not in candidates:
+            candidates.append(bare)
+        for cand in candidates:
+            if cand in db:
+                return db[cand]
+            for k, v in db.items():
+                if k.lower() == cand.lower():
+                    return v
+            mundane = (getattr(self, "mundane_armors_shields_db", {}) or {}).get(cand) or {}
+            if mundane.get("kind") == "armor":
+                return mundane
         return {}
 
     def _lookup_shield_info(self, name):
@@ -21329,7 +22777,12 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         return before_armor
 
     def _get_land_speed_before_armor(self):
-        """Land speed after racial, enhancement, and class bonuses — before armor/load."""
+        """Land speed after racial, Fast Movement, and enhancement — before armor/load table.
+
+        SRD order: racial base + Fast Movement (+10; ok in medium armor) + other
+        speed bonuses, THEN apply the medium/heavy armor (or load) speed table.
+        Example: Bugbear 30 + FM 10 = 40; medium armor table 40 → 30.
+        """
         if self._get_active_wild_shape_form():
             return int(self._get_active_wild_shape_form().get("speed", {}).get("land", 0) or 0)
         race = self.data.get("race", "Human")
@@ -21342,10 +22795,8 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             int(magic_b.get("speed_bonus", 0) or 0),
             int(buff_b.get("speed_bonus", 0) or 0),
         )
-        class_speed_bonus = 0
-        if self._get_barbarian_class_bonuses().get("fast_movement") and self._get_armor_category() != "heavy":
-            class_speed_bonus = int(self._get_barbarian_class_bonuses().get("speed_bonus", 0) or 0)
-        return base_land + speed_bonus + class_speed_bonus
+        class_speed_bonus = self._barbarian_fast_movement_bonus()
+        return base_land + class_speed_bonus + speed_bonus
 
     def _get_load_land_speed(self, before_armor):
         """Land speed from encumbrance — uses the armor speed table for medium/heavy load."""
@@ -24203,8 +25654,21 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 text=str(self._get_displayed_ability_base(ab)),
                 width=ABILITY_COLUMN_WIDTHS[1],
                 anchor="center",
+                cursor="hand2",
             )
             base_lbl.grid(row=row_idx, column=1, padx=2, pady=2)
+            # Shift+click base to edit creation score (popup).
+            base_lbl.bind(
+                "<Button-1>",
+                lambda event, ability=ab: self._on_ability_base_click(event, ability),
+            )
+            self._bind_hover_tooltip(
+                base_lbl,
+                "Shift+click to edit creation base score",
+                wraplength=220,
+                delay_ms=600,
+                font_size=11,
+            )
 
             racial_lbl = ctk.CTkLabel(ability_table, text="0", width=ABILITY_COLUMN_WIDTHS[2])
             racial_lbl.grid(row=row_idx, column=2, padx=2, pady=2)
@@ -24240,6 +25704,19 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             self._bind_talespire_click(
                 mod_lbl,
                 lambda ability=ab: self._build_talespire_ability_roll(ability),
+            )
+            # Delayed hover breakdown of total / modifier (includes DM Behind damage, items, ASI…).
+            self._bind_hover_tooltip_builder(
+                total_lbl,
+                lambda ability=ab: self._ability_score_breakdown_text(ability),
+                wraplength=420,
+                delay_ms=550,
+            )
+            self._bind_hover_tooltip_builder(
+                mod_lbl,
+                lambda ability=ab: self._ability_score_breakdown_text(ability),
+                wraplength=420,
+                delay_ms=550,
             )
 
         self._apply_abilities_lock_state()
@@ -24484,13 +25961,22 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             text="Features",
             font=ctk.CTkFont(size=18, weight="bold"),
         ).pack(side="left")
-        self._stats_features_scroll = ctk.CTkScrollableFrame(features_panel, fg_color="transparent")
+        self._stats_features_scroll = ctk.CTkScrollableFrame(
+            features_panel, fg_color="transparent",
+        )
         self._stats_features_scroll.pack(fill="both", expand=True, padx=4, pady=(0, 4))
         self._rebuild_stats_features_widget()
 
         # ===================== SKILLS (Column 3) =====================
+        # Fixed design footprint (560×589 @ 100%); scroll list lives inside.
         skills_frame = ctk.CTkFrame(main_row)
-        skills_frame.grid(row=0, column=3, sticky="new", padx=(8, 4))
+        try:
+            dw, dh = self._skills_design_panel_size()
+            skills_frame.configure(width=dw, height=dh)
+            skills_frame.grid_propagate(False)
+        except Exception:
+            pass
+        skills_frame.grid(row=0, column=3, rowspan=2, sticky="ne", padx=(8, 4))
         self.skills_frame = skills_frame
         self._stats_skills_panel = skills_frame
 
@@ -24557,17 +26043,165 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
     def _is_legacy_coin_widget_key(self, data_key):
         return str(data_key or "") in LEGACY_COIN_WIDGET_KEYS
 
-    def _quick_save_character_file(self):
-        """Persist the open character to last_character_path when available."""
-        if not self.last_character_path:
-            return
+    def _resolve_quick_save_path(self):
+        """Path for lightweight auto-saves (pins, daily uses, charges).
+
+        Never write Character A into Character B's file: if last_character_path's
+        basename doesn't match the open sheet name, fall back to Characters/<name>.json.
+        """
+        name = str((self.data or {}).get("name") or "").strip()
+        safe = re.sub(r'[<>:"/\\|?*]+', "_", name).strip(" .") if name else ""
+        path = getattr(self, "last_character_path", None)
+        if path and str(path).strip():
+            base = os.path.splitext(os.path.basename(str(path)))[0]
+            # Allow match ignoring case; block cross-character overwrites.
+            if not safe or base.lower() == safe.lower() or base.lower().startswith(safe.lower()):
+                return path
+            print(
+                f"Quick-save: refusing path {path!r} for open character {name!r}; "
+                f"using Characters/{safe}.json instead"
+            )
+        if not safe:
+            return None
         try:
-            self._sync_all_character_data()
+            return os.path.join(self._characters_dir(), f"{safe}.json")
+        except Exception:
+            return None
+
+    def _quick_save_character_file(self, *, light=False, resync_daily_uses=None):
+        """Persist the open character quickly.
+
+        light=True: only sync feature trackers (rage, charges; pins + daily uses should
+        already be in self.data). Avoid full widget→data sync — that can overwrite
+        checkboxes with stale/destroyed BooleanVars from a previous page build.
+
+        resync_daily_uses:
+          None  → default True for full save, False for light save
+          True  → pull live checkbox vars into data before write
+          False → trust self.data['daily_feature_uses'] (set by toggle/reset handlers)
+        """
+        if resync_daily_uses is None:
+            resync_daily_uses = not light
+        # Re-entrancy guard: charge sync must not call quick-save which re-syncs charges.
+        if getattr(self, "_quick_save_in_progress", False):
+            return
+        if getattr(self, "_rebuilding_ui", False) or getattr(self, "_cloud_sync_applying_remote", False):
+            # Defer at most once — stacking deferred full-file writes freezes on OneDrive.
+            if getattr(self, "_quick_save_deferred_pending", False):
+                return
+            self._quick_save_deferred_pending = True
+
+            def _deferred():
+                self._quick_save_deferred_pending = False
+                if getattr(self, "_rebuilding_ui", False) or getattr(self, "_cloud_sync_applying_remote", False):
+                    # Still busy — try one more time only.
+                    try:
+                        self._quick_save_deferred_pending = True
+                        self.root.after(500, _deferred)
+                    except Exception:
+                        self._quick_save_deferred_pending = False
+                    return
+                self._quick_save_character_file(
+                    light=light, resync_daily_uses=resync_daily_uses,
+                )
+
+            try:
+                self.root.after(500, _deferred)
+            except Exception:
+                self._quick_save_deferred_pending = False
+            return
+        path = self._resolve_quick_save_path()
+        if not path:
+            print("Quick-save: no path resolved — daily uses / pins not written to disk")
+            return
+        # Snapshot tracker fields before any widget sync can touch them.
+        pinned_snapshot = list(self.data.get("stats_pinned_features") or [])
+        daily_snapshot = copy.deepcopy(self.data.get("daily_feature_uses") or {})
+        self._quick_save_in_progress = True
+        try:
+            if light:
+                if resync_daily_uses:
+                    try:
+                        self._sync_daily_feature_uses_to_data()
+                    except Exception:
+                        pass
+                try:
+                    self._sync_magic_item_trackers_to_data()
+                except Exception:
+                    pass
+                try:
+                    self._sync_rage_switches_to_data()
+                except Exception:
+                    pass
+                try:
+                    self._sync_wild_shape_switches_to_data()
+                except Exception:
+                    pass
+                # Always restore pins + daily uses from the pre-sync snapshot when light
+                # save was told not to re-read checkboxes (or if sync wiped them).
+                if not resync_daily_uses:
+                    self.data["daily_feature_uses"] = copy.deepcopy(daily_snapshot)
+                self.data["stats_pinned_features"] = list(pinned_snapshot)
+            else:
+                self._sync_all_character_data()
+                # Full save must not drop pins or daily checkbox state.
+                self.data["stats_pinned_features"] = list(pinned_snapshot)
+                if isinstance(daily_snapshot, dict):
+                    self.data["daily_feature_uses"] = copy.deepcopy(daily_snapshot)
             self._strip_follower_statblocks_from_data()
-            with open(self.last_character_path, "w", encoding="utf-8") as handle:
+            # Never let a light save clear inventory (safety against partial data).
+            if light and os.path.isfile(path):
+                try:
+                    with open(path, "r", encoding="utf-8") as existing:
+                        prev = json.load(existing)
+                    prev_inv = prev.get("inventory")
+                    cur_inv = self.data.get("inventory")
+                    if (
+                        isinstance(prev_inv, list)
+                        and len(prev_inv) > 0
+                        and (not isinstance(cur_inv, list) or len(cur_inv) == 0)
+                    ):
+                        print(
+                            "Quick-save light: refusing to wipe inventory "
+                            f"({len(prev_inv)} → 0 items); keeping previous inventory"
+                        )
+                        self.data["inventory"] = prev_inv
+                    # If somehow daily uses vanished from memory, keep prior file values
+                    # for keys we no longer have (never clobber explicit True→False here).
+                    prev_daily = prev.get("daily_feature_uses")
+                    cur_daily = self.data.get("daily_feature_uses")
+                    if isinstance(prev_daily, dict) and isinstance(cur_daily, dict):
+                        for k, prev_states in prev_daily.items():
+                            if k not in cur_daily and isinstance(prev_states, list):
+                                cur_daily[k] = list(prev_states)
+                    prev_pins = prev.get("stats_pinned_features")
+                    cur_pins = self.data.get("stats_pinned_features")
+                    if (
+                        isinstance(prev_pins, list)
+                        and prev_pins
+                        and (not isinstance(cur_pins, list) or not cur_pins)
+                        and not pinned_snapshot
+                    ):
+                        # Only restore pins from file if memory also lost them entirely.
+                        self.data["stats_pinned_features"] = list(prev_pins)
+                except Exception:
+                    pass
+            # Overlay session checkbox edits so a full dump cannot wipe user checks.
+            try:
+                self.data["daily_feature_uses"] = self._apply_daily_use_session_edits_to(
+                    self.data.get("daily_feature_uses") or {}
+                )
+            except Exception:
+                pass
+            with open(path, "w", encoding="utf-8") as handle:
                 json.dump(self.data, handle, indent=2, ensure_ascii=False)
-        except OSError:
-            pass
+            self.last_character_path = path
+        except OSError as exp:
+            print(f"Quick-save failed: {exp}")
+        except Exception as exp:
+            print(f"Quick-save error: {exp}")
+        finally:
+            self._quick_save_in_progress = False
 
     def _sync_coins_on_focus_out(self, event=None):
         """Sync coin values from the UI boxes when the user clicks off (FocusOut) a coin entry.
@@ -24595,9 +26229,44 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         self._refresh_magic_slot_label_styles()
         self._sync_magic_item_prepared_spells_if_needed(force=True)
         self.invalidate_caches()
+        # Immediate ability pass so Enh column updates without waiting on debounce.
+        self._apply_equipped_magic_item_ability_bonuses()
+        # Resistances/DR from items must refresh immediately (not only after full re-equip cycle).
+        self._defenses_render_cache = None
+        try:
+            self.refresh_defenses()
+        except Exception:
+            pass
         if hasattr(self, "spells_frame") and self._is_page_active("Spells"):
             self.refresh_spells_page()
         self.refresh_all()
+
+    def _post_load_defenses_and_skills_fix(self):
+        """Late post-load pass: resistances + skills scrollregion after layout settles."""
+        self._defenses_render_cache = None
+        try:
+            self.refresh_defenses()
+        except Exception as exc:
+            print(f"Late defenses refresh failed: {exc}")
+        try:
+            self.refresh_elemental_resistance_display()
+        except Exception:
+            pass
+        try:
+            self._force_skills_scrollregion_update()
+        except Exception:
+            pass
+        vl = getattr(self, "_skills_virtual_list", None)
+        if vl and self._widget_is_alive(vl):
+            try:
+                apply_sr = getattr(vl, "_apply_scrollregion", None)
+                if callable(apply_sr):
+                    apply_sr()
+                dbg = getattr(vl, "debug_scroll_state", None)
+                if callable(dbg):
+                    print(f"Post-load skills scroll: {dbg()}")
+            except Exception:
+                pass
 
     def _should_skip_widget_to_data_sync(self):
         """Block widget→data sync while tearing down or rebuilding pages (stale/empty widgets)."""
@@ -26657,12 +28326,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         magic_frame.pack(fill="x", padx=8, pady=15)
         ctk.CTkLabel(magic_frame, text="Magical Item Slots", font=ctk.CTkFont(size=16, weight="bold")).pack(anchor="w", padx=5, pady=5)
         
-        self.magic_labels_list = [
-            "Head", "Face", "Neck", "Shoulders",
-            "Body", "Torso", "Arms", "Wrists",
-            "Ring 1", "Ring 2", "Waist", "Feet",
-            "Misc 1", "Misc 2", "Misc 3", "Misc 4"
-        ]
+        self.magic_labels_list = list(MAGIC_ITEM_SLOT_LABELS)
         
         slot_map = {
             "Head": "Head", "Face": "Face", "Neck": "Neck", "Shoulders": "Shoulders",
@@ -29552,13 +31216,26 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             if key == "skill_bonus_choice":
                 continue
             if key == "ability_enh":
-                for ab, val in value.items():
-                    bonuses["ability_enh"][ab] = bonuses["ability_enh"].get(ab, 0) + val
+                # 3.5: enhancement bonuses to the same score do not stack — take greatest.
+                for ab, val in (value or {}).items():
+                    try:
+                        amount = int(val or 0)
+                    except (TypeError, ValueError):
+                        amount = 0
+                    if not amount:
+                        continue
+                    prev = int(bonuses["ability_enh"].get(ab, 0) or 0)
+                    bonuses["ability_enh"][ab] = max(prev, amount)
             elif key == "ability_inherent":
-                for ab, val in value.items():
-                    bonuses["ability_inherent"][ab] = (
-                        bonuses["ability_inherent"].get(ab, 0) + val
-                    )
+                for ab, val in (value or {}).items():
+                    try:
+                        amount = int(val or 0)
+                    except (TypeError, ValueError):
+                        amount = 0
+                    if not amount:
+                        continue
+                    prev = int(bonuses["ability_inherent"].get(ab, 0) or 0)
+                    bonuses["ability_inherent"][ab] = max(prev, amount)
             elif key == "skill_bonus":
                 skill_map = bonuses.setdefault("skill_bonus", {})
                 for skill, val in value.items():
@@ -29987,6 +31664,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         race = self.data.get("race", "Human")
         race_data = self.races.get(race, {})
         base_land = int(race_data.get("speed", 30) or 30)
+        running = base_land
         lines = [f"Racial ({race}): {base_land} ft."]
 
         spell_b = self.get_spell_bonuses()
@@ -29998,16 +31676,38 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             int(buff_b.get("speed_bonus", 0) or 0),
         )
         barb_bonuses = self._get_barbarian_class_bonuses()
-        class_speed_bonus = 0
+        class_speed_bonus = self._barbarian_fast_movement_bonus()
         armor_cat = self._get_armor_category()
-        if barb_bonuses.get("fast_movement") and armor_cat != "heavy":
-            class_speed_bonus = int(barb_bonuses.get("speed_bonus", 0) or 0)
-        before_armor = self._get_land_speed_before_armor()
+        load_state = self._get_encumbrance_load_state()
+        load = str(load_state.get("load") or "light").lower()
+
         if class_speed_bonus:
+            running += class_speed_bonus
+            armor_note = ""
+            if armor_cat == "medium":
+                armor_note = " (ok in medium armor)"
+            elif armor_cat in (None, "", "light"):
+                armor_note = " (ok in light/no armor)"
             lines.append(
-                f"Barbarian Fast Movement: +{class_speed_bonus} ft. → {before_armor} ft.",
+                f"Barbarian Fast Movement: +{class_speed_bonus} ft.{armor_note} → {running} ft.",
             )
+        elif barb_bonuses.get("fast_movement") or self._get_class_level("Barbarian") >= 1:
+            # Feature known but inactive — explain why (medium armor must NOT appear here)
+            reasons = []
+            if armor_cat == "heavy":
+                reasons.append("heavy armor")
+            elif armor_cat == "medium":
+                # Should be active — if we are here, load or detection failed.
+                pass
+            if load in ("heavy", "overloaded"):
+                reasons.append(f"{load} load")
+            if not reasons and armor_cat == "medium":
+                reasons.append("check failed — medium armor should allow Fast Movement")
+            why = " and ".join(reasons) if reasons else "conditions not met"
+            lines.append(f"Barbarian Fast Movement: inactive ({why})")
+
         if speed_bonus:
+            running += speed_bonus
             bonus_parts = []
             if spell_b.get("speed_bonus"):
                 bonus_parts.append(f"spells +{spell_b['speed_bonus']}")
@@ -30016,12 +31716,24 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             if buff_b.get("speed_bonus"):
                 bonus_parts.append(f"buffs +{buff_b['speed_bonus']}")
             label = ", ".join(bonus_parts) if bonus_parts else f"+{speed_bonus}"
-            lines.append(f"Enhancement ({label}): +{speed_bonus} ft. → {before_armor} ft.")
+            lines.append(f"Enhancement ({label}): +{speed_bonus} ft. → {running} ft.")
+
+        before_armor = self._get_land_speed_before_armor()
+        # Keep breakdown total consistent with the shared calculator.
+        if before_armor != running and not self._get_active_wild_shape_form():
+            running = before_armor
 
         speed_penalties = self._resolve_land_speed_penalties(before_armor)
         after_armor = speed_penalties["armor_speed"]
         final_land = speed_penalties["final_land"]
         lines.extend(speed_penalties["lines"])
+        if class_speed_bonus and armor_cat in ("medium", "heavy") and before_armor > final_land:
+            # Explicit chain for FM + armor table (e.g. 40 → 30).
+            if not any("armor (worn)" in ln for ln in speed_penalties["lines"]):
+                cat_label = (armor_cat or "armor").replace("_", " ").title()
+                lines.append(
+                    f"{cat_label} armor table: {before_armor} → {final_land} ft.",
+                )
         armor_cat = self._get_armor_category()
 
         spell_movement = self._get_active_movement_effects()
@@ -30415,37 +32127,161 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         except Exception as e:
             print(f"Movement display error: {e}")
 
-    def get_magic_item_bonuses(self):
-        """Bonuses from equipped magic items."""
-        bonuses = self._empty_item_bonuses()
+    def _magic_item_slot_labels(self):
+        """Slot labels for the 16 equipped magic-item slots (UI optional)."""
+        labels = getattr(self, "magic_labels_list", None)
+        if isinstance(labels, (list, tuple)) and len(labels) >= 16:
+            return list(labels)
+        return list(MAGIC_ITEM_SLOT_LABELS)
 
-        if not hasattr(self, "magic_labels_list"):
-            return bonuses
-
-        for i, item_name in enumerate(self.data.get("magic_items", [])):
-            if not item_name or not str(item_name).strip():
+    def _lookup_magic_item_info_any_slot(self, item_name):
+        """Find item effects by name in any slot of magical_items.json."""
+        name = str(item_name or "").strip()
+        if not name:
+            return None
+        items_db = getattr(self, "magic_items_db", None)
+        if not isinstance(items_db, dict) or not items_db:
+            try:
+                self.load_magic_items_db()
+            except Exception:
+                pass
+            items_db = getattr(self, "magic_items_db", None) or {}
+        if not isinstance(items_db, dict):
+            return None
+        lower = name.lower()
+        for slot_items in items_db.values():
+            if not isinstance(slot_items, dict):
                 continue
+            info = slot_items.get(name)
+            if isinstance(info, dict):
+                return info
+            for key, val in slot_items.items():
+                if str(key).lower() == lower and isinstance(val, dict):
+                    return val
+        return None
 
-            label = self.magic_labels_list[i]
-            json_slot = MAGIC_ITEM_SLOT_MAP.get(label, label)
-            slot_data = self.magic_items_db.get(json_slot, {})
-            item_info = slot_data.get(item_name)
+    def get_magic_item_bonuses(self):
+        """Bonuses from equipped magic item slots (+ active gear enchants).
+
+        Does NOT require the Magical Items tab UI to have been built. Previously
+        this returned empty until magic_labels_list existed, so ability scores
+        missed Belt of Giant Strength / Periapt / etc. until the user re-equipped.
+        """
+        bonuses = self._empty_item_bonuses()
+        if not getattr(self, "magic_items_db", None):
+            try:
+                self.load_magic_items_db()
+            except Exception:
+                pass
+
+        labels = self._magic_item_slot_labels()
+        for i, item_name in enumerate(self.data.get("magic_items", []) or []):
+            name = str(item_name or "").strip()
+            if not name:
+                continue
+            label = labels[i] if i < len(labels) else ""
+            json_slot = MAGIC_ITEM_SLOT_MAP.get(label, label) or "Misc"
+            item_info = None
+            # Prefer slot-aware lookup (handles aliases like resistance rings).
+            try:
+                _resolved, item_info = self._lookup_magic_item_info(json_slot, name)
+            except Exception:
+                item_info = None
+            if not item_info:
+                # Wrong slot index / renamed item: search entire DB.
+                alt_slot = None
+                try:
+                    alt_slot = self._find_magic_item_json_slot_for_name(name)
+                except Exception:
+                    alt_slot = None
+                if alt_slot:
+                    try:
+                        _resolved, item_info = self._lookup_magic_item_info(alt_slot, name)
+                    except Exception:
+                        item_info = None
+            if not item_info:
+                item_info = self._lookup_magic_item_info_any_slot(name)
+            # Custom wondrous items equipped into a slot by name
+            if not item_info:
+                try:
+                    custom = self._find_custom_magic_item_for_name(name)
+                except Exception:
+                    custom = None
+                if isinstance(custom, dict):
+                    item_info = {
+                        "description": custom.get("description", ""),
+                        "effects": custom.get("effects") or {},
+                    }
             if item_info and item_info.get("effects"):
                 self._accumulate_item_effects(bonuses, item_info["effects"])
 
         for item_name in self._normalize_extra_ring_data():
-            if not item_name or not str(item_name).strip():
+            name = str(item_name or "").strip()
+            if not name:
                 continue
-            item_info = self.magic_items_db.get("Ring", {}).get(item_name)
+            item_info = None
+            try:
+                _resolved, item_info = self._lookup_magic_item_info("Ring", name)
+            except Exception:
+                item_info = None
+            if not item_info:
+                item_info = self._lookup_magic_item_info_any_slot(name)
             if item_info and item_info.get("effects"):
                 self._accumulate_item_effects(bonuses, item_info["effects"])
 
-        for _gear_type, _enchant_name, enchant_info in self._iter_active_gear_enchant_records():
-            effects = self._resolve_gear_enchant_effects(enchant_info)
-            if effects:
-                self._accumulate_item_effects(bonuses, effects)
+        try:
+            for _gear_type, _enchant_name, enchant_info in self._iter_active_gear_enchant_records():
+                effects = self._resolve_gear_enchant_effects(enchant_info)
+                if effects:
+                    self._accumulate_item_effects(bonuses, effects)
+        except Exception:
+            pass
 
         return bonuses
+
+    def _apply_equipped_magic_item_ability_bonuses(self):
+        """Force ability score UI to include equipped magic-item enh after load/reload.
+
+        Safe to call before Magical Items tab exists (uses data['magic_items'] + DB only).
+        """
+        try:
+            self._clear_calc_caches()
+        except Exception:
+            self._bonuses_cache = None
+        try:
+            bonuses = self.get_all_bonuses()
+        except Exception as exc:
+            print(f"Magic item ability bonus apply failed: {exc}")
+            return False
+        applied = False
+        if hasattr(self, "ability_vars") and self.ability_vars:
+            for abil in ABILITY_NAMES:
+                if abil not in self.ability_vars:
+                    continue
+                try:
+                    self.recalc_ability(abil, bonuses)
+                    applied = True
+                except Exception as exc:
+                    print(f"recalc_ability({abil}) after magic items: {exc}")
+            try:
+                self._ability_bonuses_applied = True
+                self._refresh_rage_ability_styling()
+            except Exception:
+                pass
+        # AC / combat / HP also depend on ability enh (Con for max HP, etc.)
+        try:
+            self.calculate_ac()
+        except Exception:
+            pass
+        try:
+            self.calculate_saves()
+        except Exception:
+            pass
+        try:
+            self.refresh_health_display()
+        except Exception:
+            pass
+        return applied
 
     def get_feat_bonuses(self):
         """Read chosen general feats and return their bonuses (now supports all saves + HP)"""
@@ -30599,22 +32435,24 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         
     def recalc_ability(self, ab, bonuses=None):
         try:
-            base = self._get_stored_ability_base(ab)
-            current_race = self._get_current_race()
-            race_data = self.races.get(current_race, {})
-            racial = race_data.get(ABILITY_SHORT[ab], 0)
-
             if bonuses is None:
                 bonuses = self.get_all_bonuses()
-            enh = bonuses.get("ability_enh", {}).get(ab, 0)
-            inherent = bonuses.get("ability_inherent", {}).get(ab, 0)
-            misc = int(self.data["abilities"][ab].get("misc", 0) or 0)
-            asi = self._get_ability_score_improvement_bonus(ab)
-            age_mod = self._get_age_ability_mod(ab)
-            total = base + racial + enh + inherent + misc + asi + age_mod
+            parts = self._compute_structural_ability_total(ab, bonuses=bonuses)
+            base = int(parts["base"])
+            racial = int(parts["racial"])
+            enh = int(parts["enh"])
+            inherent = int(parts["inherent"])
+            misc = int(parts["misc"])
+            asi = int(parts["asi"])
+            age_mod = int(parts["age_mod"])
+            total = int(parts["total"])
 
             self.data["abilities"][ab]["total"] = total
             self.data["abilities"][ab]["racial"] = racial
+            self.data["abilities"][ab]["base"] = base
+            self.data[f"ability_{ab}_base"] = str(base)
+            if ab not in getattr(self, "ability_vars", {}):
+                return
             self.ability_vars[ab]["base_lbl"].configure(text=str(base + asi))
             self.ability_vars[ab]["racial_lbl"].configure(text=str(racial))
             if inherent:
@@ -30844,17 +32682,47 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
     def _get_armor_max_dex_cap(self):
         return self._get_combined_encumbrance_penalties()["max_dex"]
 
+    # Immobilized / cannot react — Uncanny Dodge does not retain Dex here.
+    _HARD_LOSE_DEX_TO_AC = frozenset({
+        "Helpless", "Paralyzed", "Stunned", "Pinned",
+    })
+
+    def _loses_dex_bonus_to_ac(self, afflictions=None):
+        """True when the character loses Dexterity bonus (and dodge) to AC.
+
+        Uncanny Dodge retains Dex when Blinded / flat-footed / grappling-style
+        lose-Dex conditions apply. Immobilized (Helpless, Paralyzed, etc.) still loses Dex.
+        """
+        if afflictions is None:
+            afflictions = self.get_affliction_penalties()
+        combined = self._get_combined_encumbrance_penalties()
+        if combined.get("load") == "overloaded":
+            return True
+        if not afflictions.get("lose_dex_to_ac"):
+            return False
+        active = set(afflictions.get("active") or [])
+        if active & self._HARD_LOSE_DEX_TO_AC:
+            return True
+        # Blinded, Grappling, flat-footed-style: Uncanny Dodge retains Dex bonus.
+        if self._get_barbarian_class_bonuses().get("uncanny_dodge"):
+            return False
+        return True
+
     def _get_effective_dex_for_ac(self):
+        """Dex modifier applied to AC.
+
+        3.5: losing Dex bonus means you do not apply a positive Dex mod; Dex penalties
+        (negative mod) still apply. Uncanny Dodge keeps the bonus while Blinded.
+        """
         dex_mod = self._effective_ability_mod("Dexterity")
         afflictions = self.get_affliction_penalties()
-        if afflictions["lose_dex_to_ac"]:
-            helpless = "Helpless" in afflictions.get("active", [])
-            if helpless or not self._get_barbarian_class_bonuses().get("uncanny_dodge"):
-                dex_mod = min(dex_mod, 0)
+        if self._loses_dex_bonus_to_ac(afflictions):
+            # Lose Dex *bonus* only — never raise a negative Dex mod to 0.
+            dex_mod = min(int(dex_mod), 0)
         combined = self._get_combined_encumbrance_penalties()
-        if combined["load"] == "overloaded":
-            dex_mod = min(dex_mod, 0)
-        return min(dex_mod, combined["max_dex"])
+        if combined.get("load") == "overloaded":
+            dex_mod = min(int(dex_mod), 0)
+        return min(int(dex_mod), int(combined.get("max_dex", 99)))
 
     def calculate_ac(self):
         try:
@@ -30900,6 +32768,8 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             insight = all_bonuses.get("insight", 0)
             trap_sense = self._get_barbarian_class_bonuses().get("trap_sense", 0)
             dodge_bonus = self.get_combat_expertise_dodge() + all_bonuses.get("dodge", 0)
+            if self._loses_dex_bonus_to_ac():
+                dodge_bonus = 0
             sacred = all_bonuses.get("sacred", 0)
             profane = all_bonuses.get("profane", 0)
             ac_bonus = all_bonuses.get("ac_bonus", 0)
@@ -30919,7 +32789,23 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             self.touch_label.configure(text=str(touch))
 
             combined_enc = self._get_combined_encumbrance_penalties()
-            if combined_enc["max_dex"] < 99:
+            aff = self.get_affliction_penalties()
+            lose_dex = self._loses_dex_bonus_to_ac(aff)
+            active_aff = set(aff.get("active") or [])
+            has_ud = bool(self._get_barbarian_class_bonuses().get("uncanny_dodge"))
+            if lose_dex and "Blinded" in active_aff:
+                dex_text = f"Dex mod: {effective_dex:+} (blinded — no Dex bonus)"
+            elif lose_dex:
+                dex_text = f"Dex mod: {effective_dex:+} (no Dex bonus)"
+            elif "Blinded" in active_aff and has_ud:
+                if combined_enc["max_dex"] < 99:
+                    dex_text = (
+                        f"Dex mod: {effective_dex:+} "
+                        f"(blinded; Uncanny Dodge; max Dex +{combined_enc['max_dex']})"
+                    )
+                else:
+                    dex_text = f"Dex mod: {effective_dex:+} (blinded; Uncanny Dodge)"
+            elif combined_enc["max_dex"] < 99:
                 dex_text = f"Dex mod: {effective_dex:+} (max Dex +{combined_enc['max_dex']})"
             else:
                 dex_text = f"Dex mod: {effective_dex:+}"
@@ -30939,7 +32825,9 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 self.size_ac_lbl.configure(text=size_note)
             if hasattr(self, "dodge_ac_lbl"):
                 dodge_text = f"Dodge: {dodge_bonus:+}"
-                if trap_sense:
+                if lose_dex:
+                    dodge_text += " (lost w/ Dex)"
+                elif trap_sense:
                     dodge_text += f" (+{trap_sense} vs traps)"
                 self.dodge_ac_lbl.configure(text=dodge_text)
             if hasattr(self, "sacred_ac_lbl"):
@@ -34079,14 +35967,11 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 uses_frame = ctk.CTkFrame(row, fg_color="transparent")
                 uses_frame.pack(side="left", padx=4)
                 saved_uses = self._normalize_daily_use_state(feature_key, uses_per_day)
-                if not hasattr(self, "daily_use_vars"):
-                    self.daily_use_vars = {}
-                if feature_key not in self.daily_use_vars:
-                    self.daily_use_vars[feature_key] = [[] for _ in range(uses_per_day)]
+                self._ensure_daily_use_var_slots(feature_key, uses_per_day)
                 for ii in range(uses_per_day):
                     val = bool(saved_uses[ii]) if ii < len(saved_uses) else False
                     v = ctk.BooleanVar(value=val)
-                    self.daily_use_vars[feature_key][ii].append(v)
+                    self._register_daily_use_var(feature_key, ii, v, uses_per_day)
                     cb = ctk.CTkCheckBox(
                         uses_frame, text="", variable=v, width=14, height=14,
                         command=lambda k=feature_key, idx=ii, vv=v: self._toggle_daily_use(k, idx, vv)
@@ -34627,7 +36512,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 except tk.TclError:
                     continue
         self._sync_domains_from_combos()
-        self._sync_daily_feature_uses_to_data()
+        # daily_feature_uses: data-authoritative (toggle/reset write it). Never re-read vars.
         self._sync_magic_item_trackers_to_data()
         self._sync_ability_score_improvements_to_data()
         self._sync_afflictions_to_data()
@@ -34765,7 +36650,8 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             self._sync_combat_widgets_to_data()
 
         self._sync_domains_from_combos()
-        self._sync_daily_feature_uses_to_data()
+        # daily_feature_uses is data-authoritative (toggle/reset/rest write it directly).
+        # Do NOT re-read BooleanVars here — stale/destroyed vars were wiping True on close-save.
         self._sync_magic_item_trackers_to_data()
         self._sync_class_locks_to_data()
         self._sync_abilities_lock_to_data()
@@ -35057,6 +36943,38 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             return f"v{self.app_updater.get_display_version()}"
         return "v?"
 
+    def _position_app_update_popup(self, popup, width=460, height=420):
+        """Place the updater slightly off-center so it does not sit under the startup wizard."""
+        try:
+            self.root.update_idletasks()
+            rx = int(self.root.winfo_rootx())
+            ry = int(self.root.winfo_rooty())
+            rw = max(width + 40, int(self.root.winfo_width() or 0))
+            rh = max(height + 40, int(self.root.winfo_height() or 0))
+            # Offset left and up from true center so the character chooser/wizard
+            # (which centers on the root) remains visible beside the updater.
+            x = rx + max(16, (rw - width) // 2 - 160)
+            y = ry + max(16, (rh - height) // 2 - 90)
+            popup.geometry(f"{width}x{height}+{x}+{y}")
+        except Exception:
+            try:
+                self._center_popup_on_root(popup, width, height)
+            except Exception:
+                popup.geometry(f"{width}x{height}")
+
+    def _lift_app_update_popup(self):
+        popup = getattr(self, "_update_popup", None)
+        if popup is None:
+            return
+        try:
+            if not popup.winfo_exists():
+                return
+            popup.attributes("-topmost", True)
+            popup.lift()
+            popup.focus_force()
+        except tk.TclError:
+            pass
+
     def _close_app_update_popup(self):
         popup = getattr(self, "_update_popup", None)
         self._update_popup = None
@@ -35064,6 +36982,14 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             return
         try:
             if popup.winfo_exists():
+                try:
+                    popup.grab_release()
+                except Exception:
+                    pass
+                try:
+                    popup.attributes("-topmost", False)
+                except Exception:
+                    pass
                 popup.destroy()
         except tk.TclError:
             pass
@@ -35099,8 +37025,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         if getattr(self, "_update_popup", None):
             try:
                 if self._update_popup.winfo_exists():
-                    self._update_popup.lift()
-                    self._update_popup.focus_force()
+                    self._lift_app_update_popup()
                     if auto_check:
                         self._begin_app_update_check()
                     return
@@ -35110,8 +37035,26 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         popup = ctk.CTkToplevel(self.root)
         popup.title("Check for Updates")
         popup.geometry("460x420")
-        popup.attributes("-topmost", True)
-        self._center_popup_on_root(popup, 460, 420)
+        try:
+            popup.transient(self.root)
+        except Exception:
+            pass
+        try:
+            popup.attributes("-topmost", True)
+        except Exception:
+            pass
+        self._position_app_update_popup(popup, 460, 420)
+        try:
+            # Keep the updater above the startup character chooser/wizard until closed.
+            popup.grab_set()
+        except Exception:
+            pass
+        # Re-assert z-order after other startup popups pack themselves.
+        try:
+            popup.after(50, self._lift_app_update_popup)
+            popup.after(250, self._lift_app_update_popup)
+        except Exception:
+            pass
 
         primary = getattr(self, "primary_button_color", THEME_ORANGE)
         secondary = getattr(self, "secondary_button_color", THEME_TEAL)
@@ -35865,9 +37808,32 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 0,
                 int(self.data.get("last_applied_dm_xp_award_token", 0) or 0),
             )
+            # IMPORTANT: keep the LOADED character's last_applied tokens.
+            # Overwriting them with the previous sheet's values (often 0 on a blank
+            # startup sheet) re-triggers DM forced rest every load and wipes
+            # daily_feature_uses checkboxes via rest-all-daily.
+            try:
+                loaded_forced = max(
+                    0,
+                    int((character_data or {}).get("last_applied_forced_rest_token", 0) or 0),
+                )
+            except (TypeError, ValueError):
+                loaded_forced = 0
+            try:
+                loaded_xp = max(
+                    0,
+                    int((character_data or {}).get("last_applied_dm_xp_award_token", 0) or 0),
+                )
+            except (TypeError, ValueError):
+                loaded_xp = 0
             self.data = copy.deepcopy(character_data)
-            self.data["last_applied_forced_rest_token"] = prior_forced_token
-            self.data["last_applied_dm_xp_award_token"] = prior_xp_award_token
+            # Use the highest known token so the same forced rest is never re-applied.
+            self.data["last_applied_forced_rest_token"] = max(
+                prior_forced_token, loaded_forced,
+            )
+            self.data["last_applied_dm_xp_award_token"] = max(
+                prior_xp_award_token, loaded_xp,
+            )
             self._normalize_character_data()
             self._maybe_apply_forced_rest_from_status(self.data)
 
@@ -35889,13 +37855,27 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             # Extract any portrait image that came over cloud sync and save locally
             self._extract_and_save_cloud_portrait()
             self._refresh_sidebar_background()
+            self._refresh_sb_portrait()
 
             if not self._rebuild_character_ui(show_progress=True):
                 messagebox.showerror("Cloud Sync", "Could not apply cloud character data.")
                 self._cloud_sync_applying_remote = False
                 self._skip_post_load_cloud_push = False
             elif self.cloud_sync and self.cloud_sync.is_configured():
-                self._start_dm_status_polling()
+                self._refresh_sb_portrait()
+                # Full character blob can lag Behind's DM fields; force ability damage etc.
+                try:
+                    # Clear applying flag so DM apply can refresh widgets after rebuild.
+                    self._cloud_sync_applying_remote = False
+                    self._force_apply_dm_status_from_cloud(silent=True)
+                except Exception:
+                    pass
+                finally:
+                    self._cloud_sync_applying_remote = False
+                self._start_dm_status_polling(seed_from_local=True)
+            else:
+                self._refresh_sb_portrait()
+                self._cloud_sync_applying_remote = False
         except Exception:
             self._cloud_sync_applying_remote = False
             self._skip_post_load_cloud_push = False
@@ -35915,16 +37895,20 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             on_status=self._on_cloud_status,
         )
         self.cloud_sync.load_config()
-        # Adopt this sheet's character_id (if it has one) into the live config for correct per-character cloud targeting.
-        if hasattr(self, 'data') and self.data:
-            data_cid = self.data.get("character_id", "") or ""
-            cfg_cid = self.cloud_sync.config.get("character_id", "") or ""
-        if data_cid and data_cid != cfg_cid:
-                self.cloud_sync.config["character_id"] = data_cid
-                try:
-                    self.cloud_sync.save_config({"character_id": data_cid})
-                except Exception:
-                    pass
+        # Adopt this sheet's character_id into live config (prevents pushing Harold
+        # data into another character's cloud slot / inventory mix-ups).
+        try:
+            if hasattr(self, "data") and self.data:
+                data_cid = str(self.data.get("character_id", "") or "").strip()
+                cfg_cid = str(self.cloud_sync.config.get("character_id", "") or "").strip()
+                if data_cid and data_cid != cfg_cid:
+                    self.cloud_sync.config["character_id"] = data_cid
+                    try:
+                        self.cloud_sync.save_config({"character_id": data_cid})
+                    except Exception:
+                        pass
+        except Exception:
+            pass
         if self.cloud_sync.is_configured():
             try:
                 self.cloud_sync.test_connection()
@@ -36147,14 +38131,32 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             local_token = max(0, int(self.data.get("last_applied_forced_rest_token", 0) or 0))
         except (TypeError, ValueError):
             local_token = 0
-        if remote_token <= local_token:
+        # Also honor dm_forced_rest on the sheet itself (same rest already applied).
+        try:
+            sheet_dm = self.data.get("dm_forced_rest") or {}
+            if isinstance(sheet_dm, dict):
+                local_token = max(
+                    local_token, int(sheet_dm.get("token", 0) or 0),
+                )
+        except (TypeError, ValueError):
+            pass
+        if remote_token <= 0 or remote_token <= local_token:
             return False
+        print(
+            f"Forced rest applying: remote_token={remote_token} "
+            f"local_token={local_token}"
+        )
         self.data["last_applied_forced_rest_token"] = remote_token
         self.data["dm_forced_rest"] = {
             "token": remote_token,
             "at": str(forced.get("at") or "").strip(),
         }
         self._perform_forced_rest()
+        # Persist tokens so the next open does not re-rest and wipe daily uses.
+        try:
+            self._flush_daily_and_pins_to_disk(reason="forced-rest-ack")
+        except Exception:
+            pass
         return True
 
     def _maybe_apply_pending_nonlethal_from_status(self, status_payload):
@@ -36327,6 +38329,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             return pending_applied or xp_award_applied or afflictions_applied
 
         ability_damage_changed = status.get("ability_damage") != local_status.get("ability_damage")
+        neg_levels_changed = status.get("negative_levels") != local_status.get("negative_levels")
         weather_changed = status.get("dm_weather") != local_status.get("dm_weather")
         survival_changed = status.get("survival_days") != local_status.get("survival_days")
 
@@ -36341,7 +38344,14 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 self.neg_levels_var.set(self.data["negative_levels"])
             self._update_ability_damage_display()
 
-            if not afflictions_applied:
+            # Always invalidate + refresh when ability damage / neg levels change.
+            # Affliction-only path may have refreshed BEFORE these fields were written.
+            needs_stat_refresh = (
+                not afflictions_applied
+                or ability_damage_changed
+                or neg_levels_changed
+            )
+            if needs_stat_refresh:
                 self._affliction_penalties_cache = None
                 self._suppress_cloud_dirty_on_next_refresh = True
                 self._schedule_scoped_refresh(
@@ -36354,7 +38364,10 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                     health=True,
                 )
             if ability_damage_changed:
-                self._update_ability_name_styles()
+                try:
+                    self._update_ability_name_styles()
+                except Exception:
+                    pass
             if xp_award_applied:
                 self.refresh_xp_display()
                 self.refresh_level_up_button()
@@ -36385,6 +38398,28 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             return True
         finally:
             self._cloud_sync_applying_remote = False
+
+    def _force_apply_dm_status_from_cloud(self, *, silent=True):
+        """Always fetch and apply Behind DM fields (ability damage, afflictions, weather).
+
+        Unlike poll/pull, this ignores the 'already noted' signature and the
+        unchanged updated_at short-circuit so a local sheet always picks up
+        Behind's current ability damage on load.
+        """
+        if not self.cloud_sync or not self.cloud_sync.is_configured():
+            return False
+        try:
+            remote = self.cloud_sync.fetch_dm_status(force=True)
+            if not remote or not isinstance(remote.get("data"), dict):
+                return False
+            if HAS_CLOUD_SYNC:
+                status = CloudSyncManager.normalize_dm_status(remote["data"])
+            else:
+                return False
+            return self._apply_dm_status_payload(status, silent=silent)
+        except Exception as exc:
+            print(f"Force DM status apply failed: {exc}")
+            return False
 
     def _on_dm_status_remote_update(self, status_payload):
         self._schedule_on_main(self._handle_dm_status_remote_update, status_payload)
@@ -36706,7 +38741,8 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             messagebox.showwarning("Cloud Sync", "Cloud sync is not configured. Use the ☁ button in the sidebar to set it up.")
             return
         try:
-            if not self._pull_dm_status_from_cloud(silent=False):
+            # Force fetch+apply so a stale "already noted" signature cannot hide Behind changes.
+            if not self._force_apply_dm_status_from_cloud(silent=False):
                 messagebox.showinfo("DM Sync", "No relevant status changes found in cloud.")
         except Exception as e:
             messagebox.showerror("DM Sync Error", str(e))
@@ -36743,14 +38779,28 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         name = self._get_character_name(sync_to_data=True)
         if not name or name == "New Hero":
             return None
-        data_cid = self.data.get("character_id", "") or ""
-        if data_cid and data_cid != self.cloud_sync.config.get("character_id", ""):
+        # Always push under THIS sheet's character_id — never the last config slot.
+        # (Mis-matched config was able to write Harold's data into another char's cloud row.)
+        data_cid = str(self.data.get("character_id", "") or "").strip()
+        cfg_cid = str(self.cloud_sync.config.get("character_id", "") or "").strip()
+        if data_cid:
+            if data_cid != cfg_cid:
+                print(
+                    f"Cloud push: adopting sheet character_id {data_cid!r} "
+                    f"(config had {cfg_cid!r})"
+                )
             self.cloud_sync.config["character_id"] = data_cid
             try:
                 self.cloud_sync.save_config({"character_id": data_cid})
             except Exception:
                 pass
+        elif not cfg_cid:
+            print("Cloud push skipped: no character_id on sheet or in config")
+            return None
         self._sync_all_character_data()
+        # Re-apply legacy ability base migration so auto-sync cannot stomp cloud with base=10
+        # while ability_Strength_base (etc.) still holds the real scores.
+        self._ensure_ability_bases_persisted()
         self._strip_portrait_base64()
         self._strip_follower_statblocks_from_data()
         payload = copy.deepcopy(self.data)
@@ -37003,21 +39053,40 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         )
         self._update_cloud_save_progress(0.1, "Preparing...")
         self._pump_ui()
+        # Snapshot tracker fields BEFORE any widget→data sync can touch them.
+        pins_snapshot = list(self.data.get("stats_pinned_features") or [])
+        daily_snapshot = copy.deepcopy(self.data.get("daily_feature_uses") or {})
+        daily_snapshot = self._apply_daily_use_session_edits_to(
+            daily_snapshot if isinstance(daily_snapshot, dict) else {}
+        )
         try:
             if self.last_character_path:
                 self._update_cloud_save_progress(0.3, "Saving locally...")
                 self._pump_ui()
                 self._sync_all_character_data()
+                # Always restore pins + daily uses (session edits are authority).
+                self.data["stats_pinned_features"] = [
+                    str(p).strip() for p in pins_snapshot if str(p).strip()
+                ]
+                self.data["daily_feature_uses"] = copy.deepcopy(daily_snapshot)
                 self._strip_portrait_base64()
                 with open(self.last_character_path, "w", encoding="utf-8") as handle:
                     json.dump(self.data, handle, indent=2, ensure_ascii=False)
                 self._remember_character_path(self.last_character_path)
+                print(
+                    f"Close-save wrote pins={self.data.get('stats_pinned_features')!r} "
+                    f"Rage={(self.data.get('daily_feature_uses') or {}).get('Barbarian_Rage')!r}"
+                )
                 if self._should_push_cloud_on_close():
                     self._update_cloud_save_progress(0.6, "Uploading to cloud...")
                     self._pump_ui()
                     self._cloud_push_character()
             else:
                 self._sync_all_character_data()
+                self.data["stats_pinned_features"] = [
+                    str(p).strip() for p in pins_snapshot if str(p).strip()
+                ]
+                self.data["daily_feature_uses"] = copy.deepcopy(daily_snapshot)
                 if self._should_push_cloud_on_close():
                     self._update_cloud_save_progress(0.5, "Uploading to cloud...")
                     self._pump_ui()
@@ -37777,8 +39846,20 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
         popup = ctk.CTkToplevel(self.root)
         popup.title("Choose Character")
-        popup.grab_set()
+        update_open = False
+        try:
+            up = getattr(self, "_update_popup", None)
+            update_open = bool(up is not None and up.winfo_exists())
+        except Exception:
+            update_open = False
+        if not update_open:
+            try:
+                popup.grab_set()
+            except Exception:
+                pass
         self._center_popup_on_root(popup, 680, 620)  # room for tabbed lists of many characters without resize
+        if update_open:
+            self._lift_app_update_popup()
 
         body = ctk.CTkFrame(popup, fg_color="transparent")
         body.pack(fill="both", expand=True, padx=16, pady=12)
@@ -37988,20 +40069,23 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         if self.cloud_sync and self.cloud_sync.is_configured():
             if not loaded_cloud:
                 # User closed/canceled the chooser or finished Create Character without loading a cloud
-                # copy. Clear dirty and note whatever is on the server for our slot (if any) so the
-                # poller doesn't immediately treat existing cloud data as newer than the local sheet.
+                # copy. Clear dirty so the poller doesn't treat existing cloud data as a full overwrite.
                 self._cloud_sync_dirty = False
                 try:
                     remote = self.cloud_sync.fetch_character_revision()
                     if remote:
                         self.cloud_sync.note_remote_character(remote)
-                    dm_remote = self.cloud_sync.fetch_dm_status()
-                    if dm_remote and dm_remote.get("data"):
-                        self.cloud_sync.note_dm_status(dm_remote["data"])
                 except Exception:
                     pass
-            # Full-character cloud polling stays off for responsiveness; DM status polls live.
-            self._start_dm_status_polling(seed_from_local=loaded_cloud)
+            # Always apply Behind ability damage / afflictions on startup.
+            # (Previously we only noted the remote signature without applying, so local
+            # sheets never picked up Harold's Str/Con damage until Behind changed again.)
+            try:
+                self._force_apply_dm_status_from_cloud(silent=True)
+            except Exception:
+                pass
+            # Seed poll signature from the sheet AFTER apply so we only react to future changes.
+            self._start_dm_status_polling(seed_from_local=True)
             self._update_cloud_sync_status_label("Cloud ready (DM status live)")
         # Loot sync (independent)
         try:
@@ -38035,7 +40119,18 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         self._ensure_startup_maximized()
 
     def _save_character_to_path(self, file_path, *, notify_cloud_error=True):
+        pins_snapshot = list(self.data.get("stats_pinned_features") or [])
+        daily_snapshot = copy.deepcopy(self.data.get("daily_feature_uses") or {})
+        daily_snapshot = self._apply_daily_use_session_edits_to(
+            daily_snapshot if isinstance(daily_snapshot, dict) else {}
+        )
         self._sync_all_character_data()
+        # Preserve pins + daily checkbox state across widget sync.
+        self.data["stats_pinned_features"] = [
+            str(p).strip() for p in pins_snapshot if str(p).strip()
+        ]
+        self.data["daily_feature_uses"] = copy.deepcopy(daily_snapshot)
+        self._ensure_ability_bases_persisted()
         self._normalize_feats_data()
         self._strip_portrait_base64()  # keep local JSONs lean; image lives as separate file in portraits/
         self._strip_follower_statblocks_from_data()
@@ -38192,6 +40287,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         self._fixed_skills_scroll_height = None
         self._fixed_stats_short_row_height = None
         self._skills_scroll_last_height = None
+        self._skills_scroll_last_size_key = None
         self._lazy_pages_built = set()
         self._dirty = set()
 
@@ -38262,6 +40358,18 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 except Exception:
                     pass
         self.inventory_row_widgets = []
+        # Defenses host is destroyed with stats_frame — drop cache so next rebuild repaints
+        # magic-item / feature resistances (otherwise cache hit leaves empty widgets).
+        self._defenses_render_cache = None
+        self.elemental_resistance_widgets = {}
+        self._elemental_resistance_tooltips = {}
+        # Drop tracker widget registries (BooleanVars are recreated on rebuild). Data stays.
+        self.daily_use_vars = {}
+        self.magic_item_daily_vars = {}
+        self.magic_item_charge_combos = {}
+        self.rage_switch_widgets = {}
+        self.wild_shape_switch_widgets = {}
+        self._stats_feature_pin_bound = set()
         for attr in (
             "class_combos", "level_entries", "class_vars", "level_vars",
             "class_name_labels", "class_level_labels", "class_display_frame",
@@ -38403,6 +40511,20 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                     # (e.g. Amulet of Health Con) is known for damage-pool reconciliation.
                     self._rebuilding_ui = False
                     self._perform_refresh(force=True)
+                    # Explicit second pass: ability enh from magic_items[] (Belt of Giant
+                    # Strength, Periapt, etc.) without requiring Magical Items tab / re-equip.
+                    self._apply_equipped_magic_item_ability_bonuses()
+                    # Force defenses + resistances repaint after load (stale render cache
+                    # previously left Resistances blank until re-equip).
+                    self._defenses_render_cache = None
+                    try:
+                        self.refresh_defenses()
+                    except Exception as exc:
+                        print(f"Post-load defenses refresh failed: {exc}")
+                    try:
+                        self.refresh_elemental_resistance_display()
+                    except Exception:
+                        pass
                     self._push_feats_data_to_widgets()
                     self._refresh_wielded_weapons_feat_sliders()
                     try:
@@ -38421,6 +40543,14 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 self._materialize_all_skills_on_load()
                 self.root.after(400, self._finalize_stats_bottom_layout)
                 self.root.after(450, self._materialize_all_skills_on_load)
+                # Late pass once layout settles (covers race/ASIs + items after widgets ready).
+                self.root.after(500, self._apply_equipped_magic_item_ability_bonuses)
+                self.root.after(550, self._post_load_defenses_and_skills_fix)
+                # Pins + daily checkboxes: single rebuild from self.data (no disk thrash).
+                try:
+                    self._reapply_pins_and_daily_uses_after_load()
+                except Exception:
+                    pass
                 self.refresh_health_display()
                 self.refresh_xp_display()
                 self.refresh_level_up_button()
@@ -38433,6 +40563,11 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
     def _load_character_from_path(self, file_path, show_progress=False):
         """Load character safely - clears old widget references before rebuilding pages."""
         self._cancel_pending_refresh()
+        # New character load: drop shared checkbox vars from prior sheet.
+        self._daily_use_shared_bools = {}
+        self._daily_use_vars = {}
+        self.daily_use_vars = {}
+        self._suppress_daily_use_commands = False
         if show_progress:
             self._show_load_progress()
             self._update_load_progress(0.04, "Preparing to load...")
@@ -38465,12 +40600,15 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             # Extract portrait if this data (e.g. previously synced from cloud) carried base64 image
             self._extract_and_save_cloud_portrait()
             self._refresh_sidebar_background()
+            self._refresh_sb_portrait()
 
             print(f"✅ Loaded: {file_path}")
             if show_progress:
                 self._pump_ui()
             if not self._rebuild_character_ui(show_progress=show_progress, remember_path=file_path):
                 return False
+            # Rebuild may rebuild description/portrait widgets; re-apply SB portrait after.
+            self._refresh_sb_portrait()
             print("✅ Character loaded successfully with magical item bonuses applied")
             # If the loaded local sheet has a character_id (from previous cloud use or auto-gen),
             # adopt it into the current cloud config so we sync against the correct unique slot.
@@ -38482,7 +40620,12 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                         self.cloud_sync.save_config({"character_id": cid})
                     except Exception:
                         pass
-                self._start_dm_status_polling()
+                # Pull ability damage / afflictions from Behind onto this local sheet now.
+                try:
+                    self._force_apply_dm_status_from_cloud(silent=True)
+                except Exception:
+                    pass
+                self._start_dm_status_polling(seed_from_local=True)
             try:
                 self._init_loot_sync()
             except Exception:
@@ -38725,14 +40868,23 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         self._update_ability_name_styles()
 
     def _update_ability_damage_display(self):
-        if not hasattr(self, "abil_dmg_display"): return
+        if not hasattr(self, "abil_dmg_display") or self.abil_dmg_display is None:
+            return
+        try:
+            if not self._widget_is_alive(self.abil_dmg_display):
+                return
+        except Exception:
+            return
         dmg = self.data.get("ability_damage", {})
         parts = []
         for ab in ["Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"]:
             if dmg.get(ab, 0) > 0:
                 parts.append(f"{ab[:3]}:{dmg[ab]}")
         text = " | ".join(parts) if parts else "None"
-        self.abil_dmg_display.configure(text=f"Current: {text}")
+        try:
+            self.abil_dmg_display.configure(text=f"Current: {text}")
+        except Exception:
+            pass
 
     def build_buffs_page(self):
         """Buffs page: left = add form + current manual effects list (toggle/value/remove); right = reference of active buffs + active spell effects."""
@@ -39311,7 +41463,10 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         self.domain_combos = []
         self.domain_powers_panel = None
         self.domain_spells_panel = None
-        self.daily_use_vars = {}
+        # Do NOT wipe daily_use_vars here — Stats Features pins may already have registered
+        # BooleanVars. Clearing them breaks Feats ↔ Stats checkbox mirroring after rebuild.
+        if not hasattr(self, "daily_use_vars") or self.daily_use_vars is None:
+            self.daily_use_vars = {}
         self.magic_item_daily_vars = {}
         self.magic_item_charge_combos = {}
         self.magic_item_charge_vars = {}
@@ -39322,11 +41477,16 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         self.abil_dmg_var = None
         self.abil_dmg_val = None
         self.abil_dmg_display = None
-        self.rage_switch_widgets = {}
-        self.wild_shape_switch_widgets = {}
+        # Do NOT wipe rage/wild-shape switch registries — Stats pin switches must stay linked.
+        if not hasattr(self, "rage_switch_widgets") or self.rage_switch_widgets is None:
+            self.rage_switch_widgets = {}
+        if not hasattr(self, "wild_shape_switch_widgets") or self.wild_shape_switch_widgets is None:
+            self.wild_shape_switch_widgets = {}
         self.fiendish_resilience_vars = []
         self.special_feature_form_widgets = {}
-        self._stats_feature_pin_bound = set()
+        # Pin binds are re-walked on each feature card; only clear when widgets are destroyed.
+        if not hasattr(self, "_stats_feature_pin_bound") or self._stats_feature_pin_bound is None:
+            self._stats_feature_pin_bound = set()
         self.extra_ring_combos = []
         self.feat_spec_frames = {}
         self.feat_spec_combos = {}
@@ -39383,8 +41543,9 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         self.tabview = ctk.CTkTabview(right_frame)
         self.tabview.pack(fill="both", expand=True)
 
-        # Build class tabs first
+        # Build class tabs first (prefer data levels so tabs/trackers never vanish on load).
         for cls_name, class_level in self._get_class_level_slots():
+            class_level = self._effective_class_level_for_feature(cls_name, class_level)
             if cls_name != "None" and class_level > 0 and cls_name in self.classes_db:
                 self.tabview.add(cls_name)
                 self.build_class_features_tab(cls_name, class_level)
@@ -40150,6 +42311,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
 
     def build_class_features_tab(self, cls_name, class_level):
         """Show features up to this class's level - FIXED domain restore + REAL-TIME preview"""
+        class_level = self._effective_class_level_for_feature(cls_name, class_level)
         tab = self.tabview.tab(cls_name)
         for widget in tab.winfo_children():
             widget.destroy()
@@ -40201,7 +42363,6 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                     title_row, text="📌", font=ctk.CTkFont(size=12),
                 ).pack(side="left", padx=(6, 0))
             self._bind_stats_feature_pin(title_row, pin_id)
-            self._bind_stats_feature_pin(frame, pin_id)
             override_key = self._class_feature_description_override_key(cls_name, name)
             self._build_feature_description_edit_button(
                 title_row, override_key, name, desc,
@@ -40303,7 +42464,7 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 self._build_wild_shape_form_selector(frame)
                 self._build_wild_shape_active_toggle(frame, cls_name, name)
                 self._build_wild_shape_qualities_widget(frame)
-            
+
             # === CLERIC DOMAIN DROPDOWNS ===
             if feat.get("is_domain_choice"):
                 domains = self.data.setdefault("domains", ["", ""])
@@ -41859,13 +44020,20 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 self._set_sword_active(w.get("sword_btn"), False)
 
     def _reset_all_daily_abilities_for_rest(self):
+        """Clear all daily uses once (rest). Single disk flush — not per-key floods."""
+        # During load/rebuild, only clear in memory if rest was intentional; never
+        # stomp the character JSON. (Forced-rest re-fire was wiping saved checks.)
+        allow_disk = not (
+            getattr(self, "_rebuilding_ui", False)
+            or getattr(self, "_startup_loading", False)
+        )
         seen_daily = set()
         for key, use_count in self._iter_class_daily_feature_trackers():
-            self._reset_daily_uses(key, use_count)
+            self._reset_daily_uses(key, use_count, persist=False)
             seen_daily.add(key)
         for key, states in list(self.data.get("daily_feature_uses", {}).items()):
             if key not in seen_daily and states:
-                self._reset_daily_uses(key, len(states))
+                self._reset_daily_uses(key, len(states), persist=False)
 
         seen_magic = set()
         for item in self._get_all_magic_item_features():
@@ -41876,6 +44044,13 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         for key, states in list(self.data.get("magic_item_daily_uses", {}).items()):
             if key not in seen_magic and states:
                 self._reset_magic_item_daily_uses(key, len(states))
+        if allow_disk:
+            try:
+                self._flush_daily_and_pins_to_disk(reason="rest-all-daily")
+            except Exception:
+                pass
+        else:
+            print("rest-all-daily: memory only (skipped disk during load/rebuild)")
 
         # Reset Monk Wholeness and Paladin Lay on Hands pools on rest (using current level * mod)
         state = self.data.setdefault("class_feature_state", {})
@@ -43199,8 +45374,10 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
         return entries
 
     def refresh_defenses(self):
-        """Rebuild the scrolling defenses list"""
+        """Rebuild the scrolling defenses list + elemental resistance summary."""
         if not hasattr(self, 'defenses_scroll'):
+            return
+        if not self._widget_is_alive(self.defenses_scroll):
             return
         class_entries = self._get_class_defense_entries()
         manual_entries = list(self.data.get("defenses", []))
@@ -43214,7 +45391,19 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
                 for d in manual_entries
             ),
         )
-        if render_key == getattr(self, "_defenses_render_cache", None):
+        # Always repaint if the scroll host was recreated (empty) after a page rebuild —
+        # otherwise a stale _defenses_render_cache skips rebuild and resistances stay blank.
+        try:
+            host_empty = len(self.defenses_scroll.winfo_children()) == 0
+        except Exception:
+            host_empty = True
+        if (
+            not host_empty
+            and render_key == getattr(self, "_defenses_render_cache", None)
+        ):
+            # Still refresh elemental icons (magic-item resist may have changed without
+            # changing the defenses list text set).
+            self.refresh_elemental_resistance_display()
             return
         self._defenses_render_cache = render_key
         for widget in self.defenses_scroll.winfo_children():
@@ -44339,6 +46528,9 @@ class CharacterSheet(AugmentGemsMixin, MountsMixin):
             (self.get_combat_expertise_dodge() if hasattr(self, "combat_expertise_var") else 0)
             + all_bonuses.get("dodge", 0)
         )
+        # SRD: you lose Dodge bonuses whenever you lose your Dexterity bonus to AC.
+        if self._loses_dex_bonus_to_ac():
+            dodge_bonus = 0
         sacred = all_bonuses.get("sacred", 0)
         profane = all_bonuses.get("profane", 0)
         ac_bonus = all_bonuses.get("ac_bonus", 0)
