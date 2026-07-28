@@ -1,9 +1,10 @@
 {
-  "version": "1.26",
-  "display_version": "1.31",
-  "app_name": "D&D Before",
+  "version": "2.0",
+  "display_version": "2.0",
+  "app_name": "D&D Before Keen",
   "github_owner": "christopherpeades-debug",
   "github_repo": "D-DBefore",
   "installer_asset_keyword": "Setup",
+  "portable_asset_keyword": "Portable",
   "check_on_startup": true
 }
