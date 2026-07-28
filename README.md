@@ -8,8 +8,8 @@ Download the latest release from [Releases](https://github.com/christopherpeades
 
 | File | Who it's for |
 |------|----------------|
-| **`D&D_Before_v2.0_Setup.exe`** | New install, or **Python D&D Before** users upgrading to Keen (in-app update looks for `Setup` in the asset name) |
-| **`D&D_Before_Keen_v2.0_Portable.zip`** | Already on Keen — launcher **Update** downloads this and overlays files with a progress bar |
+| **`DnD_Before_v2.0_Setup.exe`** | New install, or **Python D&D Before** users upgrading to Keen (in-app update looks for `Setup` in the asset name) |
+| **`DnD_Before_Keen_v2.0_Portable.zip`** | Already on Keen — launcher **Update** downloads this and overlays files with a progress bar |
 
 ### After install
 
