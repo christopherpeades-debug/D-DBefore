@@ -12,7 +12,11 @@
           "desc": "Acid"
         }
       ]
-    }
+    },
+    "caster_level": 3,
+    "aura": "Faint",
+    "prerequisites": "Craft Magic Arms and Armor , resist energy",
+    "activation": "Continuous"
   },
   "Acid Resistance, Greater": {
     "description": "As acid resistance, except it absorbs the first 30 points of acid damage per attack.",
@@ -27,7 +31,11 @@
           "desc": "Acid"
         }
       ]
-    }
+    },
+    "caster_level": 11,
+    "aura": "Moderate",
+    "prerequisites": "Craft Magic Arms and Armor , resist energy",
+    "activation": "Continuous"
   },
   "Acid Resistance, Improved": {
     "description": "As acid resistance, except it absorbs the first 20 points of acid damage per attack.",
@@ -42,13 +50,42 @@
           "desc": "Acid"
         }
       ]
+    },
+    "caster_level": 7,
+    "aura": "Moderate",
+    "prerequisites": "Craft Magic Arms and Armor , resist energy",
+    "activation": "Continuous"
+  },
+  "Acid Warding": {
+    "description": "The armor or shield absorbs the first 50 points of acid damage per round that the wearer would normally take (similar to protection from energy).",
+    "full_description": "The armor or shield absorbs the first 50 points of acid damage per round that the wearer would normally take (similar to protection from energy).\n\nStrong abjuration; CL 21th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, protection from energy; Price +6 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 6,
+    "caster_level": 21,
+    "aura": "Strong abjuration",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, protection from energy",
+    "epic": true,
+    "applies_to": "both",
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 21th. Strong abjuration aura. Activation: Continuous. Price +6 bonus.",
+    "effects": {
+      "defenses": [
+        {
+          "type": "Resistance",
+          "value": "50/round",
+          "desc": "Acid"
+        }
+      ]
     }
   },
   "Acidic": {
     "description": "Slick greenish sheen with acrid mist. Deals 2d4 acid damage per full round of contact to grapplers and objects in sustained direct contact (except held items). No damage for shorter contact like melee attacks.",
     "applies_to": "both",
     "notes": "Prerequisites: Craft Magic Arms and Armor, Melf’s acid arrow. Caster Level: 6th",
-    "price_bonus": 1
+    "price_bonus": 1,
+    "caster_level": 6,
+    "prerequisites": "Craft Magic Arms and Armor, Melf’s acid arrow",
+    "activation": "Continuous"
   },
   "Agility": {
     "description": "+1 resistance bonus on Reflex saving throws. Streamlined and elegant appearance.",
@@ -57,7 +94,10 @@
     "flat_gp": 500,
     "effects": {
       "reflex_save": 1
-    }
+    },
+    "caster_level": 5,
+    "prerequisites": "Craft Magic Arms and Armor, cat’s grace, resistance",
+    "activation": "Continuous"
   },
   "Agility, Greater": {
     "description": "+5 resistance bonus on Reflex saving throws. (Synergy: requires Improved Agility)",
@@ -66,7 +106,11 @@
     "flat_gp": 8000,
     "effects": {
       "reflex_save": 5
-    }
+    },
+    "caster_level": 15,
+    "aura": "Strong",
+    "prerequisites": "Improved agility",
+    "activation": "Continuous"
   },
   "Agility, Improved": {
     "description": "+3 resistance bonus on Reflex saving throws. (Synergy: requires Agility)",
@@ -75,19 +119,30 @@
     "flat_gp": 4000,
     "effects": {
       "reflex_save": 3
-    }
+    },
+    "caster_level": 9,
+    "aura": "Moderate",
+    "prerequisites": "Agility",
+    "activation": "Continuous"
   },
   "Anchoring": {
     "description": "Difficult to move in combat. +5 enhancement bonus on ability checks to resist bull rush, overrun, or trip attacks. Stylized anchors cover the item.",
     "applies_to": "both",
     "notes": "Prerequisites: Craft Magic Arms and Armor, bull’s strength. Caster Level: 5th",
-    "price_bonus": 1
+    "price_bonus": 1,
+    "caster_level": 5,
+    "prerequisites": "Craft Magic Arms and Armor, bull’s strength",
+    "activation": "Continuous"
   },
   "Anchoring, Greater": {
     "description": "+10 enhancement bonus on ability checks against bull rush, overrun, and trip attacks. (Synergy: requires Anchoring). Single stylized anchor on chest.",
     "applies_to": "both",
     "notes": "Synergy Prerequisite: Anchoring. Caster Level: 10th. Moderate aura.",
-    "price_bonus": 1
+    "price_bonus": 1,
+    "caster_level": 10,
+    "aura": "Moderate",
+    "prerequisites": "Anchoring",
+    "activation": "Continuous"
   },
   "Aporter": {
     "description": "Aqua-tinged item. Activate to transport you and equipment to any spot within 800 feet you can visualize (as dimension door). 2/day.",
@@ -100,10 +155,14 @@
       "granted_spells": [
         "Dimension Door"
       ]
-    }
+    },
+    "caster_level": 10,
+    "activation": "Standard (mental)",
+    "prerequisites": "Craft Magic Arms and Armor, dimension door"
   },
   "Axeblock": {
-    "description": "Serrated surface with tiny knifelike edges. Turns away slashing weapons (axes, swords). Wearer gains DR 5/bludgeoning or piercing.",
+    "description": "This armor or shield has a serrated surface covered in tiny knifelike edges. The jagged facing turns aside slashing weapons such as axes and swords. The wearer gains damage reduction 5/bludgeoning or piercing.",
+    "full_description": "This armor or shield has a serrated surface covered in tiny knifelike edges. The jagged facing turns aside slashing weapons such as axes and swords. The wearer gains damage reduction 5/bludgeoning or piercing.\n\nModerate abjuration; CL 7th; Craft Magic Arms and Armor, stoneskin; Price +2 bonus.",
     "applies_to": "both",
     "notes": "Prerequisites: Craft Magic Arms and Armor, stoneskin. Caster Level: 7th",
     "price_bonus": 2,
@@ -115,7 +174,10 @@
           "desc": ""
         }
       ]
-    }
+    },
+    "caster_level": 7,
+    "prerequisites": "Craft Magic Arms and Armor, stoneskin",
+    "activation": "Continuous"
   },
   "Balance": {
     "description": "Elegant armor with precise symmetrical geometric designs. +5 competence bonus on Balance checks.",
@@ -126,7 +188,10 @@
       "skill_bonus": {
         "Balance": 5
       }
-    }
+    },
+    "caster_level": 5,
+    "prerequisites": "Craft Magic Arms and Armor, balancing lorecall",
+    "activation": "Continuous"
   },
   "Balance, Greater": {
     "description": "+15 competence bonus on Balance checks. (Synergy: requires Improved Balance)",
@@ -137,7 +202,11 @@
       "skill_bonus": {
         "Balance": 15
       }
-    }
+    },
+    "caster_level": 15,
+    "aura": "Strong",
+    "prerequisites": "Improved balance",
+    "activation": "Continuous"
   },
   "Balance, Improved": {
     "description": "+10 competence bonus on Balance checks. (Synergy: requires Balance)",
@@ -148,7 +217,11 @@
       "skill_bonus": {
         "Balance": 10
       }
-    }
+    },
+    "caster_level": 10,
+    "aura": "Moderate",
+    "prerequisites": "Balance",
+    "activation": "Continuous"
   },
   "Bane Blind": {
     "description": "Muted colors with closed beholder image on chest. 3/day render yourself imperceptible to a specific creature type/subtype (roll d% for type) for 10 rounds or until you attack. Nonmagical senses only.",
@@ -159,13 +232,20 @@
       "uses_per_day": 3,
       "max_charges": 0,
       "granted_spells": []
-    }
+    },
+    "caster_level": 7,
+    "activation": "Swift (mental)",
+    "prerequisites": "Craft Magic Arms and Armor, greater invisibility"
   },
   "Beastskin": {
     "description": "Lightly patterned with fur/scales/feathers, coloration shifts. When you use wild shape, you can expend one extra daily use to transform the armor with you into a fitted suit for your new form (weight changes, proficiency carries over).",
     "applies_to": "armor",
     "notes": "Prerequisites: Craft Magic Arms and Armor, ironwood. Caster Level: 13th. Strong aura. Favored by druids.",
-    "price_bonus": 2
+    "price_bonus": 2,
+    "caster_level": 13,
+    "aura": "Strong",
+    "prerequisites": "Craft Magic Arms and Armor, ironwood",
+    "activation": "Continuous"
   },
   "Blinking": {
     "description": "Semitransparent armor that fades in and out. Activate to blink between Material and Ethereal Planes (as blink spell) for 1 minute. 1/day.",
@@ -178,7 +258,10 @@
       "granted_spells": [
         "Blink"
       ]
-    }
+    },
+    "caster_level": 10,
+    "activation": "Standard (command)",
+    "prerequisites": "Craft Magic Arms and Armor, blink"
   },
   "Blueshine": {
     "description": "Blue-black sheen like oily liquid sapphire. Never tarnishes, armor takes no acid damage and rusting effects. +2 competence bonus on Hide checks.",
@@ -192,7 +275,11 @@
       "skill_bonus": {
         "Hide": 2
       }
-    }
+    },
+    "caster_level": 12,
+    "aura": "Strong",
+    "prerequisites": "Craft Magic Arms and Armor, Craft (alchemy) 5 ranks",
+    "activation": "Continuous"
   },
   "Blurring": {
     "description": "Indistinct edges. Activate to become distorted and hazy (as blur spell) for 5 rounds. 3/day.",
@@ -205,7 +292,10 @@
       "granted_spells": [
         "Blur"
       ]
-    }
+    },
+    "caster_level": 5,
+    "activation": "Swift (command)",
+    "prerequisites": "Craft Magic Arms and Armor, blur"
   },
   "Blurring, Greater": {
     "description": "Light mist surrounds armor. As Blurring, but duration 10 minutes and usable any number of times per day. (Synergy: requires Blurring)",
@@ -218,7 +308,11 @@
       "granted_spells": [
         "Blur"
       ]
-    }
+    },
+    "caster_level": 12,
+    "aura": "Strong",
+    "prerequisites": "Blurring",
+    "activation": "Continuous"
   },
   "Buoyant": {
     "description": "Bluish metal with liquid sheen, oddly light. Buoyant in water; no armor check penalty on Swim checks. +2 competence bonus on Swim checks.",
@@ -229,13 +323,19 @@
       "skill_bonus": {
         "Swim": 2
       }
-    }
+    },
+    "caster_level": 5,
+    "prerequisites": "Craft Magic Arms and Armor, swim",
+    "activation": "Continuous"
   },
   "Called": {
     "description": "Small beckoning hand image. Call the item to you from same plane (appears on body if no armor worn, or adjacent space). If other creature wore it since you last did, cannot call until you wear it again.",
     "applies_to": "both",
     "notes": "Prerequisites: Craft Magic Arms and Armor, teleport. Caster Level: 9th. Standard (command) activation.",
-    "flat_gp": 2000
+    "flat_gp": 2000,
+    "caster_level": 9,
+    "activation": "Standard (command)",
+    "prerequisites": "Craft Magic Arms and Armor, teleport"
   },
   "Cold Resistance": {
     "description": "A suit of armor or a shield with this property normally has a bluish, icy hue or is adorned with furs and shaggy pelts. The armor absorbs the first 10 points of cold damage per attack that the wearer would normally take (similar to the resist energy spell).",
@@ -250,7 +350,11 @@
           "desc": "Cold"
         }
       ]
-    }
+    },
+    "caster_level": 3,
+    "aura": "Faint",
+    "prerequisites": "Craft Magic Arms and Armor , resist energy",
+    "activation": "Continuous"
   },
   "Cold Resistance, Greater": {
     "description": "As cold resistance, except it absorbs the first 30 points of cold damage per attack.",
@@ -265,7 +369,11 @@
           "desc": "Cold"
         }
       ]
-    }
+    },
+    "caster_level": 11,
+    "aura": "Moderate",
+    "prerequisites": "Craft Magic Arms and Armor , resist energy",
+    "activation": "Continuous"
   },
   "Cold Resistance, Improved": {
     "description": "As cold resistance, except it absorbs the first 20 points of cold damage per attack.",
@@ -277,6 +385,32 @@
         {
           "type": "Resistance",
           "value": "20",
+          "desc": "Cold"
+        }
+      ]
+    },
+    "caster_level": 7,
+    "aura": "Moderate",
+    "prerequisites": "Craft Magic Arms and Armor , resist energy",
+    "activation": "Continuous"
+  },
+  "Cold Warding": {
+    "description": "Absorbs the first 50 points of cold damage per round the wearer would normally take.",
+    "full_description": "Absorbs the first 50 points of cold damage per round the wearer would normally take.\n\nStrong abjuration; CL 21th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, protection from energy; Price +6 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 6,
+    "caster_level": 21,
+    "aura": "Strong abjuration",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, protection from energy",
+    "epic": true,
+    "applies_to": "both",
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 21th. Strong abjuration aura. Activation: Continuous. Price +6 bonus.",
+    "effects": {
+      "defenses": [
+        {
+          "type": "Resistance",
+          "value": "50/round",
           "desc": "Cold"
         }
       ]
@@ -292,7 +426,10 @@
         "Diplomacy": 2,
         "Hide": -5
       }
-    }
+    },
+    "caster_level": 5,
+    "prerequisites": "Craft Magic Arms and Armor, eagle’s splendor",
+    "activation": "Continuous"
   },
   "Daylight": {
     "description": "Golden tinge with sun image. Activate to glow with daylight spell brilliance for up to 30 minutes per day (duration need not be continuous; swift action to toggle off).",
@@ -305,7 +442,10 @@
       "granted_spells": [
         "Daylight"
       ]
-    }
+    },
+    "caster_level": 5,
+    "activation": "Swift (command)",
+    "prerequisites": "Craft Magic Arms and Armor, daylight"
   },
   "Death Ward": {
     "description": "Black-enameled with translucent quality and white skull images. Activate to ignore any death effect (death spells, energy drain) or negative energy effect (inflict spells, chill touch). 1/day.",
@@ -316,13 +456,19 @@
       "uses_per_day": 1,
       "max_charges": 0,
       "granted_spells": []
-    }
+    },
+    "caster_level": 7,
+    "activation": "Immediate (mental)",
+    "prerequisites": "Craft Magic Arms and Armor, death ward"
   },
   "Deepdweller": {
     "description": "Dull black flecked with particles swirling like sea depths. Breathe water, immune to cold water and extreme pressure damage. No armor check penalty on Swim; converse with water-breathing creatures that have language. See twice as far underwater.",
     "applies_to": "armor",
     "notes": "Prerequisites: Craft Magic Arms and Armor, darkvision, water breathing. Caster Level: 9th",
-    "flat_gp": 12000
+    "flat_gp": 12000,
+    "caster_level": 9,
+    "prerequisites": "Craft Magic Arms and Armor, darkvision, water breathing",
+    "activation": "Continuous"
   },
   "Displacement": {
     "description": "Shoulder pieces with outward arrows. Activate to appear standing next to actual location (as displacement spell) for 5 rounds. 1/day.",
@@ -335,7 +481,10 @@
       "granted_spells": [
         "Displacement"
       ]
-    }
+    },
+    "caster_level": 5,
+    "activation": "Swift (command)",
+    "prerequisites": "Craft Magic Arms and Armor, displacement"
   },
   "Dragondodger": {
     "description": "Hard shiny finish with glowing glyphs. Gain evasion ability (as monk) but only against breath weapons: successful Reflex save vs breath weapon deals no damage.",
@@ -344,7 +493,10 @@
       "light_armor"
     ],
     "notes": "Prerequisites: Craft Magic Arms and Armor, cat’s grace. Caster Level: 9th",
-    "price_bonus": 1
+    "price_bonus": 1,
+    "caster_level": 9,
+    "prerequisites": "Craft Magic Arms and Armor, cat’s grace",
+    "activation": "Continuous"
   },
   "Electricity Resistance": {
     "description": "A suit of armor or a shield with this property normally has a bluish hue and often bears a storm or lightning motif. The armor absorbs the first 10 points of electricity damage per attack that the wearer would normally take (similar to the resist energy spell).",
@@ -359,7 +511,11 @@
           "desc": "Electricity"
         }
       ]
-    }
+    },
+    "caster_level": 3,
+    "aura": "Faint",
+    "prerequisites": "Craft Magic Arms and Armor , resist energy",
+    "activation": "Continuous"
   },
   "Electricity Resistance, Greater": {
     "description": "As electricity resistance, except it absorbs the first 30 points of electricity damage per attack.",
@@ -374,7 +530,11 @@
           "desc": "Electricity"
         }
       ]
-    }
+    },
+    "caster_level": 11,
+    "aura": "Moderate",
+    "prerequisites": "Craft Magic Arms and Armor , resist energy",
+    "activation": "Continuous"
   },
   "Electricity Resistance, Improved": {
     "description": "As electricity resistance, except it absorbs the first 20 points of electricity damage per attack.",
@@ -389,7 +549,11 @@
           "desc": "Electricity"
         }
       ]
-    }
+    },
+    "caster_level": 7,
+    "aura": "Moderate",
+    "prerequisites": "Craft Magic Arms and Armor , resist energy",
+    "activation": "Continuous"
   },
   "Etherealness": {
     "description": "On command, this ability allows the wearer of the armor to become ethereal (as the ethereal jaunt spell) once per day. The character can remain ethereal for as long as desired, but once he returns to normal, he cannot become ethereal again that day.",
@@ -402,7 +566,11 @@
       "granted_spells": [
         "Ethereal Jaunt"
       ]
-    }
+    },
+    "full_description": "On command, this ability allows the wearer of the armor to become ethereal (as the ethereal jaunt spell) once per day. The character can remain ethereal for as long as desired, but once he returns to normal, he cannot become ethereal again that day. Strong transmutation; CL 13th; Craft Magic Arms and Armor, ethereal jaunt; Price +49,000 gp.",
+    "caster_level": 13,
+    "aura": "Strong",
+    "prerequisites": "Craft Magic Arms and Armor , ethereal jaunt"
   },
   "Fire Resistance": {
     "description": "A suit of armor with this ability normally has a reddish hue and often is decorated with a draconic motif. The armor absorbs the first 10 points of fire damage per attack that the wearer would normally take (similar to the resist energy spell).",
@@ -417,7 +585,11 @@
           "desc": "Fire"
         }
       ]
-    }
+    },
+    "caster_level": 3,
+    "aura": "Faint",
+    "prerequisites": "Craft Magic Arms and Armor , resist energy",
+    "activation": "Continuous"
   },
   "Fire Resistance, Greater": {
     "description": "As fire resistance, except it absorbs the first 30 points of fire damage per attack.",
@@ -432,7 +604,11 @@
           "desc": "Fire"
         }
       ]
-    }
+    },
+    "caster_level": 11,
+    "aura": "Moderate",
+    "prerequisites": "Craft Magic Arms and Armor , resist energy",
+    "activation": "Continuous"
   },
   "Fire Resistance, Improved": {
     "description": "As fire resistance, except it absorbs the first 20 points of fire damage per attack.",
@@ -444,6 +620,32 @@
         {
           "type": "Resistance",
           "value": "20",
+          "desc": "Fire"
+        }
+      ]
+    },
+    "caster_level": 7,
+    "aura": "Moderate",
+    "prerequisites": "Craft Magic Arms and Armor , resist energy",
+    "activation": "Continuous"
+  },
+  "Fire Warding": {
+    "description": "Absorbs the first 50 points of fire damage per round the wearer would normally take.",
+    "full_description": "Absorbs the first 50 points of fire damage per round the wearer would normally take.\n\nStrong abjuration; CL 21th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, protection from energy; Price +6 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 6,
+    "caster_level": 21,
+    "aura": "Strong abjuration",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, protection from energy",
+    "epic": true,
+    "applies_to": "both",
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 21th. Strong abjuration aura. Activation: Continuous. Price +6 bonus.",
+    "effects": {
+      "defenses": [
+        {
+          "type": "Resistance",
+          "value": "50/round",
           "desc": "Fire"
         }
       ]
@@ -462,7 +664,11 @@
         }
       ]
     },
-    "notes": "Caster Level: 13th Moderate aura. Prerequisites: Craft Magic Arms and Armor , limited wish or miracle Price Modifier \n\n Light \n 25% \n +1 bonus \n\n Moderate \n 75% \n +3 bonus \n\n Heavy \n 100% \n +5 bonus \n\n Strong abjuration; CL 13th; Craft Magic Arms and Armor , limited wish or miracle ; Price varies (see above)."
+    "notes": "Caster Level: 13th Moderate aura. Prerequisites: Craft Magic Arms and Armor , limited wish or miracle Price Modifier \n\n Light \n 25% \n +1 bonus \n\n Moderate \n 75% \n +3 bonus \n\n Heavy \n 100% \n +5 bonus \n\n Strong abjuration; CL 13th; Craft Magic Arms and Armor , limited wish or miracle ; Price varies (see above).",
+    "caster_level": 13,
+    "aura": "Moderate",
+    "prerequisites": "Craft Magic Arms and Armor , limited wish or miracle",
+    "activation": "Continuous"
   },
   "Fortification, Light": {
     "description": "This suit of armor or shield negates critical hits and sneak attacks 25% of the time (as fortification).",
@@ -477,7 +683,11 @@
         }
       ]
     },
-    "notes": "Caster Level: 13th Moderate aura. Prerequisites: Craft Magic Arms and Armor , limited wish or miracle Price Modifier \n\n Light \n 25% \n +1 bonus \n\n Moderate \n 75% \n +3 bonus \n\n Heavy \n 100% \n +5 bonus \n\n Strong abjuration; CL 13th; Craft Magic Arms and Armor , limited wish or miracle ; Price varies (see above)."
+    "notes": "Caster Level: 13th Moderate aura. Prerequisites: Craft Magic Arms and Armor , limited wish or miracle Price Modifier \n\n Light \n 25% \n +1 bonus \n\n Moderate \n 75% \n +3 bonus \n\n Heavy \n 100% \n +5 bonus \n\n Strong abjuration; CL 13th; Craft Magic Arms and Armor , limited wish or miracle ; Price varies (see above).",
+    "caster_level": 13,
+    "aura": "Moderate",
+    "prerequisites": "Craft Magic Arms and Armor , limited wish or miracle",
+    "activation": "Continuous"
   },
   "Fortification, Moderate": {
     "description": "This suit of armor or shield negates critical hits and sneak attacks 75% of the time (as fortification).",
@@ -492,25 +702,323 @@
         }
       ]
     },
-    "notes": "Caster Level: 13th Moderate aura. Prerequisites: Craft Magic Arms and Armor , limited wish or miracle Price Modifier \n\n Light \n 25% \n +1 bonus \n\n Moderate \n 75% \n +3 bonus \n\n Heavy \n 100% \n +5 bonus \n\n Strong abjuration; CL 13th; Craft Magic Arms and Armor , limited wish or miracle ; Price varies (see above)."
+    "notes": "Caster Level: 13th Moderate aura. Prerequisites: Craft Magic Arms and Armor , limited wish or miracle Price Modifier \n\n Light \n 25% \n +1 bonus \n\n Moderate \n 75% \n +3 bonus \n\n Heavy \n 100% \n +5 bonus \n\n Strong abjuration; CL 13th; Craft Magic Arms and Armor , limited wish or miracle ; Price varies (see above).",
+    "caster_level": 13,
+    "aura": "Moderate",
+    "prerequisites": "Craft Magic Arms and Armor , limited wish or miracle",
+    "activation": "Continuous"
   },
   "Ghost Touch": {
     "description": "This armor or shield seems almost translucent. Both its enhancement bonus and its armor bonus count against the attacks of incorporeal creatures . It can be picked up, moved, and worn by incorporeal creatures at any time. Incorporeal creatures gain the armor or shield’s enhancement bonus against both corporeal and incorporeal attacks, and they can still pass freely through solid objects.",
     "applies_to": "both",
     "notes": "Caster Level: 15th Strong aura. Prerequisites: Craft Magic Arms and Armor , etherealness Price +3 bonus.",
-    "price_bonus": 3
+    "price_bonus": 3,
+    "caster_level": 15,
+    "aura": "Strong",
+    "prerequisites": "Craft Magic Arms and Armor , etherealness",
+    "activation": "Continuous"
+  },
+  "Ghost Ward": {
+    "description": "This armor or shield appears normal at first glance, but closer examination reveals the image of a ghostly face on its surface. A suit of armor or shield that has this property allows you to add its enhancement bonus (but not its armor or shield bonus) to your Armor Class against touch attacks (including incorporeal touch attacks).",
+    "full_description": "This armor or shield appears normal at first glance, but closer examination reveals the image of a ghostly face on its surface.\n\nA suit of armor or shield that has this property allows you to add its enhancement bonus (but not its armor or shield bonus) to your Armor Class against touch attacks (including incorporeal touch attacks).\n\nFaint conjuration; CL 5th; Craft Magic Arms and Armor, mage armor; Price +1 bonus. (Magic Item Compendium / Libris Mortis)",
+    "applies_to": "both",
+    "price_bonus": 1,
+    "caster_level": 5,
+    "aura": "Faint conjuration",
+    "aura_dc": 17,
+    "activation": "Continuous",
+    "command": "",
+    "prerequisites": "Craft Magic Arms and Armor, mage armor",
+    "notes": "Caster Level: 5th. Faint conjuration aura (DC 17). Activation: continuous (no command). Prerequisites: Craft Magic Arms and Armor, mage armor. Price +1 bonus. Source: Magic Item Compendium / Libris Mortis.",
+    "source": "Magic Item Compendium"
+  },
+  "Ghostward": {
+    "description": "This armor or shield appears normal at first glance, but closer examination reveals the image of a ghostly face on its surface. A suit of armor or shield that has this property allows you to add its enhancement bonus (but not its armor or shield bonus) to your Armor Class against touch attacks (including incorporeal touch attacks).",
+    "full_description": "This armor or shield appears normal at first glance, but closer examination reveals the image of a ghostly face on its surface.\n\nA suit of armor or shield that has this property allows you to add its enhancement bonus (but not its armor or shield bonus) to your Armor Class against touch attacks (including incorporeal touch attacks).\n\nFaint conjuration; CL 5th; Craft Magic Arms and Armor, mage armor; Price +1 bonus. (Magic Item Compendium / Libris Mortis)",
+    "applies_to": "both",
+    "price_bonus": 1,
+    "caster_level": 5,
+    "aura": "Faint conjuration",
+    "aura_dc": 17,
+    "activation": "Continuous",
+    "command": "",
+    "prerequisites": "Craft Magic Arms and Armor, mage armor",
+    "notes": "Caster Level: 5th. Faint conjuration aura (DC 17). Activation: continuous (no command). Prerequisites: Craft Magic Arms and Armor, mage armor. Price +1 bonus. Source: Magic Item Compendium / Libris Mortis.",
+    "source": "Magic Item Compendium"
   },
   "Glamered": {
     "description": "A suit of armor with this ability appears normal. Upon command, the armor changes shape and form to assume the appearance of a normal set of clothing. The armor retains all its properties (including weight) when glamered. Only a true seeing spell or similar magic reveals the true nature of the armor when disguised.",
     "applies_to": "armor",
     "notes": "Caster Level: 10th Moderate aura. Prerequisites: Craft Magic Arms and Armor , disguise self Price +2,700 gp.",
-    "flat_gp": 2700
+    "flat_gp": 2700,
+    "full_description": "A suit of glamered armor appears normal. Upon command, the armor changes shape and appearance to assume the form of a normal set of clothing. The armor retains all its properties (including weight) when glamered. Only a true seeing spell or similar magic reveals the true nature of the armor when disguised. Moderate illusion; CL 10th; Craft Magic Arms and Armor, disguise self; Price +2,700 gp.",
+    "caster_level": 10,
+    "aura": "Moderate",
+    "prerequisites": "Craft Magic Arms and Armor , disguise self"
+  },
+  "Great Invulnerability (10/epic)": {
+    "description": "Grants the wearer damage reduction 10/epic.",
+    "full_description": "Grants the wearer damage reduction 10/epic.\n\nStrong abjuration; CL 22th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, stoneskin, wish or miracle; Price +7 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 7,
+    "caster_level": 22,
+    "aura": "Strong abjuration",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, stoneskin, wish or miracle",
+    "epic": true,
+    "applies_to": "both",
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 22th. Strong abjuration aura. Activation: Continuous. Price +7 bonus.",
+    "effects": {
+      "defenses": [
+        {
+          "type": "DR",
+          "value": "10/epic",
+          "desc": ""
+        }
+      ]
+    }
+  },
+  "Great Invulnerability (10/magic)": {
+    "description": "Grants the wearer damage reduction 10/magic.",
+    "full_description": "Grants the wearer damage reduction 10/magic.\n\nStrong abjuration; CL 19th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, stoneskin, wish or miracle; Price +4 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 4,
+    "caster_level": 19,
+    "aura": "Strong abjuration",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, stoneskin, wish or miracle",
+    "epic": true,
+    "applies_to": "both",
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 19th. Strong abjuration aura. Activation: Continuous. Price +4 bonus.",
+    "effects": {
+      "defenses": [
+        {
+          "type": "DR",
+          "value": "10/magic",
+          "desc": ""
+        }
+      ]
+    }
+  },
+  "Great Invulnerability (15/magic)": {
+    "description": "Grants the wearer damage reduction 15/magic.",
+    "full_description": "Grants the wearer damage reduction 15/magic.\n\nStrong abjuration; CL 20th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, stoneskin, wish or miracle; Price +5 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 5,
+    "caster_level": 20,
+    "aura": "Strong abjuration",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, stoneskin, wish or miracle",
+    "epic": true,
+    "applies_to": "both",
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 20th. Strong abjuration aura. Activation: Continuous. Price +5 bonus.",
+    "effects": {
+      "defenses": [
+        {
+          "type": "DR",
+          "value": "15/magic",
+          "desc": ""
+        }
+      ]
+    }
+  },
+  "Great Invulnerability (5/epic)": {
+    "description": "Grants the wearer damage reduction 5/epic.",
+    "full_description": "Grants the wearer damage reduction 5/epic.\n\nStrong abjuration; CL 21th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, stoneskin, wish or miracle; Price +6 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 6,
+    "caster_level": 21,
+    "aura": "Strong abjuration",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, stoneskin, wish or miracle",
+    "epic": true,
+    "applies_to": "both",
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 21th. Strong abjuration aura. Activation: Continuous. Price +6 bonus.",
+    "effects": {
+      "defenses": [
+        {
+          "type": "DR",
+          "value": "5/epic",
+          "desc": ""
+        }
+      ]
+    }
+  },
+  "Great Spell Resistance (21)": {
+    "description": "Grants the wearer spell resistance 21.",
+    "full_description": "Grants the wearer spell resistance 21.\n\nStrong abjuration; CL 21th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, spell resistance; Price +6 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 6,
+    "caster_level": 21,
+    "aura": "Strong abjuration",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, spell resistance",
+    "epic": true,
+    "applies_to": "both",
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 21th. Strong abjuration aura. Activation: Continuous. Price +6 bonus.",
+    "effects": {
+      "defenses": [
+        {
+          "type": "SR",
+          "value": "21",
+          "desc": ""
+        }
+      ]
+    }
+  },
+  "Great Spell Resistance (23)": {
+    "description": "Grants the wearer spell resistance 23.",
+    "full_description": "Grants the wearer spell resistance 23.\n\nStrong abjuration; CL 22th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, spell resistance; Price +7 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 7,
+    "caster_level": 22,
+    "aura": "Strong abjuration",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, spell resistance",
+    "epic": true,
+    "applies_to": "both",
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 22th. Strong abjuration aura. Activation: Continuous. Price +7 bonus.",
+    "effects": {
+      "defenses": [
+        {
+          "type": "SR",
+          "value": "23",
+          "desc": ""
+        }
+      ]
+    }
+  },
+  "Great Spell Resistance (25)": {
+    "description": "Grants the wearer spell resistance 25.",
+    "full_description": "Grants the wearer spell resistance 25.\n\nStrong abjuration; CL 23th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, spell resistance; Price +8 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 8,
+    "caster_level": 23,
+    "aura": "Strong abjuration",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, spell resistance",
+    "epic": true,
+    "applies_to": "both",
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 23th. Strong abjuration aura. Activation: Continuous. Price +8 bonus.",
+    "effects": {
+      "defenses": [
+        {
+          "type": "SR",
+          "value": "25",
+          "desc": ""
+        }
+      ]
+    }
+  },
+  "Great Spell Resistance (27)": {
+    "description": "Grants the wearer spell resistance 27.",
+    "full_description": "Grants the wearer spell resistance 27.\n\nStrong abjuration; CL 24th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, spell resistance; Price +9 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 9,
+    "caster_level": 24,
+    "aura": "Strong abjuration",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, spell resistance",
+    "epic": true,
+    "applies_to": "both",
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 24th. Strong abjuration aura. Activation: Continuous. Price +9 bonus.",
+    "effects": {
+      "defenses": [
+        {
+          "type": "SR",
+          "value": "27",
+          "desc": ""
+        }
+      ]
+    }
   },
   "Invulnerability": {
-    "description": "This suit of armor grants the wearer damage reduction of 5/magic.",
+    "description": "This suit of armor grants the wearer damage reduction 5/magic. Strong abjuration; CL 18th; Craft Magic Arms and Armor, stoneskin, wish or miracle; Price +3 bonus.",
     "applies_to": "armor",
     "notes": "Caster Level: 18th Strong aura. Prerequisites: Craft Magic Arms and Armor , stoneskin , wish or miracle Price +3 bonus.",
-    "price_bonus": 3
+    "price_bonus": 3,
+    "full_description": "This suit of armor grants the wearer damage reduction 5/magic. Strong abjuration; CL 18th; Craft Magic Arms and Armor, stoneskin, wish or miracle; Price +3 bonus.",
+    "caster_level": 18,
+    "aura": "Strong",
+    "prerequisites": "Craft Magic Arms and Armor , stoneskin , wish or miracle",
+    "activation": "Continuous"
+  },
+  "Lightning Warding": {
+    "description": "Absorbs the first 50 points of electricity damage per round the wearer would normally take.",
+    "full_description": "Absorbs the first 50 points of electricity damage per round the wearer would normally take.\n\nStrong abjuration; CL 21th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, protection from energy; Price +6 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 6,
+    "caster_level": 21,
+    "aura": "Strong abjuration",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, protection from energy",
+    "epic": true,
+    "applies_to": "both",
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 21th. Strong abjuration aura. Activation: Continuous. Price +6 bonus.",
+    "effects": {
+      "defenses": [
+        {
+          "type": "Resistance",
+          "value": "50/round",
+          "desc": "Electricity"
+        }
+      ]
+    }
+  },
+  "Masking": {
+    "description": "Masking armor (or shield) protects you and all of your equipment from divination spells and scrying as if under a continuous nondetection effect. Whenever a divination is attempted against you or your gear, the caster must succeed on a DC 25 caster level check (1d20 + caster level) or the divination fails.",
+    "full_description": "Masking armor protects you and your gear from divination spells and items (such as crystal balls) as if you were constantly under the effect of a nondetection spell. Whenever a divination spell or effect is attempted against you, the caster must succeed on a DC 25 caster level check or the divination fails.\n\nModerate abjuration; CL 10th; Craft Magic Arms and Armor, nondetection; Price +40,000 gp. (Magic Item Compendium)",
+    "applies_to": "both",
+    "notes": "Caster Level: 10th. Moderate abjuration aura (DC 20). Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, nondetection. Price +40,000 gp. Source: Magic Item Compendium.",
+    "flat_gp": 40000,
+    "caster_level": 10,
+    "aura": "Moderate abjuration",
+    "prerequisites": "Craft Magic Arms and Armor, nondetection",
+    "activation": "Continuous",
+    "source": "Magic Item Compendium",
+    "effects": {
+      "defenses": [
+        {
+          "type": "Other",
+          "value": "DC 25",
+          "desc": "Nondetection (divination CL check)"
+        }
+      ]
+    }
+  },
+  "Negating": {
+    "description": "Once per day as a free action, the wearer can force a targeted dispel magic (greater) effect on any spell effect currently on him or her (as greater dispel magic, caster level 20th).",
+    "full_description": "Once per day as a free action, the wearer can force a targeted dispel magic (greater) effect on any spell effect currently on him or her (as greater dispel magic, caster level 20th).\n\nStrong abjuration; CL 20th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, greater dispel magic; Price +5 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 5,
+    "caster_level": 20,
+    "aura": "Strong abjuration",
+    "activation": "Free action 1/day",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, greater dispel magic",
+    "epic": true,
+    "applies_to": "both",
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 20th. Strong abjuration aura. Activation: Free action 1/day. Price +5 bonus."
+  },
+  "Nondetection": {
+    "description": "Same as Masking: continuous nondetection on the wearer and all equipment. Divination casters must beat DC 25 on a caster level check or the effect fails. (Alias for Magical Item Wizard search.)",
+    "full_description": "See Masking (Magic Item Compendium). Continuous nondetection on wearer and gear; DC 25 caster level check to overcome.\n\nModerate abjuration; CL 10th; Craft Magic Arms and Armor, nondetection; Price +40,000 gp.",
+    "applies_to": "both",
+    "notes": "Alias of Masking. Caster Level: 10th. Moderate abjuration. Price +40,000 gp. MIC.",
+    "flat_gp": 40000,
+    "caster_level": 10,
+    "aura": "Moderate abjuration",
+    "prerequisites": "Craft Magic Arms and Armor, nondetection",
+    "activation": "Continuous",
+    "source": "Magic Item Compendium",
+    "effects": {
+      "defenses": [
+        {
+          "type": "Other",
+          "value": "DC 25",
+          "desc": "Nondetection (divination CL check)"
+        }
+      ]
+    }
   },
   "Shadow": {
     "description": "This armor is jet black and blurs the wearer whenever she tries to hide, granting a +5 competence bonus on Hide checks. (The armor’s armor check penalty still applies normally.)",
@@ -521,7 +1029,11 @@
       "skill_bonus": {
         "Hide": 5
       }
-    }
+    },
+    "caster_level": 5,
+    "aura": "Faint",
+    "prerequisites": "Craft Magic Arms and Armor , invisibility",
+    "activation": "Continuous"
   },
   "Shadow, Greater": {
     "description": "As shadow, except it grants a +15 competence bonus on Hide checks.",
@@ -532,7 +1044,11 @@
       "skill_bonus": {
         "Hide": 15
       }
-    }
+    },
+    "caster_level": 15,
+    "aura": "Moderate",
+    "prerequisites": "Craft Magic Arms and Armor , invisibility",
+    "activation": "Continuous"
   },
   "Shadow, Improved": {
     "description": "As shadow, except it grants a +10 competence bonus on Hide checks.",
@@ -543,7 +1059,11 @@
       "skill_bonus": {
         "Hide": 10
       }
-    }
+    },
+    "caster_level": 10,
+    "aura": "Moderate",
+    "prerequisites": "Craft Magic Arms and Armor , invisibility",
+    "activation": "Continuous"
   },
   "Silent Moves": {
     "description": "This armor is well oiled and magically constructed so that it not only makes little sound, but it dampens sound around it. It provides a +5 competence bonus on its wearer’s Move Silently checks. (The armor’s armor check penalty still applies normally.)",
@@ -554,7 +1074,11 @@
       "skill_bonus": {
         "Move Silently": 5
       }
-    }
+    },
+    "caster_level": 5,
+    "aura": "Faint",
+    "prerequisites": "Craft Magic Arms and Armor , silence",
+    "activation": "Continuous"
   },
   "Silent Moves, Greater": {
     "description": "As silent moves, except it grants a +15 competence bonus on Move Silently checks.",
@@ -565,7 +1089,11 @@
       "skill_bonus": {
         "Move Silently": 15
       }
-    }
+    },
+    "caster_level": 15,
+    "aura": "Moderate",
+    "prerequisites": "Craft Magic Arms and Armor , silence",
+    "activation": "Continuous"
   },
   "Silent Moves, Improved": {
     "description": "As silent moves, except it grants a +10 competence bonus on Move Silently checks.",
@@ -576,7 +1104,11 @@
       "skill_bonus": {
         "Move Silently": 10
       }
-    }
+    },
+    "caster_level": 10,
+    "aura": "Moderate",
+    "prerequisites": "Craft Magic Arms and Armor , silence",
+    "activation": "Continuous"
   },
   "Slick": {
     "description": "Slick armor seems coated at all times with a slightly greasy oil. It provides a +5 competence bonus on its wearer’s Escape Artist checks. (The armor’s armor check penalty still applies normally.)",
@@ -587,7 +1119,11 @@
       "skill_bonus": {
         "Escape Artist": 5
       }
-    }
+    },
+    "caster_level": 4,
+    "aura": "Faint",
+    "prerequisites": "Craft Magic Arms and Armor , grease",
+    "activation": "Continuous"
   },
   "Slick, Greater": {
     "description": "As slick, except it grants a +15 competence bonus on Escape Artist checks.",
@@ -598,7 +1134,11 @@
       "skill_bonus": {
         "Escape Artist": 15
       }
-    }
+    },
+    "caster_level": 15,
+    "aura": "Moderate",
+    "prerequisites": "Craft Magic Arms and Armor , grease",
+    "activation": "Continuous"
   },
   "Slick, Improved": {
     "description": "As slick, except it grants a +10 competence bonus on Escape Artist checks.",
@@ -609,7 +1149,11 @@
       "skill_bonus": {
         "Escape Artist": 10
       }
-    }
+    },
+    "caster_level": 10,
+    "aura": "Moderate",
+    "prerequisites": "Craft Magic Arms and Armor , grease",
+    "activation": "Continuous"
   },
   "Sonic Resistance": {
     "description": "A suit of armor or a shield with this property normally has a glistening appearance. The armor absorbs the first 10 points of sonic damage per attack that the wearer would normally take (similar to the resist energy spell).",
@@ -624,7 +1168,11 @@
           "desc": "Sonic"
         }
       ]
-    }
+    },
+    "caster_level": 3,
+    "aura": "Faint",
+    "prerequisites": "Craft Magic Arms and Armor , resist energy",
+    "activation": "Continuous"
   },
   "Sonic Resistance, Greater": {
     "description": "As sonic resistance, except it absorbs the first 30 points of sonic damage per attack.",
@@ -639,7 +1187,11 @@
           "desc": "Sonic"
         }
       ]
-    }
+    },
+    "caster_level": 11,
+    "aura": "Moderate",
+    "prerequisites": "Craft Magic Arms and Armor , resist energy",
+    "activation": "Continuous"
   },
   "Sonic Resistance, Improved": {
     "description": "As sonic resistance, except it absorbs the first 20 points of sonic damage per attack.",
@@ -651,6 +1203,32 @@
         {
           "type": "Resistance",
           "value": "20",
+          "desc": "Sonic"
+        }
+      ]
+    },
+    "caster_level": 7,
+    "aura": "Moderate",
+    "prerequisites": "Craft Magic Arms and Armor , resist energy",
+    "activation": "Continuous"
+  },
+  "Sonic Warding": {
+    "description": "Absorbs the first 50 points of sonic damage per round the wearer would normally take.",
+    "full_description": "Absorbs the first 50 points of sonic damage per round the wearer would normally take.\n\nStrong abjuration; CL 21th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, protection from energy; Price +6 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 6,
+    "caster_level": 21,
+    "aura": "Strong abjuration",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, protection from energy",
+    "epic": true,
+    "applies_to": "both",
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 21th. Strong abjuration aura. Activation: Continuous. Price +6 bonus.",
+    "effects": {
+      "defenses": [
+        {
+          "type": "Resistance",
+          "value": "50/round",
           "desc": "Sonic"
         }
       ]
@@ -669,7 +1247,11 @@
         }
       ]
     },
-    "notes": "Caster Level: 15th Strong aura. Prerequisites: Craft Magic Arms and Armor , spell resistance Price +2 bonus (SR 13), +3 bonus (SR 15), +4 bonus (SR 17), or +5 bonus (SR 19)."
+    "notes": "Caster Level: 15th Strong aura. Prerequisites: Craft Magic Arms and Armor , spell resistance Price +2 bonus (SR 13), +3 bonus (SR 15), +4 bonus (SR 17), or +5 bonus (SR 19).",
+    "caster_level": 15,
+    "aura": "Strong",
+    "prerequisites": "Craft Magic Arms and Armor , spell resistance",
+    "activation": "Continuous"
   },
   "Spell Resistance (15)": {
     "description": "This armor or shield grants spell resistance 15 while worn.",
@@ -684,7 +1266,11 @@
         }
       ]
     },
-    "notes": "Caster Level: 15th Strong aura. Prerequisites: Craft Magic Arms and Armor , spell resistance Price +2 bonus (SR 13), +3 bonus (SR 15), +4 bonus (SR 17), or +5 bonus (SR 19)."
+    "notes": "Caster Level: 15th Strong aura. Prerequisites: Craft Magic Arms and Armor , spell resistance Price +2 bonus (SR 13), +3 bonus (SR 15), +4 bonus (SR 17), or +5 bonus (SR 19).",
+    "caster_level": 15,
+    "aura": "Strong",
+    "prerequisites": "Craft Magic Arms and Armor , spell resistance",
+    "activation": "Continuous"
   },
   "Spell Resistance (17)": {
     "description": "This armor or shield grants spell resistance 17 while worn.",
@@ -699,7 +1285,11 @@
         }
       ]
     },
-    "notes": "Caster Level: 15th Strong aura. Prerequisites: Craft Magic Arms and Armor , spell resistance Price +2 bonus (SR 13), +3 bonus (SR 15), +4 bonus (SR 17), or +5 bonus (SR 19)."
+    "notes": "Caster Level: 15th Strong aura. Prerequisites: Craft Magic Arms and Armor , spell resistance Price +2 bonus (SR 13), +3 bonus (SR 15), +4 bonus (SR 17), or +5 bonus (SR 19).",
+    "caster_level": 15,
+    "aura": "Strong",
+    "prerequisites": "Craft Magic Arms and Armor , spell resistance",
+    "activation": "Continuous"
   },
   "Spell Resistance (19)": {
     "description": "This armor or shield grants spell resistance 19 while worn.",
@@ -714,18 +1304,31 @@
         }
       ]
     },
-    "notes": "Caster Level: 15th Strong aura. Prerequisites: Craft Magic Arms and Armor , spell resistance Price +2 bonus (SR 13), +3 bonus (SR 15), +4 bonus (SR 17), or +5 bonus (SR 19)."
+    "notes": "Caster Level: 15th Strong aura. Prerequisites: Craft Magic Arms and Armor , spell resistance Price +2 bonus (SR 13), +3 bonus (SR 15), +4 bonus (SR 17), or +5 bonus (SR 19).",
+    "caster_level": 15,
+    "aura": "Strong",
+    "prerequisites": "Craft Magic Arms and Armor , spell resistance",
+    "activation": "Continuous"
   },
   "Undead Controlling": {
     "description": "The wearer of a suit of armor or a shield with this property may control up to 26 HD of undead per day, as the control undead spell. At dawn each day, the wearer loses control of any undead still under his sway. Armor or a shield with this ability appears to be made of bone; this feature is entirely decorative and has no other effect on the armor.",
     "applies_to": "both",
     "notes": "Caster Level: 13th Strong aura. Prerequisites: Craft Magic Arms and Armor , control undead Price +49,000 gp.",
-    "flat_gp": 49000
+    "flat_gp": 49000,
+    "caster_level": 13,
+    "aura": "Strong",
+    "prerequisites": "Craft Magic Arms and Armor , control undead",
+    "activation": "Continuous"
   },
   "Wild": {
     "description": "The wearer of a suit of armor or a shield with this ability preserves his armor bonus (and any enhancement bonus ) while in a wild shape. Armor and shields with this ability usually appear to be made covered in leaf patterns. While the wearer is in a wild shape, the armor cannot be seen.",
     "applies_to": "both",
     "notes": "Caster Level: 9th Moderate aura. Prerequisites: Craft Magic Arms and Armor , baleful polymorph Price +3 bonus.",
-    "price_bonus": 3
+    "price_bonus": 3,
+    "full_description": "The wearer of a suit of armor or a shield with this ability preserves his armor bonus (and any enhancement bonus) while in a wild shape. Moderate transmutation; CL 9th; Craft Magic Arms and Armor, baleful polymorph; Price +3 bonus.",
+    "caster_level": 9,
+    "aura": "Moderate",
+    "prerequisites": "Craft Magic Arms and Armor , baleful polymorph",
+    "activation": "Continuous"
   }
 }

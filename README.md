@@ -1,6 +1,6 @@
 # D&D Before
 
-Interactive D&D 3.5 character sheet — **Keen 2.05** (C# / WPF), successor to the Python app in this repository.
+Interactive D&D 3.5 character sheet — **Keen 2.06** (C# / WPF), successor to the Python app in this repository.
 
 ## Install
 
@@ -8,15 +8,15 @@ Download the latest release from [Releases](https://github.com/christopherpeades
 
 | File | Who it's for |
 |------|----------------|
-| **`DnD_Before_v2.05_Setup.exe`** | New install, or **Python D&D Before** users upgrading to Keen (asset keyword `Setup`) |
-| **`DnD_Before_Keen_v2.05_Portable.zip`** | Already on Keen — launcher **Update** overlays files with a progress bar (keyword `Portable`) |
+| **`DnD_Before_v2.06_Setup.exe`** | New install, or **Python D&D Before** users upgrading to Keen (asset keyword `Setup`) |
+| **`DnD_Before_Keen_v2.06_Portable.zip`** | Already on Keen — launcher **Update** overlays files with a progress bar (keyword `Portable`) |
 
 ### After install
 
 1. Run **`D&D Before Launcher.exe`** first.
 2. **Launch** starts **D&D Before Keen**.
 
-Current version: **v2.05**
+Current version: **v2.06**
 
 ## Updates
 
@@ -27,6 +27,7 @@ Current version: **v2.05**
 
 ## Version history
 
+- **v2.06** — Magical Item Wizard spell X/day with settable CL + SRD pricing; Masking/Nondetection armor property; Crystal of Alacrity; Boots of Striding and Springing land speed; Feats → Magical Items daily checkboxes for all weapon/armor/shield properties; resistance breakdown tooltips; inventory header alignment
 - **v2.05** — Combat Main/Off hand slots (somatic free-hand), DF only blocks cast (not prep), gold M costly materials only on prep, yellow XP badge + teal cast XP chat, permanent buffs, Spontaneous Domains / Radiant Servant polish, Visions of the Future discharge
 - **v2.04** — Feats page ASI re-entry fix (no freeze/crash on open), consumable icon picker (vectors + resistances + stoneskin), inventory action vector icons, trade log hand glyph, Magic Vestment / absorb pool chips, Stoneskin vector icon
 - **v2.03** — Campaign NPCs (shared list), modeless NPC popup with large left portrait, sharper character portraits, consumable icons, combat AC footer on Stats/Spells

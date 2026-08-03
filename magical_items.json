@@ -5,6 +5,21 @@
       "weight": "2 lb.",
       "cost": "10,000 gp"
     },
+    "Bear helm": {
+      "description": "While raging, you can halve the damage dealt by a single sneak attack or critical hit scored against you. You can activate this after the damage from the attack has been determined.\n\nFunctions once per day.",
+      "weight": "—",
+      "cost": "1,500 gp"
+    },
+    "Beholder crown": {
+      "description": "Ten eyelike gems each fire a different ray once (ranged touch, 30 ft.): charm monster, charm person, deep slumber, disintegrate, fear, finger of death, flesh to stone, inflict moderate wounds, slow, and telekinesis (violent thrust, up to 325 lb.; Will DC 17 negates). Using a ray burns out that gem.",
+      "weight": "1 lb.",
+      "cost": "20,000 gp"
+    },
+    "Blindhelm": {
+      "description": "This helm’s face is a solid slab of iron, apparently allowing its wearer no way to see out. Despite its appearance and name, a blindhelm doesn’t restrict your vision in any way. More important, it grants you blindsense out to 5 feet and provides you with a +5 competence bonus on saves against gaze attacks.",
+      "weight": "1/2 lb.",
+      "cost": "15,000 gp"
+    },
     "Circlet of Blasting, Major": {
       "description": "Searing light 2/day (higher CL).",
       "weight": "—",
@@ -14,6 +29,36 @@
       "description": "Searing light 2/day.",
       "weight": "—",
       "cost": "6,480 gp"
+    },
+    "Circlet of Dawnhaven": {
+      "description": "Homebrew circlet of the Sanctuary of Dawn (Bastion / World Anvil).\n\nForged of mithril and radiant gems for High Priestess Alariana against Lord Morbenthrall's undead siege. Worn as a divine mantle; turns undead with unmatched potency and sheds holy radiance that deters the unliving.\n\nMinor Spell Storing: Contains up to three levels of spells the wearer can cast. Each spell uses the minimum caster level needed to cast it. No material components, focus, or XP cost; no arcane spell failure for casting from the circlet. Activation time equals the spell's casting time (minimum 1 standard action). Any spellcaster may cast spells into the circlet so long as total levels do not exceed three (metamagic versions use their modified levels). Scrolls may be used to store spells. The circlet imparts the names of all stored spells to the wearer.\n\nExtra Turning: Wearer with turn or rebuke undead gains four additional uses of that ability per day.\n\nInsight Bonus: +1 insight bonus to AC (glimpses of moments in the future).\n\nFaithfulness: Wearer is aware of any action or item that could adversely affect their alignment or standing with their deity, including magical effects, if they take a moment to contemplate before acting (as phylactery of faithfulness).\n\nPrice (Item Level): 51,500 gp (9th). Body slot: head (clothing/headband). Caster level 9th. Aura: moderate abjuration (DC 22).\nSource: https://www.worldanvil.com/w/bastion-reflectionlost/a/circlet-of-dawnhaven-item",
+      "effects": {
+        "insight": 1
+      },
+      "weight": "—",
+      "cost": "51,500 gp",
+      "caster_level": 9,
+      "aura": "moderate abjuration (DC 22)",
+      "body_slot": "Head",
+      "item_level": 9,
+      "source": "World Anvil Bastion — Circlet of Dawnhaven",
+      "source_url": "https://www.worldanvil.com/w/bastion-reflectionlost/a/circlet-of-dawnhaven-item",
+      "properties": [
+        "minor_spell_storing_3",
+        "extra_turning_+4",
+        "insight_ac_+1",
+        "faithfulness"
+      ]
+    },
+    "Circlet of mages": {
+      "description": "This leather circlet has a silver headpiece showing crescent moons on either side of a seven-pointed star. A circlet of mages grants you a +2 competence bonus on Concentration checks. This is a continuous effect and requires no activation. In addition, this circlet has 3 charges, which are renewed each day at dawn. Spending 1 or more charges when you cast a spell allows you to avoid losing that prepared spell or spell slot (as if you hadn’t cast it). 1 charge: Retain a spell of up to 1st level. 2 charges: Retain a spell of up to 2nd level. 3 charges: Retain a spell of up to 3rd level.",
+      "cost": "5,000 gp",
+      "weight": "—",
+      "effects": {
+        "skill_bonus": {
+          "Concentration": 2
+        }
+      }
     },
     "Circlet of Persuasion": {
       "description": "+3 competence bonus on Charisma-based checks.",
@@ -31,6 +76,61 @@
       },
       "weight": "—",
       "cost": "4,500 gp"
+    },
+    "Circlet of rapid casting": {
+      "description": "Has 3 charges, renewed each day at dawn. Spending charges allows you to cast a single spell as part of the same swift action used to activate the circlet. The spell must normally have a casting time of no longer than 1 standard action.\n\n1 charge: Cast a spell of up to 2nd level.\n2 charges: Cast a spell of up to 3rd level.\n3 charges: Cast a spell of up to 4th level.",
+      "cost": "15,000 gp",
+      "weight": "—"
+    },
+    "Circlet of solace": {
+      "description": "After activating the circlet, the next healing spell you cast on a living ally before the end of your turn also grants that creature a +5 morale bonus on saves against disease, fear, and poison for 1 minute. If the spell affects multiple creatures, only one (your choice) gains this benefit.\n\nFunctions three times per day.",
+      "cost": "3,000 gp",
+      "weight": "—"
+    },
+    "Circlet of wild surging": {
+      "description": "This thin, platinum circlet depicts blasts of wild energy across its surface. A circlet of wild surging allows you to enhance your emotional state to make your wild surges more powerful. When you use wild surge while manifesting a power, you can activate the circlet to increase the bonus to your manifester level by 1. The increased wild surge still requires the normal extra power point cost normally required to augment the power. This also increases your chance of psychic enervation by 5% and increases the duration of your surging euphoria by 1 round (if you have that class feature). A circlet of wild surging functions three times per day, but won’t function in consecutive rounds.",
+      "cost": "4,200 gp",
+      "weight": "1 lb."
+    },
+    "Crown of flamesSP": {
+      "description": "Deals 2d6 fire damage to attackers who hit the wearer in melee 1/day.",
+      "weight": "3 lb.",
+      "cost": "8,000 gp"
+    },
+    "Essentia helm": {
+      "description": "Has 3 charges, renewed each day at dawn. Spending charges maximizes essentia investment in soulmelds or other essentia receptacles for 1 round. While active, you cannot reallocate essentia from affected receptacles.\n\n1 charge: One receptacle.\n2 charges: Two receptacles.\n3 charges: Three receptacles.",
+      "weight": "3 lb.",
+      "cost": "3,000 gp"
+    },
+    "Executioner’s hoodR": {
+      "description": "While worn, if you are chaotic evil, neutral evil, or chaotic neutral, you can attempt a coup de grace attack as a standard action rather than a full-round action.\n\nRelic power (worship Erythnul and sacrifice a 5th-level divine spell slot, or have True Believer and 9 HD): each successful coup de grace grants a +1 morale bonus on melee attack and damage rolls and 1 temporary hit point per level for 5 minutes (stacks to a maximum of +5 and 5 temporary hit points per level).",
+      "weight": "—",
+      "cost": "6,000 gp"
+    },
+    "Fiendhelm": {
+      "description": "Evil-aligned wearer only. Melee attacks are treated as evil-aligned for overcoming damage reduction. This is a continuous effect.\n\nIn addition, once per day each: dispel good, inflict critical wounds, and resist energy (electricity or fire only) as spell-like abilities.\n\nGrants no benefit to nonevil wearers.",
+      "weight": "2 lb.",
+      "cost": "10,000 gp"
+    },
+    "Hat of anonymity": {
+      "description": "While you wear it, you are under a continuous nondetection effect and have a +5 bonus on Hide checks.",
+      "weight": "1 lb.",
+      "cost": "12,500 gp",
+      "effects": {
+        "skill_bonus": {
+          "Hide": 5
+        }
+      }
+    },
+    "Hat of Disguise": {
+      "description": "Disguise self at will.",
+      "weight": "1 lb.",
+      "cost": "1,800 gp"
+    },
+    "Headband of conscious effort": {
+      "description": "While wearing this headband, you can attempt a Concentration check instead of a required Fortitude saving throw once per day.",
+      "cost": "2,000 gp",
+      "weight": "—"
     },
     "Headband of Intellect +2": {
       "description": "+2 enhancement bonus to Intelligence.",
@@ -62,101 +162,6 @@
       "weight": "—",
       "cost": "36,000 gp"
     },
-    "Helm of Brilliance": {
-      "description": "Diamonds and spells; detonates if wearer dies.",
-      "weight": "3 lb.",
-      "cost": "125,000 gp"
-    },
-    "Helm of Comprehend Languages and Read Magic": {
-      "description": "Comprehend languages and read magic while worn.",
-      "weight": "3 lb.",
-      "cost": "5,200 gp"
-    },
-    "Helm of Telepathy": {
-      "description": "Telepathy 90 ft. while worn.",
-      "weight": "3 lb.",
-      "cost": "27,000 gp"
-    },
-    "Helm of Teleportation": {
-      "description": "Greater teleport 1/day.",
-      "weight": "3 lb.",
-      "cost": "73,500 gp"
-    },
-    "Helm of Underwater Action": {
-      "description": "Continuous speak with animals (aquatic only), water breathing, freedom of movement in water.",
-      "weight": "3 lb.",
-      "cost": "24,000 gp"
-    },
-    "Mask of the Skull": {
-      "description": "Finger of death 1/day.",
-      "weight": "2 lb.",
-      "cost": "22,000 gp"
-    },
-    "Hat of Disguise": {
-      "description": "Disguise self at will.",
-      "weight": "1 lb.",
-      "cost": "1,800 gp"
-    },
-    "Bear helm": {
-      "description": "While raging, you can halve the damage dealt by a single sneak attack or critical hit scored against you. You can activate this after the damage from the attack has been determined.\n\nFunctions once per day.",
-      "weight": "—",
-      "cost": "1,500 gp"
-    },
-    "Beholder crown": {
-      "description": "Ten eyelike gems each fire a different ray once (ranged touch, 30 ft.): charm monster, charm person, deep slumber, disintegrate, fear, finger of death, flesh to stone, inflict moderate wounds, slow, and telekinesis (violent thrust, up to 325 lb.; Will DC 17 negates). Using a ray burns out that gem.",
-      "weight": "1 lb.",
-      "cost": "20,000 gp"
-    },
-    "Circlet of mages": {
-      "description": "This leather circlet has a silver headpiece showing crescent moons on either side of a seven-pointed star. A circlet of mages grants you a +2 competence bonus on Concentration checks. This is a continuous effect and requires no activation. In addition, this circlet has 3 charges, which are renewed each day at dawn. Spending 1 or more charges when you cast a spell allows you to avoid losing that prepared spell or spell slot (as if you hadn’t cast it). 1 charge: Retain a spell of up to 1st level. 2 charges: Retain a spell of up to 2nd level. 3 charges: Retain a spell of up to 3rd level.",
-      "cost": "5,000 gp",
-      "weight": "—",
-      "effects": {
-        "skill_bonus": {
-          "Concentration": 2
-        }
-      }
-    },
-    "Circlet of rapid casting": {
-      "description": "Has 3 charges, renewed each day at dawn. Spending charges allows you to cast a single spell as part of the same swift action used to activate the circlet. The spell must normally have a casting time of no longer than 1 standard action.\n\n1 charge: Cast a spell of up to 2nd level.\n2 charges: Cast a spell of up to 3rd level.\n3 charges: Cast a spell of up to 4th level.",
-      "cost": "15,000 gp",
-      "weight": "—"
-    },
-    "Circlet of solace": {
-      "description": "After activating the circlet, the next healing spell you cast on a living ally before the end of your turn also grants that creature a +5 morale bonus on saves against disease, fear, and poison for 1 minute. If the spell affects multiple creatures, only one (your choice) gains this benefit.\n\nFunctions three times per day.",
-      "cost": "3,000 gp",
-      "weight": "—"
-    },
-    "Circlet of wild surging": {
-      "description": "This thin, platinum circlet depicts blasts of wild energy across its surface. A circlet of wild surging allows you to enhance your emotional state to make your wild surges more powerful. When you use wild surge while manifesting a power, you can activate the circlet to increase the bonus to your manifester level by 1. The increased wild surge still requires the normal extra power point cost normally required to augment the power. This also increases your chance of psychic enervation by 5% and increases the duration of your surging euphoria by 1 round (if you have that class feature). A circlet of wild surging functions three times per day, but won’t function in consecutive rounds.",
-      "cost": "4,200 gp",
-      "weight": "1 lb."
-    },
-    "Crown of flamesSP": {
-      "description": "Deals 2d6 fire damage to attackers who hit the wearer in melee 1/day.",
-      "weight": "3 lb.",
-      "cost": "8,000 gp"
-    },
-    "Essentia helm": {
-      "description": "Has 3 charges, renewed each day at dawn. Spending charges maximizes essentia investment in soulmelds or other essentia receptacles for 1 round. While active, you cannot reallocate essentia from affected receptacles.\n\n1 charge: One receptacle.\n2 charges: Two receptacles.\n3 charges: Three receptacles.",
-      "weight": "3 lb.",
-      "cost": "3,000 gp"
-    },
-    "Hat of anonymity": {
-      "description": "While you wear it, you are under a continuous nondetection effect and have a +5 bonus on Hide checks.",
-      "weight": "1 lb.",
-      "cost": "12,500 gp",
-      "effects": {
-        "skill_bonus": {
-          "Hide": 5
-        }
-      }
-    },
-    "Headband of conscious effort": {
-      "description": "While wearing this headband, you can attempt a Concentration check instead of a required Fortitude saving throw once per day.",
-      "cost": "2,000 gp",
-      "weight": "—"
-    },
     "Headband of the lorebinder": {
       "description": "The face of this blue-green metal circlet is stamped with the image of a blank, open scroll. A headband of the lorebinder grants a +4 sacred bonus on bardic knowledge checks (and on a loremaster’s lore checks). This is a continuous effect and requires no activation. Three times per day, you can activate the headband to gain the effect of a read magic spell. This ability lasts for 30 minutes.",
       "cost": "1,600 gp",
@@ -166,6 +171,16 @@
       "description": "When activated, gain a +2 bonus on the next attack roll or ability check you make to attempt a bull rush, disarm, overrun, sunder, or trip during your turn.\n\nFunctions three times per day.",
       "weight": "—",
       "cost": "2,000 gp"
+    },
+    "Helm of Brilliance": {
+      "description": "Diamonds and spells; detonates if wearer dies.",
+      "weight": "3 lb.",
+      "cost": "125,000 gp"
+    },
+    "Helm of Comprehend Languages and Read Magic": {
+      "description": "Comprehend languages and read magic while worn.",
+      "weight": "3 lb.",
+      "cost": "5,200 gp"
     },
     "Helm of gazes": {
       "description": "This mirror-bright steel cap is set with three tiger’s-eye gems, each one looking in a different direction. Each time you would be required to roll a save against a gaze attack, a helm of gazes automatically absorbs the gaze (with no action required). This ability functions three times per day.",
@@ -187,6 +202,16 @@
       "weight": "3 lb.",
       "cost": "3,000 gp"
     },
+    "Helm of Telepathy": {
+      "description": "Telepathy 90 ft. while worn.",
+      "weight": "3 lb.",
+      "cost": "27,000 gp"
+    },
+    "Helm of Teleportation": {
+      "description": "Greater teleport 1/day.",
+      "weight": "3 lb.",
+      "cost": "73,500 gp"
+    },
     "Helm of the hunterSP": {
       "description": "Grants a +5 competence bonus on Spot checks 1/day.",
       "weight": "4 lb.",
@@ -202,6 +227,11 @@
         }
       }
     },
+    "Helm of Underwater Action": {
+      "description": "Continuous speak with animals (aquatic only), water breathing, freedom of movement in water.",
+      "weight": "3 lb.",
+      "cost": "24,000 gp"
+    },
     "Helm of wounding sightSP": {
       "description": "Grants a +5 competence bonus on Spot checks to find wounded creatures 1/day.",
       "weight": "4 lb.",
@@ -212,30 +242,10 @@
       "weight": "1 lb.",
       "cost": "8,000 gp"
     },
-    "Phoenix helm": {
-      "description": "This helm is forged of copper and inlaid with silver and gold. The whole piece is stylized in the shape of a phoenix with its wings unfurled, its legs guarding the temples, and its head adorning the brow. A phoenix helm grants you low-light vision. This is a continuous effect and requires no activation. In addition, you can use each of the following abilities once per day: feather fall, resist energy, and speak with animals (birds only). Each of these abilities can be used as a standard (command) action except feather fall, which requires an immediate (command) action to activate.",
-      "weight": "3 lb.",
-      "cost": "6,500 gp"
-    },
-    "Scout’s headband": {
-      "description": "Piercer Rearguard’s Scry cloak cape shroud This tattered strip of cloth is strangely resilient, and when you hold it, elven runes appear along its length. A scout’s headband grants you a +2 competence bonus on Spot checks. This is a continuous effect and requires no activation. In addition, this circlet has 3 charges, which are renewed each day at dawn. Spending 1 or more charges enhances your visual acuity as described below. 1 charge: You gain darkvision out to 60 feet for 1 hour. 2 charges: You can see invisible creatures and objects (as see invisibility) for 10 minutes. 3 charges: You gain true seeing (as the spell) for 1 minute. Lore: The runes appearing on the headband are taken from the Saga of Filix, a great elf scout from long ago (Knowledge [history] DC 10). Filix bargained with Corellon for unparalleled powers of vision, but the gift came with a curse: The scout could see the deaths of all his friends as well (Knowledge [history] DC 15). Driven nearly mad by the ghostly perceptions haunting him, Filix eventually fl ed society entirely, living out the rest of his long days alone in the wilderness (Knowledge [history] DC 20).",
-      "cost": "3,400 gp",
-      "weight": "—"
-    },
-    "Blindhelm": {
-      "description": "This helm’s face is a solid slab of iron, apparently allowing its wearer no way to see out. Despite its appearance and name, a blindhelm doesn’t restrict your vision in any way. More important, it grants you blindsense out to 5 feet and provides you with a +5 competence bonus on saves against gaze attacks.",
-      "weight": "1/2 lb.",
-      "cost": "15,000 gp"
-    },
-    "Executioner’s hoodR": {
-      "description": "While worn, if you are chaotic evil, neutral evil, or chaotic neutral, you can attempt a coup de grace attack as a standard action rather than a full-round action.\n\nRelic power (worship Erythnul and sacrifice a 5th-level divine spell slot, or have True Believer and 9 HD): each successful coup de grace grants a +1 morale bonus on melee attack and damage rolls and 1 temporary hit point per level for 5 minutes (stacks to a maximum of +5 and 5 temporary hit points per level).",
+    "Incarnum circlet": {
+      "description": "Matches the Crown chakra (head slot). While worn, adds 1 to the essentia capacity of any soulmeld occupying or bound to the chakra this focus matches (up to your Constitution bonus). Wearing it does not prevent binding a soulmeld to that chakra.\n\nChakra bind (any): While bound to its chakra, soulmelds on that chakra can't be unshaped except by you, and essentia invested can't be lost or drained except during normal reallocation.",
       "weight": "—",
-      "cost": "6,000 gp"
-    },
-    "Fiendhelm": {
-      "description": "Evil-aligned wearer only. Melee attacks are treated as evil-aligned for overcoming damage reduction. This is a continuous effect.\n\nIn addition, once per day each: dispel good, inflict critical wounds, and resist energy (electricity or fire only) as spell-like abilities.\n\nGrants no benefit to nonevil wearers.",
-      "weight": "2 lb.",
-      "cost": "10,000 gp"
+      "cost": "15,000 gp"
     },
     "Lore gem": {
       "description": "Affixes to your forehead (standard action to attach or remove). While worn, gain a +2 competence bonus on Knowledge checks after spending a full round in contemplation (continuous effect, requires contemplation each time).\n\nAlso functions as a spellbook holding up to thirty spells of any levels. Recording a spell requires normal time and expense; erase an existing spell as a standard action.",
@@ -256,20 +266,30 @@
         }
       }
     },
-    "Incarnum circlet": {
-      "description": "Matches the Crown chakra (head slot). While worn, adds 1 to the essentia capacity of any soulmeld occupying or bound to the chakra this focus matches (up to your Constitution bonus). Wearing it does not prevent binding a soulmeld to that chakra.\n\nChakra bind (any): While bound to its chakra, soulmelds on that chakra can't be unshaped except by you, and essentia invested can't be lost or drained except during normal reallocation.",
-      "weight": "—",
-      "cost": "15,000 gp"
+    "Mask of the Skull": {
+      "description": "Finger of death 1/day.",
+      "weight": "2 lb.",
+      "cost": "22,000 gp"
     },
     "Mindvault": {
       "description": "When activated, your consciousness transfers into the gem for 1 round. You are immune to mind-affecting spells and abilities but dazed for that round. You can activate after learning the result of an incoming mind-affecting effect but before it is applied (negating it entirely).\n\nFunctions once per day. Must wear for 24 hours before use; if removed, inactive until worn another 24 hours.",
       "weight": "—",
       "cost": "8,000 gp"
     },
+    "Phoenix helm": {
+      "description": "This helm is forged of copper and inlaid with silver and gold. The whole piece is stylized in the shape of a phoenix with its wings unfurled, its legs guarding the temples, and its head adorning the brow. A phoenix helm grants you low-light vision. This is a continuous effect and requires no activation. In addition, you can use each of the following abilities once per day: feather fall, resist energy, and speak with animals (birds only). Each of these abilities can be used as a standard (command) action except feather fall, which requires an immediate (command) action to activate.",
+      "weight": "3 lb.",
+      "cost": "6,500 gp"
+    },
     "Platinum helmR": {
       "description": "While wearing it, immune to the frightful presence of evil dragons if you are lawful good, neutral good, or lawful neutral.\n\nRelic power (worship Bahamut and sacrifice a 5th-level divine spell slot, or have True Believer and 9 HD): when you make an attack, create a frightful presence effect. Each foe within 60 feet must succeed on a Will save (DC 10 + 1/2 your HD + Cha modifier) or be panicked (4 or fewer HD) or shaken (5+ HD) for 4d6 rounds. Functions three times per day.\n\nWith an 8th-level divine sacrifice or True Believer and 15 HD, once per day command the helm to grant blindsense 60 feet for 1 hour.",
       "weight": "3 lb.",
       "cost": "5,000 gp"
+    },
+    "Scout’s headband": {
+      "description": "Piercer Rearguard’s Scry cloak cape shroud This tattered strip of cloth is strangely resilient, and when you hold it, elven runes appear along its length. A scout’s headband grants you a +2 competence bonus on Spot checks. This is a continuous effect and requires no activation. In addition, this circlet has 3 charges, which are renewed each day at dawn. Spending 1 or more charges enhances your visual acuity as described below. 1 charge: You gain darkvision out to 60 feet for 1 hour. 2 charges: You can see invisible creatures and objects (as see invisibility) for 10 minutes. 3 charges: You gain true seeing (as the spell) for 1 minute. Lore: The runes appearing on the headband are taken from the Saga of Filix, a great elf scout from long ago (Knowledge [history] DC 10). Filix bargained with Corellon for unparalleled powers of vision, but the gift came with a curse: The scout could see the deaths of all his friends as well (Knowledge [history] DC 15). Driven nearly mad by the ghostly perceptions haunting him, Filix eventually fl ed society entirely, living out the rest of his long days alone in the wilderness (Knowledge [history] DC 20).",
+      "cost": "3,400 gp",
+      "weight": "—"
     },
     "Watch lamp": {
       "description": "This plain mithral headband has no distinguishing features. Wand bracelet When activated, a watch lamp creates a globe of light that hovers at your shoulder and sheds light as a torch. The light follows you wherever you move. It can be extinguished with a second command.",
@@ -1291,6 +1311,17 @@
       "description": "This holy symbol is warm and radiates a sense of peace and security, as if an angel had been wearing it close to her heart. Many good-aligned religions have some especially well-wrought holy symbols that are actually symbols of transfi guration. Three times per day, a symbol of transfi guration allows you to produce a purify food and drink effect. Once per day, you can use align weapon (good only) on any weapon you hold, though the duration is only 1 round.",
       "cost": "500 gp",
       "weight": "—"
+    },
+    "Periapt of Wisdom +5": {
+      "description": "+5 enhancement bonus to Wisdom.",
+      "effects": {
+        "ability_enh": {
+          "Wisdom": 5
+        }
+      },
+      "weight": "—",
+      "cost": "25,000 gp",
+      "notes": "Homebrew intermediate (catalog normally has +2/+4/+6 only)."
     }
   },
   "Shoulders": {
@@ -2975,17 +3006,29 @@
     "Ring of Spell Storing": {
       "description": "Stores up to 5 spell levels.",
       "weight": "—",
-      "cost": "50,000 gp"
+      "cost": "50,000 gp",
+      "properties": [
+        "spell_storing",
+        "spell_storing_5"
+      ]
     },
     "Ring of Spell Storing, Major": {
       "description": "Stores up to 10 spell levels.",
       "weight": "—",
-      "cost": "200,000 gp"
+      "cost": "200,000 gp",
+      "properties": [
+        "spell_storing_major",
+        "spell_storing_10"
+      ]
     },
     "Ring of Spell Storing, Minor": {
       "description": "Stores up to 3 spell levels.",
       "weight": "—",
-      "cost": "18,000 gp"
+      "cost": "18,000 gp",
+      "properties": [
+        "spell_storing_minor",
+        "spell_storing_3"
+      ]
     },
     "Ring of Spell Turning": {
       "description": "Reflect up to 9 spell levels per day.",
@@ -3500,8 +3543,9 @@
       "cost": "12,000 gp"
     },
     "Boots of Striding and Springing": {
-      "description": "5th-level long jump and high jump always; +5 competence on Jump checks.",
+      "description": "+10 ft. enhancement bonus to land speed (striding). +5 competence bonus on Jump checks (springing). Continuous while worn.",
       "effects": {
+        "speed_bonus": 10,
         "skill_bonus": {
           "Jump": 5
         }
@@ -4265,7 +4309,11 @@
     "Ioun Stone, Vibrant Purple Prism": {
       "description": "Stores spell levels as ring of spell storing.",
       "weight": "—",
-      "cost": "36,000 gp"
+      "cost": "36,000 gp",
+      "properties": [
+        "spell_storing",
+        "spell_storing_5"
+      ]
     },
     "Iron Bands of Binding": {
       "description": "Entangle Large or smaller creature."
@@ -7628,678 +7676,6 @@
       "description": "+1 hide, damage reduction 5/slashing",
       "weight": "25 lb.",
       "cost": "14,165 gp"
-    },
-    "Crystal of Adamant Weaponry (least)": {
-      "description": "Improves weapon hardness by 2.",
-      "weight": "—",
-      "cost": "300 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Adamant Weaponry (lesser)": {
-      "description": "Improves weapon hardness by 5.",
-      "weight": "—",
-      "cost": "1,400 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Adamant Weaponry (greater)": {
-      "description": "Improves weapon hardness by 10.",
-      "weight": "—",
-      "cost": "3,400 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Arcane Steel (least)": {
-      "description": "+1 insight bonus on weapon damage when delivering a spell through a melee attack.",
-      "weight": "—",
-      "cost": "500 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Arcane Steel (lesser)": {
-      "description": "As least, and +1 insight bonus on the attack roll.",
-      "weight": "—",
-      "cost": "2,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Arcane Steel (greater)": {
-      "description": "As lesser, and increases the spell save DC by 1.",
-      "weight": "—",
-      "cost": "6,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Energy Assault, Acid (least)": {
-      "description": "Adds 1 point of acid damage to the weapon's damage.",
-      "weight": "—",
-      "cost": "600 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Energy Assault, Acid (lesser)": {
-      "description": "Adds an extra 1d6 points of acid damage.",
-      "weight": "—",
-      "cost": "3,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Energy Assault, Acid (greater)": {
-      "description": "Adds 1d6 acid damage plus a secondary rider effect on hit.",
-      "weight": "—",
-      "cost": "6,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Energy Assault, Cold (least)": {
-      "description": "Adds 1 point of cold damage to the weapon's damage.",
-      "weight": "—",
-      "cost": "600 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Energy Assault, Cold (lesser)": {
-      "description": "Adds an extra 1d6 points of cold damage.",
-      "weight": "—",
-      "cost": "3,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Energy Assault, Cold (greater)": {
-      "description": "Adds 1d6 cold damage plus a secondary rider effect on hit.",
-      "weight": "—",
-      "cost": "6,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Energy Assault, Electricity (least)": {
-      "description": "Adds 1 point of electricity damage to the weapon's damage.",
-      "weight": "—",
-      "cost": "600 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Energy Assault, Electricity (lesser)": {
-      "description": "Adds an extra 1d6 points of electricity damage.",
-      "weight": "—",
-      "cost": "3,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Energy Assault, Electricity (greater)": {
-      "description": "Adds 1d6 electricity damage plus a secondary rider effect on hit.",
-      "weight": "—",
-      "cost": "6,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Energy Assault, Fire (least)": {
-      "description": "Adds 1 point of fire damage to the weapon's damage.",
-      "weight": "—",
-      "cost": "600 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Energy Assault, Fire (lesser)": {
-      "description": "Adds an extra 1d6 points of fire damage.",
-      "weight": "—",
-      "cost": "3,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Energy Assault, Fire (greater)": {
-      "description": "Adds 1d6 fire damage plus a secondary rider effect on hit.",
-      "weight": "—",
-      "cost": "6,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Illumination (least)": {
-      "description": "Swift (command): weapon sheds bright light 5 ft. and shadowy light 5 ft. beyond.",
-      "weight": "—",
-      "cost": "100 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Illumination (lesser)": {
-      "description": "Bright light 20 ft. and shadowy light 20 ft. beyond.",
-      "weight": "—",
-      "cost": "400 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Illumination (greater)": {
-      "description": "Bright light 60 ft. and shadowy light 60 ft. beyond.",
-      "weight": "—",
-      "cost": "1,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Life Drinking (least)": {
-      "description": "Heal 1 hp per hit on a living creature (max 10 hp/day, then inert until next day).",
-      "weight": "—",
-      "cost": "400 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Life Drinking (lesser)": {
-      "description": "Heal 3 hp per hit (max 30 hp/day).",
-      "weight": "—",
-      "cost": "1,500 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Life Drinking (greater)": {
-      "description": "Heal 5 hp per hit (max 50 hp/day).",
-      "weight": "—",
-      "cost": "6,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Return (least)": {
-      "description": "Draw the weapon as a free action.",
-      "weight": "—",
-      "cost": "300 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Return (lesser)": {
-      "description": "As least, and call the weapon from up to 30 ft. away as a move action.",
-      "weight": "—",
-      "cost": "1,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Return (greater)": {
-      "description": "As lesser, and thrown weapons also gain the returning property.",
-      "weight": "—",
-      "cost": "4,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Security (least)": {
-      "description": "+2 bonus on checks to draw the weapon or keep it in your hand.",
-      "weight": "—",
-      "cost": "300 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Security (lesser)": {
-      "description": "Bonus is +5.",
-      "weight": "—",
-      "cost": "1,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Security (greater)": {
-      "description": "Bonus is +10.",
-      "weight": "—",
-      "cost": "3,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Demolition Crystal (least)": {
-      "description": "+1d6 damage to constructs.",
-      "weight": "—",
-      "cost": "1,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Demolition Crystal (lesser)": {
-      "description": "As least, and weapon counts as adamantine vs. construct DR.",
-      "weight": "—",
-      "cost": "3,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Demolition Crystal (greater)": {
-      "description": "As lesser, and weapon can sneak attack and critically hit constructs.",
-      "weight": "—",
-      "cost": "6,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Fiendslayer Crystal (least)": {
-      "description": "+1d6 damage to evil outsiders.",
-      "weight": "—",
-      "cost": "1,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Fiendslayer Crystal (lesser)": {
-      "description": "As least, and weapon counts as good-aligned for overcoming DR.",
-      "weight": "—",
-      "cost": "3,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Fiendslayer Crystal (greater)": {
-      "description": "As lesser, and a critical hit prevents teleportation for 1 round.",
-      "weight": "—",
-      "cost": "5,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Phoenix Ash Threat (least)": {
-      "description": "Target hit last round takes 1 fire damage at the start of your turn.",
-      "weight": "—",
-      "cost": "500 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Phoenix Ash Threat (lesser)": {
-      "description": "Target takes 3 fire damage.",
-      "weight": "—",
-      "cost": "2,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Phoenix Ash Threat (greater)": {
-      "description": "Target takes 5 fire damage.",
-      "weight": "—",
-      "cost": "6,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Revelation Crystal (least)": {
-      "description": "Invisible creature you damage glows for 1 round (reveals its square).",
-      "weight": "—",
-      "cost": "400 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Revelation Crystal (lesser)": {
-      "description": "Also suppresses invisibility effects for 1 round.",
-      "weight": "—",
-      "cost": "1,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Revelation Crystal (greater)": {
-      "description": "Also suppresses blur/displacement-like concealment for 1 round.",
-      "weight": "—",
-      "cost": "5,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Truedeath Crystal (least)": {
-      "description": "+1d6 damage to undead.",
-      "weight": "—",
-      "cost": "1,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Truedeath Crystal (lesser)": {
-      "description": "As least, and weapon functions as ghost touch.",
-      "weight": "—",
-      "cost": "5,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Truedeath Crystal (greater)": {
-      "description": "As lesser, and weapon can sneak attack and critically hit undead.",
-      "weight": "—",
-      "cost": "10,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Witchlight Reservoir": {
-      "description": "Greater crystal. Swift (mental): imbue next melee hit with sunlight (+2d6 fire, +4d6 vs undead), moonlight (+2d6 electricity, +4d6 vs lycanthropes), blood (+2d6 vs living), or wine (–2 Will saves 1 round) depending on 8-hour exposure. Functions 5 times before re-imbuing.",
-      "weight": "—",
-      "cost": "5,000 gp",
-      "augment_gem": true,
-      "augment_type": "weapon"
-    },
-    "Crystal of Adamant Armor (least)": {
-      "description": "Improves shield hardness by 2.",
-      "weight": "—",
-      "cost": "300 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
-    },
-    "Crystal of Adamant Armor (lesser)": {
-      "description": "Improves shield hardness by 5.",
-      "weight": "—",
-      "cost": "1,400 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
-    },
-    "Crystal of Adamant Armor (greater)": {
-      "description": "Improves shield hardness by 10.",
-      "weight": "—",
-      "cost": "3,400 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
-    },
-    "Crystal of Adaptation (least)": {
-      "description": "Protects from temperature extremes as endure elements.",
-      "weight": "—",
-      "cost": "500 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Crystal of Adaptation (lesser)": {
-      "description": "As least, and protects from alignment traits of planes.",
-      "weight": "—",
-      "cost": "1,500 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Crystal of Adaptation (greater)": {
-      "description": "As lesser, and protects from positive/negative dominant traits.",
-      "weight": "—",
-      "cost": "3,000 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Crystal of Aquatic Action (least)": {
-      "description": "Armor imposes no armor check penalty on Swim checks.",
-      "weight": "—",
-      "cost": "250 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Crystal of Aquatic Action (lesser)": {
-      "description": "As least, and grants Swim speed equal to half land speed.",
-      "weight": "—",
-      "cost": "1,000 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Crystal of Aquatic Action (greater)": {
-      "description": "As lesser, and freedom of movement underwater plus breathe water.",
-      "weight": "—",
-      "cost": "3,000 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Crystal of Glancing Blows (least)": {
-      "description": "+2 competence bonus on grapple checks to prevent a grapple being initiated.",
-      "weight": "—",
-      "cost": "500 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Crystal of Glancing Blows (lesser)": {
-      "description": "Bonus is +5.",
-      "weight": "—",
-      "cost": "3,000 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Crystal of Glancing Blows (greater)": {
-      "description": "Bonus is +10.",
-      "weight": "—",
-      "cost": "5,000 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Crystal of Lifekeeping (least)": {
-      "description": "+1 competence bonus on saves vs energy drain, inflict, death spells, and death effects.",
-      "weight": "—",
-      "cost": "200 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Crystal of Lifekeeping (lesser)": {
-      "description": "Bonus is +3.",
-      "weight": "—",
-      "cost": "1,000 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Crystal of Lifekeeping (greater)": {
-      "description": "Bonus is +5; once per day reroll a failed save against those effects (immediate).",
-      "weight": "—",
-      "cost": "5,000 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Crystal of Mind Cloaking (least)": {
-      "description": "+1 competence bonus on saves vs mind-affecting spells and abilities.",
-      "weight": "—",
-      "cost": "500 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Crystal of Mind Cloaking (lesser)": {
-      "description": "Bonus is +3.",
-      "weight": "—",
-      "cost": "4,000 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Crystal of Mind Cloaking (greater)": {
-      "description": "Bonus is +5; once per day reroll a failed save (immediate).",
-      "weight": "—",
-      "cost": "10,000 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Crystal of Screening (least)": {
-      "description": "–2 penalty on incorporeal touch attacks against you.",
-      "weight": "—",
-      "cost": "400 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Crystal of Screening (lesser)": {
-      "description": "Penalty is –5.",
-      "weight": "—",
-      "cost": "1,000 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Crystal of Screening (greater)": {
-      "description": "Penalty is –10.",
-      "weight": "—",
-      "cost": "3,000 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Crystal of Stamina (least)": {
-      "description": "+1 competence bonus on saves vs disease and poison.",
-      "weight": "—",
-      "cost": "300 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Crystal of Stamina (lesser)": {
-      "description": "Bonus is +3.",
-      "weight": "—",
-      "cost": "900 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Crystal of Stamina (greater)": {
-      "description": "Bonus is +5; once per day reroll a failed save (immediate).",
-      "weight": "—",
-      "cost": "2,700 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Iron Ward Diamond (least)": {
-      "description": "DR 1/— until 10 damage prevented (then inert until next day).",
-      "weight": "—",
-      "cost": "500 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Iron Ward Diamond (lesser)": {
-      "description": "DR 3/— until 30 damage prevented (medium or heavy armor only).",
-      "weight": "—",
-      "cost": "2,000 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Iron Ward Diamond (greater)": {
-      "description": "DR 5/— until 50 damage prevented (heavy armor only).",
-      "weight": "—",
-      "cost": "8,000 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Restful Crystal": {
-      "description": "Sleeping in armor with this crystal attached does not make you fatigued.",
-      "weight": "—",
-      "cost": "500 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Rubicund Frenzy (least)": {
-      "description": "While at half hp or below: +1 morale bonus on weapon damage and saves vs fear.",
-      "weight": "—",
-      "cost": "500 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Rubicund Frenzy (lesser)": {
-      "description": "Bonus is +3.",
-      "weight": "—",
-      "cost": "2,000 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Rubicund Frenzy (greater)": {
-      "description": "Bonus is +5.",
-      "weight": "—",
-      "cost": "6,000 gp",
-      "augment_gem": true,
-      "augment_type": "armor"
-    },
-    "Clasp of Energy Protection, Acid (least)": {
-      "description": "Resistance 5 to acid (max 25 prevented/day, then inert).",
-      "weight": "—",
-      "cost": "500 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
-    },
-    "Clasp of Energy Protection, Acid (lesser)": {
-      "description": "Resistance 10 (max 50/day).",
-      "weight": "—",
-      "cost": "1,500 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
-    },
-    "Clasp of Energy Protection, Acid (greater)": {
-      "description": "Resistance 15 (max 75/day).",
-      "weight": "—",
-      "cost": "3,000 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
-    },
-    "Clasp of Energy Protection, Cold (least)": {
-      "description": "Resistance 5 to cold (max 25 prevented/day, then inert).",
-      "weight": "—",
-      "cost": "500 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
-    },
-    "Clasp of Energy Protection, Cold (lesser)": {
-      "description": "Resistance 10 (max 50/day).",
-      "weight": "—",
-      "cost": "1,500 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
-    },
-    "Clasp of Energy Protection, Cold (greater)": {
-      "description": "Resistance 15 (max 75/day).",
-      "weight": "—",
-      "cost": "3,000 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
-    },
-    "Clasp of Energy Protection, Electricity (least)": {
-      "description": "Resistance 5 to electricity (max 25 prevented/day, then inert).",
-      "weight": "—",
-      "cost": "500 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
-    },
-    "Clasp of Energy Protection, Electricity (lesser)": {
-      "description": "Resistance 10 (max 50/day).",
-      "weight": "—",
-      "cost": "1,500 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
-    },
-    "Clasp of Energy Protection, Electricity (greater)": {
-      "description": "Resistance 15 (max 75/day).",
-      "weight": "—",
-      "cost": "3,000 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
-    },
-    "Clasp of Energy Protection, Fire (least)": {
-      "description": "Resistance 5 to fire (max 25 prevented/day, then inert).",
-      "weight": "—",
-      "cost": "500 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
-    },
-    "Clasp of Energy Protection, Fire (lesser)": {
-      "description": "Resistance 10 (max 50/day).",
-      "weight": "—",
-      "cost": "1,500 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
-    },
-    "Clasp of Energy Protection, Fire (greater)": {
-      "description": "Resistance 15 (max 75/day).",
-      "weight": "—",
-      "cost": "3,000 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
-    },
-    "Clasp of Energy Protection, Sonic (least)": {
-      "description": "Resistance 5 to sonic (max 25 prevented/day, then inert).",
-      "weight": "—",
-      "cost": "500 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
-    },
-    "Clasp of Energy Protection, Sonic (lesser)": {
-      "description": "Resistance 10 (max 50/day).",
-      "weight": "—",
-      "cost": "1,500 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
-    },
-    "Clasp of Energy Protection, Sonic (greater)": {
-      "description": "Resistance 15 (max 75/day).",
-      "weight": "—",
-      "cost": "3,000 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
-    },
-    "Crystal of Arrow Deflection (least)": {
-      "description": "+2 bonus to AC against ranged attacks.",
-      "weight": "—",
-      "cost": "500 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
-    },
-    "Crystal of Arrow Deflection (lesser)": {
-      "description": "Bonus is +5.",
-      "weight": "—",
-      "cost": "2,500 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
-    },
-    "Crystal of Arrow Deflection (greater)": {
-      "description": "As least, and deflect one ranged attack per round (Deflect Arrows).",
-      "weight": "—",
-      "cost": "5,000 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
-    },
-    "Crystal of Bent Sight": {
-      "description": "Avert your eyes from gaze attackers without suffering a miss chance against them.",
-      "weight": "—",
-      "cost": "500 gp",
-      "augment_gem": true,
-      "augment_type": "shield"
     }
   }
 }

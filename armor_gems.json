@@ -23,6 +23,17 @@
     "max_charges": 0,
     "granted_spells": []
   },
+  "Crystal of Alacrity": {
+    "description": "Lesser augment crystal (medium or heavy armor only). +5-foot morale bonus to land speed. Continuous while worn. (MIC p. 195)",
+    "rank": "lesser",
+    "cost": "3,500 gp",
+    "uses_per_day": 0,
+    "max_charges": 0,
+    "granted_spells": [],
+    "effects": {
+      "speed_bonus": 5
+    }
+  },
   "Crystal of Adaptation (least)": {
     "description": "Protects from temperature extremes as endure elements.",
     "rank": "least",
