@@ -1,6 +1,6 @@
 # D&D Before
 
-Interactive D&D 3.5 character sheet — **Keen 2.07** (C# / WPF), successor to the Python app in this repository.
+Interactive D&D 3.5 character sheet — **Keen 2.08** (C# / WPF), successor to the Python app in this repository.
 
 ## Install
 
@@ -8,15 +8,15 @@ Download the latest release from [Releases](https://github.com/christopherpeades
 
 | File | Who it's for |
 |------|----------------|
-| **`DnD_Before_v2.07_Setup.exe`** | New install, or **Python D&D Before** users upgrading to Keen (asset keyword `Setup`) |
-| **`DnD_Before_Keen_v2.07_Portable.zip`** | Already on Keen — launcher **Update** overlays files with a progress bar (keyword `Portable`) |
+| **`DnD_Before_v2.08_Setup.exe`** | New install, or **Python D&D Before** users upgrading to Keen (asset keyword `Setup`) |
+| **`DnD_Before_Keen_v2.08_Portable.zip`** | Already on Keen — launcher **Update** overlays files with a progress bar (keyword `Portable`) |
 
 ### After install
 
 1. Run **`D&D Before Launcher.exe`** first.
 2. **Launch** starts **D&D Before Keen**.
 
-Current version: **v2.07**
+Current version: **v2.08**
 
 ## Updates
 
@@ -27,6 +27,7 @@ Current version: **v2.07**
 
 ## Version history
 
+- **v2.08** — Half-Fiend template (Health Manager); Anti-magic affliction (syncs with Behind); SRD special-abilities cheat sheet + spell “Grants …” links; campaign Greyhawk clock on health widget; spell-like abilities grouped by At will / 1/day / 3/day after class casting; performance Phase A (feat/catalog caches, soft combat refresh); feat prereqs (caster level prestige stacking, Spontaneous Domains)
 - **v2.07** — Prone crawl (5 ft land / Crawl move action); prepared-spell discard popup when ability damage or negative levels remove spell slots; Spells page filter buttons borderless with primary-color funnel icons; Magical Item combat polish (prior session); hoard loot claim normalizes weapons/armor/shields into Keen-ready inventory format
 - **v2.06** — Magical Item Wizard spell X/day with settable CL + SRD pricing; Masking/Nondetection armor property; Crystal of Alacrity; Boots of Striding and Springing land speed; Feats Magical Items daily checkboxes for all weapon/armor/shield properties; resistance breakdown tooltips; inventory header alignment
 - **v2.05** — Combat Main/Off hand slots (somatic free-hand), DF only blocks cast (not prep), gold M costly materials only on prep, yellow XP badge + teal cast XP chat, permanent buffs, Spontaneous Domains / Radiant Servant polish, Visions of the Future discharge
