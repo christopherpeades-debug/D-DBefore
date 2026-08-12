@@ -1,4 +1,18 @@
 {
+  "Acidic Blast": {
+    "description": "On command, an acidic blast weapon is sheathed in acid (deals no damage to the wielder). On any hit, acid engulfs the creature struck, dealing +3d6 acid damage. On a successful critical hit it deals +6d6 acid damage (+9d6 if ×3, +12d6 if ×4). Bows, crossbows, and slings bestow th…",
+    "full_description": "On command, an acidic blast weapon is sheathed in acid (deals no damage to the wielder). On any hit, acid engulfs the creature struck, dealing +3d6 acid damage. On a successful critical hit it deals +6d6 acid damage (+9d6 if ×3, +12d6 if ×4). Bows, crossbows, and slings bestow the bonus damage upon their ammunition.\n\nStrong aura; CL 21th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, Melf's acid arrow or acid fog; Price +6 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 6,
+    "caster_level": 21,
+    "aura": "Strong",
+    "activation": "Command word",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, Melf's acid arrow or acid fog",
+    "epic": true,
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 21th. Strong aura. Activation: Command word. Prerequisites: Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, Melf's acid arrow or acid fog. Price +6 bonus.",
+    "extra_damage": "3d6 Acid",
+    "Burst": "6d6 Acid"
+  },
   "Acidic Burst": {
     "description": "As corrosive, extra acid damage on critical hit",
     "attack_bonus": 0,
@@ -8,11 +22,31 @@
     "Burst": "1d10 Acid"
   },
   "Anarchic": {
-    "description": "+2d6 damage against lawful creatures",
+    "description": "An anarchic weapon is chaotically aligned and infused with the power of chaos. It makes the weapon chaos-aligned and thus bypasses the corresponding damage reduction. It deals an extra 2d6 points of damage against all of lawful alignment. It bestows one negative level on any lawful creature attempting to wield it. Moderate abjuration [chaotic]; CL 7th; Craft Magic Arms and Armor, chaos hammer; Price +2 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "2d6",
-    "critical_extra": ""
+    "critical_extra": "",
+    "full_description": "An anarchic weapon is chaotically aligned and infused with the power of chaos. It makes the weapon chaos-aligned and thus bypasses the corresponding damage reduction. It deals an extra 2d6 points of damage against all of lawful alignment. It bestows one negative level on any lawful creature attempting to wield it. Moderate abjuration [chaotic]; CL 7th; Craft Magic Arms and Armor, chaos hammer; Price +2 bonus.",
+    "caster_level": 7,
+    "aura": "Moderate abjuration",
+    "activation": "Continuous",
+    "price_bonus": 2,
+    "prerequisites": "Craft Magic Arms and Armor, chaos hammer",
+    "notes": "Caster Level: 7th Moderate abjuration aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, chaos hammer. Price +2 bonus."
+  },
+  "Anarchic Power": {
+    "description": "This weapon is chaotic-aligned. When it strikes a lawful target, it deals +3d6 chaotic damage and the target gains one negative level (Fort DC 23 to remove after 24 hours). On a critical hit it deals +6d6 chaotic damage and two negative levels (more on higher crit multipliers). T…",
+    "full_description": "This weapon is chaotic-aligned. When it strikes a lawful target, it deals +3d6 chaotic damage and the target gains one negative level (Fort DC 23 to remove after 24 hours). On a critical hit it deals +6d6 chaotic damage and two negative levels (more on higher crit multipliers). Three negative levels on any lawful creature that tries to wield it. Does not stack with nonepic Anarchic.\n\nStrong aura; CL 23th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, word of chaos; Price +8 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 8,
+    "caster_level": 23,
+    "aura": "Strong",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, word of chaos",
+    "epic": true,
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 23th. Strong aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, word of chaos. Price +8 bonus.",
+    "extra_damage": "3d6 vs lawful"
   },
   "Aquan": {
     "description": "Extra benefits against creatures with fire subtype",
@@ -43,19 +77,46 @@
     "critical_extra": ""
   },
   "Axiomatic": {
-    "description": "+2d6 damage against chaotic creatures",
+    "description": "An axiomatic weapon is lawfully aligned and infused with the power of law. It makes the weapon law-aligned and thus bypasses the corresponding damage reduction. It deals an extra 2d6 points of damage against all of chaotic alignment. It bestows one negative level on any chaotic creature attempting to wield it. Moderate abjuration [lawful]; CL 7th; Craft Magic Arms and Armor, order's wrath; Price +2 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "2d6 vs chaotic",
-    "critical_extra": ""
+    "critical_extra": "",
+    "full_description": "An axiomatic weapon is lawfully aligned and infused with the power of law. It makes the weapon law-aligned and thus bypasses the corresponding damage reduction. It deals an extra 2d6 points of damage against all of chaotic alignment. It bestows one negative level on any chaotic creature attempting to wield it. Moderate abjuration [lawful]; CL 7th; Craft Magic Arms and Armor, order's wrath; Price +2 bonus.",
+    "caster_level": 7,
+    "aura": "Moderate abjuration",
+    "activation": "Continuous",
+    "price_bonus": 2,
+    "prerequisites": "Craft Magic Arms and Armor, order's wrath",
+    "notes": "Caster Level: 7th Moderate abjuration aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, order's wrath. Price +2 bonus."
+  },
+  "Axiomatic Power": {
+    "description": "This weapon is law-aligned. When it strikes a chaotic target, it deals +3d6 lawful damage and one negative level (Fort DC 23). Critical hits deal +6d6 and two negative levels (more on higher multipliers). Three negative levels on chaotic wielders. Does not stack with nonepic Axio…",
+    "full_description": "This weapon is law-aligned. When it strikes a chaotic target, it deals +3d6 lawful damage and one negative level (Fort DC 23). Critical hits deal +6d6 and two negative levels (more on higher multipliers). Three negative levels on chaotic wielders. Does not stack with nonepic Axiomatic.\n\nStrong aura; CL 23th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, dictum; Price +8 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 8,
+    "caster_level": 23,
+    "aura": "Strong",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, dictum",
+    "epic": true,
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 23th. Strong aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, dictum. Price +8 bonus.",
+    "extra_damage": "3d6 vs chaotic"
   },
   "Bane": {
-    "description": "+2 enhancement bonus and +2d6 damage against one type of creature",
+    "description": "A bane weapon excels at attacking one type or subtype of creature. Against its designated foe, its effective enhancement bonus is +2 better than its actual bonus. It also deals an extra 2d6 points of damage against the foe. Bows, crossbows, and slings so crafted bestow the bane quality upon their ammunition. Moderate conjuration; CL 8th; Craft Magic Arms and Armor, summon monster I; Price +1 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "",
     "critical_extra": "",
-    "Bane": "+2, 2d6"
+    "Bane": "+2, 2d6",
+    "full_description": "A bane weapon excels at attacking one type or subtype of creature. Against its designated foe, its effective enhancement bonus is +2 better than its actual bonus. It also deals an extra 2d6 points of damage against the foe. Bows, crossbows, and slings so crafted bestow the bane quality upon their ammunition. Moderate conjuration; CL 8th; Craft Magic Arms and Armor, summon monster I; Price +1 bonus.",
+    "caster_level": 8,
+    "aura": "Moderate conjuration",
+    "activation": "Continuous",
+    "price_bonus": 1,
+    "prerequisites": "Craft Magic Arms and Armor, summon monster I",
+    "notes": "Caster Level: 8th Moderate conjuration aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, summon monster I. Price +1 bonus."
   },
   "Banishing": {
     "description": "3/day banish extraplanar creature back to its home plane. vs Will DC 20 or 24 if weapon is made from material overcoming DR.",
@@ -128,11 +189,18 @@
     "critical_extra": ""
   },
   "Brilliant Energy": {
-    "description": "Sheds light, ignores armor bonuses to AC and nonliving matter",
+    "description": "A brilliant energy weapon has its significant portion transformed into light, although this does not modify the item's weight. It always gives off light as a torch (20-foot radius). A brilliant energy weapon ignores nonliving matter. Armor and shield bonuses to AC (including any enhancement bonuses to that armor) do not count against it because the weapon passes through armor. A brilliant energy weapon cannot harm undead, constructs, or objects. Strong transmutation; CL 16th; Craft Magic Arms and Armor, gaseous form, continual flame; Price +4 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "",
-    "critical_extra": ""
+    "critical_extra": "",
+    "full_description": "A brilliant energy weapon has its significant portion transformed into light, although this does not modify the item's weight. It always gives off light as a torch (20-foot radius). A brilliant energy weapon ignores nonliving matter. Armor and shield bonuses to AC (including any enhancement bonuses to that armor) do not count against it because the weapon passes through armor. A brilliant energy weapon cannot harm undead, constructs, or objects. Strong transmutation; CL 16th; Craft Magic Arms and Armor, gaseous form, continual flame; Price +4 bonus.",
+    "caster_level": 16,
+    "aura": "Strong transmutation",
+    "activation": "Continuous",
+    "price_bonus": 4,
+    "prerequisites": "Craft Magic Arms and Armor, gaseous form, continual flame",
+    "notes": "Caster Level: 16th Strong transmutation aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, gaseous form, continual flame. Price +4 bonus."
   },
   "Brutal Surge": {
     "description": "1 + Con bonus times per day, +2 Bullrush to push opponent back furthest distant possible. 1+Con/day",
@@ -160,15 +228,23 @@
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "",
-    "critical_extra": "", 
-	"Bane": "2d6 Charge Attack"
+    "critical_extra": "",
+    "Bane": "2d6 Charge Attack"
   },
   "Collision": {
-    "description": "+5 damage on each successful attack",
+    "description": "A collision weapon increases the force of its wielder's blows, dealing an extra 5 points of damage on each successful attack. (MIC; typically Price +2 bonus.)",
     "attack_bonus": 0,
     "damage_bonus": 5,
     "extra_damage": "",
-    "critical_extra": ""
+    "critical_extra": "",
+    "full_description": "A collision weapon increases the force of its wielder's blows, dealing an extra 5 points of damage on each successful attack. (MIC; typically Price +2 bonus.)",
+    "caster_level": 6,
+    "aura": "Moderate transmutation",
+    "activation": "Continuous",
+    "price_bonus": 2,
+    "prerequisites": "Craft Magic Arms and Armor, greater magic weapon",
+    "source": "Magic Item Compendium",
+    "notes": "Caster Level: 6th Moderate transmutation aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, greater magic weapon. Price +2 bonus."
   },
   "Consumptive": {
     "description": "+1d8 damage against living creatures",
@@ -178,11 +254,19 @@
     "critical_extra": ""
   },
   "Corrosive": {
-    "description": "+1d6 acid damage",
+    "description": "Upon command, a corrosive weapon becomes slick with acid. The acid does not harm the wielder. The effect remains until another command is given. A corrosive weapon deals an extra 1d6 points of acid damage on a successful hit. Bows, crossbows, and slings so crafted bestow the acid energy upon their ammunition. (MIC; typically Price +1 bonus.)",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "1d6 Acid",
-    "critical_extra": ""
+    "critical_extra": "",
+    "full_description": "Upon command, a corrosive weapon becomes slick with acid. The acid does not harm the wielder. The effect remains until another command is given. A corrosive weapon deals an extra 1d6 points of acid damage on a successful hit. Bows, crossbows, and slings so crafted bestow the acid energy upon their ammunition. (MIC; typically Price +1 bonus.)",
+    "caster_level": 10,
+    "aura": "Moderate conjuration",
+    "activation": "Command word",
+    "price_bonus": 1,
+    "prerequisites": "Craft Magic Arms and Armor, Melf's acid arrow",
+    "source": "Magic Item Compendium",
+    "notes": "Caster Level: 10th Moderate conjuration aura. Activation: Command word. Prerequisites: Craft Magic Arms and Armor, Melf's acid arrow. Price +1 bonus."
   },
   "Cursespewing": {
     "description": "On critical hit, bestows -4 to struck enemy to attack, saves, skills, ability checks for 1 minute",
@@ -192,11 +276,18 @@
     "critical_extra": ""
   },
   "Dancing": {
-    "description": "Fights on its own for 4 rounds, on command",
+    "description": "As a standard action, a dancing weapon can be loosed to attack on its own. It fights for 4 rounds using the base attack bonus of the one who loosed it and then drops. While dancing, it cannot make attacks of opportunity, and the person who activated it is not considered armed with the weapon. After 4 rounds, the weapon comes to rest. It cannot dance again for 4 rounds. Strong transmutation; CL 15th; Craft Magic Arms and Armor, animate objects; Price +4 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "",
-    "critical_extra": ""
+    "critical_extra": "",
+    "full_description": "As a standard action, a dancing weapon can be loosed to attack on its own. It fights for 4 rounds using the base attack bonus of the one who loosed it and then drops. While dancing, it cannot make attacks of opportunity, and the person who activated it is not considered armed with the weapon. After 4 rounds, the weapon comes to rest. It cannot dance again for 4 rounds. Strong transmutation; CL 15th; Craft Magic Arms and Armor, animate objects; Price +4 bonus.",
+    "caster_level": 15,
+    "aura": "Strong transmutation",
+    "activation": "Standard (command)",
+    "price_bonus": 4,
+    "prerequisites": "Craft Magic Arms and Armor, animate objects",
+    "notes": "Caster Level: 15th Strong transmutation aura. Activation: Standard (command). Prerequisites: Craft Magic Arms and Armor, animate objects. Price +4 bonus."
   },
   "Deadly Precision": {
     "description": "+1d6 damage on sneak attack or sudden strike",
@@ -206,11 +297,18 @@
     "critical_extra": ""
   },
   "Defending": {
-    "description": "Add enhancement bonus to AC",
+    "description": "A defending weapon allows the wielder to transfer some or all of the weapon's enhancement bonus to his AC as a bonus that stacks with all others. As a free action, the wielder chooses how to allocate the weapon's enhancement bonus at the start of his turn before using the weapon, and the effect to AC lasts until his next turn. Moderate abjuration; CL 8th; Craft Magic Arms and Armor, shield or shield of faith; Price +1 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "",
-    "critical_extra": ""
+    "critical_extra": "",
+    "full_description": "A defending weapon allows the wielder to transfer some or all of the weapon's enhancement bonus to his AC as a bonus that stacks with all others. As a free action, the wielder chooses how to allocate the weapon's enhancement bonus at the start of his turn before using the weapon, and the effect to AC lasts until his next turn. Moderate abjuration; CL 8th; Craft Magic Arms and Armor, shield or shield of faith; Price +1 bonus.",
+    "caster_level": 8,
+    "aura": "Moderate abjuration",
+    "activation": "Free (allocation)",
+    "price_bonus": 1,
+    "prerequisites": "Craft Magic Arms and Armor, shield or shield of faith",
+    "notes": "Caster Level: 8th Moderate abjuration aura. Activation: Free (allocation). Prerequisites: Craft Magic Arms and Armor, shield or shield of faith. Price +1 bonus."
   },
   "Defensive Surge": {
     "description": "1 + Int bonus times per day, +2 to AC for one turn if using Combat Expertise or fighting defensively",
@@ -225,7 +323,7 @@
     "damage_bonus": 0,
     "extra_damage": "1d4 vs living",
     "critical_extra": "",
-	"Bane:":"1d8 vs plants"
+    "Bane:": "1d8 vs plants"
   },
   "Dessicating Burst": {
     "description": "As desiccating, extra desiccating damage on critical hit",
@@ -274,18 +372,44 @@
     "critical_extra": ""
   },
   "Disruption": {
-    "description": "Destroy undead (bludgeoning weapons only)",
+    "description": "A weapon of disruption is the bane of all undead. Any undead creature struck in combat must succeed on a DC 14 Will save or be destroyed. A weapon of disruption must be a bludgeoning weapon. Strong conjuration; CL 14th; Craft Magic Arms and Armor, heal; Price +2 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "2d6 vs undead",
-    "critical_extra": ""
+    "critical_extra": "",
+    "full_description": "A weapon of disruption is the bane of all undead. Any undead creature struck in combat must succeed on a DC 14 Will save or be destroyed. A weapon of disruption must be a bludgeoning weapon. Strong conjuration; CL 14th; Craft Magic Arms and Armor, heal; Price +2 bonus.",
+    "caster_level": 14,
+    "aura": "Strong conjuration",
+    "activation": "Continuous",
+    "price_bonus": 2,
+    "prerequisites": "Craft Magic Arms and Armor, heal",
+    "notes": "Caster Level: 14th Strong conjuration aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, heal. Price +2 bonus."
   },
   "Distance": {
     "description": "This enchantment can only be placed on a ranged weapon. A weapon of distance doubles its range increment. Aura : Moderate divination",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "",
-    "critical_extra": ""
+    "critical_extra": "",
+    "full_description": "This property can only be placed on a ranged weapon. A weapon of distance has double the range increment of other weapons of its kind. Moderate divination; CL 6th; Craft Magic Arms and Armor, clairaudience/clairvoyance; Price +1 bonus.",
+    "caster_level": 6,
+    "aura": "Moderate divination",
+    "activation": "Continuous",
+    "price_bonus": 1,
+    "prerequisites": "Craft Magic Arms and Armor, clairaudience/clairvoyance",
+    "notes": "Caster Level: 6th Moderate divination aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, clairaudience/clairvoyance. Price +1 bonus."
+  },
+  "Distant Shot": {
+    "description": "A distant shot weapon can be used against any target within line of sight at no penalty for range.",
+    "full_description": "A distant shot weapon can be used against any target within line of sight at no penalty for range.\n\nStrong aura; CL 21th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, discern location; Price +6 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 6,
+    "caster_level": 21,
+    "aura": "Strong",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, discern location",
+    "epic": true,
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 21th. Strong aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, discern location. Price +6 bonus."
   },
   "Divine Wrath": {
     "description": "Expend turn undead gain 1d6 per Charisma bonus",
@@ -322,6 +446,19 @@
     "damage_bonus": 0,
     "extra_damage": "",
     "critical_extra": ""
+  },
+  "Dread": {
+    "description": "A dread weapon excels against one type of creature. Against its designated foe, its effective enhancement bonus is +4 better than normal, it deals +4d6 bonus damage, and on a successful critical hit the foe must make a Fortitude save (DC 27) or be destroyed and turned to dust (ev…",
+    "full_description": "A dread weapon excels against one type of creature. Against its designated foe, its effective enhancement bonus is +4 better than normal, it deals +4d6 bonus damage, and on a successful critical hit the foe must make a Fortitude save (DC 27) or be destroyed and turned to dust (even creatures immune to critical hits or death magic). Designate a foe type when created.\n\nStrong aura; CL 22th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, summon monster IX; Price +7 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 7,
+    "caster_level": 22,
+    "aura": "Strong",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, summon monster IX",
+    "epic": true,
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 22th. Strong aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, summon monster IX. Price +7 bonus.",
+    "Bane": "+4, 4d6"
   },
   "Eager": {
     "description": "Various speed-themed bonuses",
@@ -365,6 +502,18 @@
     "extra_damage": "",
     "critical_extra": ""
   },
+  "Everdancing": {
+    "description": "An everdancing weapon is like dancing, but can be loosed with a free action and fights as long as desired. It can move up to 60 feet from its owner. Directing it to a new target is a move-equivalent action. If the owner is unconscious it continues fighting the same opponent. Gras…",
+    "full_description": "An everdancing weapon is like dancing, but can be loosed with a free action and fights as long as desired. It can move up to 60 feet from its owner. Directing it to a new target is a move-equivalent action. If the owner is unconscious it continues fighting the same opponent. Grasping it again is a free action if within reach.\n\nStrong aura; CL 23th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, animate objects; Price +8 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 8,
+    "caster_level": 23,
+    "aura": "Strong",
+    "activation": "Free action (loose)",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, animate objects",
+    "epic": true,
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 23th. Strong aura. Activation: Free action (loose). Prerequisites: Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, animate objects. Price +8 bonus."
+  },
   "Fiercebane": {
     "description": "As bane, extra benefits against bane type or subtype",
     "attack_bonus": 0,
@@ -372,20 +521,48 @@
     "extra_damage": "",
     "critical_extra": ""
   },
-  "Flaming": {
-    "description": "+1d6 fire damage",
-    "attack_bonus": 0,
-    "damage_bonus": 0,
-    "extra_damage": "1d6 fire",
-    "critical_extra": ""
+  "Fiery Blast": {
+    "description": "On command, a fiery blast weapon is sheathed in fire (deals no damage to the wielder). On any hit, fire engulfs the creature struck, dealing +3d6 fire damage. On a successful critical hit it deals +6d6 fire damage (+9d6 if ×3, +12d6 if ×4). Ammunition is likewise empowered.",
+    "full_description": "On command, a fiery blast weapon is sheathed in fire (deals no damage to the wielder). On any hit, fire engulfs the creature struck, dealing +3d6 fire damage. On a successful critical hit it deals +6d6 fire damage (+9d6 if ×3, +12d6 if ×4). Ammunition is likewise empowered.\n\nStrong aura; CL 21th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, fireball; Price +6 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 6,
+    "caster_level": 21,
+    "aura": "Strong",
+    "activation": "Command word",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, fireball",
+    "epic": true,
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 21th. Strong aura. Activation: Command word. Prerequisites: Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, fireball. Price +6 bonus.",
+    "extra_damage": "3d6 Fire",
+    "Burst": "6d6 Fire"
   },
-  "Flaming Burst": {
-    "description": "+ld6 fire damage, extra fire damage on critical hit",
+  "Flaming": {
+    "description": "Upon command, a flaming weapon is sheathed in fire. The fire does not harm the wielder. The effect remains until another command is given. A flaming weapon deals an extra 1d6 points of fire damage on a successful hit. Bows, crossbows, and slings so crafted bestow the fire energy upon their ammunition. Moderate evocation; CL 10th; Craft Magic Arms and Armor, flame blade, flame strike, or fireball; Price +1 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "1d6 fire",
     "critical_extra": "",
-    "Burst": "1d10 fire"
+    "full_description": "Upon command, a flaming weapon is sheathed in fire. The fire does not harm the wielder. The effect remains until another command is given. A flaming weapon deals an extra 1d6 points of fire damage on a successful hit. Bows, crossbows, and slings so crafted bestow the fire energy upon their ammunition. Moderate evocation; CL 10th; Craft Magic Arms and Armor, flame blade, flame strike, or fireball; Price +1 bonus.",
+    "caster_level": 10,
+    "aura": "Moderate evocation",
+    "activation": "Command word",
+    "price_bonus": 1,
+    "prerequisites": "Craft Magic Arms and Armor, flame blade, flame strike, or fireball",
+    "notes": "Caster Level: 10th Moderate evocation aura. Activation: Command word. Prerequisites: Craft Magic Arms and Armor, flame blade, flame strike, or fireball. Price +1 bonus."
+  },
+  "Flaming Burst": {
+    "description": "A flaming burst weapon functions as a flaming weapon that also explodes with flame upon striking a successful critical hit. In addition to the extra fire damage from the flaming ability, a flaming burst weapon deals an extra 1d10 points of fire damage on a successful critical hit (more on higher crit multipliers). Strong evocation; CL 12th; Price +2 bonus.",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d6 fire",
+    "critical_extra": "",
+    "Burst": "1d10 fire",
+    "full_description": "A flaming burst weapon functions as a flaming weapon that also explodes with flame upon striking a successful critical hit. In addition to the extra fire damage from the flaming ability, a flaming burst weapon deals an extra 1d10 points of fire damage on a successful critical hit (more on higher crit multipliers). Strong evocation; CL 12th; Price +2 bonus.",
+    "caster_level": 12,
+    "aura": "Strong evocation",
+    "activation": "Command word",
+    "price_bonus": 2,
+    "prerequisites": "Craft Magic Arms and Armor, flame blade, flame strike, or fireball",
+    "notes": "Caster Level: 12th Strong evocation aura. Activation: Command word. Prerequisites: Craft Magic Arms and Armor, flame blade, flame strike, or fireball. Price +2 bonus."
   },
   "Fleshgrinding": {
     "description": "Lodges in creature and deals normal damage for 5 rounds; piercing or slashing weapons only",
@@ -402,11 +579,18 @@
     "critical_extra": ""
   },
   "Frost": {
-    "description": "+1d6 cold damage",
+    "description": "Upon command, a frost weapon is sheathed in icy cold. The cold does not harm the wielder. The effect remains until another command is given. A frost weapon deals an extra 1d6 points of cold damage on a successful hit. Bows, crossbows, and slings so crafted bestow the cold energy upon their ammunition. Moderate evocation; CL 8th; Craft Magic Arms and Armor, chill metal or ice storm; Price +1 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "1d6 cold",
-    "critical_extra": ""
+    "critical_extra": "",
+    "full_description": "Upon command, a frost weapon is sheathed in icy cold. The cold does not harm the wielder. The effect remains until another command is given. A frost weapon deals an extra 1d6 points of cold damage on a successful hit. Bows, crossbows, and slings so crafted bestow the cold energy upon their ammunition. Moderate evocation; CL 8th; Craft Magic Arms and Armor, chill metal or ice storm; Price +1 bonus.",
+    "caster_level": 8,
+    "aura": "Moderate evocation",
+    "activation": "Command word",
+    "price_bonus": 1,
+    "prerequisites": "Craft Magic Arms and Armor, chill metal or ice storm",
+    "notes": "Caster Level: 8th Moderate evocation aura. Activation: Command word. Prerequisites: Craft Magic Arms and Armor, chill metal or ice storm. Price +1 bonus."
   },
   "Ghost Strike": {
     "description": "As ghost touch, can deal sneak attacks and critical hits to undead",
@@ -416,18 +600,40 @@
     "critical_extra": ""
   },
   "Ghost Touch": {
-    "description": "Deals damage normally to/can be used by incorporeal creatures",
+    "description": "A ghost touch weapon deals damage normally against incorporeal creatures, regardless of its bonus. (An incorporeal creature's 50% chance to avoid damage does not apply to attacks with ghost touch weapons.) The weapon can be picked up and moved by an incorporeal creature at any time. Moderate conjuration; CL 9th; Craft Magic Arms and Armor, plane shift; Price +1 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "",
-    "critical_extra": ""
+    "critical_extra": "",
+    "full_description": "A ghost touch weapon deals damage normally against incorporeal creatures, regardless of its bonus. (An incorporeal creature's 50% chance to avoid damage does not apply to attacks with ghost touch weapons.) The weapon can be picked up and moved by an incorporeal creature at any time. Moderate conjuration; CL 9th; Craft Magic Arms and Armor, plane shift; Price +1 bonus.",
+    "caster_level": 9,
+    "aura": "Moderate conjuration",
+    "activation": "Continuous",
+    "price_bonus": 1,
+    "prerequisites": "Craft Magic Arms and Armor, plane shift",
+    "notes": "Caster Level: 9th Moderate conjuration aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, plane shift. Price +1 bonus."
   },
   "Harmonizing": {
-    "description": "Various bonuses to bardic music",
-    "attack_bonus": 6,
-    "damage_bonus": 6,
+    "description": "This weapon accompanies you in song if drawn, granting a +2 competence bonus on Perform (sing) checks. If you hold a harmonizing weapon when you begin a bardic music effect that requires continued use or concentration, one round later the weapon continues the performance for 10 rounds (or until you start another bardic music effect, or command it to end as a swift mental action).",
+    "full_description": "This weapon accompanies you in song if drawn, granting a +2 competence bonus on Perform (sing) checks.\n\nIn addition, if you hold a harmonizing weapon when you begin a bardic music effect, the weapon can continue the effect for you, allowing you to focus on other efforts. One round after you begin a bardic music effect that allows or requires continued use or concentration (including inspire courage, countersong, fascinate, inspire competence, inspire greatness, song of freedom, and inspire heroics), the weapon picks up and continues the performance flawlessly for 10 rounds, until you start another bardic music effect, or until you command it to end as a swift (mental) action.\n\nFaint illusion; CL 5th; Craft Magic Arms and Armor, ghost sound or sculpt sound; Price +1 bonus. (Magic Item Compendium)",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
     "extra_damage": "",
-    "critical_extra": ""
+    "critical_extra": "",
+    "price_bonus": 1,
+    "caster_level": 5,
+    "aura": "Faint illusion",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, ghost sound or sculpt sound",
+    "source": "Magic Item Compendium",
+    "notes": "Caster Level: 5th. Faint illusion aura. Activation: Continuous (Perform bonus while drawn/wielded). Bardic music continuation: holds performance for 10 rounds after the first round. Prerequisites: Craft Magic Arms and Armor, ghost sound or sculpt sound. Price +1 bonus.",
+    "effects": {
+      "skill_bonus": {
+        "Perform (Sing)": 2,
+        "Perform (sing)": 2,
+        "Sing": 2
+      }
+    }
   },
   "Heavenly Burst": {
     "description": "On critical hit, +3d6 damage and blinding effect to evil creatures",
@@ -445,11 +651,31 @@
     "critical_extra": ""
   },
   "Holy": {
-    "description": "+2d6 damage against evil creatures",
+    "description": "Upon command, a holy weapon is sheathed in holy power (good-aligned; bypasses corresponding DR). The effect remains until another command is given. A holy weapon deals an extra 2d6 points of damage against all of evil alignment. It bestows one negative level on any evil creature attempting to wield it. Moderate evocation [good]; CL 7th; Craft Magic Arms and Armor, holy smite; Price +2 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
-    "extra_damage": "2d6 vs evil",
-    "critical_extra": ""
+    "extra_damage": "2d6 vs evil (holy)",
+    "critical_extra": "",
+    "full_description": "Upon command, a holy weapon is sheathed in holy power (good-aligned; bypasses corresponding DR). The effect remains until another command is given. A holy weapon deals an extra 2d6 points of damage against all of evil alignment. It bestows one negative level on any evil creature attempting to wield it. Moderate evocation [good]; CL 7th; Craft Magic Arms and Armor, holy smite; Price +2 bonus.",
+    "caster_level": 7,
+    "aura": "Moderate evocation",
+    "activation": "Command word",
+    "price_bonus": 2,
+    "prerequisites": "Craft Magic Arms and Armor, holy smite",
+    "notes": "Caster Level: 7th Moderate evocation aura. Activation: Command word (standard action). Prerequisites: Craft Magic Arms and Armor, holy smite. Price +2 bonus."
+  },
+  "Holy Power": {
+    "description": "This weapon is good-aligned. When it strikes an evil target, it deals +3d6 holy damage and one negative level (Fort DC 23). Critical hits deal +6d6 and two negative levels (more on higher multipliers). Three negative levels on evil wielders. Does not stack with nonepic Holy.",
+    "full_description": "This weapon is good-aligned. When it strikes an evil target, it deals +3d6 holy damage and one negative level (Fort DC 23). Critical hits deal +6d6 and two negative levels (more on higher multipliers). Three negative levels on evil wielders. Does not stack with nonepic Holy.\n\nStrong aura; CL 23th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, holy word; Price +8 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 8,
+    "caster_level": 23,
+    "aura": "Strong",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, holy word",
+    "epic": true,
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 23th. Strong aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, holy word. Price +8 bonus.",
+    "extra_damage": "3d6 holy vs evil"
   },
   "Holy Surge": {
     "description": "As holy, 1 + Cha bonus times per day, +3d6 damage to evil target",
@@ -465,13 +691,34 @@
     "extra_damage": "",
     "critical_extra": ""
   },
+  "Icy Blast": {
+    "description": "On command, an icy blast weapon is sheathed in icy cold (deals no damage to the wielder). On any hit, cold washes over the creature struck, dealing +3d6 cold damage. On a successful critical hit it deals +6d6 cold damage (+9d6 if ×3, +12d6 if ×4). Ammunition is likewise empowered…",
+    "full_description": "On command, an icy blast weapon is sheathed in icy cold (deals no damage to the wielder). On any hit, cold washes over the creature struck, dealing +3d6 cold damage. On a successful critical hit it deals +6d6 cold damage (+9d6 if ×3, +12d6 if ×4). Ammunition is likewise empowered.\n\nStrong aura; CL 21th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, cone of cold; Price +6 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 6,
+    "caster_level": 21,
+    "aura": "Strong",
+    "activation": "Command word",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, cone of cold",
+    "epic": true,
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 21th. Strong aura. Activation: Command word. Prerequisites: Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, cone of cold. Price +6 bonus.",
+    "extra_damage": "3d6 Cold",
+    "Burst": "6d6 Cold"
+  },
   "Icy Burst": {
-    "description": "+ld6 cold damage, extra cold damage on critical hit",
+    "description": "An icy burst weapon functions as a frost weapon that also explodes with frost upon striking a successful critical hit. In addition to the extra cold damage from the frost ability, an icy burst weapon deals an extra 1d10 points of cold damage on a successful critical hit (more on higher crit multipliers). Moderate evocation; CL 10th; Price +2 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "1d6 cold",
     "critical_extra": "",
-    "Burst": "1d10 cold"
+    "Burst": "1d10 cold",
+    "full_description": "An icy burst weapon functions as a frost weapon that also explodes with frost upon striking a successful critical hit. In addition to the extra cold damage from the frost ability, an icy burst weapon deals an extra 1d10 points of cold damage on a successful critical hit (more on higher crit multipliers). Moderate evocation; CL 10th; Price +2 bonus.",
+    "caster_level": 10,
+    "aura": "Moderate evocation",
+    "activation": "Command word",
+    "price_bonus": 2,
+    "prerequisites": "Craft Magic Arms and Armor, chill metal or ice storm",
+    "notes": "Caster Level: 10th Moderate evocation aura. Activation: Command word. Prerequisites: Craft Magic Arms and Armor, chill metal or ice storm. Price +2 bonus."
   },
   "Ignan": {
     "description": "Extra benefits against creatures with water subtype",
@@ -537,18 +784,32 @@
     "critical_extra": ""
   },
   "Keen": {
-    "description": "Double threat range, piercing or slashing weapons only",
+    "description": "This ability doubles the threat range of a weapon. Only piercing or slashing weapons can be keen. This benefit does not stack with other effects that expand the threat range of a weapon (such as the Improved Critical feat or the keen edge spell). Moderate transmutation; CL 10th; Craft Magic Arms and Armor, keen edge; Price +1 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "",
-    "critical_extra": "doubled threat range"
+    "critical_extra": "doubled threat range",
+    "full_description": "This ability doubles the threat range of a weapon. Only piercing or slashing weapons can be keen. This benefit does not stack with other effects that expand the threat range of a weapon (such as the Improved Critical feat or the keen edge spell). Moderate transmutation; CL 10th; Craft Magic Arms and Armor, keen edge; Price +1 bonus.",
+    "caster_level": 10,
+    "aura": "Moderate transmutation",
+    "activation": "Continuous",
+    "price_bonus": 1,
+    "prerequisites": "Craft Magic Arms and Armor, keen edge",
+    "notes": "Caster Level: 10th Moderate transmutation aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, keen edge. Price +1 bonus."
   },
   "Ki Focus": {
-    "description": "Use ki attacks as if unarmed",
+    "description": "The magic weapon serves as a channel for the wielder's ki, allowing her to use her special ki attacks through the weapon as if they were unarmed attacks. Only melee weapons can have the ki focus ability. Moderate transmutation; CL 8th; Craft Magic Arms and Armor, creator must be a monk; Price +1 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "",
-    "critical_extra": ""
+    "critical_extra": "",
+    "full_description": "The magic weapon serves as a channel for the wielder's ki, allowing her to use her special ki attacks through the weapon as if they were unarmed attacks. Only melee weapons can have the ki focus ability. Moderate transmutation; CL 8th; Craft Magic Arms and Armor, creator must be a monk; Price +1 bonus.",
+    "caster_level": 8,
+    "aura": "Moderate transmutation",
+    "activation": "Continuous",
+    "price_bonus": 1,
+    "prerequisites": "Craft Magic Arms and Armor, creator must be a monk",
+    "notes": "Caster Level: 8th Moderate transmutation aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, creator must be a monk. Price +1 bonus."
   },
   "Knockback": {
     "description": "3/day pushes back target 5 ft.",
@@ -556,6 +817,20 @@
     "damage_bonus": 0,
     "extra_damage": "",
     "critical_extra": ""
+  },
+  "Lightning Blast": {
+    "description": "On command, a lightning blast weapon crackles with electricity (deals no damage to the wielder). On any hit, lightning deals +3d6 electricity damage. On a successful critical hit it deals +6d6 electricity damage (+9d6 if ×3, +12d6 if ×4). Ammunition is likewise empowered.",
+    "full_description": "On command, a lightning blast weapon crackles with electricity (deals no damage to the wielder). On any hit, lightning deals +3d6 electricity damage. On a successful critical hit it deals +6d6 electricity damage (+9d6 if ×3, +12d6 if ×4). Ammunition is likewise empowered.\n\nStrong aura; CL 21th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, lightning bolt; Price +6 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 6,
+    "caster_level": 21,
+    "aura": "Strong",
+    "activation": "Command word",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, lightning bolt",
+    "epic": true,
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 21th. Strong aura. Activation: Command word. Prerequisites: Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, lightning bolt. Price +6 bonus.",
+    "extra_damage": "3d6 Electricity",
+    "Burst": "6d6 Electricity"
   },
   "Lucky": {
     "description": "1/day reroll one failed attack roll",
@@ -586,11 +861,18 @@
     "critical_extra": ""
   },
   "Merciful": {
-    "description": "+1d6 damage, all damage is nonlethal on command",
+    "description": "The weapon deals an extra 1d6 points of damage, and all damage it deals is nonlethal damage. On command, the weapon suppresses this ability until commanded to resume it. Faint conjuration; CL 5th; Craft Magic Arms and Armor, cure light wounds; Price +1 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "1d6 nonlethal",
-    "critical_extra": ""
+    "critical_extra": "",
+    "full_description": "The weapon deals an extra 1d6 points of damage, and all damage it deals is nonlethal damage. On command, the weapon suppresses this ability until commanded to resume it. Faint conjuration; CL 5th; Craft Magic Arms and Armor, cure light wounds; Price +1 bonus.",
+    "caster_level": 5,
+    "aura": "Faint conjuration",
+    "activation": "Command word",
+    "price_bonus": 1,
+    "prerequisites": "Craft Magic Arms and Armor, cure light wounds",
+    "notes": "Caster Level: 5th Faint conjuration aura. Activation: Command word. Prerequisites: Craft Magic Arms and Armor, cure light wounds. Price +1 bonus."
   },
   "Metalline": {
     "description": "Change composition to adamantine, silver, cold iron, or steel",
@@ -600,11 +882,30 @@
     "critical_extra": ""
   },
   "Mighty Cleaving": {
-    "description": "One additional cleave attempt per round if you have Cleave feat",
+    "description": "A mighty cleaving weapon allows a wielder with the Cleave feat to make one additional cleave attempt in a round. Moderate evocation; CL 8th; Craft Magic Arms and Armor, divine power; Price +1 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "",
-    "critical_extra": ""
+    "critical_extra": "",
+    "full_description": "A mighty cleaving weapon allows a wielder with the Cleave feat to make one additional cleave attempt in a round. Moderate evocation; CL 8th; Craft Magic Arms and Armor, divine power; Price +1 bonus.",
+    "caster_level": 8,
+    "aura": "Moderate evocation",
+    "activation": "Continuous",
+    "price_bonus": 1,
+    "prerequisites": "Craft Magic Arms and Armor, divine power",
+    "notes": "Caster Level: 8th Moderate evocation aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, divine power. Price +1 bonus."
+  },
+  "Mighty Disruption": {
+    "description": "Any undead creature struck must succeed at a Fortitude save (DC 21) or be destroyed. A weapon of mighty disruption must be a bludgeoning weapon.",
+    "full_description": "Any undead creature struck must succeed at a Fortitude save (DC 21) or be destroyed. A weapon of mighty disruption must be a bludgeoning weapon.\n\nStrong aura; CL 21th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, true resurrection; Price +6 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 6,
+    "caster_level": 21,
+    "aura": "Strong",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, true resurrection",
+    "epic": true,
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 21th. Strong aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, true resurrection. Price +6 bonus."
   },
   "Mighty Smiting": {
     "description": "+2 on smite's attack roll and damage roll, one extra smite per day",
@@ -748,7 +1049,14 @@
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "",
-    "critical_extra": ""
+    "critical_extra": "",
+    "full_description": "This special ability can only be placed on a weapon that can be thrown. A returning weapon flies through the air back to the creature that threw it. It returns to the thrower just before the creature's next turn (and is therefore ready to use again in that turn). Catching a returning weapon when it comes back is a free action. Moderate transmutation; CL 7th; Craft Magic Arms and Armor, telekinesis; Price +1 bonus.",
+    "caster_level": 7,
+    "aura": "Moderate transmutation",
+    "activation": "Continuous",
+    "price_bonus": 1,
+    "prerequisites": "Craft Magic Arms and Armor, telekinesis",
+    "notes": "Caster Level: 7th Moderate transmutation aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, telekinesis. Price +1 bonus."
   },
   "Revealing": {
     "description": "Struck target subject to faerie fire",
@@ -792,7 +1100,14 @@
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "",
-    "critical_extra": ""
+    "critical_extra": "",
+    "full_description": "Only ranged weapons can have the seeking ability. The weapon veers toward its target, negating any miss chances that would otherwise apply, such as from concealment. Strong divination; CL 12th; Craft Magic Arms and Armor, true seeing; Price +1 bonus.",
+    "caster_level": 12,
+    "aura": "Strong divination",
+    "activation": "Continuous",
+    "price_bonus": 1,
+    "prerequisites": "Craft Magic Arms and Armor, true seeing",
+    "notes": "Caster Level: 12th Strong divination aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, true seeing. Price +1 bonus."
   },
   "Shadowstrike": {
     "description": "1/day add 5 ft. to reach and deny target Dex bonus to AC",
@@ -816,19 +1131,33 @@
     "critical_extra": ""
   },
   "Shock": {
-    "description": "+1d6 electricity damage",
-    "attack_bonus": 0,
-    "damage_bonus": 0,
-    "extra_damage": "1d6 electricity",
-    "critical_extra": ""
-  },
-  "Shocking Burst": {
-    "description": "+ld6 electricity damage, extra electricity damage on critical hit",
+    "description": "Upon command, a shock weapon is sheathed in crackling electricity. The electricity does not harm the wielder. The effect remains until another command is given. A shock weapon deals an extra 1d6 points of electricity damage on a successful hit. Bows, crossbows, and slings so crafted bestow the electricity energy upon their ammunition. Moderate evocation; CL 8th; Craft Magic Arms and Armor, call lightning or lightning bolt; Price +1 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "1d6 electricity",
     "critical_extra": "",
-    "Burst": "1d10 electricity"
+    "full_description": "Upon command, a shock weapon is sheathed in crackling electricity. The electricity does not harm the wielder. The effect remains until another command is given. A shock weapon deals an extra 1d6 points of electricity damage on a successful hit. Bows, crossbows, and slings so crafted bestow the electricity energy upon their ammunition. Moderate evocation; CL 8th; Craft Magic Arms and Armor, call lightning or lightning bolt; Price +1 bonus.",
+    "caster_level": 8,
+    "aura": "Moderate evocation",
+    "activation": "Command word",
+    "price_bonus": 1,
+    "prerequisites": "Craft Magic Arms and Armor, call lightning or lightning bolt",
+    "notes": "Caster Level: 8th Moderate evocation aura. Activation: Command word. Prerequisites: Craft Magic Arms and Armor, call lightning or lightning bolt. Price +1 bonus."
+  },
+  "Shocking Burst": {
+    "description": "A shocking burst weapon functions as a shock weapon that also explodes with electricity upon striking a successful critical hit. In addition to the extra electricity damage from the shock ability, a shocking burst weapon deals an extra 1d10 points of electricity damage on a successful critical hit (more on higher crit multipliers). Moderate evocation; CL 10th; Price +2 bonus.",
+    "attack_bonus": 0,
+    "damage_bonus": 0,
+    "extra_damage": "1d6 electricity",
+    "critical_extra": "",
+    "Burst": "1d10 electricity",
+    "full_description": "A shocking burst weapon functions as a shock weapon that also explodes with electricity upon striking a successful critical hit. In addition to the extra electricity damage from the shock ability, a shocking burst weapon deals an extra 1d10 points of electricity damage on a successful critical hit (more on higher crit multipliers). Moderate evocation; CL 10th; Price +2 bonus.",
+    "caster_level": 10,
+    "aura": "Moderate evocation",
+    "activation": "Command word",
+    "price_bonus": 2,
+    "prerequisites": "Craft Magic Arms and Armor, call lightning or lightning bolt",
+    "notes": "Caster Level: 10th Moderate evocation aura. Activation: Command word. Prerequisites: Craft Magic Arms and Armor, call lightning or lightning bolt. Price +2 bonus."
   },
   "Sizing": {
     "description": "Changes size category on command",
@@ -844,6 +1173,20 @@
     "extra_damage": "",
     "critical_extra": "",
     "Burst": "slowed 3 rounds"
+  },
+  "Sonic Blast": {
+    "description": "On command, a sonic blast weapon emits a low thrumming hum. On any hit, a thunderous roar deals +3d6 sonic damage. On a successful critical hit it deals +6d6 sonic damage (+9d6 if ×3, +12d6 if ×4). Ammunition is likewise empowered.",
+    "full_description": "On command, a sonic blast weapon emits a low thrumming hum. On any hit, a thunderous roar deals +3d6 sonic damage. On a successful critical hit it deals +6d6 sonic damage (+9d6 if ×3, +12d6 if ×4). Ammunition is likewise empowered.\n\nStrong aura; CL 21th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, shout; Price +6 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 6,
+    "caster_level": 21,
+    "aura": "Strong",
+    "activation": "Command word",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, shout",
+    "epic": true,
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 21th. Strong aura. Activation: Command word. Prerequisites: Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, shout. Price +6 bonus.",
+    "extra_damage": "3d6 Sonic",
+    "Burst": "6d6 Sonic"
   },
   "Soulbound": {
     "description": "Stores up to 2 points of essentia for enhancement bonuses",
@@ -874,18 +1217,32 @@
     "critical_extra": ""
   },
   "Speed": {
-    "description": "Extra attack with full attack",
+    "description": "When making a full attack action, the wielder of a speed weapon may make one extra attack with it. The attack uses the wielder's full base attack bonus, plus any modifiers appropriate to the situation. (This benefit is not cumulative with similar effects, such as a haste spell.) Moderate transmutation; CL 7th; Craft Magic Arms and Armor, haste; Price +3 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "",
-    "critical_extra": "extra attack at highest bonus"
+    "critical_extra": "extra attack at highest bonus",
+    "full_description": "When making a full attack action, the wielder of a speed weapon may make one extra attack with it. The attack uses the wielder's full base attack bonus, plus any modifiers appropriate to the situation. (This benefit is not cumulative with similar effects, such as a haste spell.) Moderate transmutation; CL 7th; Craft Magic Arms and Armor, haste; Price +3 bonus.",
+    "caster_level": 7,
+    "aura": "Moderate transmutation",
+    "activation": "Continuous",
+    "price_bonus": 3,
+    "prerequisites": "Craft Magic Arms and Armor, haste",
+    "notes": "Caster Level: 7th Moderate transmutation aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, haste. Price +3 bonus."
   },
   "Spell Storing": {
-    "description": "Store single targeted spell of up to 3rd level",
+    "description": "A spell storing weapon allows a spellcaster to store a single targeted spell of up to 3rd level in the weapon. Any time the weapon strikes a creature and the creature takes damage from it, the weapon can immediately cast the spell on that creature as a free action if the wielder desires. Strong evocation; CL 12th; Price +1 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "",
-    "critical_extra": ""
+    "critical_extra": "",
+    "full_description": "A spell storing weapon allows a spellcaster to store a single targeted spell of up to 3rd level in the weapon. Any time the weapon strikes a creature and the creature takes damage from it, the weapon can immediately cast the spell on that creature as a free action if the wielder desires. Strong evocation; CL 12th; Price +1 bonus.",
+    "caster_level": 12,
+    "aura": "Strong evocation",
+    "activation": "Continuous",
+    "price_bonus": 1,
+    "prerequisites": "Craft Magic Arms and Armor, creator must be a caster of at least 12th level",
+    "notes": "Caster Level: 12th Strong evocation aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, creator must be a caster of at least 12th level. Price +1 bonus."
   },
   "Spellstrike": {
     "description": "Transfer enhancement bonus to saves against spells or spell-like abilities",
@@ -943,18 +1300,32 @@
     "critical_extra": ""
   },
   "Throwing": {
-    "description": "Range increment of 10 ft., can be thrown",
+    "description": "This ability can only be placed on a melee weapon. A melee weapon crafted with this ability gains a range increment of 10 feet and can be thrown by a wielder proficient in its normal use. Faint transmutation; CL 5th; Craft Magic Arms and Armor, magic stone; Price +1 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "",
-    "critical_extra": ""
+    "critical_extra": "",
+    "full_description": "This ability can only be placed on a melee weapon. A melee weapon crafted with this ability gains a range increment of 10 feet and can be thrown by a wielder proficient in its normal use. Faint transmutation; CL 5th; Craft Magic Arms and Armor, magic stone; Price +1 bonus.",
+    "caster_level": 5,
+    "aura": "Faint transmutation",
+    "activation": "Continuous",
+    "price_bonus": 1,
+    "prerequisites": "Craft Magic Arms and Armor, magic stone",
+    "notes": "Caster Level: 5th Faint transmutation aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, magic stone. Price +1 bonus."
   },
   "Thundering": {
-    "description": "Deals sonic damage, deafens on critical hit",
+    "description": "A thundering weapon creates a cacophonous roar like thunder upon striking a successful critical hit. A thundering weapon deals an extra 1d8 points of sonic damage on a successful critical hit (more on higher crit multipliers). Subjects dealt a critical hit must make a DC 14 Fortitude save or be permanently deafened. Faint necromancy; CL 5th; Craft Magic Arms and Armor, blindness/deafness; Price +1 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "",
-    "critical_extra": "deafen on critical"
+    "critical_extra": "deafen on critical",
+    "full_description": "A thundering weapon creates a cacophonous roar like thunder upon striking a successful critical hit. A thundering weapon deals an extra 1d8 points of sonic damage on a successful critical hit (more on higher crit multipliers). Subjects dealt a critical hit must make a DC 14 Fortitude save or be permanently deafened. Faint necromancy; CL 5th; Craft Magic Arms and Armor, blindness/deafness; Price +1 bonus.",
+    "caster_level": 5,
+    "aura": "Faint necromancy",
+    "activation": "Continuous",
+    "price_bonus": 1,
+    "prerequisites": "Craft Magic Arms and Armor, blindness/deafness",
+    "notes": "Caster Level: 5th Faint necromancy aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, blindness/deafness. Price +1 bonus."
   },
   "Transmuting": {
     "description": "Transforms to overcome target's damage reduction",
@@ -963,12 +1334,56 @@
     "extra_damage": "",
     "critical_extra": ""
   },
+  "Triple-Throw": {
+    "description": "This special ability can only be placed on a weapon that can be thrown. A triple-throw weapon creates two duplicates of itself when thrown; all three attack the same target. The duplicates disappear whether they hit or miss. Duplicates deal the same damage as the original, includ…",
+    "full_description": "This special ability can only be placed on a weapon that can be thrown. A triple-throw weapon creates two duplicates of itself when thrown; all three attack the same target. The duplicates disappear whether they hit or miss. Duplicates deal the same damage as the original, including enhancement and special abilities.\n\nStrong aura; CL 21th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, shades; Price +6 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 6,
+    "caster_level": 21,
+    "aura": "Strong",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, shades",
+    "epic": true,
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 21th. Strong aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, shades. Price +6 bonus."
+  },
+  "Unerring Accuracy": {
+    "description": "Ranged attacks with this weapon (or its ammunition) ignore the miss chance from concealment (including total concealment, though the attacker must still aim at the correct square). The weapon still needs line of effect.",
+    "full_description": "Ranged attacks with this weapon (or its ammunition) ignore the miss chance from concealment (including total concealment, though the attacker must still aim at the correct square). The weapon still needs line of effect.\n\nStrong aura; CL 21th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, true seeing; Price +6 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 6,
+    "caster_level": 21,
+    "aura": "Strong",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, true seeing",
+    "epic": true,
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 21th. Strong aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, true seeing. Price +6 bonus."
+  },
   "Unholy": {
-    "description": "+2d6 damage against good creatures",
+    "description": "Upon command, an unholy weapon is sheathed in unholy power (evil-aligned; bypasses corresponding DR). The effect remains until another command is given. An unholy weapon deals an extra 2d6 points of damage against all of good alignment. It bestows one negative level on any good creature attempting to wield it. Moderate evocation [evil]; CL 7th; Craft Magic Arms and Armor, unholy blight; Price +2 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
-    "extra_damage": "2d6 vs good",
-    "critical_extra": ""
+    "extra_damage": "2d6 vs good (unholy)",
+    "critical_extra": "",
+    "full_description": "Upon command, an unholy weapon is sheathed in unholy power (evil-aligned; bypasses corresponding DR). The effect remains until another command is given. An unholy weapon deals an extra 2d6 points of damage against all of good alignment. It bestows one negative level on any good creature attempting to wield it. Moderate evocation [evil]; CL 7th; Craft Magic Arms and Armor, unholy blight; Price +2 bonus.",
+    "caster_level": 7,
+    "aura": "Moderate evocation",
+    "activation": "Command word",
+    "price_bonus": 2,
+    "prerequisites": "Craft Magic Arms and Armor, unholy blight",
+    "notes": "Caster Level: 7th Moderate evocation aura. Activation: Command word (standard action). Prerequisites: Craft Magic Arms and Armor, unholy blight. Price +2 bonus."
+  },
+  "Unholy Power": {
+    "description": "This weapon is evil-aligned. When it strikes a good target, it deals +3d6 unholy damage and one negative level (Fort DC 23). Critical hits deal +6d6 and two negative levels (more on higher multipliers). Three negative levels on good wielders. Does not stack with nonepic Unholy.",
+    "full_description": "This weapon is evil-aligned. When it strikes a good target, it deals +3d6 unholy damage and one negative level (Fort DC 23). Critical hits deal +6d6 and two negative levels (more on higher multipliers). Three negative levels on good wielders. Does not stack with nonepic Unholy.\n\nStrong aura; CL 23th; Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, blasphemy; Price +8 bonus. (Epic Level Handbook / SRD)",
+    "price_bonus": 8,
+    "caster_level": 23,
+    "aura": "Strong",
+    "activation": "Continuous",
+    "prerequisites": "Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, blasphemy",
+    "epic": true,
+    "source": "Epic Level Handbook / SRD",
+    "notes": "Caster Level: 23th. Strong aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, Craft Epic Magic Arms and Armor, blasphemy. Price +8 bonus.",
+    "extra_damage": "3d6 unholy vs good"
   },
   "Unholy Surge": {
     "description": "As unholy, 1 + Cha bonus times per day, +3d6 damage to good target",
@@ -999,18 +1414,32 @@
     "critical_extra": ""
   },
   "Vicious": {
-    "description": "+2d6 damage, 1d6 damage to you on every attack",
+    "description": "When a vicious weapon strikes an opponent, it creates a flash of disruptive energy that resonates between the opponent and the wielder. This energy deals an extra 2d6 points of damage to the opponent and 1d6 points of damage to the wielder. Only melee weapons can be vicious. Moderate necromancy; CL 9th; Craft Magic Arms and Armor, enervation; Price +1 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "2d6 to target, 1d6 to wielder",
-    "critical_extra": ""
+    "critical_extra": "",
+    "full_description": "When a vicious weapon strikes an opponent, it creates a flash of disruptive energy that resonates between the opponent and the wielder. This energy deals an extra 2d6 points of damage to the opponent and 1d6 points of damage to the wielder. Only melee weapons can be vicious. Moderate necromancy; CL 9th; Craft Magic Arms and Armor, enervation; Price +1 bonus.",
+    "caster_level": 9,
+    "aura": "Moderate necromancy",
+    "activation": "Continuous",
+    "price_bonus": 1,
+    "prerequisites": "Craft Magic Arms and Armor, enervation",
+    "notes": "Caster Level: 9th Moderate necromancy aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, enervation. Price +1 bonus."
   },
   "Vorpal": {
-    "description": "Sever foe's head on critical hit; slashing weapons only",
+    "description": "This potent and feared ability allows the weapon to sever the heads of those it strikes. Upon a roll of natural 20 (followed by a successful roll to confirm the critical hit), the weapon severs the opponent's head (if it has one) from its body. A vorpal weapon must be a slashing weapon. Strong necromancy and transmutation; CL 18th; Craft Magic Arms and Armor, circle of death, keen edge; Price +5 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "",
-    "critical_extra": "decapitate on natural 20"
+    "critical_extra": "decapitate on natural 20",
+    "full_description": "This potent and feared ability allows the weapon to sever the heads of those it strikes. Upon a roll of natural 20 (followed by a successful roll to confirm the critical hit), the weapon severs the opponent's head (if it has one) from its body. A vorpal weapon must be a slashing weapon. Strong necromancy and transmutation; CL 18th; Craft Magic Arms and Armor, circle of death, keen edge; Price +5 bonus.",
+    "caster_level": 18,
+    "aura": "Strong necromancy and transmutation",
+    "activation": "Continuous",
+    "price_bonus": 5,
+    "prerequisites": "Craft Magic Arms and Armor, circle of death, keen edge",
+    "notes": "Caster Level: 18th Strong necromancy and transmutation aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, circle of death, keen edge. Price +5 bonus."
   },
   "Warning": {
     "description": "+5 on initiative",
@@ -1034,10 +1463,17 @@
     "critical_extra": ""
   },
   "Wounding": {
-    "description": "+1 point Con damage",
+    "description": "A wounding weapon deals 1 point of Constitution damage from blood loss when it hits a creature. A critical hit does not multiply the Constitution damage. Creatures immune to critical hits (such as plants and constructs) are immune to the Constitution damage dealt by this weapon. Moderate evocation; CL 10th; Craft Magic Arms and Armor, mage's sword; Price +2 bonus.",
     "attack_bonus": 0,
     "damage_bonus": 0,
     "extra_damage": "1 Con bleed/round",
-    "critical_extra": ""
+    "critical_extra": "",
+    "full_description": "A wounding weapon deals 1 point of Constitution damage from blood loss when it hits a creature. A critical hit does not multiply the Constitution damage. Creatures immune to critical hits (such as plants and constructs) are immune to the Constitution damage dealt by this weapon. Moderate evocation; CL 10th; Craft Magic Arms and Armor, mage's sword; Price +2 bonus.",
+    "caster_level": 10,
+    "aura": "Moderate evocation",
+    "activation": "Continuous",
+    "price_bonus": 2,
+    "prerequisites": "Craft Magic Arms and Armor, mage's sword",
+    "notes": "Caster Level: 10th Moderate evocation aura. Activation: Continuous. Prerequisites: Craft Magic Arms and Armor, mage's sword. Price +2 bonus."
   }
 }

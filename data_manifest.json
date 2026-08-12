@@ -1,0 +1,190 @@
+﻿{
+    "data_version":  "2026.08.12",
+    "min_app_version":  "3.2",
+    "created_at":  "2026-08-12T19:32:57.2933808Z",
+    "app_name":  "D\u0026D Before Keen",
+    "description":  "Spell, feat, item, and other game catalog JSON for launcher data updates.",
+    "file_count":  36,
+    "files":  [
+                  {
+                      "path":  "spells.json",
+                      "sha256":  "b1f5ac633a81f3dd30cba6069894aa1fb32d3f44e62f553d1fc6c57c3eb37b91",
+                      "bytes":  288174
+                  },
+                  {
+                      "path":  "PHB2_Spells.json",
+                      "sha256":  "36077cdb966a5f7cd9be5f0fad22eb7f8ff87ba1d518e9da7c024465226d55b2",
+                      "bytes":  51574
+                  },
+                  {
+                      "path":  "Custom_Spells.json",
+                      "sha256":  "3581f634da2c0e3b0b83041860f0a6eb41f554bbed08ec7fa961212ea4522871",
+                      "bytes":  719
+                  },
+                  {
+                      "path":  "Feats.json",
+                      "sha256":  "c1e9d4516fa163f56ef264c7576138b63afeeaf221975ee217f94fa7560f1afc",
+                      "bytes":  180413
+                  },
+                  {
+                      "path":  "epic_feats.json",
+                      "sha256":  "e1f305691dae1e7345d904ca14b65691a2458e7afd204bd0ee8ac530a26d0284",
+                      "bytes":  84411
+                  },
+                  {
+                      "path":  "magical_items.json",
+                      "sha256":  "2270b812db4264f5212fd07fc9bd6a34de883703a4e9f2edbd2c3ac273f75faf",
+                      "bytes":  374388
+                  },
+                  {
+                      "path":  "classes.json",
+                      "sha256":  "f649ebeab7420c71a622f665782783ab76e980fbdd8444832df71f7696454890",
+                      "bytes":  81219
+                  },
+                  {
+                      "path":  "deities.json",
+                      "sha256":  "9a395c99f8a26f01e38b0f575c9ab020dcf1d47180e830e2fe155d7cf10ead9f",
+                      "bytes":  27743
+                  },
+                  {
+                      "path":  "skills_srd.json",
+                      "sha256":  "e42ae824bbe034f427a91cccce1b3e1ba0c24681cad00cdf123453ba5f14292f",
+                      "bytes":  187729
+                  },
+                  {
+                      "path":  "special_abilities.json",
+                      "sha256":  "250dc90917c80df44955dc894f9bca50baa59d2c1e63a733859a85ddf553418b",
+                      "bytes":  182171
+                  },
+                  {
+                      "path":  "Special_Features.json",
+                      "sha256":  "d4f5b04c1afa2a1259c3522d55fba06a5afe343d6afeefe8505ba2eb6fafb19d",
+                      "bytes":  3613
+                  },
+                  {
+                      "path":  "buffs.json",
+                      "sha256":  "90dd75cbdc64636271d52a769fc68b95b26fcece7ca2b0bbca889ae545360497",
+                      "bytes":  3389
+                  },
+                  {
+                      "path":  "invocations.json",
+                      "sha256":  "5c9aaa76553e8f9f48e6ad497fa04a13bf04bd7aec285bf85301e91e008c1646",
+                      "bytes":  14369
+                  },
+                  {
+                      "path":  "animal_companions.json",
+                      "sha256":  "bba8bbc048ba78d0743880adadeed114b9da841630ba4f613cc04d6e64832467",
+                      "bytes":  22313
+                  },
+                  {
+                      "path":  "familiars.json",
+                      "sha256":  "419a1a2f46b31e7bd7881142a9916a84fa682059b383952198a4a7fceea7db71",
+                      "bytes":  3057
+                  },
+                  {
+                      "path":  "mounts.json",
+                      "sha256":  "d4c9bc1b522fc9866367e0a0d0e230f585760baa72f0a11ea36488a33e52c183",
+                      "bytes":  8935
+                  },
+                  {
+                      "path":  "wild_shapes.json",
+                      "sha256":  "89220ff586c831fe817882acfeb12b81f25976d9ae982352cb7eb9b074f9e2a2",
+                      "bytes":  42078
+                  },
+                  {
+                      "path":  "Adventuring_Gear.json",
+                      "sha256":  "58aa4f556a9c6a2ec5c270253dff7144c26510f655783a1f91fe3131cac81a16",
+                      "bytes":  31996
+                  },
+                  {
+                      "path":  "Armor_Equipment.json",
+                      "sha256":  "6d662666de28947ee37f5ad851c05ae86041b2ced8cc88bf232cefcff73c3b0d",
+                      "bytes":  15350
+                  },
+                  {
+                      "path":  "Mundane_Armors_Shields.json",
+                      "sha256":  "4edf85a8aecb4f0d797033b703c855ceb37517249b1ab26babdbcec4cbdb0df5",
+                      "bytes":  27085
+                  },
+                  {
+                      "path":  "Mundane_Weapons.json",
+                      "sha256":  "b5a9c3bfc2706e352c87473358cd56729f3bf6fe4071937b58a8d0dd4dde4e16",
+                      "bytes":  85728
+                  },
+                  {
+                      "path":  "armor_enchants.json",
+                      "sha256":  "63cbf406fbe4b8056f7d60e53e21221831adf6488805b64201357195cc5efa57",
+                      "bytes":  59009
+                  },
+                  {
+                      "path":  "armor_gems.json",
+                      "sha256":  "5ba13083d3c52e0bbbf1e96ba90538c9e8baceb50cc10d241c8baf4cc37e8cec",
+                      "bytes":  7691
+                  },
+                  {
+                      "path":  "armor_shields.json",
+                      "sha256":  "9eab232d2569e641bd55cfae3c9cc99f926f125d95ab9aa05a6f91515309913e",
+                      "bytes":  10316
+                  },
+                  {
+                      "path":  "shield_enchants.json",
+                      "sha256":  "2f95f7c2d9effd0618a5c53fbaa8e93af7111e53be8876b5e4e24e6b1e4ec37d",
+                      "bytes":  53088
+                  },
+                  {
+                      "path":  "shield_gems.json",
+                      "sha256":  "69f14d4db39acdb48168bbb6b4aa96f7ee50975ef272878cbb98422d0f767313",
+                      "bytes":  5222
+                  },
+                  {
+                      "path":  "weapon_enchants.json",
+                      "sha256":  "e0865aac44860968aa3df188b92ddff3af8e89213033ad49218d68db37db9e20",
+                      "bytes":  86061
+                  },
+                  {
+                      "path":  "weapon_gems.json",
+                      "sha256":  "85f49eccfe8fbf7a11b49a4a4bfd6fae1a823c3a88f194b37ef72277e99a2c6d",
+                      "bytes":  11322
+                  },
+                  {
+                      "path":  "staffs.json",
+                      "sha256":  "420dc341017826a65d0ceede5ba3840abda4b160829530990971bd02607856a9",
+                      "bytes":  11499
+                  },
+                  {
+                      "path":  "character_paths.json",
+                      "sha256":  "26801a99b37c91f82888a2c62999029d2f89d0b8ba199cd934786b2a5c883d90",
+                      "bytes":  119483
+                  },
+                  {
+                      "path":  "race_fantasy_names.json",
+                      "sha256":  "32ed74be0019838b9eaee0dfde5b540e57b738cb8b27e80cea405a1dd7353782",
+                      "bytes":  39573
+                  },
+                  {
+                      "path":  "creature_types.json",
+                      "sha256":  "55872c5a1933cfe7565c174caa783f823acfbffa41ede2e35c3be701da1c33df",
+                      "bytes":  3151
+                  },
+                  {
+                      "path":  "greyhawk_calendar.json",
+                      "sha256":  "5928038cb360c5397ab02ce285242beebe1d3275a2ea749cab96c8694ca321e7",
+                      "bytes":  11351
+                  },
+                  {
+                      "path":  "HolidaysDesc.json",
+                      "sha256":  "c971ea65a99cdb433d502cbc039f54791080e0167c8d47623ee00780faef4cba",
+                      "bytes":  16890
+                  },
+                  {
+                      "path":  "MonthsFestDesc.json",
+                      "sha256":  "102fa2f0969cfa28c6a62bb274a10ec44c1bb19f2794e225288d2425a4e65ab4",
+                      "bytes":  13576
+                  },
+                  {
+                      "path":  "spreadsheet_enchants_rows.json",
+                      "sha256":  "fccf8d7c0fb36c4179abfd39140a54440cba7cdbffeb47b01faa57bb3fa6dae3",
+                      "bytes":  8232
+                  }
+              ]
+}

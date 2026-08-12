@@ -1,6 +1,9 @@
-{
-  "version": "2.08",
-  "display_version": "2.08",
+﻿{
+  "version": "3.2",
+  "display_version": "3.2",
+  "data_version": "2026.08.12",
+  "data_asset_keyword": "GameData",
+  "min_app_version_for_data": "3.2",
   "app_name": "D&D Before Keen",
   "github_owner": "christopherpeades-debug",
   "github_repo": "D-DBefore",

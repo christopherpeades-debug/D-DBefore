@@ -28,7 +28,9 @@
     "range": 0,
     "weight": 0,
     "type": "Bludgeoning",
-    "special": ["nonlethal"],
+    "special": [
+      "nonlethal"
+    ],
     "special_description": "Always considered a light weapon. Deals nonlethal damage by default (can choose lethal at -4)."
   },
   "Dagger": {
@@ -44,7 +46,9 @@
     "range": 10,
     "weight": 1,
     "type": "Piercing or slashing",
-    "special": ["thrown"],
+    "special": [
+      "thrown"
+    ],
     "special_description": "Thrown weapon (range increment 10 ft). Can be thrown as standard action."
   },
   "Punching Dagger": {
@@ -108,7 +112,9 @@
     "range": 0,
     "weight": 2,
     "type": "Slashing",
-    "special": ["trip"],
+    "special": [
+      "trip"
+    ],
     "special_description": "Can be used to make trip attacks."
   },
   "Club": {
@@ -124,7 +130,9 @@
     "range": 10,
     "weight": 3,
     "type": "Bludgeoning",
-    "special": ["thrown"],
+    "special": [
+      "thrown"
+    ],
     "special_description": "Thrown weapon (range increment 10 ft)."
   },
   "Heavy Mace": {
@@ -172,7 +180,9 @@
     "range": 20,
     "weight": 3,
     "type": "Piercing",
-    "special": ["thrown"],
+    "special": [
+      "thrown"
+    ],
     "special_description": "Thrown weapon (range increment 20 ft)."
   },
   "Longspear": {
@@ -188,7 +198,9 @@
     "range": 0,
     "weight": 9,
     "type": "Piercing",
-    "special": ["reach"],
+    "special": [
+      "reach"
+    ],
     "special_description": "Reach weapon. You can attack foes 10 ft away but not adjacent foes."
   },
   "Quarterstaff": {
@@ -204,7 +216,9 @@
     "range": 0,
     "weight": 4,
     "type": "Bludgeoning",
-    "special": ["double"],
+    "special": [
+      "double"
+    ],
     "special_description": "Double weapon. Can fight with both ends as two-weapon fighting (light + one-handed penalties) or use two-handed."
   },
   "Spear": {
@@ -220,7 +234,9 @@
     "range": 20,
     "weight": 6,
     "type": "Piercing",
-    "special": ["thrown"],
+    "special": [
+      "thrown"
+    ],
     "special_description": "Thrown weapon (range increment 20 ft)."
   },
   "Heavy Crossbow": {
@@ -236,7 +252,10 @@
     "range": 120,
     "weight": 8,
     "type": "Piercing",
-    "special": ["projectile", "loading"],
+    "special": [
+      "projectile",
+      "loading"
+    ],
     "special_description": "Projectile weapon. Requires two hands. Loading is a move action (or standard for heavy)."
   },
   "Bolts, crossbow (10)": {
@@ -268,8 +287,31 @@
     "range": 80,
     "weight": 4,
     "type": "Piercing",
-    "special": ["projectile", "loading"],
+    "special": [
+      "projectile",
+      "loading"
+    ],
     "special_description": "Projectile weapon. Requires two hands. Reloading is a move action."
+  },
+  "Hand Crossbow": {
+    "proficiency": "exotic",
+    "category": "exotic_ranged",
+    "cost": 100,
+    "cost_display": "100 gp",
+    "damage_s": "1d3",
+    "damage_m": "1d4",
+    "critical": "19-20/x2",
+    "threat_range": "19-20",
+    "crit_multiplier": "x2",
+    "range": 30,
+    "weight": 2,
+    "type": "Piercing",
+    "special": [
+      "projectile",
+      "loading",
+      "light"
+    ],
+    "special_description": "Exotic light ranged weapon. Uses crossbow bolts. Can be fired one-handed. Loading a hand crossbow is a move action that provokes attacks of opportunity. (SRD)"
   },
   "Dart": {
     "proficiency": "simple",
@@ -284,7 +326,9 @@
     "range": 20,
     "weight": 0.5,
     "type": "Piercing",
-    "special": ["thrown"],
+    "special": [
+      "thrown"
+    ],
     "special_description": "Thrown weapon (range increment 20 ft)."
   },
   "Javelin": {
@@ -300,7 +344,9 @@
     "range": 30,
     "weight": 2,
     "type": "Piercing",
-    "special": ["thrown"],
+    "special": [
+      "thrown"
+    ],
     "special_description": "Thrown weapon (range increment 30 ft)."
   },
   "Sling": {
@@ -316,7 +362,9 @@
     "range": 50,
     "weight": 0,
     "type": "Bludgeoning",
-    "special": ["projectile"],
+    "special": [
+      "projectile"
+    ],
     "special_description": "Projectile weapon. Can apply Strength bonus to damage (unlike most bows)."
   },
   "Bullets, sling (10)": {
@@ -348,7 +396,9 @@
     "range": 10,
     "weight": 2,
     "type": "Slashing",
-    "special": ["thrown"],
+    "special": [
+      "thrown"
+    ],
     "special_description": "Thrown weapon (range increment 10 ft). Martial weapon."
   },
   "Light Hammer": {
@@ -364,7 +414,9 @@
     "range": 20,
     "weight": 2,
     "type": "Bludgeoning",
-    "special": ["thrown"],
+    "special": [
+      "thrown"
+    ],
     "special_description": "Thrown weapon (range increment 20 ft)."
   },
   "Handaxe": {
@@ -428,7 +480,9 @@
     "range": 0,
     "weight": 2,
     "type": "Bludgeoning",
-    "special": ["nonlethal"],
+    "special": [
+      "nonlethal"
+    ],
     "special_description": "Deals nonlethal damage only."
   },
   "Light Shield": {
@@ -524,7 +578,10 @@
     "range": 0,
     "weight": 5,
     "type": "Bludgeoning",
-    "special": ["trip", "disarm"],
+    "special": [
+      "trip",
+      "disarm"
+    ],
     "special_description": "Can be used for trip and disarm attacks without provoking AoO. +2 bonus on opposed checks to trip/disarm."
   },
   "Longsword": {
@@ -636,7 +693,9 @@
     "range": 10,
     "weight": 4,
     "type": "Piercing",
-    "special": ["thrown"],
+    "special": [
+      "thrown"
+    ],
     "special_description": "Thrown weapon (range increment 10 ft). Can also be used as a reach weapon in some builds but primarily thrown/melee."
   },
   "Warhammer": {
@@ -684,7 +743,9 @@
     "range": 0,
     "weight": 10,
     "type": "Slashing",
-    "special": ["reach"],
+    "special": [
+      "reach"
+    ],
     "special_description": "Reach weapon. Attack foes 10 ft away but not adjacent. Cannot attack adjacent creatures."
   },
   "Greataxe": {
@@ -732,7 +793,10 @@
     "range": 0,
     "weight": 10,
     "type": "Bludgeoning",
-    "special": ["trip", "disarm"],
+    "special": [
+      "trip",
+      "disarm"
+    ],
     "special_description": "Improved threat range. Can trip/disarm like the light flail."
   },
   "Greatsword": {
@@ -764,7 +828,10 @@
     "range": 0,
     "weight": 12,
     "type": "Slashing",
-    "special": ["reach", "trip"],
+    "special": [
+      "reach",
+      "trip"
+    ],
     "special_description": "Reach weapon. Can also be used to trip foes."
   },
   "Halberd": {
@@ -780,7 +847,11 @@
     "range": 0,
     "weight": 12,
     "type": "Piercing or slashing",
-    "special": ["reach", "trip", "disarm"],
+    "special": [
+      "reach",
+      "trip",
+      "disarm"
+    ],
     "special_description": "Reach weapon. Can trip or disarm. Versatile piercing/slashing."
   },
   "Lance": {
@@ -796,7 +867,10 @@
     "range": 0,
     "weight": 10,
     "type": "Piercing",
-    "special": ["reach", "mounted"],
+    "special": [
+      "reach",
+      "mounted"
+    ],
     "special_description": "Reach weapon. Double damage when used from the back of a charging mount."
   },
   "Ranseur": {
@@ -812,7 +886,10 @@
     "range": 0,
     "weight": 12,
     "type": "Piercing",
-    "special": ["reach", "disarm"],
+    "special": [
+      "reach",
+      "disarm"
+    ],
     "special_description": "Reach weapon. +2 bonus on disarm attempts."
   },
   "Scythe": {
@@ -828,7 +905,9 @@
     "range": 0,
     "weight": 10,
     "type": "Piercing or slashing",
-    "special": ["trip"],
+    "special": [
+      "trip"
+    ],
     "special_description": "x4 critical multiplier. Can be used to trip."
   },
   "Longbow": {
@@ -844,7 +923,9 @@
     "range": 100,
     "weight": 3,
     "type": "Piercing",
-    "special": ["projectile"],
+    "special": [
+      "projectile"
+    ],
     "special_description": "Projectile weapon. Requires two hands. No Strength bonus to damage unless composite."
   },
   "Arrows (20)": {
@@ -876,7 +957,10 @@
     "range": 110,
     "weight": 3,
     "type": "Piercing",
-    "special": ["projectile", "composite"],
+    "special": [
+      "projectile",
+      "composite"
+    ],
     "special_description": "Projectile. Allows Strength bonus to damage up to the bow's rating (must be specified when crafted)."
   },
   "Shortbow": {
@@ -892,7 +976,9 @@
     "range": 60,
     "weight": 2,
     "type": "Piercing",
-    "special": ["projectile"],
+    "special": [
+      "projectile"
+    ],
     "special_description": "Projectile weapon. Requires two hands."
   },
   "Composite Shortbow": {
@@ -908,7 +994,10 @@
     "range": 70,
     "weight": 2,
     "type": "Piercing",
-    "special": ["projectile", "composite"],
+    "special": [
+      "projectile",
+      "composite"
+    ],
     "special_description": "Projectile. Allows limited Strength bonus to damage."
   },
   "Kama": {
@@ -924,7 +1013,9 @@
     "range": 0,
     "weight": 2,
     "type": "Slashing",
-    "special": ["trip"],
+    "special": [
+      "trip"
+    ],
     "special_description": "Monk weapon. Can trip."
   },
   "Nunchaku": {
@@ -956,7 +1047,10 @@
     "range": 10,
     "weight": 1,
     "type": "Bludgeoning",
-    "special": ["thrown", "disarm"],
+    "special": [
+      "thrown",
+      "disarm"
+    ],
     "special_description": "Monk weapon. Thrown (10 ft). +4 bonus on disarm attempts."
   },
   "Siangham": {
@@ -989,7 +1083,7 @@
     "weight": 6,
     "type": "Slashing",
     "special": [],
-    "special_description": "Exotic one-handed weapon. Can be used two-handed by a non-proficient user as a martial weapon (no special ability)."
+    "special_description": "SRD: Exotic when used one-handed; martial when used two-handed. Exotic Weapon Proficiency is required to use it one-handed; characters with martial weapon proficiency may use it two-handed as a martial weapon."
   },
   "Dwarven Waraxe": {
     "proficiency": "exotic",
@@ -1020,7 +1114,12 @@
     "range": 0,
     "weight": 2,
     "type": "Slashing",
-    "special": ["reach", "trip", "disarm", "nonlethal"],
+    "special": [
+      "reach",
+      "trip",
+      "disarm",
+      "nonlethal"
+    ],
     "special_description": "Reach weapon (can attack 10+ ft, not adjacent). Can trip and disarm. Deals nonlethal damage. Cannot damage armor."
   },
   "Orc Double Axe": {
@@ -1036,7 +1135,9 @@
     "range": 0,
     "weight": 15,
     "type": "Slashing",
-    "special": ["double"],
+    "special": [
+      "double"
+    ],
     "special_description": "Double weapon. Exotic."
   },
   "Spiked Chain": {
@@ -1052,7 +1153,11 @@
     "range": 0,
     "weight": 10,
     "type": "Piercing",
-    "special": ["reach", "trip", "disarm"],
+    "special": [
+      "reach",
+      "trip",
+      "disarm"
+    ],
     "special_description": "Reach weapon. Can trip and disarm. +2 on trip/disarm opposed checks. Can attack adjacent with end."
   },
   "Dire Flail": {
@@ -1068,7 +1173,11 @@
     "range": 0,
     "weight": 10,
     "type": "Bludgeoning",
-    "special": ["double", "trip", "disarm"],
+    "special": [
+      "double",
+      "trip",
+      "disarm"
+    ],
     "special_description": "Double weapon. Each head can trip/disarm."
   },
   "Gnome Hooked Hammer": {
@@ -1084,7 +1193,10 @@
     "range": 0,
     "weight": 6,
     "type": "Bludgeoning/Piercing",
-    "special": ["double", "trip"],
+    "special": [
+      "double",
+      "trip"
+    ],
     "special_description": "Double weapon. One head bludgeoning (x3), other piercing (x4). Can trip."
   },
   "Two-Bladed Sword": {
@@ -1100,7 +1212,9 @@
     "range": 0,
     "weight": 10,
     "type": "Slashing",
-    "special": ["double"],
+    "special": [
+      "double"
+    ],
     "special_description": "Double weapon. Improved threat range on both heads."
   },
   "Dwarven Urgrosh": {
@@ -1116,7 +1230,9 @@
     "range": 0,
     "weight": 12,
     "type": "Slashing or piercing",
-    "special": ["double"],
+    "special": [
+      "double"
+    ],
     "special_description": "Double weapon. Axe head slashing, spear head piercing. Can be set against charge like a spear."
   },
   "Bolas": {
@@ -1132,7 +1248,11 @@
     "range": 10,
     "weight": 2,
     "type": "Bludgeoning",
-    "special": ["thrown", "trip", "nonlethal"],
+    "special": [
+      "thrown",
+      "trip",
+      "nonlethal"
+    ],
     "special_description": "Thrown exotic weapon. Can trip (no damage on trip). Range increment 10 ft. Nonlethal."
   },
   "Net": {
@@ -1148,7 +1268,10 @@
     "range": 10,
     "weight": 6,
     "type": "—",
-    "special": ["thrown", "entangle"],
+    "special": [
+      "thrown",
+      "entangle"
+    ],
     "special_description": "Thrown weapon. On hit, target is entangled (DC 15 Escape Artist or Strength to escape, or cut free). Max range 10 ft. Full round to reload."
   },
   "Shuriken": {
@@ -1164,7 +1287,1634 @@
     "range": 10,
     "weight": 0.5,
     "type": "Piercing",
-    "special": ["thrown", "monk"],
+    "special": [
+      "thrown",
+      "monk"
+    ],
     "special_description": "Thrown exotic (treated as ammunition for some purposes). Monk weapon. Can throw multiple with flurry."
+  },
+  "Gauntlet, masterwork": {
+    "proficiency": "simple",
+    "category": "simple_melee",
+    "cost": 302,
+    "cost_display": "302 gp",
+    "damage_s": "1d2",
+    "damage_m": "1d3",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 1,
+    "type": "Bludgeoning",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Worn on the hand. Counts as armed for unarmed strikes and AoOs. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Gauntlet",
+    "attack_bonus": 1
+  },
+  "Dagger, masterwork": {
+    "proficiency": "simple",
+    "category": "simple_melee",
+    "cost": 302,
+    "cost_display": "302 gp",
+    "damage_s": "1d3",
+    "damage_m": "1d4",
+    "critical": "19-20/x2",
+    "threat_range": "19-20",
+    "crit_multiplier": "x2",
+    "range": 10,
+    "weight": 1,
+    "type": "Piercing or slashing",
+    "special": [
+      "thrown",
+      "masterwork"
+    ],
+    "special_description": "Thrown weapon (range increment 10 ft). Can be thrown as standard action. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Dagger",
+    "attack_bonus": 1
+  },
+  "Punching Dagger, masterwork": {
+    "proficiency": "simple",
+    "category": "simple_melee",
+    "cost": 302,
+    "cost_display": "302 gp",
+    "damage_s": "1d3",
+    "damage_m": "1d4",
+    "critical": "x3",
+    "threat_range": "20",
+    "crit_multiplier": "x3",
+    "range": 0,
+    "weight": 1,
+    "type": "Piercing",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Punching dagger. x3 critical multiplier. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Punching Dagger",
+    "attack_bonus": 1
+  },
+  "Spiked Gauntlet, masterwork": {
+    "proficiency": "simple",
+    "category": "simple_melee",
+    "cost": 305,
+    "cost_display": "305 gp",
+    "damage_s": "1d3",
+    "damage_m": "1d4",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 1,
+    "type": "Piercing",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Spiked version of the gauntlet. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Spiked Gauntlet",
+    "attack_bonus": 1
+  },
+  "Light Mace, masterwork": {
+    "proficiency": "simple",
+    "category": "simple_melee",
+    "cost": 305,
+    "cost_display": "305 gp",
+    "damage_s": "1d4",
+    "damage_m": "1d6",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 4,
+    "type": "Bludgeoning",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Light Mace",
+    "attack_bonus": 1
+  },
+  "Sickle, masterwork": {
+    "proficiency": "simple",
+    "category": "simple_melee",
+    "cost": 306,
+    "cost_display": "306 gp",
+    "damage_s": "1d4",
+    "damage_m": "1d6",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 2,
+    "type": "Slashing",
+    "special": [
+      "trip",
+      "masterwork"
+    ],
+    "special_description": "Can be used to make trip attacks. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Sickle",
+    "attack_bonus": 1
+  },
+  "Club, masterwork": {
+    "proficiency": "simple",
+    "category": "simple_melee",
+    "cost": 300,
+    "cost_display": "300 gp",
+    "damage_s": "1d4",
+    "damage_m": "1d6",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 10,
+    "weight": 3,
+    "type": "Bludgeoning",
+    "special": [
+      "thrown",
+      "masterwork"
+    ],
+    "special_description": "Thrown weapon (range increment 10 ft). Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Club",
+    "attack_bonus": 1
+  },
+  "Heavy Mace, masterwork": {
+    "proficiency": "simple",
+    "category": "simple_melee",
+    "cost": 312,
+    "cost_display": "312 gp",
+    "damage_s": "1d6",
+    "damage_m": "1d8",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 8,
+    "type": "Bludgeoning",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Heavy Mace",
+    "attack_bonus": 1
+  },
+  "Morningstar, masterwork": {
+    "proficiency": "simple",
+    "category": "simple_melee",
+    "cost": 308,
+    "cost_display": "308 gp",
+    "damage_s": "1d6",
+    "damage_m": "1d8",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 6,
+    "type": "Bludgeoning and piercing",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Morningstar",
+    "attack_bonus": 1
+  },
+  "Shortspear, masterwork": {
+    "proficiency": "simple",
+    "category": "simple_melee",
+    "cost": 301,
+    "cost_display": "301 gp",
+    "damage_s": "1d4",
+    "damage_m": "1d6",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 20,
+    "weight": 3,
+    "type": "Piercing",
+    "special": [
+      "thrown",
+      "masterwork"
+    ],
+    "special_description": "Thrown weapon (range increment 20 ft). Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Shortspear",
+    "attack_bonus": 1
+  },
+  "Longspear, masterwork": {
+    "proficiency": "simple",
+    "category": "simple_melee",
+    "cost": 305,
+    "cost_display": "305 gp",
+    "damage_s": "1d6",
+    "damage_m": "1d8",
+    "critical": "x3",
+    "threat_range": "20",
+    "crit_multiplier": "x3",
+    "range": 0,
+    "weight": 9,
+    "type": "Piercing",
+    "special": [
+      "reach",
+      "masterwork"
+    ],
+    "special_description": "Reach weapon. You can attack foes 10 ft away but not adjacent foes. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Longspear",
+    "attack_bonus": 1
+  },
+  "Quarterstaff, masterwork": {
+    "proficiency": "simple",
+    "category": "simple_melee",
+    "cost": 300,
+    "cost_display": "300 gp",
+    "damage_s": "1d4/1d4",
+    "damage_m": "1d6/1d6",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 4,
+    "type": "Bludgeoning",
+    "special": [
+      "double",
+      "masterwork"
+    ],
+    "special_description": "Double weapon. Can fight with both ends as two-weapon fighting (light + one-handed penalties) or use two-handed. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Quarterstaff",
+    "attack_bonus": 1
+  },
+  "Spear, masterwork": {
+    "proficiency": "simple",
+    "category": "simple_melee",
+    "cost": 302,
+    "cost_display": "302 gp",
+    "damage_s": "1d6",
+    "damage_m": "1d8",
+    "critical": "x3",
+    "threat_range": "20",
+    "crit_multiplier": "x3",
+    "range": 20,
+    "weight": 6,
+    "type": "Piercing",
+    "special": [
+      "thrown",
+      "masterwork"
+    ],
+    "special_description": "Thrown weapon (range increment 20 ft). Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Spear",
+    "attack_bonus": 1
+  },
+  "Heavy Crossbow, masterwork": {
+    "proficiency": "simple",
+    "category": "simple_ranged",
+    "cost": 350,
+    "cost_display": "350 gp",
+    "damage_s": "1d8",
+    "damage_m": "1d10",
+    "critical": "19-20/x2",
+    "threat_range": "19-20",
+    "crit_multiplier": "x2",
+    "range": 120,
+    "weight": 8,
+    "type": "Piercing",
+    "special": [
+      "projectile",
+      "loading",
+      "masterwork"
+    ],
+    "special_description": "Projectile weapon. Requires two hands. Loading is a move action (or standard for heavy). Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Heavy Crossbow",
+    "attack_bonus": 1
+  },
+  "Bolts, crossbow (10), masterwork": {
+    "proficiency": "simple",
+    "category": "ammunition",
+    "cost": 61,
+    "cost_display": "61 gp",
+    "damage_s": "—",
+    "damage_m": "—",
+    "critical": "—",
+    "threat_range": "—",
+    "crit_multiplier": "—",
+    "range": 0,
+    "weight": 1,
+    "type": "—",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Ammunition for crossbows. 50% chance to be destroyed or lost on miss. Masterwork ammunition (+6 gp each). Grants +1 enhancement bonus on attack rolls when used (does not stack with magical enhancement).",
+    "is_masterwork": true,
+    "base_item": "Bolts, crossbow (10)",
+    "attack_bonus": 1
+  },
+  "Light Crossbow, masterwork": {
+    "proficiency": "simple",
+    "category": "simple_ranged",
+    "cost": 335,
+    "cost_display": "335 gp",
+    "damage_s": "1d6",
+    "damage_m": "1d8",
+    "critical": "19-20/x2",
+    "threat_range": "19-20",
+    "crit_multiplier": "x2",
+    "range": 80,
+    "weight": 4,
+    "type": "Piercing",
+    "special": [
+      "projectile",
+      "loading",
+      "masterwork"
+    ],
+    "special_description": "Projectile weapon. Requires two hands. Reloading is a move action. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Light Crossbow",
+    "attack_bonus": 1
+  },
+  "Hand Crossbow, masterwork": {
+    "proficiency": "exotic",
+    "category": "exotic_ranged",
+    "cost": 400,
+    "cost_display": "400 gp",
+    "damage_s": "1d3",
+    "damage_m": "1d4",
+    "critical": "19-20/x2",
+    "threat_range": "19-20",
+    "crit_multiplier": "x2",
+    "range": 30,
+    "weight": 2,
+    "type": "Piercing",
+    "special": [
+      "projectile",
+      "loading",
+      "light",
+      "masterwork"
+    ],
+    "special_description": "Exotic light ranged weapon. Uses crossbow bolts. Can be fired one-handed. Loading is a move action that provokes attacks of opportunity. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Hand Crossbow",
+    "attack_bonus": 1
+  },
+  "Dart, masterwork": {
+    "proficiency": "simple",
+    "category": "simple_ranged",
+    "cost": 300.5,
+    "cost_display": "300.5 gp",
+    "damage_s": "1d3",
+    "damage_m": "1d4",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 20,
+    "weight": 0.5,
+    "type": "Piercing",
+    "special": [
+      "thrown",
+      "masterwork"
+    ],
+    "special_description": "Thrown weapon (range increment 20 ft). Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Dart",
+    "attack_bonus": 1
+  },
+  "Javelin, masterwork": {
+    "proficiency": "simple",
+    "category": "simple_ranged",
+    "cost": 301,
+    "cost_display": "301 gp",
+    "damage_s": "1d4",
+    "damage_m": "1d6",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 30,
+    "weight": 2,
+    "type": "Piercing",
+    "special": [
+      "thrown",
+      "masterwork"
+    ],
+    "special_description": "Thrown weapon (range increment 30 ft). Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Javelin",
+    "attack_bonus": 1
+  },
+  "Sling, masterwork": {
+    "proficiency": "simple",
+    "category": "simple_ranged",
+    "cost": 300,
+    "cost_display": "300 gp",
+    "damage_s": "1d3",
+    "damage_m": "1d4",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 50,
+    "weight": 0,
+    "type": "Bludgeoning",
+    "special": [
+      "projectile",
+      "masterwork"
+    ],
+    "special_description": "Projectile weapon. Can apply Strength bonus to damage (unlike most bows). Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Sling",
+    "attack_bonus": 1
+  },
+  "Bullets, sling (10), masterwork": {
+    "proficiency": "simple",
+    "category": "ammunition",
+    "cost": 60.1,
+    "cost_display": "60.1 gp",
+    "damage_s": "—",
+    "damage_m": "—",
+    "critical": "—",
+    "threat_range": "—",
+    "crit_multiplier": "—",
+    "range": 0,
+    "weight": 5,
+    "type": "—",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Ammunition for slings. Masterwork ammunition (+6 gp each). Grants +1 enhancement bonus on attack rolls when used (does not stack with magical enhancement).",
+    "is_masterwork": true,
+    "base_item": "Bullets, sling (10)",
+    "attack_bonus": 1
+  },
+  "Throwing Axe, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_ranged",
+    "cost": 308,
+    "cost_display": "308 gp",
+    "damage_s": "1d4",
+    "damage_m": "1d6",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 10,
+    "weight": 2,
+    "type": "Slashing",
+    "special": [
+      "thrown",
+      "masterwork"
+    ],
+    "special_description": "Thrown weapon (range increment 10 ft). Martial weapon. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Throwing Axe",
+    "attack_bonus": 1
+  },
+  "Light Hammer, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_ranged",
+    "cost": 301,
+    "cost_display": "301 gp",
+    "damage_s": "1d3",
+    "damage_m": "1d4",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 20,
+    "weight": 2,
+    "type": "Bludgeoning",
+    "special": [
+      "thrown",
+      "masterwork"
+    ],
+    "special_description": "Thrown weapon (range increment 20 ft). Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Light Hammer",
+    "attack_bonus": 1
+  },
+  "Handaxe, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 306,
+    "cost_display": "306 gp",
+    "damage_s": "1d4",
+    "damage_m": "1d6",
+    "critical": "x3",
+    "threat_range": "20",
+    "crit_multiplier": "x3",
+    "range": 0,
+    "weight": 3,
+    "type": "Slashing",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Handaxe",
+    "attack_bonus": 1
+  },
+  "Kukri, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 308,
+    "cost_display": "308 gp",
+    "damage_s": "1d3",
+    "damage_m": "1d4",
+    "critical": "18-20/x2",
+    "threat_range": "18-20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 2,
+    "type": "Slashing",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Wide blade. Improved threat range. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Kukri",
+    "attack_bonus": 1
+  },
+  "Light Pick, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 304,
+    "cost_display": "304 gp",
+    "damage_s": "1d3",
+    "damage_m": "1d4",
+    "critical": "x4",
+    "threat_range": "20",
+    "crit_multiplier": "x4",
+    "range": 0,
+    "weight": 3,
+    "type": "Piercing",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "x4 critical multiplier. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Light Pick",
+    "attack_bonus": 1
+  },
+  "Sap, masterwork": {
+    "proficiency": "martial",
+    "category": "simple_melee",
+    "cost": 301,
+    "cost_display": "301 gp",
+    "damage_s": "1d4",
+    "damage_m": "1d6",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 2,
+    "type": "Bludgeoning",
+    "special": [
+      "nonlethal",
+      "masterwork"
+    ],
+    "special_description": "Deals nonlethal damage only. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Sap",
+    "attack_bonus": 1
+  },
+  "Light Shield, masterwork": {
+    "proficiency": "simple",
+    "category": "simple_melee",
+    "cost": 300,
+    "cost_display": "300 gp",
+    "damage_s": "1d2",
+    "damage_m": "1d3",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 0,
+    "type": "Bludgeoning",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Bash attack with light shield. Weight and cost based on the shield itself. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Light Shield",
+    "attack_bonus": 1
+  },
+  "Spiked Armor, masterwork": {
+    "proficiency": "exotic",
+    "category": "exotic_melee",
+    "cost": 300,
+    "cost_display": "300 gp",
+    "damage_s": "1d4",
+    "damage_m": "1d6",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 0,
+    "type": "Piercing",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Armor spikes. Cost and weight based on the armor. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Spiked Armor",
+    "attack_bonus": 1
+  },
+  "Light Spiked Shield, masterwork": {
+    "proficiency": "exotic",
+    "category": "exotic_melee",
+    "cost": 300,
+    "cost_display": "300 gp",
+    "damage_s": "1d3",
+    "damage_m": "1d4",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 0,
+    "type": "Piercing",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Spiked light shield bash. Special cost/weight. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Light Spiked Shield",
+    "attack_bonus": 1
+  },
+  "Short Sword, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 310,
+    "cost_display": "310 gp",
+    "damage_s": "1d4",
+    "damage_m": "1d6",
+    "critical": "19-20/x2",
+    "threat_range": "19-20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 2,
+    "type": "Piercing",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Short Sword",
+    "attack_bonus": 1
+  },
+  "Battleaxe, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 310,
+    "cost_display": "310 gp",
+    "damage_s": "1d6",
+    "damage_m": "1d8",
+    "critical": "x3",
+    "threat_range": "20",
+    "crit_multiplier": "x3",
+    "range": 0,
+    "weight": 6,
+    "type": "Slashing",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Battleaxe",
+    "attack_bonus": 1
+  },
+  "Flail, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 308,
+    "cost_display": "308 gp",
+    "damage_s": "1d6",
+    "damage_m": "1d8",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 5,
+    "type": "Bludgeoning",
+    "special": [
+      "trip",
+      "disarm",
+      "masterwork"
+    ],
+    "special_description": "Can be used for trip and disarm attacks without provoking AoO. +2 bonus on opposed checks to trip/disarm. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Flail",
+    "attack_bonus": 1
+  },
+  "Longsword, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 315,
+    "cost_display": "315 gp",
+    "damage_s": "1d6",
+    "damage_m": "1d8",
+    "critical": "19-20/x2",
+    "threat_range": "19-20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 4,
+    "type": "Slashing",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "The classic one-handed martial sword. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Longsword",
+    "attack_bonus": 1
+  },
+  "Heavy Pick, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 308,
+    "cost_display": "308 gp",
+    "damage_s": "1d4",
+    "damage_m": "1d6",
+    "critical": "x4",
+    "threat_range": "20",
+    "crit_multiplier": "x4",
+    "range": 0,
+    "weight": 6,
+    "type": "Piercing",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "x4 critical multiplier. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Heavy Pick",
+    "attack_bonus": 1
+  },
+  "Rapier, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 320,
+    "cost_display": "320 gp",
+    "damage_s": "1d4",
+    "damage_m": "1d6",
+    "critical": "18-20/x2",
+    "threat_range": "18-20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 2,
+    "type": "Piercing",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Finesse weapon. Can use Dexterity instead of Strength for attack rolls (if proficient). Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Rapier",
+    "attack_bonus": 1
+  },
+  "Scimitar, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 315,
+    "cost_display": "315 gp",
+    "damage_s": "1d4",
+    "damage_m": "1d6",
+    "critical": "18-20/x2",
+    "threat_range": "18-20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 4,
+    "type": "Slashing",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Curved blade. Improved threat range. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Scimitar",
+    "attack_bonus": 1
+  },
+  "Heavy Shield, masterwork": {
+    "proficiency": "simple",
+    "category": "simple_melee",
+    "cost": 300,
+    "cost_display": "300 gp",
+    "damage_s": "1d3",
+    "damage_m": "1d4",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 0,
+    "type": "Bludgeoning",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Bash attack with heavy shield. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Heavy Shield",
+    "attack_bonus": 1
+  },
+  "Heavy Spiked Shield, masterwork": {
+    "proficiency": "exotic",
+    "category": "exotic_melee",
+    "cost": 300,
+    "cost_display": "300 gp",
+    "damage_s": "1d4",
+    "damage_m": "1d6",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 0,
+    "type": "Piercing",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Spiked heavy shield bash. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Heavy Spiked Shield",
+    "attack_bonus": 1
+  },
+  "Trident, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 315,
+    "cost_display": "315 gp",
+    "damage_s": "1d6",
+    "damage_m": "1d8",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 10,
+    "weight": 4,
+    "type": "Piercing",
+    "special": [
+      "thrown",
+      "masterwork"
+    ],
+    "special_description": "Thrown weapon (range increment 10 ft). Can also be used as a reach weapon in some builds but primarily thrown/melee. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Trident",
+    "attack_bonus": 1
+  },
+  "Warhammer, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 312,
+    "cost_display": "312 gp",
+    "damage_s": "1d6",
+    "damage_m": "1d8",
+    "critical": "x3",
+    "threat_range": "20",
+    "crit_multiplier": "x3",
+    "range": 0,
+    "weight": 5,
+    "type": "Bludgeoning",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Warhammer",
+    "attack_bonus": 1
+  },
+  "Falchion, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 375,
+    "cost_display": "375 gp",
+    "damage_s": "1d6",
+    "damage_m": "2d4",
+    "critical": "18-20/x2",
+    "threat_range": "18-20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 8,
+    "type": "Slashing",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Two-handed curved sword. Improved threat range. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Falchion",
+    "attack_bonus": 1
+  },
+  "Glaive, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 308,
+    "cost_display": "308 gp",
+    "damage_s": "1d8",
+    "damage_m": "1d10",
+    "critical": "x3",
+    "threat_range": "20",
+    "crit_multiplier": "x3",
+    "range": 0,
+    "weight": 10,
+    "type": "Slashing",
+    "special": [
+      "reach",
+      "masterwork"
+    ],
+    "special_description": "Reach weapon. Attack foes 10 ft away but not adjacent. Cannot attack adjacent creatures. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Glaive",
+    "attack_bonus": 1
+  },
+  "Greataxe, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 320,
+    "cost_display": "320 gp",
+    "damage_s": "1d10",
+    "damage_m": "1d12",
+    "critical": "x3",
+    "threat_range": "20",
+    "crit_multiplier": "x3",
+    "range": 0,
+    "weight": 12,
+    "type": "Slashing",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Two-handed axe. High damage die. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Greataxe",
+    "attack_bonus": 1
+  },
+  "Greatclub, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 305,
+    "cost_display": "305 gp",
+    "damage_s": "1d8",
+    "damage_m": "1d10",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 8,
+    "type": "Bludgeoning",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Greatclub",
+    "attack_bonus": 1
+  },
+  "Heavy Flail, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 315,
+    "cost_display": "315 gp",
+    "damage_s": "1d8",
+    "damage_m": "1d10",
+    "critical": "19-20/x2",
+    "threat_range": "19-20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 10,
+    "type": "Bludgeoning",
+    "special": [
+      "trip",
+      "disarm",
+      "masterwork"
+    ],
+    "special_description": "Improved threat range. Can trip/disarm like the light flail. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Heavy Flail",
+    "attack_bonus": 1
+  },
+  "Greatsword, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 350,
+    "cost_display": "350 gp",
+    "damage_s": "1d10",
+    "damage_m": "2d6",
+    "critical": "19-20/x2",
+    "threat_range": "19-20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 8,
+    "type": "Slashing",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Two-handed sword. Improved threat range. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Greatsword",
+    "attack_bonus": 1
+  },
+  "Guisarme, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 309,
+    "cost_display": "309 gp",
+    "damage_s": "1d6",
+    "damage_m": "2d4",
+    "critical": "x3",
+    "threat_range": "20",
+    "crit_multiplier": "x3",
+    "range": 0,
+    "weight": 12,
+    "type": "Slashing",
+    "special": [
+      "reach",
+      "trip",
+      "masterwork"
+    ],
+    "special_description": "Reach weapon. Can also be used to trip foes. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Guisarme",
+    "attack_bonus": 1
+  },
+  "Halberd, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 310,
+    "cost_display": "310 gp",
+    "damage_s": "1d8",
+    "damage_m": "1d10",
+    "critical": "x3",
+    "threat_range": "20",
+    "crit_multiplier": "x3",
+    "range": 0,
+    "weight": 12,
+    "type": "Piercing or slashing",
+    "special": [
+      "reach",
+      "trip",
+      "disarm",
+      "masterwork"
+    ],
+    "special_description": "Reach weapon. Can trip or disarm. Versatile piercing/slashing. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Halberd",
+    "attack_bonus": 1
+  },
+  "Lance, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 310,
+    "cost_display": "310 gp",
+    "damage_s": "1d6",
+    "damage_m": "1d8",
+    "critical": "x3",
+    "threat_range": "20",
+    "crit_multiplier": "x3",
+    "range": 0,
+    "weight": 10,
+    "type": "Piercing",
+    "special": [
+      "reach",
+      "mounted",
+      "masterwork"
+    ],
+    "special_description": "Reach weapon. Double damage when used from the back of a charging mount. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Lance",
+    "attack_bonus": 1
+  },
+  "Ranseur, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 310,
+    "cost_display": "310 gp",
+    "damage_s": "1d6",
+    "damage_m": "2d4",
+    "critical": "x3",
+    "threat_range": "20",
+    "crit_multiplier": "x3",
+    "range": 0,
+    "weight": 12,
+    "type": "Piercing",
+    "special": [
+      "reach",
+      "disarm",
+      "masterwork"
+    ],
+    "special_description": "Reach weapon. +2 bonus on disarm attempts. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Ranseur",
+    "attack_bonus": 1
+  },
+  "Scythe, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 318,
+    "cost_display": "318 gp",
+    "damage_s": "1d6",
+    "damage_m": "2d4",
+    "critical": "x4",
+    "threat_range": "20",
+    "crit_multiplier": "x4",
+    "range": 0,
+    "weight": 10,
+    "type": "Piercing or slashing",
+    "special": [
+      "trip",
+      "masterwork"
+    ],
+    "special_description": "x4 critical multiplier. Can be used to trip. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Scythe",
+    "attack_bonus": 1
+  },
+  "Longbow, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_ranged",
+    "cost": 375,
+    "cost_display": "375 gp",
+    "damage_s": "1d6",
+    "damage_m": "1d8",
+    "critical": "x3",
+    "threat_range": "20",
+    "crit_multiplier": "x3",
+    "range": 100,
+    "weight": 3,
+    "type": "Piercing",
+    "special": [
+      "projectile",
+      "masterwork"
+    ],
+    "special_description": "Projectile weapon. Requires two hands. No Strength bonus to damage unless composite. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Longbow",
+    "attack_bonus": 1
+  },
+  "Arrows (20), masterwork": {
+    "proficiency": "martial",
+    "category": "ammunition",
+    "cost": 121,
+    "cost_display": "121 gp",
+    "damage_s": "—",
+    "damage_m": "—",
+    "critical": "—",
+    "threat_range": "—",
+    "crit_multiplier": "—",
+    "range": 0,
+    "weight": 3,
+    "type": "—",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Ammunition for bows. 50% chance destroyed/lost on a miss. Masterwork ammunition (+6 gp each). Grants +1 enhancement bonus on attack rolls when used (does not stack with magical enhancement).",
+    "is_masterwork": true,
+    "base_item": "Arrows (20)",
+    "attack_bonus": 1
+  },
+  "Composite Longbow, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_ranged",
+    "cost": 400,
+    "cost_display": "400 gp",
+    "damage_s": "1d6",
+    "damage_m": "1d8",
+    "critical": "x3",
+    "threat_range": "20",
+    "crit_multiplier": "x3",
+    "range": 110,
+    "weight": 3,
+    "type": "Piercing",
+    "special": [
+      "projectile",
+      "composite",
+      "masterwork"
+    ],
+    "special_description": "Projectile. Allows Strength bonus to damage up to the bow's rating (must be specified when crafted). Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Composite Longbow",
+    "attack_bonus": 1
+  },
+  "Shortbow, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_ranged",
+    "cost": 330,
+    "cost_display": "330 gp",
+    "damage_s": "1d4",
+    "damage_m": "1d6",
+    "critical": "x3",
+    "threat_range": "20",
+    "crit_multiplier": "x3",
+    "range": 60,
+    "weight": 2,
+    "type": "Piercing",
+    "special": [
+      "projectile",
+      "masterwork"
+    ],
+    "special_description": "Projectile weapon. Requires two hands. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Shortbow",
+    "attack_bonus": 1
+  },
+  "Composite Shortbow, masterwork": {
+    "proficiency": "martial",
+    "category": "martial_ranged",
+    "cost": 375,
+    "cost_display": "375 gp",
+    "damage_s": "1d4",
+    "damage_m": "1d6",
+    "critical": "x3",
+    "threat_range": "20",
+    "crit_multiplier": "x3",
+    "range": 70,
+    "weight": 2,
+    "type": "Piercing",
+    "special": [
+      "projectile",
+      "composite",
+      "masterwork"
+    ],
+    "special_description": "Projectile. Allows limited Strength bonus to damage. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Composite Shortbow",
+    "attack_bonus": 1
+  },
+  "Kama, masterwork": {
+    "proficiency": "exotic",
+    "category": "exotic_melee",
+    "cost": 302,
+    "cost_display": "302 gp",
+    "damage_s": "1d4",
+    "damage_m": "1d6",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 2,
+    "type": "Slashing",
+    "special": [
+      "trip",
+      "masterwork"
+    ],
+    "special_description": "Monk weapon. Can trip. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Kama",
+    "attack_bonus": 1
+  },
+  "Nunchaku, masterwork": {
+    "proficiency": "exotic",
+    "category": "exotic_melee",
+    "cost": 302,
+    "cost_display": "302 gp",
+    "damage_s": "1d4",
+    "damage_m": "1d6",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 2,
+    "type": "Bludgeoning",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Monk weapon. +2 bonus on disarm attempts. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Nunchaku",
+    "attack_bonus": 1
+  },
+  "Sai, masterwork": {
+    "proficiency": "exotic",
+    "category": "exotic_melee",
+    "cost": 301,
+    "cost_display": "301 gp",
+    "damage_s": "1d3",
+    "damage_m": "1d4",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 10,
+    "weight": 1,
+    "type": "Bludgeoning",
+    "special": [
+      "thrown",
+      "disarm",
+      "masterwork"
+    ],
+    "special_description": "Monk weapon. Thrown (10 ft). +4 bonus on disarm attempts. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Sai",
+    "attack_bonus": 1
+  },
+  "Siangham, masterwork": {
+    "proficiency": "exotic",
+    "category": "exotic_melee",
+    "cost": 303,
+    "cost_display": "303 gp",
+    "damage_s": "1d4",
+    "damage_m": "1d6",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 1,
+    "type": "Piercing",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Monk weapon. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Siangham",
+    "attack_bonus": 1
+  },
+  "Bastard Sword, masterwork": {
+    "proficiency": "exotic",
+    "category": "exotic_melee",
+    "cost": 335,
+    "cost_display": "335 gp",
+    "damage_s": "1d8",
+    "damage_m": "1d10",
+    "critical": "19-20/x2",
+    "threat_range": "19-20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 6,
+    "type": "Slashing",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "SRD: Exotic when used one-handed; martial when used two-handed. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Bastard Sword",
+    "attack_bonus": 1
+  },
+  "Dwarven Waraxe, masterwork": {
+    "proficiency": "exotic",
+    "category": "exotic_melee",
+    "cost": 330,
+    "cost_display": "330 gp",
+    "damage_s": "1d8",
+    "damage_m": "1d10",
+    "critical": "x3",
+    "threat_range": "20",
+    "crit_multiplier": "x3",
+    "range": 0,
+    "weight": 8,
+    "type": "Slashing",
+    "special": [
+      "masterwork"
+    ],
+    "special_description": "Exotic one-handed for dwarves (martial for them). Two-handed use possible. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Dwarven Waraxe",
+    "attack_bonus": 1
+  },
+  "Whip, masterwork": {
+    "proficiency": "exotic",
+    "category": "exotic_melee",
+    "cost": 301,
+    "cost_display": "301 gp",
+    "damage_s": "1d2",
+    "damage_m": "1d3",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 2,
+    "type": "Slashing",
+    "special": [
+      "reach",
+      "trip",
+      "disarm",
+      "nonlethal",
+      "masterwork"
+    ],
+    "special_description": "Reach weapon (can attack 10+ ft, not adjacent). Can trip and disarm. Deals nonlethal damage. Cannot damage armor. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Whip",
+    "attack_bonus": 1
+  },
+  "Orc Double Axe, masterwork": {
+    "proficiency": "exotic",
+    "category": "exotic_melee",
+    "cost": 360,
+    "cost_display": "360 gp",
+    "damage_s": "1d6/1d6",
+    "damage_m": "1d8/1d8",
+    "critical": "x3",
+    "threat_range": "20",
+    "crit_multiplier": "x3",
+    "range": 0,
+    "weight": 15,
+    "type": "Slashing",
+    "special": [
+      "double",
+      "masterwork"
+    ],
+    "special_description": "Double weapon. Exotic. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Orc Double Axe",
+    "attack_bonus": 1
+  },
+  "Spiked Chain, masterwork": {
+    "proficiency": "exotic",
+    "category": "exotic_melee",
+    "cost": 325,
+    "cost_display": "325 gp",
+    "damage_s": "1d6",
+    "damage_m": "2d4",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 10,
+    "type": "Piercing",
+    "special": [
+      "reach",
+      "trip",
+      "disarm",
+      "masterwork"
+    ],
+    "special_description": "Reach weapon. Can trip and disarm. +2 on trip/disarm opposed checks. Can attack adjacent with end. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Spiked Chain",
+    "attack_bonus": 1
+  },
+  "Dire Flail, masterwork": {
+    "proficiency": "exotic",
+    "category": "exotic_melee",
+    "cost": 390,
+    "cost_display": "390 gp",
+    "damage_s": "1d6/1d6",
+    "damage_m": "1d8/1d8",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 10,
+    "type": "Bludgeoning",
+    "special": [
+      "double",
+      "trip",
+      "disarm",
+      "masterwork"
+    ],
+    "special_description": "Double weapon. Each head can trip/disarm. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Dire Flail",
+    "attack_bonus": 1
+  },
+  "Gnome Hooked Hammer, masterwork": {
+    "proficiency": "exotic",
+    "category": "exotic_melee",
+    "cost": 320,
+    "cost_display": "320 gp",
+    "damage_s": "1d6/1d4",
+    "damage_m": "1d8/1d6",
+    "critical": "x3/x4",
+    "threat_range": "20",
+    "crit_multiplier": "x3/x4",
+    "range": 0,
+    "weight": 6,
+    "type": "Bludgeoning/Piercing",
+    "special": [
+      "double",
+      "trip",
+      "masterwork"
+    ],
+    "special_description": "Double weapon. One head bludgeoning (x3), other piercing (x4). Can trip. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Gnome Hooked Hammer",
+    "attack_bonus": 1
+  },
+  "Two-Bladed Sword, masterwork": {
+    "proficiency": "exotic",
+    "category": "exotic_melee",
+    "cost": 400,
+    "cost_display": "400 gp",
+    "damage_s": "1d6/1d6",
+    "damage_m": "1d8/1d8",
+    "critical": "19-20/x2",
+    "threat_range": "19-20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 10,
+    "type": "Slashing",
+    "special": [
+      "double",
+      "masterwork"
+    ],
+    "special_description": "Double weapon. Improved threat range on both heads. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Two-Bladed Sword",
+    "attack_bonus": 1
+  },
+  "Dwarven Urgrosh, masterwork": {
+    "proficiency": "exotic",
+    "category": "exotic_melee",
+    "cost": 350,
+    "cost_display": "350 gp",
+    "damage_s": "1d6/1d4",
+    "damage_m": "1d8/1d6",
+    "critical": "x3",
+    "threat_range": "20",
+    "crit_multiplier": "x3",
+    "range": 0,
+    "weight": 12,
+    "type": "Slashing or piercing",
+    "special": [
+      "double",
+      "masterwork"
+    ],
+    "special_description": "Double weapon. Axe head slashing, spear head piercing. Can be set against charge like a spear. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Dwarven Urgrosh",
+    "attack_bonus": 1
+  },
+  "Bolas, masterwork": {
+    "proficiency": "exotic",
+    "category": "exotic_ranged",
+    "cost": 305,
+    "cost_display": "305 gp",
+    "damage_s": "1d3",
+    "damage_m": "1d4",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 10,
+    "weight": 2,
+    "type": "Bludgeoning",
+    "special": [
+      "thrown",
+      "trip",
+      "nonlethal",
+      "masterwork"
+    ],
+    "special_description": "Thrown exotic weapon. Can trip (no damage on trip). Range increment 10 ft. Nonlethal. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Bolas",
+    "attack_bonus": 1
+  },
+  "Net, masterwork": {
+    "proficiency": "exotic",
+    "category": "exotic_ranged",
+    "cost": 320,
+    "cost_display": "320 gp",
+    "damage_s": "—",
+    "damage_m": "—",
+    "critical": "—",
+    "threat_range": "—",
+    "crit_multiplier": "—",
+    "range": 10,
+    "weight": 6,
+    "type": "—",
+    "special": [
+      "thrown",
+      "entangle",
+      "masterwork"
+    ],
+    "special_description": "Thrown weapon. On hit, target is entangled (DC 15 Escape Artist or Strength to escape, or cut free). Max range 10 ft. Full round to reload. Masterwork weapon. Grants a +1 enhancement bonus on attack rolls. This bonus does not stack with an enhancement bonus from magic.",
+    "is_masterwork": true,
+    "base_item": "Net",
+    "attack_bonus": 1
+  },
+  "Shuriken, masterwork": {
+    "proficiency": "exotic",
+    "category": "exotic_ranged",
+    "cost": 31,
+    "cost_display": "31 gp",
+    "damage_s": "1",
+    "damage_m": "1d2",
+    "critical": "x2",
+    "threat_range": "20",
+    "crit_multiplier": "x2",
+    "range": 10,
+    "weight": 0.5,
+    "type": "Piercing",
+    "special": [
+      "thrown",
+      "monk",
+      "masterwork"
+    ],
+    "special_description": "Thrown exotic (treated as ammunition for some purposes). Monk weapon. Can throw multiple with flurry. Masterwork ammunition (+6 gp each). Grants +1 enhancement bonus on attack rolls when used (does not stack with magical enhancement).",
+    "is_masterwork": true,
+    "base_item": "Shuriken",
+    "attack_bonus": 1
+  },
+  "Crystal Echoblade": {
+    "proficiency": "martial",
+    "category": "martial_melee",
+    "cost": 4310,
+    "cost_display": "4,310 gp",
+    "base_item": "Longsword",
+    "base_cost": 15,
+    "damage_s": "1d6",
+    "damage_m": "1d8",
+    "critical": "19-20/x2",
+    "threat_range": "19-20",
+    "crit_multiplier": "x2",
+    "range": 0,
+    "weight": 4,
+    "type": "Slashing",
+    "default_enh": 1,
+    "is_magic": true,
+    "special": [
+      "crystal echoblade",
+      "bardic music sonic",
+      "magical"
+    ],
+    "special_description": "This +1 longsword is crafted from jagged violet crystal. If you use your bardic music ability while wielding the weapon, the blade resonates in harmony, dealing additional sonic damage on each attack equal to half your bard level (rounded down). (Magic Item Compendium)\n\nMarket price 4,310 gp. Can be further enhanced with magic weapon special abilities and higher enhancement bonuses via the Magical Item Wizard."
   }
 }

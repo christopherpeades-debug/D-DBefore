@@ -21,14 +21,28 @@
       "cost": "15,000 gp"
     },
     "Circlet of Blasting, Major": {
-      "description": "Searing light 2/day (higher CL).",
+      "description": "On command, this elaborate golden headband projects a blast of searing light (5d8 maximized for 40 points of damage) once per day.\n\nStrong evocation; CL 17th; Craft Wondrous Item, Maximize Spell, searing light; Price 23,760 gp.",
       "weight": "—",
-      "cost": "23,760 gp"
+      "cost": "23,760 gp",
+      "Action": "Standard (command), ranged touch, searing light maximized 5d8=40 (CL 17), perday yes, charge no, needworn yes",
+      "uses_per_day": 1,
+      "caster_level": 17,
+      "granted_spell": "Searing Light",
+      "granted_spells": [
+        "Searing Light"
+      ]
     },
     "Circlet of Blasting, Minor": {
-      "description": "Searing light 2/day.",
+      "description": "On command, this simple golden headband projects a blast of searing light (3d8 points of damage) once per day.\n\nFaint evocation; CL 6th; Craft Wondrous Item, searing light; Price 6,480 gp.",
       "weight": "—",
-      "cost": "6,480 gp"
+      "cost": "6,480 gp",
+      "Action": "Standard (command), ranged touch, searing light 3d8 (CL 6), perday yes, charge no, needworn yes",
+      "uses_per_day": 1,
+      "caster_level": 6,
+      "granted_spell": "Searing Light",
+      "granted_spells": [
+        "Searing Light"
+      ]
     },
     "Circlet of Dawnhaven": {
       "description": "Homebrew circlet of the Sanctuary of Dawn (Bastion / World Anvil).\n\nForged of mithril and radiant gems for High Priestess Alariana against Lord Morbenthrall's undead siege. Worn as a divine mantle; turns undead with unmatched potency and sheds holy radiance that deters the unliving.\n\nMinor Spell Storing: Contains up to three levels of spells the wearer can cast. Each spell uses the minimum caster level needed to cast it. No material components, focus, or XP cost; no arcane spell failure for casting from the circlet. Activation time equals the spell's casting time (minimum 1 standard action). Any spellcaster may cast spells into the circlet so long as total levels do not exceed three (metamagic versions use their modified levels). Scrolls may be used to store spells. The circlet imparts the names of all stored spells to the wearer.\n\nExtra Turning: Wearer with turn or rebuke undead gains four additional uses of that ability per day.\n\nInsight Bonus: +1 insight bonus to AC (glimpses of moments in the future).\n\nFaithfulness: Wearer is aware of any action or item that could adversely affect their alignment or standing with their deity, including magical effects, if they take a moment to contemplate before acting (as phylactery of faithfulness).\n\nPrice (Item Level): 51,500 gp (9th). Body slot: head (clothing/headband). Caster level 9th. Aura: moderate abjuration (DC 22).\nSource: https://www.worldanvil.com/w/bastion-reflectionlost/a/circlet-of-dawnhaven-item",
@@ -190,7 +204,9 @@
     "Helm of glorious recovery": {
       "description": "This magnifi cent helmet is chased with gold and silver, and set with three yellow topazes. Developed by a militant, lawful good sect for its paladins, these helmets are potent healing devices. Once per day, this helmet can heal you of 4d8+7 points of damage.",
       "weight": "3 lb.",
-      "cost": "5,600 gp"
+      "cost": "5,600 gp",
+      "Action": "Standard, none, 4d8+7, Heal self, perday yes, charge no, needworn yes",
+      "uses_per_day": 1
     },
     "Helm of heroes": {
       "description": "When you wear this helm and use your grant move action ability, you can choose instead to grant each affected character a single melee attack (using each ally's full base attack bonus). This activation is part of the grant move action activation.\n\nFunctions once per day.",
@@ -235,7 +251,9 @@
     "Helm of wounding sightSP": {
       "description": "Grants a +5 competence bonus on Spot checks to find wounded creatures 1/day.",
       "weight": "4 lb.",
-      "cost": "6,000 gp"
+      "cost": "6,000 gp",
+      "Action": "Standard, none, , Gaze attack effect (see item), perday yes, charge no, needworn yes",
+      "uses_per_day": 1
     },
     "Horned helm": {
       "description": "When placed on your head, the antlers join solidly with your skull. They grant a natural secondary gore attack dealing 1d8 damage plus half your Strength bonus, treated as a magic weapon for overcoming damage reduction.",
@@ -266,11 +284,6 @@
         }
       }
     },
-    "Mask of the Skull": {
-      "description": "Finger of death 1/day.",
-      "weight": "2 lb.",
-      "cost": "22,000 gp"
-    },
     "Mindvault": {
       "description": "When activated, your consciousness transfers into the gem for 1 round. You are immune to mind-affecting spells and abilities but dazed for that round. You can activate after learning the result of an incoming mind-affecting effect but before it is applied (negating it entirely).\n\nFunctions once per day. Must wear for 24 hours before use; if removed, inactive until worn another 24 hours.",
       "weight": "—",
@@ -279,7 +292,13 @@
     "Phoenix helm": {
       "description": "This helm is forged of copper and inlaid with silver and gold. The whole piece is stylized in the shape of a phoenix with its wings unfurled, its legs guarding the temples, and its head adorning the brow. A phoenix helm grants you low-light vision. This is a continuous effect and requires no activation. In addition, you can use each of the following abilities once per day: feather fall, resist energy, and speak with animals (birds only). Each of these abilities can be used as a standard (command) action except feather fall, which requires an immediate (command) action to activate.",
       "weight": "3 lb.",
-      "cost": "6,500 gp"
+      "cost": "6,500 gp",
+      "uses_per_day": 3,
+      "Actions": [
+        "Standard, none, , Feather fall (self), perday yes, charge no, needworn yes",
+        "Standard, none, , Resist energy (self), perday yes, charge no, needworn yes",
+        "Standard, none, , Speak with animals (birds only), perday yes, charge no, needworn yes"
+      ]
     },
     "Platinum helmR": {
       "description": "While wearing it, immune to the frightful presence of evil dragons if you are lawful good, neutral good, or lawful neutral.\n\nRelic power (worship Bahamut and sacrifice a 5th-level divine spell slot, or have True Believer and 9 HD): when you make an attack, create a frightful presence effect. Each foe within 60 feet must succeed on a Will save (DC 10 + 1/2 your HD + Cha modifier) or be panicked (4 or fewer HD) or shaken (5+ HD) for 4d6 rounds. Functions three times per day.\n\nWith an 8th-level divine sacrifice or True Believer and 15 HD, once per day command the helm to grant blindsense 60 feet for 1 hour.",
@@ -298,51 +317,35 @@
     }
   },
   "Face": {
-    "Eyes of Charming": {
-      "description": "Charm person 3/day.",
-      "weight": "—",
-      "cost": "56,000 gp"
+    "Artificer’s monocle": {
+      "description": "Putting on the monocle is a standard action. While wearing it, whenever you successfully use your artificer knowledge class feature to detect an item's magical aura, or you cast detect magic and have at least 5 ranks of Knowledge (arcana), you can spend 1 additional minute studying the item to identify its abilities as if you had cast identify upon it.",
+      "cost": "1,500 gp"
     },
-    "Eyes of Doom": {
-      "description": "Bestow curse, eyebite, ray of enfeeblement, symbol of pain.",
-      "weight": "—",
-      "cost": "25,000 gp"
+    "Blighter’s hex-eye": {
+      "description": "When activated, your melee attacks against elves and creatures of the plant type deal an extra 2d6 points of damage for 1 round.\n\nFunctions three times per day, but cannot be activated in consecutive rounds.",
+      "cost": "1,400 gp",
+      "Action": "Swift, none, , Next melee attack vs elves/plants +2d6 for 1 round, perday yes, charge no, needworn yes",
+      "uses_per_day": 3
     },
-    "Eyes of Petrification": {
-      "description": "Flesh to stone gaze 10/day.",
-      "weight": "—",
-      "cost": "98,000 gp"
+    "Blindfold of true darkness": {
+      "description": "While worn, you gain blindsight out to 30 feet. Because your eyes are protected, you are also immune to gaze attacks and spells or effects that rely on sight. You cannot use vision in any way while wearing the blindfold.",
+      "cost": "9,000 gp"
     },
-    "Eyes of the Eagle": {
-      "description": "+5 competence bonus on Spot checks.",
+    "Cannith goggles": {
+      "description": "These light orange, round, translucent lenses are mounted within a fl exible metal frame that has a soft leather strap with a clasp at the back. Cannith goggles grant a +5 competence bonus on Search and Spot checks. This is a continuous effect and requires no activation. In addition, an artifi cer (ECS 29) can power the goggles with infusions, granting them greater power. Using an infusion to power Cannith goggles requires 10 minutes and the expenditure of an infusion of the appropriate level. An infusion powers the goggles for 24 hours. Cannith goggles powered with a 1st-level infusion grant low-light vision. Powering them with a 2nd-level infusion grants the wearer low-light vision and darkvision out to 60 feet. If powered with a 3rd-level infusion, the goggles provide low-light vision and darkvision out to 120 feet. Lore: The artifi cers of a powerful noble family called House Cannith were tasked to fi nd a way to enhance human vision, and the results of their research are Cannith goggles (Knowledge [history] DC 20).",
+      "cost": "13,000 gp",
+      "weight": "1/2 lb.",
       "effects": {
         "skill_bonus": {
+          "Search": 5,
           "Spot": 5
         }
-      },
-      "weight": "—",
-      "cost": "2,500 gp"
+      }
     },
-    "Goggles of Minute Seeing": {
-      "description": "+5 competence bonus on Appraise and Search checks.",
-      "effects": {
-        "skill_bonus": {
-          "Appraise": 5,
-          "Search": 5
-        }
-      },
-      "weight": "—",
-      "cost": "1,250 gp"
-    },
-    "Goggles of Night": {
-      "description": "Darkvision 60 ft. while worn.",
-      "weight": "—",
-      "cost": "12,000 gp"
-    },
-    "Lens of Detection": {
-      "description": "Detects scrying sensors.",
-      "weight": "—",
-      "cost": "3,500 gp"
+    "Corsair’s eye patch": {
+      "description": "A leather strap and a bit of hardened leather and krenshar hide make up this menacing black eyepatch. Despite its name, the improved visual acuity provided by a corsair’s eyepatch is equally useful to landlubbers. Wearing this eyepatch has no negative impact on your eyesight—it appears completely transparent to you. While you wear a corsair’s eyepatch over your left eye, activating it grants you the ability to use see invisibility (as the spell) for 1 round. While you wear it over your right eye, activating it grants you the benefi t of the Blind-Fight feat for 1 minute. Moving the eyepatch from one eye to another requires a move action that doesn’t provoke attacks of opportunity. A corsair’s eyepatch functions a total of three times per day.",
+      "cost": "3,000 gp",
+      "weight": "—"
     },
     "Crystal mask of detection": {
       "description": "This crystal mask is held in place with black cloth straps, and it covers only the top portion of the face. Translucent and shot through with golden fl ecks, the mask is warm to the touch. A crystal mask of detection grants you a +10 competence bonus on Search checks.",
@@ -423,6 +426,66 @@
       "weight": "2 lb.",
       "cost": "4,000 gp"
     },
+    "Dreaming blindfold": {
+      "description": "While worn, you are effectively blinded, but once per day you can send a dream or nightmare to a specific known living creature within 100 miles (as the dream or nightmare spell, but not both in the same day, and dream cannot be delivered through a messenger).\n\nIf also wearing a psicrown, you can target the recipient with a single psionic power from the psicrown as if adjacent (costs double power points and renders the blindfold inert for seven days).",
+      "cost": "7,500 gp",
+      "weight": "—"
+    },
+    "Eyes of Charming": {
+      "description": "Charm person 3/day.",
+      "weight": "—",
+      "cost": "56,000 gp"
+    },
+    "Eyes of Doom": {
+      "description": "Bestow curse, eyebite, ray of enfeeblement, symbol of pain.",
+      "weight": "—",
+      "cost": "25,000 gp"
+    },
+    "Eyes of expanded vision": {
+      "description": "Flanking opponents gain only a +1 bonus when attacking you instead of +2 (you remain flanked). You gain a +2 competence bonus on Spot checks but take a -2 penalty on saves against gaze attacks. These are continuous effects.",
+      "cost": "3,200 gp",
+      "weight": "—",
+      "effects": {
+        "skill_bonus": {
+          "Spot": 2
+        }
+      }
+    },
+    "Eyes of Petrification": {
+      "description": "Flesh to stone gaze 10/day.",
+      "weight": "—",
+      "cost": "98,000 gp"
+    },
+    "Eyes of power leech": {
+      "description": "Once per day, drain power points from a psionic creature within 40 feet by meeting its gaze (DC 16 Will negates). Drains 1d6 power points per round you concentrate (maximum 7 rounds). You gain 1 power point per round drained (subject to your normal maximum). No effect on nonpsionic targets or creatures with 0 power points.",
+      "cost": "10,000 gp",
+      "weight": "—"
+    },
+    "Eyes of power leech, vampiric": {
+      "description": "As eyes of power leech, except you gain power points even if doing so would bring you over your normal maximum. You can maintain concentration for up to 13 rounds. Power points gained in excess of your maximum fade after 8 hours if not spent.",
+      "cost": "20,000 gp",
+      "weight": "—"
+    },
+    "Eyes of the Eagle": {
+      "description": "+5 competence bonus on Spot checks.",
+      "effects": {
+        "skill_bonus": {
+          "Spot": 5
+        }
+      },
+      "weight": "—",
+      "cost": "2,500 gp"
+    },
+    "Eyes of truth": {
+      "description": "This pair of thin, crystal lenses has a faint blue tint. Eyes of truth grant you improved visual acuity, and can allow you briefl y to see the world as it truly is. While worn, the lenses grant you a +5 competence bonus on Spot checks. This is a continuous effect and requires no activation. In addition, you can activate the lenses to gain a true seeing effect (as the spell) for 1 round. This ability functions once per day.",
+      "cost": "5,500 gp",
+      "weight": "—",
+      "effects": {
+        "skill_bonus": {
+          "Spot": 5
+        }
+      }
+    },
     "Fanged mask": {
       "description": "When activated, you can make a magic bite attack dealing 1d6 points of damage plus your Strength modifier (Medium). Bite damage does not stack with any bite attack you already have.\n\nThree times per day, upon biting a target while activating the mask, you can force a DC 13 Fortitude save or the target is stunned for 1 round.",
       "weight": "1 lb.",
@@ -453,6 +516,22 @@
       "cost": "2,000 gp",
       "weight": "1 lb."
     },
+    "Goggles of Minute Seeing": {
+      "description": "+5 competence bonus on Appraise and Search checks.",
+      "effects": {
+        "skill_bonus": {
+          "Appraise": 5,
+          "Search": 5
+        }
+      },
+      "weight": "—",
+      "cost": "1,250 gp"
+    },
+    "Goggles of Night": {
+      "description": "Darkvision 60 ft. while worn.",
+      "weight": "—",
+      "cost": "12,000 gp"
+    },
     "Goggles of the ebon hunter": {
       "description": "Grant darkvision out to 30 feet and a +1 competence bonus on attack rolls and damage rolls with ranged weapons.",
       "cost": "18,000 gp",
@@ -468,14 +547,41 @@
       "description": "Grants a +5 competence bonus on Spot checks in bright light 1/day.",
       "cost": "4,500 gp"
     },
+    "Incarnum goggles": {
+      "description": "Matches the Brow chakra (face slot). While worn, adds 1 to the essentia capacity of any soulmeld occupying or bound to the chakra this focus matches (up to your Constitution bonus). Wearing it does not prevent binding a soulmeld to that chakra.\n\nChakra bind (any): While bound to its chakra, soulmelds on that chakra can't be unshaped except by you, and essentia invested can't be lost or drained except during normal reallocation.",
+      "weight": "1 lb.",
+      "cost": "15,000 gp"
+    },
+    "Lens of Detection": {
+      "description": "Detects scrying sensors.",
+      "weight": "—",
+      "cost": "3,500 gp"
+    },
     "Lens of the desert": {
       "description": "Grants a +5 competence bonus on Survival checks in desert terrain 1/day.",
       "cost": "17,000 gp"
     },
+    "Lenses of bright vision": {
+      "description": "These thin, yellow quartz lenses are the size of two coins. Lenses of bright vision allow you to project light from your eyes. When placed over your eyes (a standard action), these lenses meld into your face, and the irises of your eyes take on a faint yellow hue. When you activate the lenses, they create a 15-foot cone of bright light emanating from your eyes. Unlike normal light sources, the lenses produce no shadowy illumination. The illumination lasts for 10 minutes or until you expend another swift action to douse it. Treat this effect as a 0-level spell for the purpose of interacting with darkness effects. This ability functions three times per day.",
+      "cost": "600 gp",
+      "weight": "—"
+    },
+    "Lenses of true form": {
+      "description": "While wearing the lenses, gain a +10 circumstance bonus on Spot checks to see through a disguise (continuous, no activation).\n\nOnce per day, activate to force a single shapeshifted creature within 30 feet to resume its natural form (Will DC 14 negates). On failure it immediately assumes its natural form, shape, and size and cannot assume a different shape for 2d4 rounds.",
+      "cost": "10,000 gp",
+      "weight": "—",
+      "effects": {
+        "skill_bonus": {
+          "Spot": 10
+        }
+      }
+    },
     "Mask of blood": {
       "description": "If wearing this mask when you enter a rage or frenzy, that ability lasts 1 round longer than normal (continuous, no activation).\n\nWhen activated, spit a stream of blood as a ranged touch attack (30 feet) for 4d6 acid damage.\n\nFunctions two times per day.",
       "weight": "1 lb.",
-      "cost": "3,300 gp"
+      "cost": "3,300 gp",
+      "Action": "Standard, ranged touch, 4d6 acid, Spit stream of blood 30 ft, perday yes, charge no, needworn yes",
+      "uses_per_day": 2
     },
     "Mask of lies": {
       "description": "While wearing this mask, gain a +5 competence bonus on Bluff checks and your alignment is disguised as if by undetectable alignment (continuous, no activation).\n\nWhen activated, alter your appearance as if by disguise self.\n\nFunctions three times per day.",
@@ -510,10 +616,27 @@
       "weight": "—",
       "cost": "2,000 gp"
     },
+    "Mask of the Skull": {
+      "description": "Finger of death 1/day.",
+      "weight": "2 lb.",
+      "cost": "22,000 gp",
+      "body_slot": "Face",
+      "slot": "Face"
+    },
     "Mask of the tigerSP": {
       "description": "Grants a +5 competence bonus on Hide and Move Silently checks 1/day.",
       "weight": "1 lb.",
       "cost": "4,500 gp"
+    },
+    "Monocle of perusal": {
+      "description": "Highlights of moonstone accentuate every ridge and curve of this angular silver mask. A moonstone mask grants you a +5 competence bonus on Listen and Spot checks, as well as darkvision out to 30 feet.",
+      "cost": "15,000 gp",
+      "weight": "1 lb.",
+      "effects": {
+        "skill_bonus": {
+          "Appraise": 5
+        }
+      }
     },
     "Moonstone mask": {
       "description": "Highlights of moonstone accentuate every ridge and curve of this angular silver mask. A moonstone mask grants you a +5 competence bonus on Listen and Spot checks, as well as darkvision out to 30 feet.",
@@ -523,104 +646,6 @@
         "skill_bonus": {
           "Listen": 5,
           "Spot": 5
-        }
-      }
-    },
-    "Spellsight spectacles": {
-      "description": "These round-rimmed spectacles have bluetinted lenses and a clear gem set into the joint of each earpiece. Spellsight spectacles grant you a +5 competence bonus on Spellcraft checks made to decipher scrolls and Use Magic Device checks made to use scrolls.",
-      "cost": "2,500 gp",
-      "weight": "—"
-    },
-    "Cannith goggles": {
-      "description": "These light orange, round, translucent lenses are mounted within a fl exible metal frame that has a soft leather strap with a clasp at the back. Cannith goggles grant a +5 competence bonus on Search and Spot checks. This is a continuous effect and requires no activation. In addition, an artifi cer (ECS 29) can power the goggles with infusions, granting them greater power. Using an infusion to power Cannith goggles requires 10 minutes and the expenditure of an infusion of the appropriate level. An infusion powers the goggles for 24 hours. Cannith goggles powered with a 1st-level infusion grant low-light vision. Powering them with a 2nd-level infusion grants the wearer low-light vision and darkvision out to 60 feet. If powered with a 3rd-level infusion, the goggles provide low-light vision and darkvision out to 120 feet. Lore: The artifi cers of a powerful noble family called House Cannith were tasked to fi nd a way to enhance human vision, and the results of their research are Cannith goggles (Knowledge [history] DC 20).",
-      "cost": "13,000 gp",
-      "weight": "1/2 lb.",
-      "effects": {
-        "skill_bonus": {
-          "Search": 5,
-          "Spot": 5
-        }
-      }
-    },
-    "Artificer’s monocle": {
-      "description": "Putting on the monocle is a standard action. While wearing it, whenever you successfully use your artificer knowledge class feature to detect an item's magical aura, or you cast detect magic and have at least 5 ranks of Knowledge (arcana), you can spend 1 additional minute studying the item to identify its abilities as if you had cast identify upon it.",
-      "cost": "1,500 gp"
-    },
-    "Blighter’s hex-eye": {
-      "description": "When activated, your melee attacks against elves and creatures of the plant type deal an extra 2d6 points of damage for 1 round.\n\nFunctions three times per day, but cannot be activated in consecutive rounds.",
-      "cost": "1,400 gp"
-    },
-    "Blindfold of true darkness": {
-      "description": "While worn, you gain blindsight out to 30 feet. Because your eyes are protected, you are also immune to gaze attacks and spells or effects that rely on sight. You cannot use vision in any way while wearing the blindfold.",
-      "cost": "9,000 gp"
-    },
-    "Corsair’s eye patch": {
-      "description": "A leather strap and a bit of hardened leather and krenshar hide make up this menacing black eyepatch. Despite its name, the improved visual acuity provided by a corsair’s eyepatch is equally useful to landlubbers. Wearing this eyepatch has no negative impact on your eyesight—it appears completely transparent to you. While you wear a corsair’s eyepatch over your left eye, activating it grants you the ability to use see invisibility (as the spell) for 1 round. While you wear it over your right eye, activating it grants you the benefi t of the Blind-Fight feat for 1 minute. Moving the eyepatch from one eye to another requires a move action that doesn’t provoke attacks of opportunity. A corsair’s eyepatch functions a total of three times per day.",
-      "cost": "3,000 gp",
-      "weight": "—"
-    },
-    "Dreaming blindfold": {
-      "description": "While worn, you are effectively blinded, but once per day you can send a dream or nightmare to a specific known living creature within 100 miles (as the dream or nightmare spell, but not both in the same day, and dream cannot be delivered through a messenger).\n\nIf also wearing a psicrown, you can target the recipient with a single psionic power from the psicrown as if adjacent (costs double power points and renders the blindfold inert for seven days).",
-      "cost": "7,500 gp",
-      "weight": "—"
-    },
-    "Eyes of expanded vision": {
-      "description": "Flanking opponents gain only a +1 bonus when attacking you instead of +2 (you remain flanked). You gain a +2 competence bonus on Spot checks but take a -2 penalty on saves against gaze attacks. These are continuous effects.",
-      "cost": "3,200 gp",
-      "weight": "—",
-      "effects": {
-        "skill_bonus": {
-          "Spot": 2
-        }
-      }
-    },
-    "Eyes of power leech": {
-      "description": "Once per day, drain power points from a psionic creature within 40 feet by meeting its gaze (DC 16 Will negates). Drains 1d6 power points per round you concentrate (maximum 7 rounds). You gain 1 power point per round drained (subject to your normal maximum). No effect on nonpsionic targets or creatures with 0 power points.",
-      "cost": "10,000 gp",
-      "weight": "—"
-    },
-    "Eyes of power leech, vampiric": {
-      "description": "As eyes of power leech, except you gain power points even if doing so would bring you over your normal maximum. You can maintain concentration for up to 13 rounds. Power points gained in excess of your maximum fade after 8 hours if not spent.",
-      "cost": "20,000 gp",
-      "weight": "—"
-    },
-    "Eyes of truth": {
-      "description": "This pair of thin, crystal lenses has a faint blue tint. Eyes of truth grant you improved visual acuity, and can allow you briefl y to see the world as it truly is. While worn, the lenses grant you a +5 competence bonus on Spot checks. This is a continuous effect and requires no activation. In addition, you can activate the lenses to gain a true seeing effect (as the spell) for 1 round. This ability functions once per day.",
-      "cost": "5,500 gp",
-      "weight": "—",
-      "effects": {
-        "skill_bonus": {
-          "Spot": 5
-        }
-      }
-    },
-    "Lenses of bright vision": {
-      "description": "These thin, yellow quartz lenses are the size of two coins. Lenses of bright vision allow you to project light from your eyes. When placed over your eyes (a standard action), these lenses meld into your face, and the irises of your eyes take on a faint yellow hue. When you activate the lenses, they create a 15-foot cone of bright light emanating from your eyes. Unlike normal light sources, the lenses produce no shadowy illumination. The illumination lasts for 10 minutes or until you expend another swift action to douse it. Treat this effect as a 0-level spell for the purpose of interacting with darkness effects. This ability functions three times per day.",
-      "cost": "600 gp",
-      "weight": "—"
-    },
-    "Lenses of true form": {
-      "description": "While wearing the lenses, gain a +10 circumstance bonus on Spot checks to see through a disguise (continuous, no activation).\n\nOnce per day, activate to force a single shapeshifted creature within 30 feet to resume its natural form (Will DC 14 negates). On failure it immediately assumes its natural form, shape, and size and cannot assume a different shape for 2d4 rounds.",
-      "cost": "10,000 gp",
-      "weight": "—",
-      "effects": {
-        "skill_bonus": {
-          "Spot": 10
-        }
-      }
-    },
-    "Incarnum goggles": {
-      "description": "Matches the Brow chakra (face slot). While worn, adds 1 to the essentia capacity of any soulmeld occupying or bound to the chakra this focus matches (up to your Constitution bonus). Wearing it does not prevent binding a soulmeld to that chakra.\n\nChakra bind (any): While bound to its chakra, soulmelds on that chakra can't be unshaped except by you, and essentia invested can't be lost or drained except during normal reallocation.",
-      "weight": "1 lb.",
-      "cost": "15,000 gp"
-    },
-    "Monocle of perusal": {
-      "description": "Highlights of moonstone accentuate every ridge and curve of this angular silver mask. A moonstone mask grants you a +5 competence bonus on Listen and Spot checks, as well as darkvision out to 30 feet.",
-      "cost": "15,000 gp",
-      "weight": "1 lb.",
-      "effects": {
-        "skill_bonus": {
-          "Appraise": 5
         }
       }
     },
@@ -634,15 +659,110 @@
       "cost": "1,350 gp",
       "weight": "—"
     },
+    "Soulstone": {
+      "description": "This faceted gemstone is the size of a coin and mounted on a golden disk covered in runes and scrollwork. Soulstones are boons to all those who channel the power of incarnum (see Magic of Incarnum). When you use the proper command thought, this gem adheres to the center of your forehead (the same command thought causes the soulstone to disengage). While you wear a soulstone, you can bind a soulmeld to your brow chakra, gaining the normal ability granted by such a bind. This effect functions despite the fact that you are currently wearing a magic item in that chakra. This bind is in addition to any binds you are already allowed (though it doesn’t let you bind an extra soulmeld to your brow chakra). If you are already able to bind soulmelds to your brow chakra, the soulstone instead grants you 1 bonus essentia that can be invested only in a soulmeld bound to your brow chakra. If you also wear a magic item that grants an enhancement bonus to your Wisdom, a soulstone also allows you to unshape a soulmeld bound to your brow chakra and immediately reshape another soulmeld, even binding it to your brow chakra if you want. This ability requires a full-round action and functions once per day.",
+      "cost": "10,000 gp",
+      "weight": "—"
+    },
+    "Spellsight spectacles": {
+      "description": "These round-rimmed spectacles have bluetinted lenses and a clear gem set into the joint of each earpiece. Spellsight spectacles grant you a +5 competence bonus on Spellcraft checks made to decipher scrolls and Use Magic Device checks made to use scrolls.",
+      "cost": "2,500 gp",
+      "weight": "—"
+    },
     "Veil Of Allure": {
       "description": "Dyed in swirls of pink and purple, this semitransparent veil looks like the garb of a sultan’s harem dancer. A veil of allure increases the save DC of your enchantment spells or spell-like abilities, as well as the Charisma-based save DCs of your extraordinary or supernatural abilities, by 2.",
       "weight": "—",
       "cost": "14,000 gp"
     },
-    "Soulstone": {
-      "description": "This faceted gemstone is the size of a coin and mounted on a golden disk covered in runes and scrollwork. Soulstones are boons to all those who channel the power of incarnum (see Magic of Incarnum). When you use the proper command thought, this gem adheres to the center of your forehead (the same command thought causes the soulstone to disengage). While you wear a soulstone, you can bind a soulmeld to your brow chakra, gaining the normal ability granted by such a bind. This effect functions despite the fact that you are currently wearing a magic item in that chakra. This bind is in addition to any binds you are already allowed (though it doesn’t let you bind an extra soulmeld to your brow chakra). If you are already able to bind soulmelds to your brow chakra, the soulstone instead grants you 1 bonus essentia that can be invested only in a soulmeld bound to your brow chakra. If you also wear a magic item that grants an enhancement bonus to your Wisdom, a soulstone also allows you to unshape a soulmeld bound to your brow chakra and immediately reshape another soulmeld, even binding it to your brow chakra if you want. This ability requires a full-round action and functions once per day.",
-      "cost": "10,000 gp",
-      "weight": "—"
+    "Third eye aware": {
+      "description": "Grants a +5 competence bonus on Listen and Spot checks 1/day.",
+      "cost": "8,000 gp",
+      "body_slot": "Face",
+      "slot": "Face"
+    },
+    "Third eye clarity": {
+      "description": "Grants a +5 competence bonus on one skill check 1/day.",
+      "cost": "3,500 gp",
+      "body_slot": "Face",
+      "slot": "Face"
+    },
+    "Third eye conceal": {
+      "description": "Grants a +10 competence bonus on Hide checks 1/day.",
+      "cost": "120,000 gp",
+      "body_slot": "Face",
+      "slot": "Face"
+    },
+    "Third eye concentrate": {
+      "description": "Grants a +5 competence bonus on Concentration checks 1/day.",
+      "cost": "8,000 gp",
+      "body_slot": "Face",
+      "slot": "Face"
+    },
+    "Third eye dampening": {
+      "description": "Grants a +5 competence bonus on saves against mind-affecting effects 1/day.",
+      "cost": "3,500 gp",
+      "body_slot": "Face",
+      "slot": "Face"
+    },
+    "Third eye dominate": {
+      "description": "Allows dominating a creature 1/day.",
+      "cost": "120,000 gp",
+      "body_slot": "Face",
+      "slot": "Face"
+    },
+    "Third eye expose": {
+      "description": "Reveals invisible creatures and objects within 60 feet 1/day.",
+      "cost": "3,500 gp",
+      "body_slot": "Face",
+      "slot": "Face"
+    },
+    "Third eye freedom": {
+      "description": "Grants freedom of movement for 1 round 1/day.",
+      "cost": "3,500 gp",
+      "body_slot": "Face",
+      "slot": "Face"
+    },
+    "Third eye gather": {
+      "description": "Collects one power point 1/day.",
+      "cost": "8,000 gp",
+      "body_slot": "Face",
+      "slot": "Face"
+    },
+    "Third eye improvisation": {
+      "description": "Grants a +5 competence bonus on one skill check 1/day.",
+      "cost": "1,000 gp",
+      "body_slot": "Face",
+      "slot": "Face"
+    },
+    "Third eye penetrate": {
+      "description": "Grants a +5 competence bonus on Search checks 1/day.",
+      "cost": "7,000 gp",
+      "body_slot": "Face",
+      "slot": "Face"
+    },
+    "Third eye powerthieve": {
+      "description": "Drains 1 power point from a psionic creature 1/day.",
+      "cost": "8,000 gp",
+      "body_slot": "Face",
+      "slot": "Face"
+    },
+    "Third eye repudiate": {
+      "description": "Grants a +2 resistance bonus on saves against mind-affecting effects 1/day.",
+      "cost": "14,000 gp",
+      "body_slot": "Face",
+      "slot": "Face"
+    },
+    "Third eye sense": {
+      "description": "Grants blindsight 30 feet 1/day.",
+      "cost": "24,000 gp",
+      "body_slot": "Face",
+      "slot": "Face"
+    },
+    "Third eye surge": {
+      "description": "Grants a +2 enhancement bonus to one ability score for 1 minute 1/day.",
+      "cost": "3,000 gp",
+      "body_slot": "Face",
+      "slot": "Face"
     }
   },
   "Neck": {
@@ -789,7 +909,8 @@
     "Necklace of Fireballs Type I": {
       "description": "Six beads of fireballs.",
       "weight": "—",
-      "cost": "1,650 gp"
+      "cost": "1,650 gp",
+      "Action": "Standard, none, 2d6 fire, Detach and throw fireball bead, perday no, charge yes, needworn no"
     },
     "Necklace of Fireballs Type II": {
       "description": "Eight beads of fireballs.",
@@ -1034,7 +1155,9 @@
     "Heartseeking amulet": {
       "description": "When activated, the next melee attack you make is made as a melee touch attack instead. If you don't make a melee attack by the end of your turn, the effect is wasted.\n\nFunctions three times per day.",
       "cost": "3,000 gp",
-      "weight": "—"
+      "weight": "—",
+      "Action": "Swift, none, , Next melee attack is melee touch, perday yes, charge no, needworn yes",
+      "uses_per_day": 3
     },
     "Necklace of copper dragon scales": {
       "description": "Six coin-sized copper dragon scales adorn this simple brown cord. Upon touching one of the six scales that make up this necklace and uttering a command word, you gain resistance to acid 5 for 1 hour. Once all six scales are used, the necklace becomes dull and loses its magic.",
@@ -1322,6 +1445,18 @@
       "weight": "—",
       "cost": "25,000 gp",
       "notes": "Homebrew intermediate (catalog normally has +2/+4/+6 only)."
+    },
+    "Badge of valorSP": {
+      "description": "Grants a +2 morale bonus on attack rolls and saves against fear to allies within 30 feet 1/day.",
+      "cost": "2,000 gp",
+      "body_slot": "Neck",
+      "slot": "Neck"
+    },
+    "Badge of Valor": {
+      "description": "Grants a +2 morale bonus on attack rolls and saves against fear to allies within 30 feet 1/day.",
+      "cost": "2,000 gp",
+      "body_slot": "Neck",
+      "slot": "Neck"
     }
   },
   "Shoulders": {
@@ -1329,6 +1464,11 @@
       "description": "Dimension door 1/day.",
       "weight": "2 lb.",
       "cost": "10,800 gp"
+    },
+    "Cape of the viper": {
+      "description": "Has 3 charges, renewed each day at dawn. Spending 1 or more charges transforms you into a viper for 7 rounds.\n\n1 charge: Small viper.\n2 charges: Medium viper.\n3 charges: Large viper; add +2 to the save DC of your bite's poison.\n\nWhile in viper form, you replace your statistics with those of a typical viper of the appropriate size, except alignment, hit points, Hit Dice, and ability to understand (but not speak) your languages. Gear melds into the new form. Treat as a polymorph effect.",
+      "weight": "1 lb.",
+      "cost": "2,000 gp"
     },
     "Cloak of Arachnida": {
       "description": "+8 competence bonus on Hide and Climb checks in webs; spider climb.",
@@ -1340,6 +1480,14 @@
       },
       "weight": "2 lb.",
       "cost": "14,000 gp"
+    },
+    "Cloak of battle": {
+      "description": "Thousands of thin, silvery chain links make up this long cloak. A cloak of battle grants you a +4 armor bonus to AC. This is a continuous effect and requires no activation. The cloak also has two other abilities tied to unique command words. The fi rst command transforms the cloak into an iron +1/+1 quarterstaff that leaps into your hands (or falls at your feet if you don’t have an open hand). The same command transforms the staff back into a cloak, returning it to your shoulders. The second command allows the cloak to make a disarm attempt against an adjacent opponent (using your base attack bonus and size modifi er, and with a +4 bonus on the roll). This attempt does not provoke attacks of opportunity. If the disarm attempt succeeds, the cloak can fl ing the weapon up to 10 feet in any direction. (The disarmed weapon can’t be thrown at a creature as an attack.) If the disarm attempt fails, you can’t be disarmed in return. This ability can be used three times per day.",
+      "weight": "1 lb.",
+      "cost": "22,000 gp",
+      "effects": {
+        "armor_bonus": 4
+      }
     },
     "Cloak of Charisma +2": {
       "description": "+2 enhancement bonus to Charisma.",
@@ -1381,6 +1529,11 @@
       "weight": "2 lb.",
       "cost": "24,000 gp"
     },
+    "Cloak of elemental protection": {
+      "description": "When activated, you gain resistance 10 against a single energy type of your choice (acid, cold, electricity, fire, or sonic) until the start of your next turn.\n\nFunctions once per day. You must wear the cloak for 24 hours before you can access its abilities; if removed, it becomes inactive until worn for another 24 hours.",
+      "weight": "1 lb.",
+      "cost": "1,000 gp"
+    },
     "Cloak of Elvenkind": {
       "description": "+5 competence bonus on Hide checks in natural surroundings.",
       "effects": {
@@ -1395,6 +1548,16 @@
       "description": "Ethereal jaunt 1/day.",
       "weight": "2 lb.",
       "cost": "55,000 gp"
+    },
+    "Cloak of predatory vigor": {
+      "description": "While in a rage or frenzy, you can activate this cloak to heal damage to yourself equal to your Hit Dice.\n\nFunctions two times per day.",
+      "weight": "2 lb.",
+      "cost": "1,400 gp"
+    },
+    "Cloak of quills": {
+      "description": "While grappling, each time you roll a grapple check (other than the initial check to enter or resist the grapple), you can activate the cloak to lodge quills in your opponent, dealing 1d6 points of damage to each other creature in the grapple (Reflex DC 16 negates).\n\nFunctions five times per day.",
+      "weight": "1 lb.",
+      "cost": "2,500 gp"
     },
     "Cloak of Resistance +1": {
       "description": "+1 resistance bonus on all saving throws.",
@@ -1436,54 +1599,6 @@
       "weight": "1 lb.",
       "cost": "25,000 gp"
     },
-    "Cloak of the Bat": {
-      "description": "Fly and polymorph self into bat.",
-      "weight": "2 lb.",
-      "cost": "26,000 gp"
-    },
-    "Cloak of the Manta Ray": {
-      "description": "Swim speed 60 ft.; breathe water; freedom in water.",
-      "weight": "3 lb.",
-      "cost": "7,200 gp"
-    },
-    "Mantle of Faith": {
-      "description": "SR 25 vs. evil spells and spell-like abilities.",
-      "weight": "3 lb.",
-      "cost": "76,000 gp"
-    },
-    "Mantle of Spell Resistance": {
-      "description": "Spell resistance 21.",
-      "weight": "3 lb.",
-      "cost": "90,000 gp"
-    },
-    "Cape of the viper": {
-      "description": "Has 3 charges, renewed each day at dawn. Spending 1 or more charges transforms you into a viper for 7 rounds.\n\n1 charge: Small viper.\n2 charges: Medium viper.\n3 charges: Large viper; add +2 to the save DC of your bite's poison.\n\nWhile in viper form, you replace your statistics with those of a typical viper of the appropriate size, except alignment, hit points, Hit Dice, and ability to understand (but not speak) your languages. Gear melds into the new form. Treat as a polymorph effect.",
-      "weight": "1 lb.",
-      "cost": "2,000 gp"
-    },
-    "Cloak of battle": {
-      "description": "Thousands of thin, silvery chain links make up this long cloak. A cloak of battle grants you a +4 armor bonus to AC. This is a continuous effect and requires no activation. The cloak also has two other abilities tied to unique command words. The fi rst command transforms the cloak into an iron +1/+1 quarterstaff that leaps into your hands (or falls at your feet if you don’t have an open hand). The same command transforms the staff back into a cloak, returning it to your shoulders. The second command allows the cloak to make a disarm attempt against an adjacent opponent (using your base attack bonus and size modifi er, and with a +4 bonus on the roll). This attempt does not provoke attacks of opportunity. If the disarm attempt succeeds, the cloak can fl ing the weapon up to 10 feet in any direction. (The disarmed weapon can’t be thrown at a creature as an attack.) If the disarm attempt fails, you can’t be disarmed in return. This ability can be used three times per day.",
-      "weight": "1 lb.",
-      "cost": "22,000 gp",
-      "effects": {
-        "armor_bonus": 4
-      }
-    },
-    "Cloak of elemental protection": {
-      "description": "When activated, you gain resistance 10 against a single energy type of your choice (acid, cold, electricity, fire, or sonic) until the start of your next turn.\n\nFunctions once per day. You must wear the cloak for 24 hours before you can access its abilities; if removed, it becomes inactive until worn for another 24 hours.",
-      "weight": "1 lb.",
-      "cost": "1,000 gp"
-    },
-    "Cloak of predatory vigor": {
-      "description": "While in a rage or frenzy, you can activate this cloak to heal damage to yourself equal to your Hit Dice.\n\nFunctions two times per day.",
-      "weight": "2 lb.",
-      "cost": "1,400 gp"
-    },
-    "Cloak of quills": {
-      "description": "While grappling, each time you roll a grapple check (other than the initial check to enter or resist the grapple), you can activate the cloak to lodge quills in your opponent, dealing 1d6 points of damage to each other creature in the grapple (Reflex DC 16 negates).\n\nFunctions five times per day.",
-      "weight": "1 lb.",
-      "cost": "2,500 gp"
-    },
     "Cloak of soulbound resistance": {
       "description": "This fi nely crafted garment is made of blue and purple material. A pair of matched blue quartz crystals form the cloak’s clasp. A cloak of soulbound resistance grants you a +1 resistance bonus on your saving throws. In addition, it serves as a receptacle for your essentia, much as a soulmeld does. Every point of essentia invested in it increases the bonus by 1, subject to the maximum values noted below. Each cloak of soulbound resistance has an essentia capacity. The maximum number of essentia points that can be invested in it equals this value or your normal essentia capacity (see Table 2–1: Essentia Capacity, Magic of Incarnum 19), whichever is lower. Investing or reallocating essentia in the cloak is a swift action (and can be done as part of the normal swift action used for reallocating essentia). A cloak of soulbound resistance has a maximum essentia capacity of 2, and the maximum resistance bonus it can grant is +3. Chakra Bind (Shoulders): A cloak of soulbound resistance improves your resistance bonus by an additional 1 when it is bound to your shoulders chakra, which can exceed the maximum values described above. See Binding Items to Chakras (MoI 108) for more information.",
       "weight": "1 lb.",
@@ -1510,6 +1625,16 @@
           "Move Silently": 5
         }
       }
+    },
+    "Cloak of the Bat": {
+      "description": "Fly and polymorph self into bat.",
+      "weight": "2 lb.",
+      "cost": "26,000 gp"
+    },
+    "Cloak of the Manta Ray": {
+      "description": "Swim speed 60 ft.; breathe water; freedom in water.",
+      "weight": "3 lb.",
+      "cost": "7,200 gp"
     },
     "Cloak of the salamander": {
       "description": "Flames dance over the cloak's surface but do not harm you or creatures or objects you touch. When activated, any creature that strikes you in melee with a natural weapon or nonreach manufactured weapon takes 1d6+7 points of fire damage. This effect lasts until the beginning of your next turn.\n\nFunctions three times per day.",
@@ -1539,10 +1664,40 @@
       "weight": "1 lb.",
       "cost": "2,300 gp"
     },
+    "Dragonscale cloakR": {
+      "description": "While worn, you have resistance 5 to an energy type of your choice (acid, cold, electricity, or fire) if you are chaotic evil, neutral evil, or chaotic neutral. Select or change the resistance with a command word.\n\nRelic power (worship Tiamat and sacrifice a 6th-level divine spell slot, or have True Believer and 11 HD): transform the cloak into dragon wings for up to 2 hours per day (fly 60 ft., average maneuverability). Relic power also increases energy resistance to 20.",
+      "weight": "2 lb.",
+      "cost": "5,000 gp"
+    },
+    "Greater piwafwi": {
+      "description": "Formed of fi ne gray cloth smoother and lighter than silk, this delicate cloak is covered in a fi ne layer of spider webs. A greater piwafwi grants you resistance to fi re 5 and a +5 competence bonus on Hide checks. A lesser version of this item is equivalent to a cloak of elvenkind (DMG 253). Lore: The drow created piwafwis to conceal their scouts and warriors from the eyes of enemies. They claim that the cloaks of elvenkind crafted by their surface cousins are mere copies of these items (Knowledge [arcana] or Knowledge [dungeoneering] DC 15).",
+      "weight": "1 lb.",
+      "cost": "6,500 gp",
+      "effects": {
+        "skill_bonus": {
+          "Hide": 5
+        }
+      }
+    },
+    "Incarnum cloak": {
+      "description": "Matches the Shoulders chakra (shoulders slot). While worn, adds 1 to the essentia capacity of any soulmeld occupying or bound to the chakra this focus matches (up to your Constitution bonus). Wearing it does not prevent binding a soulmeld to that chakra.\n\nChakra bind (any): While bound to its chakra, soulmelds on that chakra can't be unshaped except by you, and essentia invested can't be lost or drained except during normal reallocation.",
+      "weight": "1 lb.",
+      "cost": "15,000 gp"
+    },
+    "Mantle of Faith": {
+      "description": "SR 25 vs. evil spells and spell-like abilities.",
+      "weight": "3 lb.",
+      "cost": "76,000 gp"
+    },
     "Mantle of second chances": {
       "description": "Once per day, reroll one roll you have just made before the DM declares whether it succeeded or failed. You must accept the reroll result, even if worse. Works even if you already have a similar ability (such as the Luck domain granted power).",
       "weight": "—",
       "cost": "12,000 gp"
+    },
+    "Mantle of Spell Resistance": {
+      "description": "Spell resistance 21.",
+      "weight": "3 lb.",
+      "cost": "90,000 gp"
     },
     "Mantle of the predatorSP": {
       "description": "Grants a +5 competence bonus on Hide and Move Silently checks 1/day.",
@@ -1558,6 +1713,11 @@
       "description": "If you are a marshal and visible active enemies within 60 feet exceed your visible active allies (including yourself) within 60 feet, activate this cape. While active, the bonus granted by your minor and major auras improves by 2. Lasts 10 rounds or until you and your allies are no longer outnumbered.\n\nFunctions once per day.",
       "weight": "3 lb.",
       "cost": "2,000 gp"
+    },
+    "Scry shroud": {
+      "description": "The black lining of this nondescript gray cloak seems to absorb both light and sound. While wearing a scry shroud, you gain a +5 competence bonus on saves against divination spells. This is a continuous effect and requires no activation. Additionally, if you see or otherwise detect a magical sensor created by a scrying spell, you can activate the cloak to become invisible (as the invisibility spell) for 10 rounds.",
+      "weight": "—",
+      "cost": "4,000 gp"
     },
     "Transposer cloak": {
       "description": "This cloak is divided diagonally into two colors. The upper portion is pure white, while the lower is black as night. A transposer cloak allows you to switch positions with another creature. When you activate this cloak, you and any one creature within 30 feet swap positions. Both you and the target must occupy the same size of space on the battlefi eld (for instance, a human could swap places with a dwarf or a goblin, but not with an ogre or a cat). If the other creature is unwilling to trade positions, it is allowed a DC 13 Will save to negate the effect. Each creature can bring along objects weighing up to its maximum load, but additional creatures can’t be brought along. This ability functions three times per day.",
@@ -1577,37 +1737,21 @@
     "Water cloak": {
       "description": "This sailcloth cloak’s elaborate embroidery evokes the waves of the sea. Within the pattern of the waves, a repeating swirl of thread matches the symbol writhing within the large, dark crystal shard that forms the clasp at the neck of the cloak. The cloak appears damp, and the lower edge looks as though it has been soaked in water. Despite its damp appearance, a water cloak always feels completely dry to its wearer, even in pouring rain. This cloak grants you a +5 bonus on Refl ex saves against any effect that deals fi re damage and allows you to avoid fi re damage as if you had evasion. Whenever you make a successful Refl ex saving throw against any fi re effect that deals half damage on a successful save, you instead take no damage. This is a continuous effect and requires no activation. In addition, a water cloak offers two other activated abilities. Extinguish: The cloak extinguishes all nonmagical fi res within 30 feet. This ability has no effect on fi re creatures. It functions fi ve times per day. Counterfi re: The cloak can counter any spell with the fi re descriptor (as if you were casting dispel magic). This ability functions once per day. Attempting to counter a spell that doesn’t have the fi re descriptor wastes the effect.",
       "weight": "1 lb.",
-      "cost": "12,000 gp"
+      "cost": "12,000 gp",
+      "Action": "Standard, none, , Swim / water effects (see item), perday yes, charge no, needworn yes",
+      "uses_per_day": 1
     },
     "White cloak of the spider": {
       "description": "This white cloak looks like it was woven by a gigantic arachnid. A large gray spider is embroidered upon the back amid radiating patterns of webbing. You gain a +2 bonus on saves against poison. This is a continuous effect and requires no activation. In addition, this cloak has two other abilities, each of which can be activated once per day: spider climb and hold person.",
       "weight": "1 lb.",
       "cost": "4,200 gp"
     },
-    "Dragonscale cloakR": {
-      "description": "While worn, you have resistance 5 to an energy type of your choice (acid, cold, electricity, or fire) if you are chaotic evil, neutral evil, or chaotic neutral. Select or change the resistance with a command word.\n\nRelic power (worship Tiamat and sacrifice a 6th-level divine spell slot, or have True Believer and 11 HD): transform the cloak into dragon wings for up to 2 hours per day (fly 60 ft., average maneuverability). Relic power also increases energy resistance to 20.",
+    "Wings of Flying": {
+      "description": "Fly 60 ft. (good) 1 hour/day.",
       "weight": "2 lb.",
-      "cost": "5,000 gp"
-    },
-    "Incarnum cloak": {
-      "description": "Matches the Shoulders chakra (shoulders slot). While worn, adds 1 to the essentia capacity of any soulmeld occupying or bound to the chakra this focus matches (up to your Constitution bonus). Wearing it does not prevent binding a soulmeld to that chakra.\n\nChakra bind (any): While bound to its chakra, soulmelds on that chakra can't be unshaped except by you, and essentia invested can't be lost or drained except during normal reallocation.",
-      "weight": "1 lb.",
-      "cost": "15,000 gp"
-    },
-    "Greater piwafwi": {
-      "description": "Formed of fi ne gray cloth smoother and lighter than silk, this delicate cloak is covered in a fi ne layer of spider webs. A greater piwafwi grants you resistance to fi re 5 and a +5 competence bonus on Hide checks. A lesser version of this item is equivalent to a cloak of elvenkind (DMG 253). Lore: The drow created piwafwis to conceal their scouts and warriors from the eyes of enemies. They claim that the cloaks of elvenkind crafted by their surface cousins are mere copies of these items (Knowledge [arcana] or Knowledge [dungeoneering] DC 15).",
-      "weight": "1 lb.",
-      "cost": "6,500 gp",
-      "effects": {
-        "skill_bonus": {
-          "Hide": 5
-        }
-      }
-    },
-    "Scry shroud": {
-      "description": "The black lining of this nondescript gray cloak seems to absorb both light and sound. While wearing a scry shroud, you gain a +5 competence bonus on saves against divination spells. This is a continuous effect and requires no activation. Additionally, if you see or otherwise detect a magical sensor created by a scrying spell, you can activate the cloak to become invisible (as the invisibility spell) for 10 rounds.",
-      "weight": "—",
-      "cost": "4,000 gp"
+      "cost": "54,000 gp",
+      "body_slot": "Shoulders",
+      "slot": "Shoulders"
     }
   },
   "Body": {
@@ -1677,7 +1821,9 @@
     "Robe of the inferno": {
       "description": "The coal-colored cloth of this robe is decorated with crimson-stitched runes. The runes run around the bottom and up the length of the garment in meandering lines, and are a mixture of arcane formulas and praises to fi re written in Ignan. The robe emits a faint odor of brimstone, and a gentle warmth surrounds it. While you wear this robe, it provides you with a +4 armor bonus to AC. This is a continuous effect and requires no activation. The robe can also be activated as a swift (command) action by speaking a word in Ignan that causes four fi ery orbs, each about 6 inches in diameter, to spring from the sleeves. They circle slowly around your body at waist height as long as the robe remains active, but don’t interfere with your actions in any way. As long as they are active, they collectively provide light equal to that of a torch and grant you resistance to fi re 10. Two times per day, you can send one of the fi ery orbs streaking toward a single enemy within 60 feet as a ranged touch attack, which is a standard (command) action. Failure means the orb misses and explodes harmlessly in a shower of sparks. Success means it explodes in a 5-footradius burst around the target, dealing 8d6 points of fi re damage and leaving affected creatures dazzled for 1 round (Refl ex DC 16 halves the damage and negates the dazzled condition). Lore: The fi rst robe of the inferno was crafted by an elf evoker named Killaith Marcaun, who was badly burned in a battle against a large number of summoned thoqqua. Deeply humiliated by the scars Robe of mysterious conjuration Robe of the inferno Robe of retaliation",
       "weight": "1 lb.",
-      "cost": "37,000 gp"
+      "cost": "37,000 gp",
+      "Action": "Standard, none, 1d6 fire, Crimson fire burst (see item), perday yes, charge no, needworn yes",
+      "uses_per_day": 1
     },
     "Robe of thunderSP": {
       "description": "Deals 3d6 sonic damage to attackers who hit the wearer in melee 1/day.",
@@ -2195,7 +2341,9 @@
     "Inquisitor bracers": {
       "description": "When activated, the next melee attack you make before the end of your turn includes a cure moderate wounds effect (in addition to normal damage). Can't be used as part of a touch attack—only a normal melee attack.\n\nFunctions three times per day.",
       "weight": "1 lb.",
-      "cost": "1,500 gp"
+      "cost": "1,500 gp",
+      "Action": "Swift, none, , Next melee attack also cure moderate wounds, perday yes, charge no, needworn yes",
+      "uses_per_day": 3
     },
     "Rapidstrike bracers": {
       "description": "Increase the accuracy of a monk's flurry of blows. When activated, gain a +2 competence bonus on attack rolls made as part of a flurry of blows until the end of your turn.\n\nFunctions three times per day.",
@@ -2331,7 +2479,8 @@
     "Gauntlet of Gruumsh": {
       "description": "This +1 gauntlet allows you to make a melee touch attack to blind a target for 1 hour (Fort DC 14 negates). Elves take a -4 penalty on this save.\n\nFunctions three times per day.",
       "weight": "1 lb.",
-      "cost": "8,302 gp"
+      "cost": "8,302 gp",
+      "Action": "Standard, touch, , Blind target 1 hour (Fort DC 14; elves -4), perday no, charge no, needworn yes"
     },
     "Gauntlet of infinite blades": {
       "description": "When activated, a dagger appears in the gauntleted hand and disappears 3 rounds later. This functions as often as needed.\n\nThe gauntlet has 5 charges, renewed each day at dawn.\n1 charge: +3 dagger.\n3 charges: +3 dagger of seeking.\n5 charges: +3 bane dagger of seeking.",
@@ -2376,7 +2525,9 @@
     "Gauntlets of lassitude": {
       "description": "Three times per day, you can make a melee touch attack with these gauntlets. On a hit, the target is slowed for 5 rounds (Will DC 14 negates).",
       "weight": "2 lb.",
-      "cost": "5,000 gp"
+      "cost": "5,000 gp",
+      "Action": "Standard, touch, , Slow target 5 rounds (Will negates), perday yes, charge no, needworn yes",
+      "uses_per_day": 3
     },
     "Gauntlets of mindfire": {
       "description": "Once per day, projects a 15-foot cone of mental sickness (Fort DC 14 negates). A creature that fails contracts mindfire: immediate 1d4 Intelligence damage, then 1d4 Intelligence damage each day on failed DC 14 Fortitude saves until two consecutive successful saves. A creature can be infected only once.",
@@ -2426,7 +2577,9 @@
     "Gloves of flame": {
       "description": "Continuous endure elements against cold and resistance to cold 5.\n\nFive times per day, utter \"burn\" in Ignan to create torch-bright flame in one palm for up to 10 minutes. Command words then extinguish it:\n\"Scorch\": 15-foot cone, 5d4 fire (Reflex DC 11 half).\n\"Singe\": melee touch attack for 1d6+5 fire damage.",
       "weight": "1/2 lb.",
-      "cost": "7,000 gp"
+      "cost": "7,000 gp",
+      "Action": "Standard, ranged touch, 1d6+5 fire, Produce flame touch/ranged (utter burn), perday yes, charge no, needworn yes",
+      "uses_per_day": 5
     },
     "Gloves of fortunate striking": {
       "description": "When you activate these gloves immediately after missing with a melee or ranged attack, you can reroll that attack roll. You must use the second result.\n\nFunctions three times per day.",
@@ -2436,12 +2589,16 @@
     "Gloves of incarnum theft": {
       "description": "Three times per day, make a melee touch attack against a creature that has essentia. If successful, the target loses 1 point of essentia (Will DC 16 negates). The stolen essentia can immediately be invested in any soulmeld, incarnum feat, or other essentia receptacle with no action required, even if essentia investment wouldn't normally be allowed at this time. If you have no means of using essentia, you gain no benefit, but the target still loses the point. The stolen essentia remains in your essentia pool for 12 minutes, then returns to the original possessor.\n\nChakra bind (Hands): If bound to your hands chakra, you instead steal 2 points of essentia with a successful touch attack, and the save DC increases by 2.",
       "weight": "—",
-      "cost": "7,000 gp"
+      "cost": "7,000 gp",
+      "Action": "Standard, touch, , Steal 1 point of essentia (1 min), perday yes, charge no, needworn yes",
+      "uses_per_day": 3
     },
     "Gloves of lightning": {
       "description": "Three times per day, make a ranged touch attack (range 30 feet) that deals 1d8+5 electricity damage. You gain a +3 bonus on the attack if the target is wearing metal armor (or is made of metal, is carrying a lot of metal, and so on).",
       "cost": "2,000 gp",
-      "weight": "—"
+      "weight": "—",
+      "Action": "Standard, ranged touch, 1d8+5 electricity, Lightning bolt 30 ft (+3 attack), perday yes, charge no, needworn yes",
+      "uses_per_day": 3
     },
     "Gloves of manual prowess": {
       "description": "Has 3 charges, renewed each day at dawn. Spending charges grants a competence bonus on the next Disable Device, Forgery, Open Lock, Sleight of Hand, or Use Rope check you make (must begin within 1 round of activation; can't apply when taking 10 or 20).\n\n1 charge: +5.\n2 charges: +7.\n3 charges: +10.",
@@ -2475,7 +2632,8 @@
     "Gloves of the uldra savant": {
       "description": "While wearing these gloves, create a ray of frost at will.\n\nThree times per day, imbue any melee weapon held in your hand with the frost property for 5 rounds.",
       "cost": "3,100 gp",
-      "weight": "2 lb."
+      "weight": "2 lb.",
+      "Action": "Standard, ranged touch, 1d3 cold, Ray of frost at will (catalog Action for 3/day ice weapon separate), perday no, charge no, needworn yes"
     },
     "Mind blade gauntlet": {
       "description": "Created with a particular weapon property with a +2 market price modifier (such as collision) usable by a soulknife with the mind blade enhancement class feature. When you expend psionic focus while manifesting your mind blade, the blade gains that property for 1 minute.\n\nIf you split your mind blade into two, the effect applies only to the blade manifested through this gauntlet. You can wear two mind blade gauntlets simultaneously (one effect per blade, not two on one blade).",
@@ -3109,7 +3267,9 @@
     },
     "Brute ring": {
       "description": "When activated, a blast of force makes a bull rush attack against a single creature up to 30 feet from you. Use either the ring's check modifier (+5) or your own bull rush check modifier, whichever is higher. As a force effect, this affects incorporeal creatures.\n\nFunctions two times per day.",
-      "cost": "2,300 gp"
+      "cost": "2,300 gp",
+      "Action": "Standard, none, , Force bull rush vs creature within 30 ft, perday yes, charge no, needworn yes",
+      "uses_per_day": 2
     },
     "Life ring": {
       "description": "Grants a +2 resistance bonus on saves against death effects.",
@@ -3215,7 +3375,9 @@
     "Ring of lightning flashes": {
       "description": "When activated, emits a blast of lightning dealing 5d6 electricity damage (Reflex DC 13 half) to all creatures within 5 feet except you. Creatures in physical contact with you (grappling, engulfing, swallowing, etc.) receive no saving throw.\n\nFunctions three times per day.",
       "cost": "11,500 gp",
-      "weight": "—"
+      "weight": "—",
+      "Action": "Standard, none, 5d6 electricity, Blast all within 5 ft (Ref DC 13 half), perday yes, charge no, needworn yes",
+      "uses_per_day": 3
     },
     "Ring of master artifice": {
       "description": "Functions only if you can imbue infusions. Assembling requires 5 minutes and DC 22 Intelligence check (retry allowed). Must wear 24 hours before magic takes effect. Increases infusions regained daily: one bonus 3rd-level infusion and one bonus 4th-level infusion each time you concentrate to regain your daily allotment.",
@@ -3330,22 +3492,66 @@
     "Ring of thunderclaps": {
       "description": "Activate as a swift action to make a melee touch attack before end of turn dealing 1d8+5 electricity damage. Functions three times per day.\n\nOnce per day, after successfully damaging a target with that touch attack, activate as a free action to create a thunderclap mimicking shout.",
       "cost": "6,000 gp",
-      "weight": "—"
+      "weight": "—",
+      "Action": "Swift, touch, 1d8+5 electricity, Melee touch electricity before end of turn, perday yes, charge no, needworn yes",
+      "uses_per_day": 3
     },
     "Ring of universal energy resistance, greater": {
       "description": "Functions as a ring of energy resistance for all energy types (fire, cold, electricity, acid, and sonic), granting resistance 30.",
       "cost": "180,000 gp",
-      "weight": "—"
+      "weight": "—",
+      "effects": {
+        "defenses": [
+          { "type": "Resistance", "value": "30", "desc": "Fire" },
+          { "type": "Resistance", "value": "30", "desc": "Cold" },
+          { "type": "Resistance", "value": "30", "desc": "Electricity" },
+          { "type": "Resistance", "value": "30", "desc": "Acid" },
+          { "type": "Resistance", "value": "30", "desc": "Sonic" }
+        ],
+        "fire_resistance": 30,
+        "cold_resistance": 30,
+        "electricity_resistance": 30,
+        "acid_resistance": 30,
+        "sonic_resistance": 30
+      }
     },
     "Ring of universal energy resistance, major": {
       "description": "Functions as a ring of energy resistance for all energy types (fire, cold, electricity, acid, and sonic), granting resistance 20.",
       "cost": "120,000 gp",
-      "weight": "—"
+      "weight": "—",
+      "effects": {
+        "defenses": [
+          { "type": "Resistance", "value": "20", "desc": "Fire" },
+          { "type": "Resistance", "value": "20", "desc": "Cold" },
+          { "type": "Resistance", "value": "20", "desc": "Electricity" },
+          { "type": "Resistance", "value": "20", "desc": "Acid" },
+          { "type": "Resistance", "value": "20", "desc": "Sonic" }
+        ],
+        "fire_resistance": 20,
+        "cold_resistance": 20,
+        "electricity_resistance": 20,
+        "acid_resistance": 20,
+        "sonic_resistance": 20
+      }
     },
     "Ring of universal energy resistance, minor": {
       "description": "Functions as a ring of energy resistance for all energy types (fire, cold, electricity, acid, and sonic), granting resistance 10.",
       "cost": "60,000 gp",
-      "weight": "—"
+      "weight": "—",
+      "effects": {
+        "defenses": [
+          { "type": "Resistance", "value": "10", "desc": "Fire" },
+          { "type": "Resistance", "value": "10", "desc": "Cold" },
+          { "type": "Resistance", "value": "10", "desc": "Electricity" },
+          { "type": "Resistance", "value": "10", "desc": "Acid" },
+          { "type": "Resistance", "value": "10", "desc": "Sonic" }
+        ],
+        "fire_resistance": 10,
+        "cold_resistance": 10,
+        "electricity_resistance": 10,
+        "acid_resistance": 10,
+        "sonic_resistance": 10
+      }
     },
     "Ring of vanishing": {
       "description": "When activated, become invisible (as greater invisibility) and undetectable by hearing, scent, blindsense, blindsight, or tremorsense for 2 rounds. Spells that detect invisible creatures (see invisibility, true seeing) still work normally.\n\nFunctions three times per day.",
@@ -3535,12 +3741,14 @@
       "cost": "7,500 gp"
     },
     "Boots of Speed": {
-      "description": "+30 ft. enhancement bonus to land speed; haste 10 rounds/day.",
+      "description": "+30 ft. enhancement bonus to land speed. As a free action, you can activate Haste (as the spell) for up to 10 rounds per day (rounds need not be consecutive). Daily uses refresh at dawn.",
       "effects": {
         "speed_bonus": 30
       },
       "weight": "2 lb.",
-      "cost": "12,000 gp"
+      "cost": "12,000 gp",
+      "granted_spell": "Haste",
+      "uses_per_day": 10
     },
     "Boots of Striding and Springing": {
       "description": "+10 ft. enhancement bonus to land speed (striding). +5 competence bonus on Jump checks (springing). Continuous while worn.",
@@ -3758,6 +3966,30 @@
       "description": "These massive boots have spiked, treaded soles and look large enough to fi t a heavily armored ogre. A row of inset amethysts runs around the top cuff. Vanguard treads provide you with superior traction and stability, which provides the following effects: • You can move through diffi cult terrain (such as rubble, undergrowth, steep slopes, stairs, or snow) at normal speed and without suffering any other impairment. • You are unaffected by slippery ice, wet stones, or other surfaces where traction is a problem. • You gain a +8 bonus on attempts to resist bull rushes and a +4 bonus on grapple checks to resist a grapple attempt if that grapple would move you into another square. Areas that have been magically manipulated to impede movement (such as by an entangle spell) still affect you, as do water, quicksand, and other nonsolid surfaces. You still have to slow down for narrow paths requiring Balance checks and for surfaces steep enough to require Climb checks. If the terrain deals damage (such as the burning ground on the Elemental Plane of Fire), you still take that damage. The massive spikes and treads on the soles of vanguard treads leave a distinctive trail. Anyone following you gains a +10 circumstance bonus on Survival and Search checks made to track you. Lore: Ancient giants made the fi rst vanguard treads to aid their scouts in navigating diffi cult terrain and hazards (Knowledge [arcana] DC 15).",
       "weight": "2 lb.",
       "cost": "3,100 gp"
+    },
+    "Slippers of Battledancing": {
+      "description": "These elegant slippers are made of soft black velvet and silver thread, favored by dervishes and swashbuckling duelists who fight with flair (Dungeon Master's Guide II).\n\nWhile worn:\n• +10-foot enhancement bonus to land speed.\n• +5 competence bonus on Tumble checks.\n• If you have at least 5 ranks in Perform (Dance), you gain a +2 insight bonus on initiative checks.\n\nBattledancing (optional): Charisma for attack/damage is not automatic — activate a Combat Gear buff with Sub:Cha on Attack/Damage when you move 10 ft. and use light or one-handed weapons.\n\nCost 33,750 gp. Feet slot.",
+      "weight": "1 lb.",
+      "cost": "33,750 gp",
+      "body_slot": "Feet",
+      "slot": "Feet",
+      "effects": {
+        "speed_bonus": 10,
+        "skill_bonus": {
+          "Tumble": 5
+        },
+        "initiative_if_skill": {
+          "value": 2,
+          "bonus_type": "Insight",
+          "min_ranks": 5,
+          "skills": [
+            "Perform (Dance)",
+            "Perform (Dancing)",
+            "Dance",
+            "Dancing"
+          ]
+        }
+      }
     }
   },
   "Misc": {
@@ -4249,7 +4481,12 @@
       "cost": "40,000 gp"
     },
     "Ioun Stone, Orange": {
-      "description": "+1 caster level."
+      "description": "+1 caster level (continuous while orbiting / equipped).",
+      "effects": {
+        "caster_level": 1
+      },
+      "weight": "—",
+      "cost": "30,000 gp"
     },
     "Ioun Stone, Pale Blue Rhomboid": {
       "description": "+2 enhancement bonus to Strength.",
@@ -4821,11 +5058,6 @@
       "weight": "2 lb.",
       "cost": "5,500 gp"
     },
-    "Wings of Flying": {
-      "description": "Fly 60 ft. (good) 1 hour/day.",
-      "weight": "2 lb.",
-      "cost": "54,000 gp"
-    },
     "Aberrant sphere": {
       "description": "Deals 4d6 damage and confuses creatures in a 10-foot radius 1/day.",
       "cost": "5,000 gp"
@@ -4919,10 +5151,6 @@
     "Badge of glorySP": {
       "description": "Grants a +2 morale bonus on attack rolls and saves to allies within 30 feet 1/day.",
       "cost": "5,000 gp"
-    },
-    "Badge of valorSP": {
-      "description": "Grants a +2 morale bonus on attack rolls and saves against fear to allies within 30 feet 1/day.",
-      "cost": "2,000 gp"
     },
     "Bag of boulders": {
       "description": "Produces up to 3 boulders per day that can be thrown as weapons.",
@@ -5202,9 +5430,14 @@
       "cost": "3,500 gp"
     },
     "Crystal echoblade": {
-      "description": "Creates a duplicate of a melee weapon 1/day.",
+      "description": "A +1 longsword crafted from jagged violet crystal. While you use your bardic music ability, the blade resonates and deals additional sonic damage equal to half your bard level (rounded down) on each attack.\n\nTreat as a Longsword for Magical Item Wizard upgrades (enhancement and special abilities). (Magic Item Compendium)",
       "weight": "4 lb.",
-      "cost": "6,000 gp"
+      "cost": "4,310 gp",
+      "gear_type": "weapon",
+      "base_item": "Longsword",
+      "default_enh": 1,
+      "is_magic": true,
+      "weapon_name": "Crystal Echoblade (Longsword)"
     },
     "Crystal of adamant armor, greater": {
       "description": "+10 to hardness of armor or shield",
@@ -5849,7 +6082,11 @@
       "cost": "2,800 gp"
     },
     "Ioun stone, orange prism": {
-      "description": "Grants a +1 caster level bonus 1/day.",
+      "description": "+1 caster level (continuous while orbiting / equipped). SRD orange prism ioun stone — not a 1/day ability.",
+      "effects": {
+        "caster_level": 1
+      },
+      "weight": "—",
       "cost": "30,000 gp"
     },
     "Iron bands of Bilarro": {
@@ -7447,66 +7684,6 @@
       "description": "High-quality tools that grant +2 bonus on Disable Device and Open Lock.",
       "weight": "2",
       "cost": "100 gp"
-    },
-    "Third eye aware": {
-      "description": "Grants a +5 competence bonus on Listen and Spot checks 1/day.",
-      "cost": "8,000 gp"
-    },
-    "Third eye clarity": {
-      "description": "Grants a +5 competence bonus on one skill check 1/day.",
-      "cost": "3,500 gp"
-    },
-    "Third eye conceal": {
-      "description": "Grants a +10 competence bonus on Hide checks 1/day.",
-      "cost": "120,000 gp"
-    },
-    "Third eye concentrate": {
-      "description": "Grants a +5 competence bonus on Concentration checks 1/day.",
-      "cost": "8,000 gp"
-    },
-    "Third eye dampening": {
-      "description": "Grants a +5 competence bonus on saves against mind-affecting effects 1/day.",
-      "cost": "3,500 gp"
-    },
-    "Third eye dominate": {
-      "description": "Allows dominating a creature 1/day.",
-      "cost": "120,000 gp"
-    },
-    "Third eye expose": {
-      "description": "Reveals invisible creatures and objects within 60 feet 1/day.",
-      "cost": "3,500 gp"
-    },
-    "Third eye freedom": {
-      "description": "Grants freedom of movement for 1 round 1/day.",
-      "cost": "3,500 gp"
-    },
-    "Third eye gather": {
-      "description": "Collects one power point 1/day.",
-      "cost": "8,000 gp"
-    },
-    "Third eye improvisation": {
-      "description": "Grants a +5 competence bonus on one skill check 1/day.",
-      "cost": "1,000 gp"
-    },
-    "Third eye penetrate": {
-      "description": "Grants a +5 competence bonus on Search checks 1/day.",
-      "cost": "7,000 gp"
-    },
-    "Third eye powerthieve": {
-      "description": "Drains 1 power point from a psionic creature 1/day.",
-      "cost": "8,000 gp"
-    },
-    "Third eye repudiate": {
-      "description": "Grants a +2 resistance bonus on saves against mind-affecting effects 1/day.",
-      "cost": "14,000 gp"
-    },
-    "Third eye sense": {
-      "description": "Grants blindsight 30 feet 1/day.",
-      "cost": "24,000 gp"
-    },
-    "Third eye surge": {
-      "description": "Grants a +2 enhancement bonus to one ability score for 1 minute 1/day.",
-      "cost": "3,000 gp"
     },
     "Thorn pouch": {
       "description": "Creates a 10-foot-radius burst of thorns dealing 3d6 damage 1/day.",
