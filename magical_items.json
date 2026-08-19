@@ -106,11 +106,6 @@
       "cost": "4,200 gp",
       "weight": "1 lb."
     },
-    "Crown of flamesSP": {
-      "description": "Deals 2d6 fire damage to attackers who hit the wearer in melee 1/day.",
-      "weight": "3 lb.",
-      "cost": "8,000 gp"
-    },
     "Essentia helm": {
       "description": "Has 3 charges, renewed each day at dawn. Spending charges maximizes essentia investment in soulmelds or other essentia receptacles for 1 round. While active, you cannot reallocate essentia from affected receptacles.\n\n1 charge: One receptacle.\n2 charges: Two receptacles.\n3 charges: Three receptacles.",
       "weight": "3 lb.",
@@ -213,11 +208,6 @@
       "weight": "1 lb.",
       "cost": "5,600 gp"
     },
-    "Helm of tacticsSP": {
-      "description": "Grants a +2 competence bonus on attack rolls when flanking 1/day.",
-      "weight": "3 lb.",
-      "cost": "3,000 gp"
-    },
     "Helm of Telepathy": {
       "description": "Telepathy 90 ft. while worn.",
       "weight": "3 lb.",
@@ -227,11 +217,6 @@
       "description": "Greater teleport 1/day.",
       "weight": "3 lb.",
       "cost": "73,500 gp"
-    },
-    "Helm of the hunterSP": {
-      "description": "Grants a +5 competence bonus on Spot checks 1/day.",
-      "weight": "4 lb.",
-      "cost": "7,000 gp"
     },
     "Helm of the purple plumeR": {
       "description": "While wearing this helm, you have a +2 enhancement bonus to Charisma if you are lawful good, neutral good, or lawful neutral.\n\nRelic power (worship Heironeous and sacrifice a 4th-level divine spell slot, or have True Believer and 7 HD): +5 morale bonus on saves against fear. Whenever you successfully save against a fear effect, you receive the benefit of heroism for 10 rounds. If immune to fear, you automatically gain this benefit when subjected to a fear effect from an enemy.",
@@ -247,13 +232,6 @@
       "description": "Continuous speak with animals (aquatic only), water breathing, freedom of movement in water.",
       "weight": "3 lb.",
       "cost": "24,000 gp"
-    },
-    "Helm of wounding sightSP": {
-      "description": "Grants a +5 competence bonus on Spot checks to find wounded creatures 1/day.",
-      "weight": "4 lb.",
-      "cost": "6,000 gp",
-      "Action": "Standard, none, , Gaze attack effect (see item), perday yes, charge no, needworn yes",
-      "uses_per_day": 1
     },
     "Horned helm": {
       "description": "When placed on your head, the antlers join solidly with your skull. They grant a natural secondary gore attack dealing 1d8 damage plus half your Strength bonus, treated as a magic weapon for overcoming damage reduction.",
@@ -314,6 +292,28 @@
       "description": "This plain mithral headband has no distinguishing features. Wand bracelet When activated, a watch lamp creates a globe of light that hovers at your shoulder and sheds light as a torch. The light follows you wherever you move. It can be extinguished with a second command.",
       "weight": "—",
       "cost": "500 gp"
+    },
+    "Crown of flames": {
+      "description": "Deals 2d6 fire damage to attackers who hit the wearer in melee 1/day.",
+      "weight": "3 lb.",
+      "cost": "8,000 gp"
+    },
+    "Helm of tactics": {
+      "description": "Grants a +2 competence bonus on attack rolls when flanking 1/day.",
+      "weight": "3 lb.",
+      "cost": "3,000 gp"
+    },
+    "Helm of the hunter": {
+      "description": "Grants a +5 competence bonus on Spot checks 1/day.",
+      "weight": "4 lb.",
+      "cost": "7,000 gp"
+    },
+    "Helm of wounding sight": {
+      "description": "Grants a +5 competence bonus on Spot checks to find wounded creatures 1/day.",
+      "weight": "4 lb.",
+      "cost": "6,000 gp",
+      "Action": "Standard, none, , Gaze attack effect (see item), perday yes, charge no, needworn yes",
+      "uses_per_day": 1
     }
   },
   "Face": {
@@ -593,11 +593,6 @@
         }
       }
     },
-    "Mask of masterySP": {
-      "description": "Grants a +5 competence bonus on one skill 1/day.",
-      "weight": "1 lb.",
-      "cost": "4,000 gp"
-    },
     "Mask of mental armor": {
       "description": "Gain a +3 resistance bonus on saving throws against mind-affecting spells and abilities.",
       "weight": "—",
@@ -622,11 +617,6 @@
       "cost": "22,000 gp",
       "body_slot": "Face",
       "slot": "Face"
-    },
-    "Mask of the tigerSP": {
-      "description": "Grants a +5 competence bonus on Hide and Move Silently checks 1/day.",
-      "weight": "1 lb.",
-      "cost": "4,500 gp"
     },
     "Monocle of perusal": {
       "description": "Highlights of moonstone accentuate every ridge and curve of this angular silver mask. A moonstone mask grants you a +5 competence bonus on Listen and Spot checks, as well as darkvision out to 30 feet.",
@@ -763,6 +753,16 @@
       "cost": "3,000 gp",
       "body_slot": "Face",
       "slot": "Face"
+    },
+    "Mask of mastery": {
+      "description": "Grants a +5 competence bonus on one skill 1/day.",
+      "weight": "1 lb.",
+      "cost": "4,000 gp"
+    },
+    "Mask of the tiger": {
+      "description": "Grants a +5 competence bonus on Hide and Move Silently checks 1/day.",
+      "weight": "1 lb.",
+      "cost": "4,500 gp"
     }
   },
   "Neck": {
@@ -1107,11 +1107,6 @@
       },
       "weight": "—"
     },
-    "Choker of life protectionSP": {
-      "description": "Grants a +2 resistance bonus on saves against death effects 1/day.",
-      "weight": "1 lb.",
-      "cost": "13,000 gp"
-    },
     "Collar of healing": {
       "description": "Functions only when worn by your animal companion, familiar, or special mount. While worn, you always know the creature's exact hit point total.\n\nYou can activate the collar from any distance on the same plane to instantly heal the wearer of 50 points of damage and remove the fatigued or exhausted condition.\n\nFunctions once per day.",
       "weight": "—",
@@ -1178,10 +1173,6 @@
           "Diplomacy": 2
         }
       }
-    },
-    "Periapt of the sullen seaSP": {
-      "description": "Grants water breathing and a +5 competence bonus on Swim checks 1/day.",
-      "cost": "6,000 gp"
     },
     "Retributive amulet": {
       "description": "This inch-wide disk bears a large red crystal in its center. Tiny carvings around the crystal show an endless march of angels and demons at war. You can activate a retributive amulet immediately after another creature has dealt damage to you with a melee attack. That creature takes damage equal to half the damage it dealt to you. This damage is of the same type (or types). This ability functions three times per day.",
@@ -1446,13 +1437,22 @@
       "cost": "25,000 gp",
       "notes": "Homebrew intermediate (catalog normally has +2/+4/+6 only)."
     },
-    "Badge of valorSP": {
+    "Badge of Valor": {
       "description": "Grants a +2 morale bonus on attack rolls and saves against fear to allies within 30 feet 1/day.",
       "cost": "2,000 gp",
       "body_slot": "Neck",
       "slot": "Neck"
     },
-    "Badge of Valor": {
+    "Choker of life protection": {
+      "description": "Grants a +2 resistance bonus on saves against death effects 1/day.",
+      "weight": "1 lb.",
+      "cost": "13,000 gp"
+    },
+    "Periapt of the sullen sea": {
+      "description": "Grants water breathing and a +5 competence bonus on Swim checks 1/day.",
+      "cost": "6,000 gp"
+    },
+    "Badge of valor": {
       "description": "Grants a +2 morale bonus on attack rolls and saves against fear to allies within 30 feet 1/day.",
       "cost": "2,000 gp",
       "body_slot": "Neck",
@@ -1699,11 +1699,6 @@
       "weight": "3 lb.",
       "cost": "90,000 gp"
     },
-    "Mantle of the predatorSP": {
-      "description": "Grants a +5 competence bonus on Hide and Move Silently checks 1/day.",
-      "weight": "4 lb.",
-      "cost": "7,000 gp"
-    },
     "Piercer cloak": {
       "description": "When activated, any attack you make on your current turn from higher ground deals an extra 1d6 damage. If you charge from at least 10 feet above the enemy, extra damage increases to 2d6. Lasts 1 round.\n\nFunctions three times per day.",
       "weight": "—",
@@ -1752,6 +1747,11 @@
       "cost": "54,000 gp",
       "body_slot": "Shoulders",
       "slot": "Shoulders"
+    },
+    "Mantle of the predator": {
+      "description": "Grants a +5 competence bonus on Hide and Move Silently checks 1/day.",
+      "weight": "4 lb.",
+      "cost": "7,000 gp"
     }
   },
   "Body": {
@@ -1825,11 +1825,6 @@
       "Action": "Standard, none, 1d6 fire, Crimson fire burst (see item), perday yes, charge no, needworn yes",
       "uses_per_day": 1
     },
-    "Robe of thunderSP": {
-      "description": "Deals 3d6 sonic damage to attackers who hit the wearer in melee 1/day.",
-      "weight": "6 lb.",
-      "cost": "36,000 gp"
-    },
     "Ghost shroud": {
       "description": "This shroud looks like a ghostly, translucent version of a winding cloth used to wrap a body for burial. While wearing a ghost shroud, you gain a +1 defl ection bonus to Armor Class. In addition, all your melee attacks can affect incorporeal creatures as if you were wielding a ghost touch weapon.",
       "weight": "—",
@@ -1852,6 +1847,11 @@
       "description": "This opaque, reticulated shawl appears to contain hundreds of polychromatic dragon scales stitched into its fi bers. Deep, fl owing sleeves hang from long arm slits cut into the main body of the shawl. While wearing a shroud of scales, you can use your arms and hands normally and see through the garment despite its apparent opacity. You gain damage reduction 5/magic and are immune to a dragon’s frightful presence.",
       "weight": "10 lb.",
       "cost": "24,000 gp"
+    },
+    "Robe of thunder": {
+      "description": "Deals 3d6 sonic damage to attackers who hit the wearer in melee 1/day.",
+      "weight": "6 lb.",
+      "cost": "36,000 gp"
     }
   },
   "Torso": {
@@ -2016,20 +2016,10 @@
       "weight": "1 lb.",
       "cost": "9,000 gp"
     },
-    "Shirt of wraith stalkingSP": {
-      "description": "Grants a +5 competence bonus on Hide checks 1/day.",
-      "weight": "2 lb.",
-      "cost": "5,500 gp"
-    },
     "Vest of defense": {
       "description": "This snug-fi tting vest is crafted from the skin of a huge tan-and-black snake. A vest of defense improves your ability to dodge attacks. When activated, this vest improves the dodge bonus to AC granted by fi ghting defensively, the total defense action, or the Combat Expertise feat by 2. Using more than one of these techniques doesn’t provide more than a +2 bonus. This bonus lasts for 1 round. This ability functions three times per day.",
       "weight": "1 lb.",
       "cost": "2,000 gp"
-    },
-    "Vest of free movementSP": {
-      "description": "Grants freedom of movement 1/day.",
-      "weight": "2 lb.",
-      "cost": "12,000 gp"
     },
     "Vest of the archmagi": {
       "description": "This gold-brocaded, burgundy garment seems fi t to be worn by the gods themselves. The vest of the archmagi is legendary. It fi lls the dreams of every apprentice sent to clean the inkpots and dust the tomes, but rumors of this item are unfounded. Whispering in the bunkrooms of the Academy at night, after the oil lamps are quenched and curfew has long passed, eager apprentices claim that a vest of the archmagi provides its wearer with continuous defensive bonuses equivalent to the most potent bracers of armor (+8 armor bonus to AC) and cloak of resistance (+5 resistance bonus on saving throws). It is also said that the vest provides its wearer with the continuous ability to overcome the magical defenses of her enemies (+2 enhancement bonus on caster level checks made to overcome spell resistance), and that it allows him to recall up to three arcane spells that he had previously prepared and cast (as a pearl of power, except that it can be used for any spell up to 9th level and activating it requires only a swift action). Finally, it is suggested, the wearer of the vest of the archmagi could expend a prepared arcane spell or spell slot to heal himself of damage equal to fi ve times the Unicorn pendant",
@@ -2106,6 +2096,16 @@
       "description": "This misty gray tabard is silky soft to the touch. It is embroidered with small sequins in a skull motif. A tabard of the disembodied is connected to the Ethereal Plane, the realm where ghosts hold sway. Once per day, you can activate this tabard to become ethereal for 1 round, provided that you are neutral evil, lawful evil, chaotic evil, or neutral. Relic Power: If you have established the proper divine connection, you can activate a tabard of the disembodied to transport yourself to the Ethereal Plane (as the ethereal jaunt spell) for up to 10 rounds per day. This duration need not be continuous, and the effect is dismissable with another standard (mental) action. While you are on the Ethereal Plane, the spells you cast affect the Material Plane normally, unlike those of spellcasters who reach the Ethereal Plane by other means. To use the relic power, you must worship Nerull and either sacrifi ce a 7th-level divine spell slot or have the True Believer feat and at least 13 HD. Lore: The fi rst of these tabards is said to have been among the burial raiments of Shedlazzar IV, a legendary wizardking who haunted his castle for decades after his death. His grandson, a noted necromancer in his own right, wrested the secret of the tabard’s creation from his ancestor’s ghost using an exceptionally cruel torture technique designed to psychically fl ay the spirit (Knowledge [religion] DC 20).",
       "weight": "1 lb.",
       "cost": "6,000 gp"
+    },
+    "Shirt of wraith stalking": {
+      "description": "Grants a +5 competence bonus on Hide checks 1/day.",
+      "weight": "2 lb.",
+      "cost": "5,500 gp"
+    },
+    "Vest of free movement": {
+      "description": "Grants freedom of movement 1/day.",
+      "weight": "2 lb.",
+      "cost": "12,000 gp"
     }
   },
   "Arms": {
@@ -2206,10 +2206,6 @@
       "weight": "1 lb.",
       "cost": "19,000 gp"
     },
-    "Armband of confrontationSP": {
-      "description": "Grants a +2 competence bonus on Intimidate checks and allows demoralizing as a move action 1/day.",
-      "cost": "1,500 gp"
-    },
     "Armband of elusive action": {
       "description": "When activated, allows you to avoid provoking a single attack of opportunity that your actions would otherwise incur.\n\nFunctions once per day.",
       "cost": "800 gp"
@@ -2224,20 +2220,10 @@
       "weight": "1 lb.",
       "cost": "4,000 gp"
     },
-    "Bracers of aerial combatSP": {
-      "description": "Grants a +2 enhancement bonus on attack rolls while flying 1/day.",
-      "weight": "1 lb.",
-      "cost": "5,000 gp"
-    },
     "Bracers of arcane freedom": {
       "description": "When activated, you omit the somatic component of the next arcane spell you cast before the end of your turn (as if applying the Still Spell feat, but without altering the spell's level or casting time).\n\nFunctions two times per day.",
       "weight": "1/2 lb.",
       "cost": "2,300 gp"
-    },
-    "Bracers of blinding strikeSP": {
-      "description": "Allows blinding a creature with a strike 1/day.",
-      "weight": "1 lb.",
-      "cost": "5,000 gp"
     },
     "Bracers of dawn": {
       "description": "Turning the dial to the middle position illuminates your surroundings as a bullseye lantern would (move action to adjust dial). Four times per day, you can turn the dial to the right position as a standard action and aim the lens at a target, unleashing a searing light effect (as the spell). The dial automatically returns to the middle position after each use.\n\nBoth bracers must be worn for the magic to be effective.",
@@ -2248,11 +2234,6 @@
       "description": "When you score a successful critical hit with a bludgeoning melee weapon, you can activate the bracers before rolling damage to deal an extra 2d6 points of damage with that attack (or 3d6 if you wield the weapon with two hands).\n\nFunctions two times per day.",
       "weight": "—",
       "cost": "1,500 gp"
-    },
-    "Bracers of lightningSP": {
-      "description": "Deals 2d6 electricity damage to attackers who hit the wearer in melee 1/day.",
-      "weight": "2 lb.",
-      "cost": "12,000 gp"
     },
     "Bracers of opportunity": {
       "description": "If you have the Combat Reflexes feat, you gain a +2 competence bonus on any attack of opportunity you make. This is a continuous effect.\n\nWhen activated, you can take an attack of opportunity granted to you by an opponent, even if you have already reached your normal limit of attacks of opportunity in the round.\n\nFunctions two times per day.",
@@ -2394,6 +2375,25 @@
       "description": "When casting a spell that requires a touch attack and deals hit point damage, you can take a –5 penalty on the attack roll to deal an extra 1d6 points of damage with the spell. A duskblade can use these bracers when delivering a touch spell through a melee weapon, even if the spell doesn't deal hit point damage; the weapon (rather than the spell) deals an extra 1d6 points of damage.",
       "weight": "1 lb.",
       "cost": "3,300 gp"
+    },
+    "Armband of confrontation": {
+      "description": "Grants a +2 competence bonus on Intimidate checks and allows demoralizing as a move action 1/day.",
+      "cost": "1,500 gp"
+    },
+    "Bracers of aerial combat": {
+      "description": "Grants a +2 enhancement bonus on attack rolls while flying 1/day.",
+      "weight": "1 lb.",
+      "cost": "5,000 gp"
+    },
+    "Bracers of blinding strike": {
+      "description": "Allows blinding a creature with a strike 1/day.",
+      "weight": "1 lb.",
+      "cost": "5,000 gp"
+    },
+    "Bracers of lightning": {
+      "description": "Deals 2d6 electricity damage to attackers who hit the wearer in melee 1/day.",
+      "weight": "2 lb.",
+      "cost": "12,000 gp"
     }
   },
   "Wrists": {
@@ -2492,11 +2492,6 @@
       "weight": "1 lb.",
       "cost": "2,000 gp"
     },
-    "Gauntlets of destructionSP": {
-      "description": "Grants a +2 enhancement bonus on attack and damage rolls 1/day.",
-      "weight": "4 lb.",
-      "cost": "8,000 gp"
-    },
     "Gauntlets of eldritch energy": {
       "description": "When activated, the next eldritch blast you use before the end of your turn deals energy damage instead of its normal damage type (cold, electricity, fire, or sonic, depending on the variety of gauntlets). Cannot apply to a blast already affected by an eldritch essence invocation.\n\nFunctions three times per day.",
       "weight": "1/2 lb.",
@@ -2511,11 +2506,6 @@
       "description": "Each of these well-made gauntlets is set with small purple crystals that rest across the tops of the knuckles. Whenever you throw a weapon or other object, gauntlets of extended range give the weapon a telekinetic push, doubling its range increment.",
       "weight": "1/2 lb.",
       "cost": "2,000 gp"
-    },
-    "Gauntlets of ghost fightingSP": {
-      "description": "Allows attacking incorporeal creatures normally 1/day.",
-      "weight": "2 lb.",
-      "cost": "5,000 gp"
     },
     "Gauntlets of giantfelling": {
       "description": "When activated, gain bonus damage on the next weapon damage roll against a creature larger than you before the end of your turn: +1d6 (1 size category larger), +2d6 (2 categories), +3d6 (3 or more categories).\n\nFunctions three times per day.",
@@ -2569,11 +2559,6 @@
       "cost": "2,500 gp",
       "weight": "—"
     },
-    "Gloves of endless javelinsSP": {
-      "description": "Creates a javelin 1/day.",
-      "weight": "1 lb.",
-      "cost": "6,000 gp"
-    },
     "Gloves of flame": {
       "description": "Continuous endure elements against cold and resistance to cold 5.\n\nFive times per day, utter \"burn\" in Ignan to create torch-bright flame in one palm for up to 10 minutes. Command words then extinguish it:\n\"Scorch\": 15-foot cone, 5d4 fire (Reflex DC 11 half).\n\"Singe\": melee touch attack for 1d6+5 fire damage.",
       "weight": "1/2 lb.",
@@ -2619,10 +2604,6 @@
       "description": "While worn, you fight as though you possess Two-Weapon Fighting. If you already have Two-Weapon Fighting, you can make an additional off-hand attack as if using Improved Two-Weapon Fighting.",
       "weight": "—",
       "cost": "8,000 gp"
-    },
-    "Gloves of the starry skySP": {
-      "description": "Grants a +2 competence bonus on Knowledge (arcana) and Spellcraft checks.",
-      "cost": "1,000 gp"
     },
     "Gloves of the titan’s grip": {
       "description": "While wearing these gloves, gain a +8 enhancement bonus on grapple checks. Automatically activates when you enter a grapple; lasts 7 rounds.\n\nFunctions three times per day.",
@@ -2756,6 +2737,25 @@
       "description": "Matches the Hands chakra (wrists slot). While worn, adds 1 to the essentia capacity of any soulmeld occupying or bound to the chakra this focus matches (up to your Constitution bonus). Wearing it does not prevent binding a soulmeld to that chakra.\n\nChakra bind (any): While bound to its chakra, soulmelds on that chakra can't be unshaped except by you, and essentia invested can't be lost or drained except during normal reallocation.",
       "weight": "2 lb.",
       "cost": "15,000 gp"
+    },
+    "Gauntlets of destruction": {
+      "description": "Grants a +2 enhancement bonus on attack and damage rolls 1/day.",
+      "weight": "4 lb.",
+      "cost": "8,000 gp"
+    },
+    "Gauntlets of ghost fighting": {
+      "description": "Allows attacking incorporeal creatures normally 1/day.",
+      "weight": "2 lb.",
+      "cost": "5,000 gp"
+    },
+    "Gloves of endless javelins": {
+      "description": "Creates a javelin 1/day.",
+      "weight": "1 lb.",
+      "cost": "6,000 gp"
+    },
+    "Gloves of the starry sky": {
+      "description": "Grants a +2 competence bonus on Knowledge (arcana) and Spellcraft checks.",
+      "cost": "1,000 gp"
     }
   },
   "Ring": {
@@ -3502,11 +3502,31 @@
       "weight": "—",
       "effects": {
         "defenses": [
-          { "type": "Resistance", "value": "30", "desc": "Fire" },
-          { "type": "Resistance", "value": "30", "desc": "Cold" },
-          { "type": "Resistance", "value": "30", "desc": "Electricity" },
-          { "type": "Resistance", "value": "30", "desc": "Acid" },
-          { "type": "Resistance", "value": "30", "desc": "Sonic" }
+          {
+            "type": "Resistance",
+            "value": "30",
+            "desc": "Fire"
+          },
+          {
+            "type": "Resistance",
+            "value": "30",
+            "desc": "Cold"
+          },
+          {
+            "type": "Resistance",
+            "value": "30",
+            "desc": "Electricity"
+          },
+          {
+            "type": "Resistance",
+            "value": "30",
+            "desc": "Acid"
+          },
+          {
+            "type": "Resistance",
+            "value": "30",
+            "desc": "Sonic"
+          }
         ],
         "fire_resistance": 30,
         "cold_resistance": 30,
@@ -3521,11 +3541,31 @@
       "weight": "—",
       "effects": {
         "defenses": [
-          { "type": "Resistance", "value": "20", "desc": "Fire" },
-          { "type": "Resistance", "value": "20", "desc": "Cold" },
-          { "type": "Resistance", "value": "20", "desc": "Electricity" },
-          { "type": "Resistance", "value": "20", "desc": "Acid" },
-          { "type": "Resistance", "value": "20", "desc": "Sonic" }
+          {
+            "type": "Resistance",
+            "value": "20",
+            "desc": "Fire"
+          },
+          {
+            "type": "Resistance",
+            "value": "20",
+            "desc": "Cold"
+          },
+          {
+            "type": "Resistance",
+            "value": "20",
+            "desc": "Electricity"
+          },
+          {
+            "type": "Resistance",
+            "value": "20",
+            "desc": "Acid"
+          },
+          {
+            "type": "Resistance",
+            "value": "20",
+            "desc": "Sonic"
+          }
         ],
         "fire_resistance": 20,
         "cold_resistance": 20,
@@ -3540,11 +3580,31 @@
       "weight": "—",
       "effects": {
         "defenses": [
-          { "type": "Resistance", "value": "10", "desc": "Fire" },
-          { "type": "Resistance", "value": "10", "desc": "Cold" },
-          { "type": "Resistance", "value": "10", "desc": "Electricity" },
-          { "type": "Resistance", "value": "10", "desc": "Acid" },
-          { "type": "Resistance", "value": "10", "desc": "Sonic" }
+          {
+            "type": "Resistance",
+            "value": "10",
+            "desc": "Fire"
+          },
+          {
+            "type": "Resistance",
+            "value": "10",
+            "desc": "Cold"
+          },
+          {
+            "type": "Resistance",
+            "value": "10",
+            "desc": "Electricity"
+          },
+          {
+            "type": "Resistance",
+            "value": "10",
+            "desc": "Acid"
+          },
+          {
+            "type": "Resistance",
+            "value": "10",
+            "desc": "Sonic"
+          }
         ],
         "fire_resistance": 10,
         "cold_resistance": 10,
@@ -5148,10 +5208,6 @@
       "weight": "6 lb.",
       "cost": "11,310 gp"
     },
-    "Badge of glorySP": {
-      "description": "Grants a +2 morale bonus on attack rolls and saves to allies within 30 feet 1/day.",
-      "cost": "5,000 gp"
-    },
     "Bag of boulders": {
       "description": "Produces up to 3 boulders per day that can be thrown as weapons.",
       "weight": "5 lb.",
@@ -5172,20 +5228,10 @@
       "weight": "35 lb.",
       "cost": "18,400 gp"
     },
-    "Bands of blood rageSP": {
-      "description": "Grants a +2 enhancement bonus to Strength and Constitution when raging 1/day.",
-      "weight": "1 lb.",
-      "cost": "4,000 gp"
-    },
     "Banner of the storm’s eye": {
       "description": "Grants electricity resistance 5 1/day.",
       "weight": "3 lb.",
       "cost": "14,000 gp"
-    },
-    "Barbs of retributionSP": {
-      "description": "Deals 2d6 piercing damage to attackers who hit the wearer in melee 1/day.",
-      "weight": "1 lb.",
-      "cost": "5,000 gp"
     },
     "Barricade buckler": {
       "description": "+1 buckler, 3/day turns into 5 ft. by 5 ft. vertical wall of force for 1 minute",
@@ -5234,11 +5280,6 @@
       "description": "Deals 1d6 damage to plants and plant creatures in a 10-foot radius.",
       "cost": "300 gp"
     },
-    "Blood claw chokerSP": {
-      "description": "Deals 1d6 damage to an attacker who hits the wearer in melee 1/day.",
-      "weight": "1 lb.",
-      "cost": "11,000 gp"
-    },
     "Boccob’s blessed book": {
       "description": "Holds up to 1,000 pages of spells.",
       "weight": "5 lb.",
@@ -5264,11 +5305,6 @@
       "weight": "30 lb.",
       "cost": "25,350 gp"
     },
-    "Breastplate of terrorSP": {
-      "description": "+1 adamantine breastplate, 1/day frighten foe (armor of the watching master)",
-      "weight": "30 lb.",
-      "cost": "14,000 gp"
-    },
     "Breastplate, masterwork": {
       "description": "Medium armor providing +5 AC with masterwork quality.",
       "weight": "30 lb.",
@@ -5278,11 +5314,6 @@
       "description": "+1 shield bonus, masterwork quality.",
       "weight": "5 lb.",
       "cost": "165 gp"
-    },
-    "Burning veilSP": {
-      "description": "Creates a veil of fire that deals 2d6 fire damage 1/day.",
-      "weight": "1 lb.",
-      "cost": "1,500 gp"
     },
     "Camouflage paint": {
       "description": "Grants a +10 competence bonus on Hide checks for 1 hour 1/day.",
@@ -5296,11 +5327,6 @@
     "Caster’s shield": {
       "description": "+1 light wooden shield, can have a spell scribed on it (as a scroll)",
       "weight": "Varies",
-      "cost": "4,000 gp"
-    },
-    "Caustic veilSP": {
-      "description": "Creates a veil of acid that deals 3d6 acid damage 1/day.",
-      "weight": "1 lb.",
       "cost": "4,000 gp"
     },
     "Celestial armor": {
@@ -5345,11 +5371,6 @@
       "description": "Resistance 10 to specific energy type, prevents up to 50 damage 1/day 1,500 MAGIC ITEMS APPENDIX 1 BY PRICE 239 Armor and Shield Crystals (cont.) Page Item Name Effect Market Price (gp)",
       "cost": "2,000 gp"
     },
-    "Claw glovesSP": {
-      "description": "Grants a claw attack 1/day.",
-      "weight": "2 lb.",
-      "cost": "5,500 gp"
-    },
     "Cli lyre": {
       "description": "A magical lyre that grants a +2 competence bonus on Perform checks.",
       "weight": "4 lb.",
@@ -5359,16 +5380,6 @@
       "description": "Contains pitons, hammer, and gear for climbing.",
       "weight": "5 lb.",
       "cost": "80 gp"
-    },
-    "Cloudwalker ankletsSP": {
-      "description": "Allows walking on clouds 1/day.",
-      "weight": "1 lb.",
-      "cost": "50,000 gp"
-    },
-    "Cobra strapsSP": {
-      "description": "Grants a +2 competence bonus on Escape Artist checks and allows escaping grapples more easily 1/day.",
-      "weight": "2 lb.",
-      "cost": "1,500 gp"
     },
     "Cognizance crystal, 1 point": {
       "description": "Stores 1 power point for psionic characters.",
@@ -5415,10 +5426,6 @@
       "description": "Allows channeling a spell through a weapon 1/day.",
       "weight": "2 lb.",
       "cost": "6,000 gp"
-    },
-    "Cord of favorSP": {
-      "description": "Grants a +2 competence bonus on Diplomacy checks 1/day.",
-      "cost": "2,500 gp"
     },
     "Cornucopia of the needfulR": {
       "description": "Produces needed supplies 1/day.",
@@ -5474,10 +5481,6 @@
     "Crystal of adaptation, lesser": {
       "description": "Protected as endure elements; immune to alignment traits of planes",
       "cost": "2,000 gp"
-    },
-    "Crystal of alacritySP": {
-      "description": "+5 ft. morale bonus to speed (five virtues)",
-      "cost": "4,000 gp"
     },
     "Crystal of aquatic action, greater": {
       "description": "Grants a +15 competence bonus on Swim checks 1/day.",
@@ -5853,11 +5856,6 @@
       "description": "Creates a 10-foot-radius pit 1/day.",
       "cost": "5,000 gp"
     },
-    "Ephod of authoritySP": {
-      "description": "Grants a +2 competence bonus on Diplomacy and Intimidate checks.",
-      "weight": "2 lb.",
-      "cost": "500 gp"
-    },
     "Essentia jewel": {
       "description": "Stores 1 point of essentia for 24 hours.",
       "cost": "500 gp"
@@ -6058,11 +6056,6 @@
       "weight": "3 lb.",
       "cost": "12,000 gp"
     },
-    "Horn of resilienceSP": {
-      "description": "Grants a +4 morale bonus on saves against fear 1/day.",
-      "weight": "3 lb.",
-      "cost": "5,000 gp"
-    },
     "Icy strand of the north": {
       "description": "Deals 3d6 cold damage in a 30-foot line 1/day.",
       "cost": "4,000 gp"
@@ -6138,10 +6131,6 @@
       "description": "+2 armor bonus, masterwork quality.",
       "weight": "15 lb.",
       "cost": "160 gp"
-    },
-    "Lenses of revelationSP": {
-      "description": "Grants a +5 competence bonus on Search and Spot checks to find secret doors and traps 1/day.",
-      "cost": "1,500 gp"
     },
     "Life-drinker": {
       "description": "A +2 shortsword that can drain levels 1/day.",
@@ -6252,14 +6241,6 @@
       "description": "Reveals hidden or secret locations 1/day.",
       "weight": "1 lb.",
       "cost": "6,000 gp"
-    },
-    "Medal of steadfast honorSP": {
-      "description": "Grants a +2 morale bonus on saves against fear and compulsion 1/day.",
-      "cost": "1,500 gp"
-    },
-    "Medallion of aerial defenseSP": {
-      "description": "Grants a +2 deflection bonus to AC against ranged attacks 1/day.",
-      "cost": "7,000 gp"
     },
     "Memento magica, 1st-level spell": {
       "description": "Allows recasting a prepared 1st-level spell 1/day.",
@@ -6589,11 +6570,6 @@
       "weight": "15 lb.",
       "cost": "8,160 gp"
     },
-    "Panther maskSP": {
-      "description": "Grants a +5 competence bonus on Hide and Move Silently checks 1/day.",
-      "weight": "1 lb.",
-      "cost": "3,500 gp"
-    },
     "Pearl of brain lock": {
       "description": "Paralyzes one creature for 1 round 1/day.",
       "cost": "1,000 gp"
@@ -6618,16 +6594,6 @@
     "Phoenix ash threat, lesser": {
       "description": "Deals 4d6 fire damage to one creature 1/day.",
       "cost": "3,000 gp"
-    },
-    "Phoenix cloakSP": {
-      "description": "Grants fire resistance 10 1/day.",
-      "weight": "3 lb.",
-      "cost": "50,000 gp"
-    },
-    "Phylactery of virtueSP": {
-      "description": "Grants a +2 enhancement bonus to Charisma 1/day.",
-      "weight": "1 lb.",
-      "cost": "6,000 gp"
     },
     "Pick of piercing": {
       "description": "A +1 heavy pick that ignores hardness 1/day.",
@@ -6803,11 +6769,6 @@
     "Raptor arrowR": {
       "description": "Arrow that deals extra damage and can return 1/day.",
       "cost": "6,057 gp"
-    },
-    "Raptor’s maskSP": {
-      "description": "Grants a +5 competence bonus on Spot checks 1/day.",
-      "weight": "1 lb.",
-      "cost": "4,000 gp"
     },
     "Replenishing skin": {
       "description": "Regenerates 1 hit point per round for 1 minute 1/day.",
@@ -7235,11 +7196,6 @@
       "description": "Grants SR 13 for 1 minute 1/day.",
       "cost": "1,500 gp"
     },
-    "Sandals of the light stepSP": {
-      "description": "Grants a +10 enhancement bonus to speed 1/day.",
-      "weight": "1 lb.",
-      "cost": "8,000 gp"
-    },
     "Scabbard of keen edges": {
       "description": "Makes a weapon keen (threat range doubled) 1/day.",
       "weight": "2 lb.",
@@ -7249,11 +7205,6 @@
       "description": "Allows controlling undead 1/day.",
       "weight": "4 lb.",
       "cost": "9,000 gp"
-    },
-    "Scorpion kamaSP": {
-      "description": "A +1 kama that can poison a target 1/day.",
-      "weight": "2 lb.",
-      "cost": "6,306 gp"
     },
     "Scourge of pain": {
       "description": "Deals 3d6 damage and sickens a creature 1/day.",
@@ -7287,11 +7238,6 @@
       "weight": "25 lb.",
       "cost": "12,165 gp"
     },
-    "Serpent veilSP": {
-      "description": "Grants a +5 competence bonus on Bluff checks 1/day.",
-      "weight": "1 lb.",
-      "cost": "15,000 gp"
-    },
     "Shackles of silence": {
       "description": "Silences a creature 1/day.",
       "weight": "5 lb.",
@@ -7320,11 +7266,6 @@
       "description": "Gruumsh: +2 heavy wooden shield plus relic powers",
       "weight": "6 lb.",
       "cost": "5,170 gp"
-    },
-    "Shield of vigorSP": {
-      "description": "+1 heavy steel shield, 1/day fast healing 5 for 3 rounds (five virtues)",
-      "weight": "15 lb.",
-      "cost": "6,170 gp"
     },
     "Shifter’s sorrow": {
       "description": "A +1 shortsword that deals extra damage to shifters 1/day.",
@@ -7496,11 +7437,6 @@
       "weight": "5 lb.",
       "cost": "170,000 gp"
     },
-    "Staff of power*": {
-      "description": "Allows casting multiple powerful spells 1/day.",
-      "weight": "5 lb.",
-      "cost": "211,000 gp"
-    },
     "Staff of size alteration": {
       "description": "Allows casting size-altering spells 1/day.",
       "weight": "5 lb.",
@@ -7526,11 +7462,6 @@
       "weight": "5 lb.",
       "cost": "65,000 gp"
     },
-    "Standard of valorSP": {
-      "description": "Grants a +2 morale bonus on attack rolls and saves against fear to allies within 60 feet 1/day.",
-      "weight": "3 lb.",
-      "cost": "2,500 gp"
-    },
     "Stench stone": {
       "description": "Creates a 10-foot-radius stinking cloud when broken.",
       "cost": "300 gp"
@@ -7553,10 +7484,6 @@
       "description": "A +1 greataxe that can sunder objects more easily 1/day.",
       "weight": "12 lb.",
       "cost": "6,320 gp"
-    },
-    "Stormfire ringSP": {
-      "description": "Deals 3d6 electricity damage to a touched creature 1/day.",
-      "cost": "5,000 gp"
     },
     "Strand of acid pearls": {
       "description": "Deals 4d6 acid damage in a 30-foot line 1/day.",
@@ -7650,11 +7577,6 @@
     "Talisman of undying fortitude": {
       "description": "Grants a +4 enhancement bonus on saves against death effects 1/day.",
       "cost": "8,000 gp"
-    },
-    "Talon scepterSP": {
-      "description": "Grants a claw attack 1/day.",
-      "weight": "4 lb.",
-      "cost": "10,000 gp"
     },
     "Tanglefoot bag": {
       "description": "Throws a bag that entangles creatures in a sticky goo.",
@@ -7761,30 +7683,10 @@
       "weight": "3 lb.",
       "cost": "36,000 gp"
     },
-    "Turquoise veilSP": {
-      "description": "Grants a +5 competence bonus on Diplomacy checks 1/day.",
-      "weight": "1 lb.",
-      "cost": "18,000 gp"
-    },
     "Vampire hide armor": {
       "description": "+1 studded leather, damage reduction 5/silver or magic",
       "weight": "25 lb.",
       "cost": "36,165 gp"
-    },
-    "Veil of doorsSP": {
-      "description": "Allows creating a door 1/day.",
-      "weight": "1 lb.",
-      "cost": "11,000 gp"
-    },
-    "Veil of stormsSP": {
-      "description": "Creates a storm cloud dealing 3d6 electricity damage 1/day.",
-      "weight": "1 lb.",
-      "cost": "5,000 gp"
-    },
-    "Veil of whispersSP": {
-      "description": "Allows whispering to a creature within 100 feet 1/day.",
-      "weight": "1 lb.",
-      "cost": "6,000 gp"
     },
     "Vestments of ebonsilk": {
       "description": "Grants a +2 deflection bonus to AC 1/day.",
@@ -7835,11 +7737,6 @@
       "weight": "15 lb.",
       "cost": "17,170 gp"
     },
-    "Winged vestSP": {
-      "description": "Allows flying for 1 minute 1/day.",
-      "weight": "3 lb.",
-      "cost": "12,000 gp"
-    },
     "Witchlight reservoir": {
       "description": "Stores one 0-level spell 1/day.",
       "cost": "4,500 gp"
@@ -7853,6 +7750,169 @@
       "description": "+1 hide, damage reduction 5/slashing",
       "weight": "25 lb.",
       "cost": "14,165 gp"
+    },
+    "Staff of power": {
+      "description": "Allows casting multiple powerful spells 1/day.",
+      "weight": "5 lb.",
+      "cost": "211,000 gp"
+    },
+    "Badge of glory": {
+      "description": "Grants a +2 morale bonus on attack rolls and saves to allies within 30 feet 1/day.",
+      "cost": "5,000 gp"
+    },
+    "Bands of blood rage": {
+      "description": "Grants a +2 enhancement bonus to Strength and Constitution when raging 1/day.",
+      "weight": "1 lb.",
+      "cost": "4,000 gp"
+    },
+    "Barbs of retribution": {
+      "description": "Deals 2d6 piercing damage to attackers who hit the wearer in melee 1/day.",
+      "weight": "1 lb.",
+      "cost": "5,000 gp"
+    },
+    "Blood claw choker": {
+      "description": "Deals 1d6 damage to an attacker who hits the wearer in melee 1/day.",
+      "weight": "1 lb.",
+      "cost": "11,000 gp"
+    },
+    "Breastplate of terror": {
+      "description": "+1 adamantine breastplate, 1/day frighten foe (armor of the watching master)",
+      "weight": "30 lb.",
+      "cost": "14,000 gp"
+    },
+    "Burning veil": {
+      "description": "Creates a veil of fire that deals 2d6 fire damage 1/day.",
+      "weight": "1 lb.",
+      "cost": "1,500 gp"
+    },
+    "Caustic veil": {
+      "description": "Creates a veil of acid that deals 3d6 acid damage 1/day.",
+      "weight": "1 lb.",
+      "cost": "4,000 gp"
+    },
+    "Claw gloves": {
+      "description": "Grants a claw attack 1/day.",
+      "weight": "2 lb.",
+      "cost": "5,500 gp"
+    },
+    "Cloudwalker anklets": {
+      "description": "Allows walking on clouds 1/day.",
+      "weight": "1 lb.",
+      "cost": "50,000 gp"
+    },
+    "Cobra straps": {
+      "description": "Grants a +2 competence bonus on Escape Artist checks and allows escaping grapples more easily 1/day.",
+      "weight": "2 lb.",
+      "cost": "1,500 gp"
+    },
+    "Cord of favor": {
+      "description": "Grants a +2 competence bonus on Diplomacy checks 1/day.",
+      "cost": "2,500 gp"
+    },
+    "Crystal of alacrity": {
+      "description": "+5 ft. morale bonus to speed (five virtues)",
+      "cost": "4,000 gp"
+    },
+    "Ephod of authority": {
+      "description": "Grants a +2 competence bonus on Diplomacy and Intimidate checks.",
+      "weight": "2 lb.",
+      "cost": "500 gp"
+    },
+    "Horn of resilience": {
+      "description": "Grants a +4 morale bonus on saves against fear 1/day.",
+      "weight": "3 lb.",
+      "cost": "5,000 gp"
+    },
+    "Lenses of revelation": {
+      "description": "Grants a +5 competence bonus on Search and Spot checks to find secret doors and traps 1/day.",
+      "cost": "1,500 gp"
+    },
+    "Medal of steadfast honor": {
+      "description": "Grants a +2 morale bonus on saves against fear and compulsion 1/day.",
+      "cost": "1,500 gp"
+    },
+    "Medallion of aerial defense": {
+      "description": "Grants a +2 deflection bonus to AC against ranged attacks 1/day.",
+      "cost": "7,000 gp"
+    },
+    "Panther mask": {
+      "description": "Grants a +5 competence bonus on Hide and Move Silently checks 1/day.",
+      "weight": "1 lb.",
+      "cost": "3,500 gp"
+    },
+    "Phoenix cloak": {
+      "description": "Grants fire resistance 10 1/day.",
+      "weight": "3 lb.",
+      "cost": "50,000 gp"
+    },
+    "Phylactery of virtue": {
+      "description": "Grants a +2 enhancement bonus to Charisma 1/day.",
+      "weight": "1 lb.",
+      "cost": "6,000 gp"
+    },
+    "Raptor’s mask": {
+      "description": "Grants a +5 competence bonus on Spot checks 1/day.",
+      "weight": "1 lb.",
+      "cost": "4,000 gp"
+    },
+    "Sandals of the light step": {
+      "description": "Grants a +10 enhancement bonus to speed 1/day.",
+      "weight": "1 lb.",
+      "cost": "8,000 gp"
+    },
+    "Scorpion kama": {
+      "description": "A +1 kama that can poison a target 1/day.",
+      "weight": "2 lb.",
+      "cost": "6,306 gp"
+    },
+    "Serpent veil": {
+      "description": "Grants a +5 competence bonus on Bluff checks 1/day.",
+      "weight": "1 lb.",
+      "cost": "15,000 gp"
+    },
+    "Shield of vigor": {
+      "description": "+1 heavy steel shield, 1/day fast healing 5 for 3 rounds (five virtues)",
+      "weight": "15 lb.",
+      "cost": "6,170 gp"
+    },
+    "Standard of valor": {
+      "description": "Grants a +2 morale bonus on attack rolls and saves against fear to allies within 60 feet 1/day.",
+      "weight": "3 lb.",
+      "cost": "2,500 gp"
+    },
+    "Stormfire ring": {
+      "description": "Deals 3d6 electricity damage to a touched creature 1/day.",
+      "cost": "5,000 gp"
+    },
+    "Talon scepter": {
+      "description": "Grants a claw attack 1/day.",
+      "weight": "4 lb.",
+      "cost": "10,000 gp"
+    },
+    "Turquoise veil": {
+      "description": "Grants a +5 competence bonus on Diplomacy checks 1/day.",
+      "weight": "1 lb.",
+      "cost": "18,000 gp"
+    },
+    "Veil of doors": {
+      "description": "Allows creating a door 1/day.",
+      "weight": "1 lb.",
+      "cost": "11,000 gp"
+    },
+    "Veil of storms": {
+      "description": "Creates a storm cloud dealing 3d6 electricity damage 1/day.",
+      "weight": "1 lb.",
+      "cost": "5,000 gp"
+    },
+    "Veil of whispers": {
+      "description": "Allows whispering to a creature within 100 feet 1/day.",
+      "weight": "1 lb.",
+      "cost": "6,000 gp"
+    },
+    "Winged vest": {
+      "description": "Allows flying for 1 minute 1/day.",
+      "weight": "3 lb.",
+      "cost": "12,000 gp"
     }
   }
 }

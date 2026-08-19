@@ -1,13 +1,13 @@
 ﻿{
-  "version": "3.2",
-  "display_version": "3.2",
-  "data_version": "2026.08.12",
-  "data_asset_keyword": "GameData",
-  "min_app_version_for_data": "3.2",
-  "app_name": "D&D Before Keen",
-  "github_owner": "christopherpeades-debug",
-  "github_repo": "D-DBefore",
-  "installer_asset_keyword": "Setup",
-  "portable_asset_keyword": "Portable",
-  "check_on_startup": true
+    "version":  "3.3",
+    "display_version":  "3.3",
+    "data_version":  "2026.08.19",
+    "data_asset_keyword":  "GameData",
+    "min_app_version_for_data":  "3.3",
+    "app_name":  "D\u0026D Before Keen",
+    "github_owner":  "christopherpeades-debug",
+    "github_repo":  "D-DBefore",
+    "installer_asset_keyword":  "Setup",
+    "portable_asset_keyword":  "Portable",
+    "check_on_startup":  true
 }

@@ -1,15 +1,15 @@
 ﻿{
-    "data_version":  "2026.08.12",
-    "min_app_version":  "3.2",
-    "created_at":  "2026-08-12T19:32:57.2933808Z",
+    "data_version":  "2026.08.19",
+    "min_app_version":  "3.3",
+    "created_at":  "2026-08-19T20:36:06.9919132Z",
     "app_name":  "D\u0026D Before Keen",
     "description":  "Spell, feat, item, and other game catalog JSON for launcher data updates.",
     "file_count":  36,
     "files":  [
                   {
                       "path":  "spells.json",
-                      "sha256":  "b1f5ac633a81f3dd30cba6069894aa1fb32d3f44e62f553d1fc6c57c3eb37b91",
-                      "bytes":  288174
+                      "sha256":  "a26afa4a4f063f5ead3f8c42c9104973a1b4d8875cb2af2b83d3a3526f9a516b",
+                      "bytes":  288300
                   },
                   {
                       "path":  "PHB2_Spells.json",
@@ -33,8 +33,8 @@
                   },
                   {
                       "path":  "magical_items.json",
-                      "sha256":  "2270b812db4264f5212fd07fc9bd6a34de883703a4e9f2edbd2c3ac273f75faf",
-                      "bytes":  374388
+                      "sha256":  "fec96ad7897a2310ceae89bd3a37b31d72fa74623283313f6d2b4bc7471243ee",
+                      "bytes":  375074
                   },
                   {
                       "path":  "classes.json",
@@ -43,8 +43,8 @@
                   },
                   {
                       "path":  "deities.json",
-                      "sha256":  "9a395c99f8a26f01e38b0f575c9ab020dcf1d47180e830e2fe155d7cf10ead9f",
-                      "bytes":  27743
+                      "sha256":  "f8d366fa10f9bd5b5826208916fcd274c52f4e526971536de4ce4e2cdef80569",
+                      "bytes":  29378
                   },
                   {
                       "path":  "skills_srd.json",
@@ -93,8 +93,8 @@
                   },
                   {
                       "path":  "Adventuring_Gear.json",
-                      "sha256":  "58aa4f556a9c6a2ec5c270253dff7144c26510f655783a1f91fe3131cac81a16",
-                      "bytes":  31996
+                      "sha256":  "efb31f9230ad68fd6361daacda476de2069d0cab241a1ed792cd0959d6e26e6c",
+                      "bytes":  34210
                   },
                   {
                       "path":  "Armor_Equipment.json",
@@ -158,8 +158,8 @@
                   },
                   {
                       "path":  "race_fantasy_names.json",
-                      "sha256":  "32ed74be0019838b9eaee0dfde5b540e57b738cb8b27e80cea405a1dd7353782",
-                      "bytes":  39573
+                      "sha256":  "e575ff42cb6910772fcf085948b3bd47c184fe0e68106aca660f644798e22d5a",
+                      "bytes":  43215
                   },
                   {
                       "path":  "creature_types.json",

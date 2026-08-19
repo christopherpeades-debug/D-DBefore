@@ -6,7 +6,9 @@
     "cost_display": "2 gp",
     "weight": 2,
     "value": 2,
-    "special": ["small version 1/4 weight/capacity"],
+    "special": [
+      "small version 1/4 weight/capacity"
+    ],
     "special_description": "Holds 1 cubic foot or 30 pounds of gear (Small characters: 1/4 weight and capacity). Common adventurer's pack."
   },
   "Barrel (empty)": {
@@ -26,7 +28,9 @@
     "cost_display": "4 sp",
     "weight": 1,
     "value": 0.4,
-    "special": ["small version 1/4 weight/capacity"],
+    "special": [
+      "small version 1/4 weight/capacity"
+    ],
     "special_description": "Woven basket for carrying goods."
   },
   "Bedroll": {
@@ -36,7 +40,9 @@
     "cost_display": "1 sp",
     "weight": 5,
     "value": 0.1,
-    "special": ["small version 1/4 weight"],
+    "special": [
+      "small version 1/4 weight"
+    ],
     "special_description": "Basic sleeping gear for camping. Small characters version weighs 1/4."
   },
   "Bell": {
@@ -56,7 +62,9 @@
     "cost_display": "5 sp",
     "weight": 3,
     "value": 0.5,
-    "special": ["small version 1/4 weight"],
+    "special": [
+      "small version 1/4 weight"
+    ],
     "special_description": "Heavy blanket for cold weather. Small characters version weighs 1/4."
   },
   "Block and tackle": {
@@ -96,7 +104,10 @@
     "cost_display": "1 gp",
     "weight": 2,
     "value": 1,
-    "special": ["area denial", "damage"],
+    "special": [
+      "area denial",
+      "damage"
+    ],
     "special_description": "One 2 lb. bag covers a 5-foot square. Creature entering or fighting in the area may step on one (attack +0, ignores shield/armor/deflection; +2 AC if wearing footwear). Deals 1 damage and halves speed for 24 hours (or until DC 15 Heal or 1+ magical healing). Charging/running creature stops immediately. Creatures moving at half speed or slower can avoid. May not affect unusual opponents."
   },
   "Candle": {
@@ -136,7 +147,11 @@
     "cost_display": "30 gp",
     "weight": 2,
     "value": 30,
-    "special": ["hardness 10", "5 hp", "burst DC 26"],
+    "special": [
+      "hardness 10",
+      "5 hp",
+      "burst DC 26"
+    ],
     "special_description": "10 feet of chain. Hardness 10, 5 hit points. Burst DC 26 Strength check."
   },
   "Chalk, 1 piece": {
@@ -166,7 +181,10 @@
     "cost_display": "2 gp",
     "weight": 5,
     "value": 2,
-    "special": ["+2 circumstance Strength checks (prying)", "improvised weapon"],
+    "special": [
+      "+2 circumstance Strength checks (prying)",
+      "improvised weapon"
+    ],
     "special_description": "Grants +2 circumstance bonus on Strength checks to pry open doors, chests, etc. In combat, treat as one-handed improvised weapon dealing bludgeoning damage equal to a club of its size."
   },
   "Firewood (per day)": {
@@ -226,7 +244,9 @@
     "cost_display": "1 gp",
     "weight": 4,
     "value": 1,
-    "special": ["Use Rope DC 10 +2 per 10 ft."],
+    "special": [
+      "Use Rope DC 10 +2 per 10 ft."
+    ],
     "special_description": "Throwing requires Use Rope check (DC 10, +2 per 10 feet of distance)."
   },
   "Hammer": {
@@ -236,7 +256,9 @@
     "cost_display": "5 sp",
     "weight": 2,
     "value": 0.5,
-    "special": ["improvised weapon"],
+    "special": [
+      "improvised weapon"
+    ],
     "special_description": "In combat, treat as one-handed improvised weapon dealing bludgeoning damage equal to a spiked gauntlet of its size."
   },
   "Ink (1 oz. vial)": {
@@ -246,7 +268,9 @@
     "cost_display": "8 gp",
     "weight": 0,
     "value": 8,
-    "special": ["colors cost double"],
+    "special": [
+      "colors cost double"
+    ],
     "special_description": "Black ink. Other colors cost twice as much."
   },
   "Inkpen": {
@@ -286,7 +310,12 @@
     "cost_display": "1 sp",
     "weight": 1,
     "value": 0.1,
-    "special": ["15 ft. radius clear", "30 ft. shadowy", "6 hours per pint oil", "one hand"],
+    "special": [
+      "15 ft. radius clear",
+      "30 ft. shadowy",
+      "6 hours per pint oil",
+      "one hand"
+    ],
     "special_description": "Clearly illuminates 15-foot radius, shadowy out to 30 feet. Burns 6 hours on a pint of oil. Carried in one hand."
   },
   "Lantern, bullseye": {
@@ -296,7 +325,12 @@
     "cost_display": "12 gp",
     "weight": 3,
     "value": 12,
-    "special": ["60 ft. cone clear", "120 ft. cone shadowy", "6 hours per pint oil", "one hand"],
+    "special": [
+      "60 ft. cone clear",
+      "120 ft. cone shadowy",
+      "6 hours per pint oil",
+      "one hand"
+    ],
     "special_description": "Clear illumination in 60-foot cone, shadowy in 120-foot cone. Burns 6 hours on a pint of oil. Carried in one hand."
   },
   "Lantern, hooded": {
@@ -306,7 +340,12 @@
     "cost_display": "7 gp",
     "weight": 2,
     "value": 7,
-    "special": ["30 ft. radius clear", "60 ft. radius shadowy", "6 hours per pint oil", "one hand"],
+    "special": [
+      "30 ft. radius clear",
+      "60 ft. radius shadowy",
+      "6 hours per pint oil",
+      "one hand"
+    ],
     "special_description": "Clearly illuminates 30-foot radius, shadowy out to 60 feet. Burns 6 hours on a pint of oil. Carried in one hand. Can be shuttered."
   },
   "Lock (very simple)": {
@@ -316,7 +355,9 @@
     "cost_display": "20 gp",
     "weight": 1,
     "value": 20,
-    "special": ["Open Lock DC 20"],
+    "special": [
+      "Open Lock DC 20"
+    ],
     "special_description": "Very simple lock. Open Lock DC 20."
   },
   "Lock (average)": {
@@ -326,7 +367,9 @@
     "cost_display": "40 gp",
     "weight": 1,
     "value": 40,
-    "special": ["Open Lock DC 25"],
+    "special": [
+      "Open Lock DC 25"
+    ],
     "special_description": "Average lock. Open Lock DC 25."
   },
   "Lock (good)": {
@@ -336,7 +379,9 @@
     "cost_display": "80 gp",
     "weight": 1,
     "value": 80,
-    "special": ["Open Lock DC 30"],
+    "special": [
+      "Open Lock DC 30"
+    ],
     "special_description": "Good lock. Open Lock DC 30."
   },
   "Lock (amazing)": {
@@ -346,7 +391,9 @@
     "cost_display": "150 gp",
     "weight": 1,
     "value": 150,
-    "special": ["Open Lock DC 40"],
+    "special": [
+      "Open Lock DC 40"
+    ],
     "special_description": "Amazing (superior) lock. Open Lock DC 40."
   },
   "Manacles": {
@@ -356,7 +403,14 @@
     "cost_display": "15 gp",
     "weight": 2,
     "value": 15,
-    "special": ["Medium creature", "Escape Artist DC 30", "Strength burst DC 26", "hardness 10", "10 hp", "add lock cost"],
+    "special": [
+      "Medium creature",
+      "Escape Artist DC 30",
+      "Strength burst DC 26",
+      "hardness 10",
+      "10 hp",
+      "add lock cost"
+    ],
     "special_description": "Binds a Medium creature. Escape Artist DC 30 (or 35 for masterwork). Strength burst DC 26 (28 masterwork). Hardness 10, 10 hp. Most have locks (add lock cost separately). Small version same cost; Large x10; Huge x100. Special sizes for other creatures."
   },
   "Manacles, masterwork": {
@@ -366,7 +420,14 @@
     "cost_display": "50 gp",
     "weight": 2,
     "value": 50,
-    "special": ["Medium creature", "Escape Artist DC 35", "Strength burst DC 28", "hardness 10", "10 hp", "add lock cost"],
+    "special": [
+      "Medium creature",
+      "Escape Artist DC 35",
+      "Strength burst DC 28",
+      "hardness 10",
+      "10 hp",
+      "add lock cost"
+    ],
     "special_description": "Masterwork manacles. Better quality: Escape Artist DC 35, Strength DC 28. Otherwise same as standard manacles."
   },
   "Mirror, small steel": {
@@ -396,7 +457,11 @@
     "cost_display": "1 sp",
     "weight": 1,
     "value": 0.1,
-    "special": ["lantern fuel 6 hours", "splash weapon (50% ignite)", "area burn 1d3"],
+    "special": [
+      "lantern fuel 6 hours",
+      "splash weapon (50% ignite)",
+      "area burn 1d3"
+    ],
     "special_description": "Burns 6 hours in a lantern. Can be used as splash weapon (full-round to prepare fuse; 50% chance to ignite on throw; otherwise like alchemist's fire but no ongoing). Pour on 5 ft. square (smooth surface): burns 2 rounds, 1d3 fire damage to creatures in area."
   },
   "Paper (sheet)": {
@@ -476,7 +541,9 @@
     "cost_display": "1 gp",
     "weight": 0.5,
     "value": 1,
-    "special": ["small version 1/4 weight/capacity"],
+    "special": [
+      "small version 1/4 weight/capacity"
+    ],
     "special_description": "Belt pouch. Holds small items. Small characters version 1/4 weight/capacity."
   },
   "Ram, portable": {
@@ -486,7 +553,10 @@
     "cost_display": "10 gp",
     "weight": 20,
     "value": 10,
-    "special": ["+2 circumstance break door", "+2 help bonus"],
+    "special": [
+      "+2 circumstance break door",
+      "+2 help bonus"
+    ],
     "special_description": "Iron-shod wooden beam. +2 circumstance bonus on Strength checks to break open doors. Allows a second person to help without rolling (increasing bonus by 2 total)."
   },
   "Rations, trail (per day)": {
@@ -496,7 +566,9 @@
     "cost_display": "5 sp",
     "weight": 1,
     "value": 0.5,
-    "special": ["small version 1/4 weight"],
+    "special": [
+      "small version 1/4 weight"
+    ],
     "special_description": "Trail rations for one day. Small characters version weighs 1/4."
   },
   "Rope, hempen (50 ft.)": {
@@ -506,7 +578,10 @@
     "cost_display": "1 gp",
     "weight": 10,
     "value": 1,
-    "special": ["2 hp", "burst DC 23"],
+    "special": [
+      "2 hp",
+      "burst DC 23"
+    ],
     "special_description": "50 feet of hemp rope. 2 hit points. Burst DC 23 Strength check."
   },
   "Rope, silk (50 ft.)": {
@@ -516,7 +591,11 @@
     "cost_display": "10 gp",
     "weight": 5,
     "value": 10,
-    "special": ["4 hp", "burst DC 24", "+2 circumstance Use Rope"],
+    "special": [
+      "4 hp",
+      "burst DC 24",
+      "+2 circumstance Use Rope"
+    ],
     "special_description": "50 feet of silk rope. 4 hit points. Burst DC 24. Supple: +2 circumstance bonus on Use Rope checks."
   },
   "Sack (empty)": {
@@ -526,7 +605,9 @@
     "cost_display": "1 sp",
     "weight": 0.5,
     "value": 0.1,
-    "special": ["small version 1/4 weight/capacity"],
+    "special": [
+      "small version 1/4 weight/capacity"
+    ],
     "special_description": "Empty sack. Small characters version 1/4 weight and capacity."
   },
   "Sealing wax": {
@@ -606,7 +687,9 @@
     "cost_display": "1,000 gp",
     "weight": 1,
     "value": 1000,
-    "special": ["2x magnification"],
+    "special": [
+      "2x magnification"
+    ],
     "special_description": "Objects viewed through a spyglass are magnified to twice their size."
   },
   "Tent": {
@@ -616,7 +699,9 @@
     "cost_display": "10 gp",
     "weight": 20,
     "value": 10,
-    "special": ["small version 1/4 weight"],
+    "special": [
+      "small version 1/4 weight"
+    ],
     "special_description": "Basic tent for shelter. Small characters version weighs 1/4."
   },
   "Torch": {
@@ -626,7 +711,12 @@
     "cost_display": "1 cp",
     "weight": 1,
     "value": 0.01,
-    "special": ["20 ft. radius clear", "40 ft. shadowy", "1 hour", "improvised weapon +1 fire"],
+    "special": [
+      "20 ft. radius clear",
+      "40 ft. shadowy",
+      "1 hour",
+      "improvised weapon +1 fire"
+    ],
     "special_description": "Burns for 1 hour. Clearly illuminates 20-foot radius, shadowy out to 40 feet. In combat: one-handed improvised weapon (bludgeoning equal to gauntlet of size) +1 point fire damage."
   },
   "Vial, ink or potion": {
@@ -646,7 +736,9 @@
     "cost_display": "1 gp",
     "weight": 4,
     "value": 1,
-    "special": ["small version 1/4 weight/capacity"],
+    "special": [
+      "small version 1/4 weight/capacity"
+    ],
     "special_description": "Waterskin for carrying water (holds ~1/2 gallon when full). Small characters version 1/4 weight."
   },
   "Whetstone": {
@@ -659,7 +751,6 @@
     "special": [],
     "special_description": "Whetstone for sharpening blades."
   },
-
   "Acid (flask)": {
     "kind": "special_substance",
     "category": "alchemical",
@@ -667,7 +758,12 @@
     "cost_display": "10 gp",
     "weight": 1,
     "value": 10,
-    "special": ["splash weapon", "range increment 10 ft.", "direct 1d6 acid", "splash 1 acid"],
+    "special": [
+      "splash weapon",
+      "range increment 10 ft.",
+      "direct 1d6 acid",
+      "splash 1 acid"
+    ],
     "special_description": "Thrown as ranged touch attack (range increment 10 ft.). Direct hit: 1d6 acid damage. Splash (5 ft. radius): 1 acid damage. Can be made with Craft (alchemy)."
   },
   "Alchemist’s fire (flask)": {
@@ -677,7 +773,13 @@
     "cost_display": "20 gp",
     "weight": 1,
     "value": 20,
-    "special": ["splash weapon", "range increment 10 ft.", "direct 1d6 fire", "splash 1 fire", "ongoing 1d6 next round"],
+    "special": [
+      "splash weapon",
+      "range increment 10 ft.",
+      "direct 1d6 fire",
+      "splash 1 fire",
+      "ongoing 1d6 next round"
+    ],
     "special_description": "Thrown as ranged touch attack (range increment 10 ft.). Direct hit: 1d6 fire. Splash (5 ft.): 1 fire. On following round, target takes additional 1d6 fire unless extinguished (full-round action, DC 15 Reflex; +2 if rolling on ground; automatic in water/magical extinguish). Can be made with Craft (alchemy)."
   },
   "Antitoxin (vial)": {
@@ -687,7 +789,10 @@
     "cost_display": "50 gp",
     "weight": 0,
     "value": 50,
-    "special": ["+5 alchemical Fort vs poison", "1 hour"],
+    "special": [
+      "+5 alchemical Fort vs poison",
+      "1 hour"
+    ],
     "special_description": "Drinking gives +5 alchemical bonus on Fortitude saves against poison for 1 hour. Can be made with Craft (alchemy)."
   },
   "Everburning torch": {
@@ -697,7 +802,12 @@
     "cost_display": "110 gp",
     "weight": 1,
     "value": 110,
-    "special": ["continual flame", "20 ft. clear", "40 ft. shadowy", "no fuel"],
+    "special": [
+      "continual flame",
+      "20 ft. clear",
+      "40 ft. shadowy",
+      "no fuel"
+    ],
     "special_description": "Normal torch with continual flame spell. Clearly illuminates 20-foot radius, shadowy out to 40 feet. Does not burn fuel or go out. Cannot be made with Craft (alchemy) in the same way as other items."
   },
   "Holy water (flask)": {
@@ -707,7 +817,13 @@
     "cost_display": "25 gp",
     "weight": 1,
     "value": 25,
-    "special": ["splash weapon", "range increment 10 ft.", "undead/evil outsider 2d4 direct", "splash 1", "incorporeal: pour adjacent only"],
+    "special": [
+      "splash weapon",
+      "range increment 10 ft.",
+      "undead/evil outsider 2d4 direct",
+      "splash 1",
+      "incorporeal: pour adjacent only"
+    ],
     "special_description": "Damages undead and evil outsiders like acid. Thrown as ranged touch (range increment 10 ft.). Direct hit: 2d4 damage. Splash (5 ft.): 1 damage. Against incorporeal: must be adjacent and poured (ranged touch, no AoO). Temples of good deities sell at cost."
   },
   "Smokestick": {
@@ -717,7 +833,12 @@
     "cost_display": "20 gp",
     "weight": 0.5,
     "value": 20,
-    "special": ["10 ft. cube smoke", "1 round creation", "consumed after 1 round", "wind dissipates moderate+"],
+    "special": [
+      "10 ft. cube smoke",
+      "1 round creation",
+      "consumed after 1 round",
+      "wind dissipates moderate+"
+    ],
     "special_description": "Ignited stick creates thick opaque smoke filling a 10-foot cube (like fog cloud, but moderate+ wind dissipates in 1 round). Stick consumed after 1 round. Can be made with Craft (alchemy)."
   },
   "Sunrod": {
@@ -727,7 +848,12 @@
     "cost_display": "2 gp",
     "weight": 1,
     "value": 2,
-    "special": ["30 ft. clear", "60 ft. shadowy", "6 hours", "struck to activate"],
+    "special": [
+      "30 ft. clear",
+      "60 ft. shadowy",
+      "6 hours",
+      "struck to activate"
+    ],
     "special_description": "1-foot iron rod with gold tip. Glows brightly when struck. Clear illumination 30-foot radius, shadowy 60-foot. Lasts 6 hours (gold tip burns out and worthless after). Can be made with Craft (alchemy)."
   },
   "Tanglefoot bag": {
@@ -737,7 +863,14 @@
     "cost_display": "50 gp",
     "weight": 4,
     "value": 50,
-    "special": ["entangle on hit", "DC 15 Reflex avoid", "stuck creatures: move half speed or DC 17 Strength/15 slashing dmg to free", "concentration DC 15 to cast", "goo brittle after 2d4 rounds", "universal solvent removes instantly"],
+    "special": [
+      "entangle on hit",
+      "DC 15 Reflex avoid",
+      "stuck creatures: move half speed or DC 17 Strength/15 slashing dmg to free",
+      "concentration DC 15 to cast",
+      "goo brittle after 2d4 rounds",
+      "universal solvent removes instantly"
+    ],
     "special_description": "Thrown as ranged touch attack (range increment 10 ft.). On hit, target entangled (DC 15 Reflex negates). Entangled creature moves at half speed or is glued in place. To break free: DC 17 Strength or 15 damage with slashing weapon (auto hit on goo). Assisting creature does not need attack roll. Spellcasters must make DC 15 Concentration to cast while stuck. Goo becomes brittle after 2d4 rounds. Universal solvent dissolves immediately. Can be made with Craft (alchemy)."
   },
   "Thunderstone": {
@@ -747,7 +880,13 @@
     "cost_display": "30 gp",
     "weight": 1,
     "value": 30,
-    "special": ["ranged attack range 20 ft.", "10 ft. radius deafening DC 15 Fort", "1 hour deafened", "-4 initiative", "20% spell failure verbal"],
+    "special": [
+      "ranged attack range 20 ft.",
+      "10 ft. radius deafening DC 15 Fort",
+      "1 hour deafened",
+      "-4 initiative",
+      "20% spell failure verbal"
+    ],
     "special_description": "Thrown as ranged attack (range increment 20 ft.; aim at 5 ft. square AC 5). On hard surface or struck: deafening bang. All in 10 ft. radius: DC 15 Fort or deafened 1 hour (-4 initiative, 20% chance miscast verbal spells). Can be made with Craft (alchemy)."
   },
   "Tindertwig": {
@@ -757,10 +896,12 @@
     "cost_display": "1 gp",
     "weight": 0,
     "value": 1,
-    "special": ["standard action ignite torch", "faster than flint/steel"],
+    "special": [
+      "standard action ignite torch",
+      "faster than flint/steel"
+    ],
     "special_description": "Alchemical stick ignites on rough surface. Lighting a torch: standard action (not full-round). Other fires at least standard action. Much faster than flint and steel or magnifying glass. Can be made with Craft (alchemy)."
   },
-
   "Alchemist’s lab": {
     "kind": "tool_kit",
     "category": "crafting",
@@ -768,7 +909,9 @@
     "cost_display": "500 gp",
     "weight": 40,
     "value": 500,
-    "special": ["+2 circumstance Craft (alchemy)"],
+    "special": [
+      "+2 circumstance Craft (alchemy)"
+    ],
     "special_description": "Always has the perfect tool for making alchemical items. +2 circumstance bonus on Craft (alchemy) checks. Does not reduce material costs. Without a lab, assumed to have basic tools but no +2 bonus."
   },
   "Artisan’s tools": {
@@ -778,7 +921,9 @@
     "cost_display": "5 gp",
     "weight": 5,
     "value": 5,
-    "special": ["-2 penalty without"],
+    "special": [
+      "-2 penalty without"
+    ],
     "special_description": "Special tools for any craft. Without them: -2 penalty on Craft checks (or impossible)."
   },
   "Artisan’s tools, masterwork": {
@@ -788,7 +933,9 @@
     "cost_display": "55 gp",
     "weight": 5,
     "value": 55,
-    "special": ["+2 circumstance Craft checks"],
+    "special": [
+      "+2 circumstance Craft checks"
+    ],
     "special_description": "Masterwork version of artisan’s tools. +2 circumstance bonus on Craft checks made with them."
   },
   "Climber’s kit": {
@@ -798,7 +945,10 @@
     "cost_display": "80 gp",
     "weight": 5,
     "value": 80,
-    "special": ["+2 circumstance Climb", "small version 1/4 weight"],
+    "special": [
+      "+2 circumstance Climb",
+      "small version 1/4 weight"
+    ],
     "special_description": "Perfect tool for climbing. +2 circumstance bonus on Climb checks. Small characters version weighs 1/4."
   },
   "Disguise kit": {
@@ -808,7 +958,11 @@
     "cost_display": "50 gp",
     "weight": 8,
     "value": 50,
-    "special": ["+2 circumstance Disguise", "exhausted after 10 uses", "small version 1/4 weight"],
+    "special": [
+      "+2 circumstance Disguise",
+      "exhausted after 10 uses",
+      "small version 1/4 weight"
+    ],
     "special_description": "Perfect tool for disguise. +2 circumstance bonus on Disguise checks. Exhausted after ten uses. Small characters version weighs 1/4."
   },
   "Healer’s kit": {
@@ -818,7 +972,10 @@
     "cost_display": "50 gp",
     "weight": 1,
     "value": 50,
-    "special": ["+2 circumstance Heal", "exhausted after 10 uses"],
+    "special": [
+      "+2 circumstance Heal",
+      "exhausted after 10 uses"
+    ],
     "special_description": "Perfect tool for healing. +2 circumstance bonus on Heal checks. Exhausted after ten uses."
   },
   "Holly and mistletoe": {
@@ -868,7 +1025,10 @@
     "cost_display": "100 gp",
     "weight": 0,
     "value": 100,
-    "special": ["+2 circumstance Appraise (small/detailed)", "fire starting (sunlight required)"],
+    "special": [
+      "+2 circumstance Appraise (small/detailed)",
+      "fire starting (sunlight required)"
+    ],
     "special_description": "Allows closer look at small objects. +2 circumstance bonus on Appraise checks for small or highly detailed items. Can substitute for flint and steel to start fires (requires bright sunlight, tinder, at least full-round action)."
   },
   "Musical instrument, common": {
@@ -878,7 +1038,9 @@
     "cost_display": "5 gp",
     "weight": 3,
     "value": 5,
-    "special": ["small version 1/4 weight"],
+    "special": [
+      "small version 1/4 weight"
+    ],
     "special_description": "Common musical instrument. Small characters version weighs 1/4."
   },
   "Musical instrument, masterwork": {
@@ -888,7 +1050,10 @@
     "cost_display": "100 gp",
     "weight": 3,
     "value": 100,
-    "special": ["+2 circumstance Perform", "small version 1/4 weight"],
+    "special": [
+      "+2 circumstance Perform",
+      "small version 1/4 weight"
+    ],
     "special_description": "Masterwork instrument. +2 circumstance bonus on Perform checks involving its use. Small characters version weighs 1/4."
   },
   "Scale, merchant’s": {
@@ -898,7 +1063,9 @@
     "cost_display": "2 gp",
     "weight": 1,
     "value": 2,
-    "special": ["+2 circumstance Appraise (by weight)"],
+    "special": [
+      "+2 circumstance Appraise (by weight)"
+    ],
     "special_description": "Merchant's scale. +2 circumstance bonus on Appraise checks for items valued by weight (including precious metals)."
   },
   "Spell component pouch": {
@@ -918,7 +1085,9 @@
     "cost_display": "15 gp",
     "weight": 3,
     "value": 15,
-    "special": ["100 pages"],
+    "special": [
+      "100 pages"
+    ],
     "special_description": "Blank wizard's spellbook with 100 pages of parchment. Each spell takes one page per spell level (0-level spells take one page each)."
   },
   "Thieves’ tools": {
@@ -928,7 +1097,9 @@
     "cost_display": "30 gp",
     "weight": 1,
     "value": 30,
-    "special": ["-2 circumstance without (Disable Device/Open Lock)"],
+    "special": [
+      "-2 circumstance without (Disable Device/Open Lock)"
+    ],
     "special_description": "Kit for Disable Device and Open Lock. Without these tools: -2 circumstance penalty on those checks (must improvise)."
   },
   "Thieves’ tools, masterwork": {
@@ -938,7 +1109,9 @@
     "cost_display": "100 gp",
     "weight": 2,
     "value": 100,
-    "special": ["+2 circumstance Disable Device/Open Lock"],
+    "special": [
+      "+2 circumstance Disable Device/Open Lock"
+    ],
     "special_description": "Masterwork thieves' tools. Extra/better tools grant +2 circumstance bonus on Disable Device and Open Lock checks."
   },
   "Tool, masterwork": {
@@ -948,7 +1121,9 @@
     "cost_display": "50 gp",
     "weight": 1,
     "value": 50,
-    "special": ["+2 circumstance related skill check"],
+    "special": [
+      "+2 circumstance related skill check"
+    ],
     "special_description": "Well-made tool for a specific job. Grants +2 circumstance bonus on a related skill check (if any). Multiple masterwork bonuses toward the same check do not stack."
   },
   "Water clock": {
@@ -958,7 +1133,9 @@
     "cost_display": "1,000 gp",
     "weight": 200,
     "value": 1000,
-    "special": ["accurate to 1/2 hour/day"],
+    "special": [
+      "accurate to 1/2 hour/day"
+    ],
     "special_description": "Large bulky device accurate to within half an hour per day since last set. Requires water source and must be kept still (marks time by regulated water droplets)."
   }
 }
