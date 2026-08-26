@@ -1,13 +1,13 @@
 ﻿{
-    "version":  "3.3",
-    "display_version":  "3.3",
-    "data_version":  "2026.08.19",
     "data_asset_keyword":  "GameData",
-    "min_app_version_for_data":  "3.3",
+    "display_version":  "3.4",
     "app_name":  "D\u0026D Before Keen",
-    "github_owner":  "christopherpeades-debug",
-    "github_repo":  "D-DBefore",
+    "version":  "3.4",
+    "min_app_version_for_data":  "3.4",
     "installer_asset_keyword":  "Setup",
     "portable_asset_keyword":  "Portable",
+    "data_version":  "2026.08.26",
+    "github_owner":  "christopherpeades-debug",
+    "github_repo":  "D-DBefore",
     "check_on_startup":  true
 }
