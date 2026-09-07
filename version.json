@@ -1,10 +1,10 @@
-{
-    "version":  "3.5",
-    "display_version":  "3.5",
-    "data_version":  "2026.09.06",
+﻿{
+    "version":  "3.51",
+    "display_version":  "3.51",
+    "data_version":  "2026.09.07",
     "data_asset_keyword":  "GameData",
-    "min_app_version_for_data":  "3.5",
-    "app_name":  "D&D Before Keen",
+    "min_app_version_for_data":  "3.51",
+    "app_name":  "D\u0026D Before Keen",
     "github_owner":  "christopherpeades-debug",
     "github_repo":  "D-DBefore",
     "installer_asset_keyword":  "Setup",
