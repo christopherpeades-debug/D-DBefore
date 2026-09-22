@@ -1,9 +1,9 @@
 ﻿{
-    "version":  "3.54",
-    "display_version":  "3.54",
-    "data_version":  "2026.09.21",
+    "version":  "3.55",
+    "display_version":  "3.55",
+    "data_version":  "2026.09.22",
     "data_asset_keyword":  "GameData",
-    "min_app_version_for_data":  "3.54",
+    "min_app_version_for_data":  "3.55",
     "app_name":  "D\u0026D Before Keen",
     "github_owner":  "christopherpeades-debug",
     "github_repo":  "D-DBefore",
